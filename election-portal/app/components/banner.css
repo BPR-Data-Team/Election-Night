@@ -1,3 +1,13 @@
+.left {
+    position: absolute;
+    left: 0rem;
+}
+
+.right {
+    position: absolute;
+    right: 8rem; /* Not sure how to make this work pretty */
+}
+
 .banner {
     position: fixed;
     padding-inline-start: 2rem;

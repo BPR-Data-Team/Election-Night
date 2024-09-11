@@ -38,6 +38,14 @@ body::before {
   z-index: -1;
 }
 
+/* Another div to fix draw overflow issues */
+.overflow-catch {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
 body, p {
   font-family: gelica, book antiqua,
   georgia, times new

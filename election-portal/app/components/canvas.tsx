@@ -5,10 +5,12 @@ export default function Canvas() {
   return (
     <div className="drawCanvas">
       <ReactSketchCanvas
+        className="canvasComponent"
         width="100%"
         height="100%"
-        canvasColor="red"
+        canvasColor="transparent"
         strokeColor="#7AC943"
+        withViewBox
       />
     </div>
   );

@@ -12,7 +12,7 @@ import Canvas from "./components/canvas";
 
 export default function Home() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
-  const [drawMode, setDrawMode] = useState<boolean>(true);
+  const [drawMode, setDrawMode] = useState<boolean>(false);
 
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
@@ -30,8 +30,11 @@ export default function Home() {
   return (
     <>
       <div className={styles.page}>
+        <div className="overflow-catch">
+        {/* Left title banner */}
         <Banner
-          position="top"
+          align="left"
+          height={6}
           wordmark="24cast.org"
           header=""
           message="This is a top banner!"
@@ -57,6 +60,7 @@ export default function Home() {
         />
 
         {/* Future homepage topmost element */}
+        </div>
       </div>
     </>
   )
