@@ -19,9 +19,53 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Gelica, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body, p {
+  font-family: gelica, book antiqua,
+  georgia, times new
+  roman, serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: gelica, book antiqua, georgia, times new roman, serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+em, i {
+  font-family: gelica, georgia,
+  book antiqua, times new
+  roman, serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.graph {
+  font-family: gelica, georgia,
+  book antiqua, times new
+  roman, serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.graph-italic {
+  font-family: gelica, georgia,
+  book antiqua, times new
+  roman, serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.wordmark {
+  font-family: gelica, book antiqua, georgia, times new roman, serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 * {

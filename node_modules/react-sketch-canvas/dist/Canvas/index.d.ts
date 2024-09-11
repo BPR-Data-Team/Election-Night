@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { CanvasPath, ExportImageType, Point } from '../types';
+export interface CanvasProps {
+    paths: CanvasPath[];
+    isDrawing: boolean;
+    onPointerDown: (point: Point) => void;
+    onPointerMove: (point: Point) => void;
+    onPointerUp: () => void;
+    className?: string;
+    id?: string;
+    width: string;
+    height: string;
+    canvasColor: string;
+    backgroundImage: string;
+    exportWithBackgroundImage: boolean;
+    preserveBackgroundImageAspectRatio: string;
+    allowOnlyPointerType: string;
+    style: React.CSSProperties;
+    svgStyle: React.CSSProperties;
+}
+export interface CanvasRef {
+    exportImage: (imageType: ExportImageType) => Promise<string>;
+    exportSvg: () => Promise<string>;
+}
+export declare const Canvas: React.ForwardRefExoticComponent<CanvasProps & React.RefAttributes<CanvasRef>>;
