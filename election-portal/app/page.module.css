@@ -1,0 +1,13 @@
+.page {
+  background: linear-gradient(
+    to right,
+    #4b4b4b 0%,
+    #636363 15% 85%,
+    #4b4b4b 100%
+  );
+  min-height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
