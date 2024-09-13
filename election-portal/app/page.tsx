@@ -5,11 +5,16 @@ import Election_Portal_Button from "./modules/election-portal-button/election-po
 import finance_image from "./assets/finance.png";
 import trophy_image from "./assets/trophy.png";
 import how_to_vote_image from "./assets/how_to_vote.png";
+import LogoBanner from "./modules/24cast-banner/banner";
 
 //TODO: Banner component
+//TODO: Responsive design
 export default function Home() {
   return (
     <div className={styles.page}>
+      <div className={styles.banner_container}>
+        <LogoBanner opacity={30} page_name={"Election Portal"}></LogoBanner>
+      </div>
       <div className={styles.row}>
         <Election_Portal_Button
           title={"Election Breakdown"}
