@@ -1,0 +1,33 @@
+.button_container {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 20vw;
+  height: 35vh;
+  display: flex;
+  justify-content: center; /* Center the entire column inside the container */
+}
+.button_col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.button_title {
+  font-size: 2rem;
+  text-align: center;
+  text-wrap: wrap;
+  width: 12vw;
+  font-family: gelica, book antiqua, georgia, times new roman, serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.button_image {
+  width: 8vw;
+  height: 15vh;
+}
+
+.button_image_container {
+  display: flex;
+  justify-content: center;
+}
