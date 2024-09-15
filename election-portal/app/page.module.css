@@ -7,7 +7,6 @@
   );
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: start;
   align-items: center;
   width: 100vw;
@@ -18,8 +17,4 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-}
-.banner_container {
-  height: 30vh;
-  width: 100vw;
 }
