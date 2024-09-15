@@ -1,12 +1,13 @@
+"use client";
 import React, { useState } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
 
 import styles from "./page.module.css";
-import Rightbar from "./components/rightbar";
-import Banner from "./components/banner";
-import Canvas from "./components/canvas";
+import Rightbar from "./modules/rightbar";
+import Banner from "./modules/banner";
+import Canvas from "./modules/canvas";
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
