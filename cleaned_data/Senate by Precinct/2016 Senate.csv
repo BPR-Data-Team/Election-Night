@@ -1,0 +1,2062 @@
+state,county,total_votes,dem_votes,gop_votes,winner,margin,dem_vote_share,gop_vote_share,absentee_votes,absentee_vote_share,dem_absentee_votes,gop_absentee_votes,absentee_winner,dem_absentee_vote_share,gop_absentee_vote_share
+Georgia,Upson County,10283,0,0,Republican,0.0,0.0,0.0,7426,72.2,0,0,Republican,0.0,0.0
+Georgia,Haralson County,10758,0,0,Republican,0.0,0.0,0.0,5422,50.4,0,0,Republican,0.0,0.0
+Georgia,Lowndes County,35227,0,0,Republican,0.0,0.0,0.0,24021,68.2,0,0,Republican,0.0,0.0
+Georgia,Oglethorpe County,6390,0,0,Republican,0.0,0.0,0.0,4154,65.0,0,0,Republican,0.0,0.0
+Georgia,Twiggs County,3725,0,0,Republican,0.0,0.0,0.0,1768,47.5,0,0,Republican,0.0,0.0
+Georgia,Brooks County,5745,0,0,Republican,0.0,0.0,0.0,3119,54.3,0,0,Republican,0.0,0.0
+Georgia,Emanuel County,7222,0,0,Republican,0.0,0.0,0.0,3408,47.2,0,0,Republican,0.0,0.0
+Georgia,Washington County,7811,0,0,Republican,0.0,0.0,0.0,4414,56.5,0,0,Republican,0.0,0.0
+Georgia,Putnam County,9046,0,0,Republican,0.0,0.0,0.0,5719,63.2,0,0,Republican,0.0,0.0
+Georgia,Hall County,67297,0,0,Republican,0.0,0.0,0.0,36491,54.2,0,0,Republican,0.0,0.0
+Georgia,Jeff Davis County,4635,0,0,Republican,0.0,0.0,0.0,2530,54.6,0,0,Republican,0.0,0.0
+Georgia,Bulloch County,24287,0,0,Republican,0.0,0.0,0.0,12960,53.4,0,0,Republican,0.0,0.0
+Georgia,Tattnall County,6461,0,0,Republican,0.0,0.0,0.0,3962,61.3,0,0,Republican,0.0,0.0
+Georgia,Grady County,8466,0,0,Republican,0.0,0.0,0.0,4883,57.7,0,0,Republican,0.0,0.0
+Georgia,Wilkes County,4131,0,0,Republican,0.0,0.0,0.0,2135,51.7,0,0,Republican,0.0,0.0
+Georgia,Terrell County,3932,0,0,Republican,0.0,0.0,0.0,2071,52.7,0,0,Republican,0.0,0.0
+Georgia,Dooly County,3533,0,0,Republican,0.0,0.0,0.0,1838,52.0,0,0,Republican,0.0,0.0
+Georgia,Johnson County,3338,0,0,Republican,0.0,0.0,0.0,2033,60.9,0,0,Republican,0.0,0.0
+Georgia,Liberty County,15256,0,0,Republican,0.0,0.0,0.0,9192,60.3,0,0,Republican,0.0,0.0
+Georgia,Glascock County,1280,0,0,Republican,0.0,0.0,0.0,715,55.9,0,0,Republican,0.0,0.0
+Georgia,Cobb County,320184,0,0,Republican,0.0,0.0,0.0,159125,49.7,0,0,Republican,0.0,0.0
+Georgia,Cook County,5694,0,0,Republican,0.0,0.0,0.0,3319,58.3,0,0,Republican,0.0,0.0
+Georgia,Habersham County,15407,0,0,Republican,0.0,0.0,0.0,12250,79.5,0,0,Republican,0.0,0.0
+Georgia,Jasper County,5772,0,0,Republican,0.0,0.0,0.0,3560,61.7,0,0,Republican,0.0,0.0
+Georgia,Fayette County,58517,0,0,Republican,0.0,0.0,0.0,40543,69.3,0,0,Republican,0.0,0.0
+Georgia,Wayne County,9683,0,0,Republican,0.0,0.0,0.0,5653,58.4,0,0,Republican,0.0,0.0
+Georgia,Camden County,17557,0,0,Republican,0.0,0.0,0.0,10816,61.6,0,0,Republican,0.0,0.0
+Georgia,Bibb County,58836,0,0,Republican,0.0,0.0,0.0,30556,51.9,0,0,Republican,0.0,0.0
+Georgia,White County,11339,0,0,Republican,0.0,0.0,0.0,6655,58.7,0,0,Republican,0.0,0.0
+Georgia,Chattahoochee County,1270,0,0,Republican,0.0,0.0,0.0,607,47.8,0,0,Republican,0.0,0.0
+Georgia,Burke County,8716,0,0,Republican,0.0,0.0,0.0,4283,49.1,0,0,Republican,0.0,0.0
+Georgia,Jenkins County,2822,0,0,Republican,0.0,0.0,0.0,1638,58.0,0,0,Republican,0.0,0.0
+Georgia,Gwinnett County,311194,0,0,Republican,0.0,0.0,0.0,159340,51.2,0,0,Republican,0.0,0.0
+Georgia,Coweta County,58885,0,0,Republican,0.0,0.0,0.0,32617,55.4,0,0,Republican,0.0,0.0
+Georgia,Troup County,24436,0,0,Republican,0.0,0.0,0.0,13128,53.7,0,0,Republican,0.0,0.0
+Georgia,Newton County,41842,0,0,Republican,0.0,0.0,0.0,22776,54.4,0,0,Republican,0.0,0.0
+Georgia,Fannin County,11084,0,0,Republican,0.0,0.0,0.0,6307,56.9,0,0,Republican,0.0,0.0
+Georgia,Ware County,11140,0,0,Republican,0.0,0.0,0.0,6708,60.2,0,0,Republican,0.0,0.0
+Georgia,Madison County,11436,0,0,Republican,0.0,0.0,0.0,6395,55.9,0,0,Republican,0.0,0.0
+Georgia,Baker County,1323,0,0,Republican,0.0,0.0,0.0,658,49.7,0,0,Republican,0.0,0.0
+Georgia,Lumpkin County,11924,0,0,Republican,0.0,0.0,0.0,9153,76.8,0,0,Republican,0.0,0.0
+Georgia,Mcintosh County,5514,0,0,Republican,0.0,0.0,0.0,3401,61.7,0,0,Republican,0.0,0.0
+Georgia,Gilmer County,11921,0,0,Republican,0.0,0.0,0.0,6950,58.3,0,0,Republican,0.0,0.0
+Georgia,Chattooga County,7744,0,0,Republican,0.0,0.0,0.0,4117,53.2,0,0,Republican,0.0,0.0
+Georgia,Forsyth County,94290,0,0,Republican,0.0,0.0,0.0,69635,73.9,0,0,Republican,0.0,0.0
+Georgia,Appling County,6512,1187,5170,Republican,61.2,18.2,79.4,3073,47.2,623,2375,Republican,20.3,77.3
+Georgia,Ben Hill County,5463,0,0,Republican,0.0,0.0,0.0,3979,72.8,0,0,Republican,0.0,0.0
+Georgia,Early County,4504,0,0,Republican,0.0,0.0,0.0,2423,53.8,0,0,Republican,0.0,0.0
+Georgia,Catoosa County,24296,0,0,Republican,0.0,0.0,0.0,16061,66.1,0,0,Republican,0.0,0.0
+Georgia,Calhoun County,1899,0,0,Republican,0.0,0.0,0.0,781,41.1,0,0,Republican,0.0,0.0
+Georgia,Mcduffie County,8509,0,0,Republican,0.0,0.0,0.0,5467,64.2,0,0,Republican,0.0,0.0
+Georgia,Henry County,92810,0,0,Republican,0.0,0.0,0.0,67614,72.9,0,0,Republican,0.0,0.0
+Georgia,Crawford County,4849,0,0,Republican,0.0,0.0,0.0,2730,56.3,0,0,Republican,0.0,0.0
+Georgia,Worth County,7884,0,0,Republican,0.0,0.0,0.0,3609,45.8,0,0,Republican,0.0,0.0
+Georgia,Jones County,11952,0,0,Republican,0.0,0.0,0.0,7547,63.1,0,0,Republican,0.0,0.0
+Georgia,Stewart County,1750,0,0,Republican,0.0,0.0,0.0,931,53.2,0,0,Republican,0.0,0.0
+Georgia,Wilcox County,2775,0,0,Republican,0.0,0.0,0.0,1338,48.2,0,0,Republican,0.0,0.0
+Georgia,Macon County,3885,0,0,Republican,0.0,0.0,0.0,2243,57.7,0,0,Republican,0.0,0.0
+Georgia,Warren County,2148,0,0,Republican,0.0,0.0,0.0,1254,58.4,0,0,Republican,0.0,0.0
+Georgia,Elbert County,7345,0,0,Republican,0.0,0.0,0.0,4626,63.0,0,0,Republican,0.0,0.0
+Georgia,Morgan County,9069,0,0,Republican,0.0,0.0,0.0,5684,62.7,0,0,Republican,0.0,0.0
+Georgia,Houston County,56560,0,0,Republican,0.0,0.0,0.0,38620,68.3,0,0,Republican,0.0,0.0
+Georgia,Barrow County,27580,0,0,Republican,0.0,0.0,0.0,15747,57.1,0,0,Republican,0.0,0.0
+Georgia,Turner County,3145,0,0,Republican,0.0,0.0,0.0,2046,65.1,0,0,Republican,0.0,0.0
+Georgia,Walker County,21952,0,0,Republican,0.0,0.0,0.0,13341,60.8,0,0,Republican,0.0,0.0
+Georgia,Marion County,2955,0,0,Republican,0.0,0.0,0.0,1459,49.4,0,0,Republican,0.0,0.0
+Georgia,Douglas County,55364,0,0,Republican,0.0,0.0,0.0,36966,66.8,0,0,Republican,0.0,0.0
+Georgia,Candler County,3548,0,0,Republican,0.0,0.0,0.0,2620,73.8,0,0,Republican,0.0,0.0
+Georgia,Effingham County,22303,0,0,Republican,0.0,0.0,0.0,12006,53.8,0,0,Republican,0.0,0.0
+Georgia,Bryan County,14360,0,0,Republican,0.0,0.0,0.0,8997,62.7,0,0,Republican,0.0,0.0
+Georgia,Telfair County,3506,0,0,Republican,0.0,0.0,0.0,1688,48.1,0,0,Republican,0.0,0.0
+Georgia,Bleckley County,4768,0,0,Republican,0.0,0.0,0.0,2781,58.3,0,0,Republican,0.0,0.0
+Georgia,Taylor County,3146,0,0,Republican,0.0,0.0,0.0,1902,60.5,0,0,Republican,0.0,0.0
+Georgia,Seminole County,3172,0,0,Republican,0.0,0.0,0.0,1408,44.4,0,0,Republican,0.0,0.0
+Georgia,Fulton County,415531,0,0,Republican,0.0,0.0,0.0,267548,64.4,0,0,Republican,0.0,0.0
+Georgia,Clinch County,2118,0,0,Republican,0.0,0.0,0.0,1237,58.4,0,0,Republican,0.0,0.0
+Georgia,Clarke County,43223,0,0,Republican,0.0,0.0,0.0,24831,57.4,0,0,Republican,0.0,0.0
+Georgia,Toombs County,8568,0,0,Republican,0.0,0.0,0.0,5117,59.7,0,0,Republican,0.0,0.0
+Georgia,Quitman County,912,0,0,Republican,0.0,0.0,0.0,484,53.1,0,0,Republican,0.0,0.0
+Georgia,Charlton County,3504,0,0,Republican,0.0,0.0,0.0,2040,58.2,0,0,Republican,0.0,0.0
+Georgia,Pickens County,13419,0,0,Republican,0.0,0.0,0.0,8372,62.4,0,0,Republican,0.0,0.0
+Georgia,Crisp County,6962,0,0,Republican,0.0,0.0,0.0,4733,68.0,0,0,Republican,0.0,0.0
+Georgia,Greene County,8514,0,0,Republican,0.0,0.0,0.0,5959,70.0,0,0,Republican,0.0,0.0
+Georgia,Baldwin County,15048,0,0,Republican,0.0,0.0,0.0,9188,61.1,0,0,Republican,0.0,0.0
+Georgia,Banks County,6683,0,0,Republican,0.0,0.0,0.0,3341,50.0,0,0,Republican,0.0,0.0
+Georgia,Lee County,13510,0,0,Republican,0.0,0.0,0.0,7230,53.5,0,0,Republican,0.0,0.0
+Georgia,Wilkinson County,3961,0,0,Republican,0.0,0.0,0.0,1617,40.8,0,0,Republican,0.0,0.0
+Georgia,Spalding County,23966,0,0,Republican,0.0,0.0,0.0,14992,62.6,0,0,Republican,0.0,0.0
+Georgia,Clayton County,86776,0,0,Republican,0.0,0.0,0.0,55290,63.7,0,0,Republican,0.0,0.0
+Georgia,Cherokee County,107347,0,0,Republican,0.0,0.0,0.0,64130,59.7,0,0,Republican,0.0,0.0
+Georgia,Lamar County,7182,0,0,Republican,0.0,0.0,0.0,4407,61.4,0,0,Republican,0.0,0.0
+Georgia,Long County,3845,0,0,Republican,0.0,0.0,0.0,1940,50.5,0,0,Republican,0.0,0.0
+Georgia,Union County,11434,0,0,Republican,0.0,0.0,0.0,7644,66.9,0,0,Republican,0.0,0.0
+Georgia,Walton County,38546,0,0,Republican,0.0,0.0,0.0,18622,48.3,0,0,Republican,0.0,0.0
+Georgia,Bartow County,37381,0,0,Republican,0.0,0.0,0.0,17971,48.1,0,0,Republican,0.0,0.0
+Georgia,Echols County,1065,0,0,Republican,0.0,0.0,0.0,644,60.5,0,0,Republican,0.0,0.0
+Georgia,Lincoln County,3864,0,0,Republican,0.0,0.0,0.0,2366,61.2,0,0,Republican,0.0,0.0
+Georgia,Chatham County,105977,0,0,Republican,0.0,0.0,0.0,38396,36.2,0,0,Republican,0.0,0.0
+Georgia,Dade County,5675,0,0,Republican,0.0,0.0,0.0,2819,49.7,0,0,Republican,0.0,0.0
+Georgia,Carroll County,41911,0,0,Republican,0.0,0.0,0.0,23945,57.1,0,0,Republican,0.0,0.0
+Georgia,Mitchell County,7347,0,0,Republican,0.0,0.0,0.0,4020,54.7,0,0,Republican,0.0,0.0
+Georgia,Laurens County,18442,0,0,Republican,0.0,0.0,0.0,9125,49.5,0,0,Republican,0.0,0.0
+Georgia,Stephens County,9178,0,0,Republican,0.0,0.0,0.0,7280,79.3,0,0,Republican,0.0,0.0
+Georgia,Jackson County,26095,0,0,Republican,0.0,0.0,0.0,16571,63.5,0,0,Republican,0.0,0.0
+Georgia,Evans County,3327,0,0,Republican,0.0,0.0,0.0,2296,69.0,0,0,Republican,0.0,0.0
+Georgia,Murray County,11116,0,0,Republican,0.0,0.0,0.0,5390,48.5,0,0,Republican,0.0,0.0
+Georgia,Tift County,13301,0,0,Republican,0.0,0.0,0.0,8116,61.0,0,0,Republican,0.0,0.0
+Georgia,Montgomery County,3303,0,0,Republican,0.0,0.0,0.0,1341,40.6,0,0,Republican,0.0,0.0
+Georgia,Rabun County,7564,0,0,Republican,0.0,0.0,0.0,6248,82.6,0,0,Republican,0.0,0.0
+Georgia,Towns County,6354,0,0,Republican,0.0,0.0,0.0,4625,72.8,0,0,Republican,0.0,0.0
+Georgia,Glynn County,31503,0,0,Republican,0.0,0.0,0.0,18389,58.4,0,0,Republican,0.0,0.0
+Georgia,Irwin County,3431,0,0,Republican,0.0,0.0,0.0,1825,53.2,0,0,Republican,0.0,0.0
+Georgia,Randolph County,2609,0,0,Republican,0.0,0.0,0.0,1311,50.2,0,0,Republican,0.0,0.0
+Georgia,Decatur County,9412,0,0,Republican,0.0,0.0,0.0,5658,60.1,0,0,Republican,0.0,0.0
+Georgia,Atkinson County,2339,0,0,Republican,0.0,0.0,0.0,1251,53.5,0,0,Republican,0.0,0.0
+Georgia,Muscogee County,63814,0,0,Republican,0.0,0.0,0.0,34966,54.8,0,0,Republican,0.0,0.0
+Georgia,Screven County,5341,0,0,Republican,0.0,0.0,0.0,2761,51.7,0,0,Republican,0.0,0.0
+Georgia,Dodge County,6379,0,0,Republican,0.0,0.0,0.0,3008,47.2,0,0,Republican,0.0,0.0
+Georgia,Rockdale County,36294,0,0,Republican,0.0,0.0,0.0,26329,72.5,0,0,Republican,0.0,0.0
+Georgia,Franklin County,7928,0,0,Republican,0.0,0.0,0.0,4117,51.9,0,0,Republican,0.0,0.0
+Georgia,Monroe County,12069,0,0,Republican,0.0,0.0,0.0,6612,54.8,0,0,Republican,0.0,0.0
+Georgia,Floyd County,32616,0,0,Republican,0.0,0.0,0.0,19148,58.7,0,0,Republican,0.0,0.0
+Georgia,Whitfield County,27952,0,0,Republican,0.0,0.0,0.0,13511,48.3,0,0,Republican,0.0,0.0
+Georgia,Brantley County,5703,0,0,Republican,0.0,0.0,0.0,3082,54.0,0,0,Republican,0.0,0.0
+Georgia,Colquitt County,12682,0,0,Republican,0.0,0.0,0.0,6292,49.6,0,0,Republican,0.0,0.0
+Georgia,Pulaski County,3374,0,0,Republican,0.0,0.0,0.0,2536,75.2,0,0,Republican,0.0,0.0
+Georgia,Richmond County,70341,0,0,Republican,0.0,0.0,0.0,37515,53.3,0,0,Republican,0.0,0.0
+Georgia,Jefferson County,6245,0,0,Republican,0.0,0.0,0.0,3083,49.4,0,0,Republican,0.0,0.0
+Georgia,Dawson County,11208,0,0,Republican,0.0,0.0,0.0,8337,74.4,0,0,Republican,0.0,0.0
+Georgia,Dekalb County,301198,0,0,Republican,0.0,0.0,0.0,186111,61.8,0,0,Republican,0.0,0.0
+Georgia,Dougherty County,31969,0,0,Republican,0.0,0.0,0.0,14852,46.5,0,0,Republican,0.0,0.0
+Georgia,Pierce County,6751,0,0,Republican,0.0,0.0,0.0,4853,71.9,0,0,Republican,0.0,0.0
+Georgia,Hart County,9228,0,0,Republican,0.0,0.0,0.0,5389,58.4,0,0,Republican,0.0,0.0
+Georgia,Gordon County,17762,0,0,Republican,0.0,0.0,0.0,9328,52.5,0,0,Republican,0.0,0.0
+Georgia,Harris County,15588,0,0,Republican,0.0,0.0,0.0,8943,57.4,0,0,Republican,0.0,0.0
+Georgia,Paulding County,61862,0,0,Republican,0.0,0.0,0.0,43745,70.7,0,0,Republican,0.0,0.0
+Georgia,Taliaferro County,798,0,0,Republican,0.0,0.0,0.0,450,56.4,0,0,Republican,0.0,0.0
+Georgia,Wheeler County,1904,0,0,Republican,0.0,0.0,0.0,1003,52.7,0,0,Republican,0.0,0.0
+Georgia,Treutlen County,2390,0,0,Republican,0.0,0.0,0.0,1574,65.9,0,0,Republican,0.0,0.0
+Georgia,Berrien County,6182,0,0,Republican,0.0,0.0,0.0,3433,55.5,0,0,Republican,0.0,0.0
+Georgia,Meriwether County,8625,0,0,Republican,0.0,0.0,0.0,3655,42.4,0,0,Republican,0.0,0.0
+Georgia,Columbia County,61137,0,0,Republican,0.0,0.0,0.0,36495,59.7,0,0,Republican,0.0,0.0
+Georgia,Miller County,2272,0,0,Republican,0.0,0.0,0.0,1236,54.4,0,0,Republican,0.0,0.0
+Georgia,Sumter County,10491,0,0,Republican,0.0,0.0,0.0,6165,58.8,0,0,Republican,0.0,0.0
+Georgia,Webster County,1051,0,0,Republican,0.0,0.0,0.0,601,57.2,0,0,Republican,0.0,0.0
+Georgia,Schley County,1828,0,0,Republican,0.0,0.0,0.0,1269,69.4,0,0,Republican,0.0,0.0
+Georgia,Hancock County,3297,0,0,Republican,0.0,0.0,0.0,1668,50.6,0,0,Republican,0.0,0.0
+Georgia,Lanier County,2574,0,0,Republican,0.0,0.0,0.0,1525,59.2,0,0,Republican,0.0,0.0
+Georgia,Heard County,3951,0,0,Republican,0.0,0.0,0.0,1836,46.5,0,0,Republican,0.0,0.0
+Georgia,Coffee County,12738,0,0,Republican,0.0,0.0,0.0,8354,65.6,0,0,Republican,0.0,0.0
+Georgia,Peach County,10196,0,0,Republican,0.0,0.0,0.0,7076,69.4,0,0,Republican,0.0,0.0
+Georgia,Thomas County,17365,0,0,Republican,0.0,0.0,0.0,10642,61.3,0,0,Republican,0.0,0.0
+Georgia,Clay County,1157,0,0,Republican,0.0,0.0,0.0,673,58.2,0,0,Republican,0.0,0.0
+Georgia,Bacon County,3615,0,0,Republican,0.0,0.0,0.0,2334,64.6,0,0,Republican,0.0,0.0
+Georgia,Pike County,8327,0,0,Republican,0.0,0.0,0.0,5227,62.8,0,0,Republican,0.0,0.0
+Georgia,Polk County,13353,0,0,Republican,0.0,0.0,0.0,9079,68.0,0,0,Republican,0.0,0.0
+Georgia,Butts County,8835,0,0,Republican,0.0,0.0,0.0,6338,71.7,0,0,Republican,0.0,0.0
+Georgia,Talbot County,2965,0,0,Republican,0.0,0.0,0.0,1280,43.2,0,0,Republican,0.0,0.0
+Georgia,Oconee County,19645,0,0,Republican,0.0,0.0,0.0,12214,62.2,0,0,Republican,0.0,0.0
+Maryland,Dorchester County,14835,6697,7763,Republican,7.2,45.1,52.3,4449,30.0,2410,1938,Democrat,54.2,43.6
+Maryland,Somerset County,9661,4277,5178,Republican,9.3,44.3,53.6,2898,30.0,1403,1437,Republican,48.4,49.6
+Maryland,Allegany County,29118,9762,18072,Republican,28.6,33.5,62.1,4982,17.1,2032,2760,Republican,40.8,55.4
+Maryland,Garrett County,13333,2699,10210,Republican,56.4,20.2,76.6,3917,29.4,1064,2748,Republican,27.2,70.2
+Maryland,Cecil County,43472,14849,26914,Republican,27.7,34.2,61.9,12005,27.6,5146,6479,Republican,42.9,54.0
+Maryland,Baltimore City,234689,193861,29306,Democrat,70.1,82.6,12.5,78020,33.2,68280,6513,Democrat,87.5,8.3
+Maryland,Queen Anne'S County,26136,8473,17006,Republican,32.7,32.4,65.1,11801,45.2,4489,7061,Republican,38.0,59.8
+Maryland,Baltimore County,384944,217155,155079,Democrat,16.1,56.4,40.3,145668,37.8,95256,46446,Democrat,65.4,31.9
+Maryland,Talbot County,20263,8967,10861,Republican,9.3,44.3,53.6,10385,51.3,5327,4909,Democrat,51.3,47.3
+Maryland,Anne Arundel County,264910,127968,128268,Republican,0.1,48.3,48.4,90676,34.2,52104,36161,Democrat,57.5,39.9
+Maryland,Frederick County,122572,57097,60516,Republican,2.8,46.6,49.4,35828,29.2,20709,13878,Democrat,57.8,38.7
+Maryland,Caroline County,13859,4596,8903,Republican,31.0,33.2,64.2,4089,29.5,1606,2389,Republican,39.3,58.4
+Maryland,Worcester County,27653,10125,16731,Republican,23.9,36.6,60.5,9125,33.0,3787,5155,Republican,41.5,56.5
+Maryland,Montgomery County,471389,354161,103401,Democrat,53.2,75.1,21.9,208426,44.2,169272,34138,Democrat,81.2,16.4
+Maryland,Charles County,76968,48999,25507,Democrat,30.6,63.7,33.1,28915,37.6,20367,7772,Democrat,70.4,26.9
+Maryland,Harford County,132133,47866,80355,Republican,24.6,36.2,60.8,49391,37.4,21219,26990,Republican,43.0,54.6
+Maryland,Kent County,9886,4709,4936,Republican,2.3,47.6,49.9,3876,39.2,2309,1474,Democrat,59.6,38.0
+Maryland,Prince George'S County,381289,334274,34067,Democrat,78.8,87.7,8.9,177971,46.7,160745,12495,Democrat,90.3,7.0
+Maryland,Calvert County,45894,18536,25431,Republican,15.0,40.4,55.4,14534,31.7,6746,7302,Republican,46.4,50.2
+Maryland,Carroll County,90294,27649,60195,Republican,36.1,30.6,66.7,23863,26.4,9509,13779,Republican,39.8,57.7
+Maryland,St. Mary'S County,48189,17980,28207,Republican,21.2,37.3,58.5,15467,32.1,6565,8369,Republican,42.4,54.1
+Maryland,Washington County,63223,23316,37278,Republican,22.1,36.9,59.0,14432,22.8,6422,7544,Republican,44.5,52.3
+Maryland,Wicomico County,41775,18382,22027,Republican,8.7,44.0,52.7,13255,31.7,6937,5991,Democrat,52.3,45.2
+Maryland,Howard County,159193,97634,55888,Democrat,26.2,61.3,35.1,67834,42.6,47750,18021,Democrat,70.4,26.6
+Pennsylvania,Lycoming County,50567,14187,33015,Republican,37.2,28.1,65.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Crawford County,37259,11047,24472,Republican,36.1,29.6,65.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Bedford County,23439,4356,17739,Republican,57.1,18.6,75.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Centre County,76392,35487,36527,Republican,1.3,46.5,47.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Adams County,47503,14593,30492,Republican,33.5,30.7,64.2,0,0.0,0,0,Republican,0,0
+Pennsylvania,Clearfield County,34011,9454,22128,Republican,37.3,27.8,65.1,0,0.0,0,0,Republican,0,0
+Pennsylvania,Elk County,14323,4509,8703,Republican,29.3,31.5,60.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Philadelphia County,685165,560421,116714,Democrat,64.8,81.8,17.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Washington County,100909,38133,56952,Republican,18.6,37.8,56.4,0,0.0,0,0,Republican,0,0
+Pennsylvania,Blair County,54790,15107,36533,Republican,39.1,27.6,66.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Cameron County,2154,593,1390,Republican,37.0,27.5,64.5,0,0.0,0,0,Republican,0,0
+Pennsylvania,Butler County,96605,28715,62425,Republican,34.9,29.7,64.6,0,0.0,0,0,Republican,0,0
+Pennsylvania,Northumberland County,35535,11117,21826,Republican,30.1,31.3,61.4,0,0.0,0,0,Republican,0,0
+Pennsylvania,Berks County,179413,77028,95466,Republican,10.3,42.9,53.2,0,0.0,0,0,Republican,0,0
+Pennsylvania,Jefferson County,19317,4160,13706,Republican,49.5,21.5,71.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Pike County,25634,9329,15192,Republican,22.9,36.4,59.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Wyoming County,13066,4154,7844,Republican,28.2,31.8,60.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Indiana County,37792,12592,22245,Republican,25.6,33.3,58.9,0,0.0,0,0,Republican,0,0
+Pennsylvania,Somerset County,35733,8340,25470,Republican,48.0,23.3,71.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Bucks County,339452,157709,175898,Republican,5.3,46.5,51.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,York County,206015,69394,126350,Republican,27.6,33.7,61.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Northampton County,139890,64148,72176,Republican,5.7,45.9,51.6,0,0.0,0,0,Republican,0,0
+Pennsylvania,Tioga County,18174,3992,13418,Republican,51.8,22.0,73.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Erie County,122724,56846,60948,Republican,3.4,46.3,49.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Bradford County,25559,6985,16574,Republican,37.5,27.3,64.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Montour County,8550,2898,5066,Republican,25.4,33.9,59.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Lebanon County,61525,19079,39386,Republican,33.0,31.0,64.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Lackawanna County,101910,53936,40519,Democrat,13.1,52.9,39.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Mercer County,51806,19193,30567,Republican,22.0,37.0,59.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Lancaster County,242605,89922,142774,Republican,21.8,37.1,58.9,0,0.0,0,0,Republican,0,0
+Pennsylvania,Sullivan County,3093,867,2020,Republican,37.3,28.0,65.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Wayne County,23828,7487,14538,Republican,29.6,31.4,61.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Columbia County,28102,9819,16292,Republican,23.1,34.9,58.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Beaver County,83321,34263,44000,Republican,11.7,41.1,52.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Juniata County,10422,2153,7657,Republican,52.8,20.7,73.5,0,0.0,0,0,Republican,0,0
+Pennsylvania,Cambria County,62728,21894,36948,Republican,24.0,34.9,58.9,0,0.0,0,0,Republican,0,0
+Pennsylvania,Potter County,7700,1387,5990,Republican,59.8,18.0,77.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Mckean County,16122,3987,11530,Republican,46.8,24.7,71.5,0,0.0,0,0,Republican,0,0
+Pennsylvania,Monroe County,66791,34280,30743,Democrat,5.3,51.3,46.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Armstrong County,31400,8387,20793,Republican,39.5,26.7,66.2,0,0.0,0,0,Republican,0,0
+Pennsylvania,Forest County,2374,708,1502,Republican,33.5,29.8,63.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Cumberland County,121943,44796,71638,Republican,22.0,36.7,58.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Chester County,270802,127552,133662,Republican,2.3,47.1,49.4,0,0.0,0,0,Republican,0,0
+Pennsylvania,Montgomery County,432358,237353,189574,Democrat,11.1,54.9,43.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Westmoreland County,180258,62981,107532,Republican,24.8,34.9,59.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Fulton County,6731,1025,5456,Republican,65.9,15.2,81.1,0,0.0,0,0,Republican,0,0
+Pennsylvania,Perry County,21091,4962,14898,Republican,47.1,23.5,70.6,0,0.0,0,0,Republican,0,0
+Pennsylvania,Delaware County,293625,163377,126300,Democrat,12.6,55.6,43.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Franklin County,69794,17827,48658,Republican,44.2,25.5,69.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Union County,17501,6092,10568,Republican,25.6,34.8,60.4,0,0.0,0,0,Republican,0,0
+Pennsylvania,Luzerne County,131678,56477,66551,Republican,7.6,42.9,50.5,0,0.0,0,0,Republican,0,0
+Pennsylvania,Snyder County,16282,4299,10867,Republican,40.3,26.4,66.7,0,0.0,0,0,Republican,0,0
+Pennsylvania,Lehigh County,160075,77232,76216,Democrat,0.6,48.2,47.6,0,0.0,0,0,Republican,0,0
+Pennsylvania,Dauphin County,128674,62551,63740,Republican,0.9,48.6,49.5,0,0.0,0,0,Republican,0,0
+Pennsylvania,Huntingdon County,19589,5105,13078,Republican,40.7,26.1,66.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Warren County,18212,5124,12130,Republican,38.5,28.1,66.6,0,0.0,0,0,Republican,0,0
+Pennsylvania,Greene County,15414,5692,8826,Republican,20.4,36.9,57.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Susquehanna County,19247,5535,11996,Republican,33.5,28.8,62.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Schuylkill County,62128,19539,37757,Republican,29.4,31.4,60.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Mifflin County,18213,4031,13089,Republican,49.8,22.1,71.9,0,0.0,0,0,Republican,0,0
+Pennsylvania,Clinton County,15165,5511,8702,Republican,21.1,36.3,57.4,0,0.0,0,0,Republican,0,0
+Pennsylvania,Allegheny County,647026,357450,261316,Democrat,14.8,55.2,40.4,0,0.0,0,0,Republican,0,0
+Pennsylvania,Carbon County,28216,10086,16360,Republican,22.3,35.7,58.0,0,0.0,0,0,Republican,0,0
+Pennsylvania,Venango County,23208,6989,14581,Republican,32.7,30.1,62.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Fayette County,53204,20547,29699,Republican,17.2,38.6,55.8,0,0.0,0,0,Republican,0,0
+Pennsylvania,Lawrence County,40280,15289,22674,Republican,18.3,38.0,56.3,0,0.0,0,0,Republican,0,0
+Pennsylvania,Clarion County,17445,4931,11310,Republican,36.5,28.3,64.8,0,0.0,0,0,Republican,0,0
+Alabama,Talladega County,54384,22685,31670,Republican,16.5,41.7,58.2,1636,3.0,568,1066,Republican,34.7,65.2
+Alabama,Marshall County,50943,8529,42359,Republican,66.4,16.7,83.1,1741,3.4,337,1402,Republican,19.4,80.5
+Alabama,Coosa County,8139,3077,5054,Republican,24.3,37.8,62.1,256,3.1,71,185,Republican,27.7,72.3
+Alabama,Randolph County,14699,4106,10584,Republican,44.1,27.9,72.0,713,4.9,136,576,Republican,19.1,80.8
+Alabama,Calhoun County,72771,22943,49759,Republican,36.9,31.5,68.4,2200,3.0,690,1507,Republican,31.4,68.5
+Alabama,Russell County,31469,17144,14299,Democrat,9.1,54.5,45.4,1464,4.7,663,799,Republican,45.3,54.6
+Alabama,Marion County,18417,2800,15590,Republican,69.5,15.2,84.7,600,3.3,80,518,Republican,13.3,86.3
+Alabama,Butler County,13193,6535,6651,Republican,0.9,49.5,50.4,439,3.3,330,109,Democrat,75.2,24.8
+Alabama,Etowah County,66587,19532,46971,Republican,41.2,29.3,70.5,2422,3.6,736,1683,Republican,30.4,69.5
+Alabama,Pike County,19349,8733,10589,Republican,9.6,45.1,54.7,621,3.2,248,370,Republican,39.9,59.6
+Alabama,Dekalb County,37573,7029,30516,Republican,62.5,18.7,81.2,1380,3.7,338,1040,Republican,24.5,75.4
+Alabama,Lowndes County,11006,8445,2554,Democrat,53.5,76.7,23.2,398,3.6,312,86,Democrat,78.4,21.6
+Alabama,Shelby County,153963,36715,117044,Republican,52.2,23.8,76.0,5774,3.8,1266,4500,Republican,21.9,77.9
+Alabama,Morgan County,76179,19679,56443,Republican,48.3,25.8,74.1,2934,3.9,722,2209,Republican,24.6,75.3
+Alabama,Autauga County,36640,10242,26336,Republican,43.9,28.0,71.9,1903,5.2,420,1477,Republican,22.1,77.6
+Alabama,Lamar County,10117,1857,8256,Republican,63.2,18.4,81.6,482,4.8,87,395,Republican,18.0,82.0
+Alabama,Dallas County,31013,22905,8094,Democrat,47.8,73.9,26.1,1384,4.5,966,418,Democrat,69.8,30.2
+Alabama,Chambers County,22072,10550,11504,Republican,4.3,47.8,52.1,810,3.7,327,483,Republican,40.4,59.6
+Alabama,Perry County,9159,7088,2069,Democrat,54.8,77.4,22.6,529,5.8,443,86,Democrat,83.7,16.3
+Alabama,Geneva County,15874,2808,13038,Republican,64.4,17.7,82.1,576,3.6,99,477,Republican,17.2,82.8
+Alabama,Walker County,42365,8215,33885,Republican,60.6,19.4,80.0,1095,2.6,248,843,Republican,22.6,77.0
+Alabama,Montgomery County,152278,100947,51169,Democrat,32.7,66.3,33.6,6133,4.0,3369,2756,Democrat,54.9,44.9
+Alabama,Clarke County,20832,10236,10582,Republican,1.7,49.1,50.8,1004,4.8,466,538,Republican,46.4,53.6
+Alabama,Washington County,12136,4444,7687,Republican,26.7,36.6,63.3,457,3.8,106,350,Republican,23.2,76.6
+Alabama,Elmore County,51730,13481,38147,Republican,47.6,26.1,73.7,2057,4.0,731,1323,Republican,35.5,64.3
+Alabama,Tallapoosa County,29460,10145,19298,Republican,31.1,34.4,65.5,1262,4.3,382,880,Republican,30.3,69.7
+Alabama,Lauderdale County,55504,17209,38252,Republican,37.9,31.0,68.9,2887,5.2,917,1969,Republican,31.8,68.2
+Alabama,Coffee County,29278,7380,21849,Republican,49.4,25.2,74.6,1188,4.1,290,897,Republican,24.4,75.5
+Alabama,Choctaw County,11013,5544,5461,Democrat,0.7,50.3,49.6,570,5.2,252,318,Republican,44.2,55.8
+Alabama,Franklin County,15471,4073,11384,Republican,47.3,26.3,73.6,618,4.0,154,464,Republican,24.9,75.1
+Alabama,Escambia County,22782,8413,14346,Republican,26.1,36.9,63.0,1395,6.1,348,1041,Republican,24.9,74.6
+Alabama,Barbour County,16272,8837,7419,Democrat,8.7,54.3,45.6,1117,6.9,651,466,Democrat,58.3,41.7
+Alabama,Clay County,9055,2164,6887,Republican,52.2,23.9,76.1,490,5.4,128,362,Republican,26.1,73.9
+Alabama,Mobile County,278047,124629,153418,Republican,10.4,44.8,55.2,9242,3.3,4286,4956,Republican,46.4,53.6
+Alabama,Winston County,15473,1712,13749,Republican,77.8,11.1,88.9,549,3.5,78,469,Republican,14.2,85.4
+Alabama,Dale County,26803,7683,19062,Republican,42.4,28.7,71.1,1216,4.5,295,917,Republican,24.3,75.4
+Alabama,Bullock County,7730,6282,1442,Democrat,62.6,81.3,18.7,552,7.1,484,68,Democrat,87.7,12.3
+Alabama,Tuscaloosa County,128284,53068,75086,Republican,17.1,41.4,58.5,4352,3.4,1692,2656,Republican,38.9,61.0
+Alabama,Limestone County,56375,15306,41012,Republican,45.5,27.2,72.7,2927,5.2,725,2199,Republican,24.8,75.1
+Alabama,Henry County,11661,4139,7499,Republican,28.8,35.5,64.3,648,5.6,251,396,Republican,38.7,61.1
+Alabama,Macon County,15492,13377,2106,Democrat,72.7,86.3,13.6,685,4.4,613,72,Democrat,89.5,10.5
+Alabama,Cleburne County,9619,1213,8400,Republican,74.7,12.6,87.3,376,3.9,57,318,Republican,15.2,84.6
+Alabama,Covington County,22764,4447,18281,Republican,60.8,19.5,80.3,1141,5.0,144,996,Republican,12.6,87.3
+Alabama,Baldwin County,145124,29429,115447,Republican,59.3,20.3,79.6,7012,4.8,1349,5647,Republican,19.2,80.5
+Alabama,Bibb County,13781,3605,10159,Republican,47.5,26.2,73.7,381,2.8,85,296,Republican,22.3,77.7
+Alabama,Crenshaw County,9054,3061,5982,Republican,32.3,33.8,66.1,298,3.3,70,228,Republican,23.5,76.5
+Alabama,Blount County,38397,4200,34149,Republican,78.0,10.9,88.9,1166,3.0,156,1010,Republican,13.4,86.6
+Alabama,Cherokee County,14806,2771,12028,Republican,62.5,18.7,81.2,633,4.3,134,499,Republican,21.2,78.8
+Alabama,Conecuh County,10280,5714,4559,Democrat,11.3,55.6,44.3,527,5.1,379,148,Democrat,71.9,28.1
+Alabama,Jackson County,28798,6584,22194,Republican,54.2,22.9,77.1,1093,3.8,275,818,Republican,25.2,74.8
+Alabama,Sumter County,11188,8916,2268,Democrat,59.4,79.7,20.3,726,6.5,602,124,Democrat,82.9,17.1
+Alabama,Lawrence County,21605,6650,14939,Republican,38.3,30.8,69.1,630,2.9,187,442,Republican,29.7,70.2
+Alabama,Houston County,59905,18680,41105,Republican,37.4,31.2,68.6,2905,4.8,735,2162,Republican,25.3,74.4
+Alabama,Chilton County,25636,4834,20777,Republican,62.1,18.9,81.0,1216,4.7,550,666,Republican,45.2,54.8
+Alabama,Pickens County,14221,7232,6983,Democrat,1.8,50.9,49.1,487,3.4,210,277,Republican,43.1,56.9
+Alabama,Madison County,241255,99796,141135,Republican,17.1,41.4,58.5,14114,5.9,5591,8505,Republican,39.6,60.3
+Alabama,Colbert County,36592,13900,22664,Republican,23.9,38.0,61.9,1374,3.8,542,830,Republican,39.4,60.4
+Alabama,Monroe County,16526,7941,8572,Republican,3.8,48.1,51.9,595,3.6,344,251,Democrat,57.8,42.2
+Alabama,Fayette County,11936,2403,9520,Republican,59.7,20.1,79.8,360,3.0,100,259,Republican,27.8,71.9
+Alabama,Jefferson County,497673,271636,225586,Democrat,9.3,54.6,45.3,16947,3.4,9898,7032,Democrat,58.4,41.5
+Alabama,Hale County,13456,8861,4590,Democrat,31.8,65.9,34.1,632,4.7,481,151,Democrat,76.1,23.9
+Alabama,Greene County,8668,7376,1289,Democrat,70.2,85.1,14.9,424,4.9,394,30,Democrat,92.9,7.1
+Alabama,Wilcox County,9834,7359,2471,Democrat,49.7,74.8,25.1,480,4.9,359,120,Democrat,74.8,25.0
+Alabama,St. Clair County,59211,10052,49080,Republican,65.9,17.0,82.9,2158,3.6,439,1716,Republican,20.3,79.5
+Alabama,Marengo County,16867,9739,7123,Democrat,15.5,57.7,42.2,1169,6.9,761,408,Democrat,65.1,34.9
+Alabama,Lee County,92160,35727,56298,Republican,22.3,38.8,61.1,4869,5.3,1726,3138,Republican,35.4,64.4
+Alabama,Cullman County,56108,7346,48705,Republican,73.7,13.1,86.8,2001,3.6,363,1633,Republican,18.1,81.6
+Hawaii,Honolulu County,278656,203372,64939,Democrat,49.7,73.0,23.3,146169,52.5,109768,32258,Democrat,75.1,22.1
+Hawaii,Hawaii County,63015,47003,12766,Democrat,54.3,74.6,20.3,37886,60.1,28983,7448,Democrat,76.5,19.7
+Hawaii,Maui County,49915,37214,10203,Democrat,54.2,74.6,20.4,25108,50.3,19427,4777,Democrat,77.4,19.0
+Hawaii,Kauai County,24976,19015,4745,Democrat,57.1,76.1,19.0,14113,56.5,11001,2571,Democrat,77.9,18.2
+South Dakota,Codington County,11743,3003,8740,Republican,48.8,25.6,74.4,0,0.0,0,0,Republican,0,0
+South Dakota,Bennett County,1140,382,758,Republican,33.0,33.5,66.5,0,0.0,0,0,Republican,0,0
+South Dakota,Jones County,561,67,494,Republican,76.2,11.9,88.1,0,0.0,0,0,Republican,0,0
+South Dakota,Yankton County,9624,3088,6536,Republican,35.8,32.1,67.9,0,0.0,0,0,Republican,0,0
+South Dakota,Hutchinson County,3388,609,2779,Republican,64.0,18.0,82.0,0,0.0,0,0,Republican,0,0
+South Dakota,Harding County,757,74,683,Republican,80.4,9.8,90.2,0,0.0,0,0,Republican,0,0
+South Dakota,Campbell County,827,87,740,Republican,79.0,10.5,89.5,0,0.0,0,0,Republican,0,0
+South Dakota,Stanley County,1557,303,1254,Republican,61.0,19.5,80.5,0,0.0,0,0,Republican,0,0
+South Dakota,Hanson County,1963,451,1512,Republican,54.0,23.0,77.0,0,0.0,0,0,Republican,0,0
+South Dakota,Ziebach County,765,344,421,Republican,10.0,45.0,55.0,0,0.0,0,0,Republican,0,0
+South Dakota,Union County,7852,1793,6059,Republican,54.4,22.8,77.2,0,0.0,0,0,Republican,0,0
+South Dakota,Clark County,1677,408,1269,Republican,51.4,24.3,75.7,0,0.0,0,0,Republican,0,0
+South Dakota,Douglas County,1605,228,1377,Republican,71.6,14.2,85.8,0,0.0,0,0,Republican,0,0
+South Dakota,Aurora County,1416,343,1073,Republican,51.6,24.2,75.8,0,0.0,0,0,Republican,0,0
+South Dakota,Perkins County,1605,231,1374,Republican,71.2,14.4,85.6,0,0.0,0,0,Republican,0,0
+South Dakota,Turner County,4160,871,3289,Republican,58.2,20.9,79.1,0,0.0,0,0,Republican,0,0
+South Dakota,Walworth County,2457,482,1975,Republican,60.8,19.6,80.4,0,0.0,0,0,Republican,0,0
+South Dakota,Sully County,854,136,718,Republican,68.2,15.9,84.1,0,0.0,0,0,Republican,0,0
+South Dakota,Potter County,1340,253,1087,Republican,62.2,18.9,81.1,0,0.0,0,0,Republican,0,0
+South Dakota,Grant County,3593,890,2703,Republican,50.4,24.8,75.2,0,0.0,0,0,Republican,0,0
+South Dakota,Sanborn County,1133,244,889,Republican,57.0,21.5,78.5,0,0.0,0,0,Republican,0,0
+South Dakota,Lincoln County,25307,6043,19264,Republican,52.2,23.9,76.1,0,0.0,0,0,Republican,0,0
+South Dakota,Pennington County,47172,13206,33966,Republican,44.0,28.0,72.0,0,0.0,0,0,Republican,0,0
+South Dakota,Jackson County,1080,309,771,Republican,42.8,28.6,71.4,0,0.0,0,0,Republican,0,0
+South Dakota,Day County,2777,962,1815,Republican,30.8,34.6,65.4,0,0.0,0,0,Republican,0,0
+South Dakota,Edmunds County,1913,396,1517,Republican,58.6,20.7,79.3,0,0.0,0,0,Republican,0,0
+South Dakota,Corson County,1154,474,680,Republican,17.8,41.1,58.9,0,0.0,0,0,Republican,0,0
+South Dakota,Faulk County,1131,206,925,Republican,63.6,18.2,81.8,0,0.0,0,0,Republican,0,0
+South Dakota,Gregory County,2097,426,1671,Republican,59.4,20.3,79.7,0,0.0,0,0,Republican,0,0
+South Dakota,Deuel County,2097,534,1563,Republican,49.0,25.5,74.5,0,0.0,0,0,Republican,0,0
+South Dakota,Moody County,2951,970,1981,Republican,34.2,32.9,67.1,0,0.0,0,0,Republican,0,0
+South Dakota,Fall River County,3539,868,2671,Republican,51.0,24.5,75.5,0,0.0,0,0,Republican,0,0
+South Dakota,Meade County,11546,2348,9198,Republican,59.4,20.3,79.7,0,0.0,0,0,Republican,0,0
+South Dakota,Jerauld County,981,261,720,Republican,46.8,26.6,73.4,0,0.0,0,0,Republican,0,0
+South Dakota,Mccook County,2620,599,2021,Republican,54.2,22.9,77.1,0,0.0,0,0,Republican,0,0
+South Dakota,Minnehaha County,77853,25359,52494,Republican,34.8,32.6,67.4,0,0.0,0,0,Republican,0,0
+South Dakota,Clay County,5084,2161,2923,Republican,15.0,42.5,57.5,0,0.0,0,0,Republican,0,0
+South Dakota,Lake County,6708,2031,4677,Republican,39.4,30.3,69.7,0,0.0,0,0,Republican,0,0
+South Dakota,Lyman County,1429,378,1051,Republican,47.0,26.5,73.5,0,0.0,0,0,Republican,0,0
+South Dakota,Beadle County,6858,1809,5049,Republican,47.2,26.4,73.6,0,0.0,0,0,Republican,0,0
+South Dakota,Mellette County,688,224,464,Republican,34.8,32.6,67.4,0,0.0,0,0,Republican,0,0
+South Dakota,Brule County,2300,554,1746,Republican,51.8,24.1,75.9,0,0.0,0,0,Republican,0,0
+South Dakota,Bon Homme County,3023,770,2253,Republican,49.0,25.5,74.5,0,0.0,0,0,Republican,0,0
+South Dakota,Roberts County,3923,1376,2547,Republican,29.8,35.1,64.9,0,0.0,0,0,Republican,0,0
+South Dakota,Marshall County,1970,629,1341,Republican,36.2,31.9,68.1,0,0.0,0,0,Republican,0,0
+South Dakota,Haakon County,1040,84,956,Republican,83.8,8.1,91.9,0,0.0,0,0,Republican,0,0
+South Dakota,Mcpherson County,1174,165,1009,Republican,71.8,14.1,85.9,0,0.0,0,0,Republican,0,0
+South Dakota,Tripp County,2626,492,2134,Republican,62.6,18.7,81.3,0,0.0,0,0,Republican,0,0
+South Dakota,Todd County,2100,1376,724,Democrat,31.0,65.5,34.5,0,0.0,0,0,Republican,0,0
+South Dakota,Spink County,2993,816,2177,Republican,45.4,27.3,72.7,0,0.0,0,0,Republican,0,0
+South Dakota,Brookings County,12764,3947,8817,Republican,38.2,30.9,69.1,0,0.0,0,0,Republican,0,0
+South Dakota,Charles Mix County,3425,941,2484,Republican,45.0,27.5,72.5,0,0.0,0,0,Republican,0,0
+South Dakota,Davison County,8007,1990,6017,Republican,50.2,24.9,75.1,0,0.0,0,0,Republican,0,0
+South Dakota,Buffalo County,489,257,232,Democrat,5.2,52.6,47.4,0,0.0,0,0,Republican,0,0
+South Dakota,Brown County,16164,4793,11371,Republican,40.6,29.7,70.3,0,0.0,0,0,Republican,0,0
+South Dakota,Butte County,4300,755,3545,Republican,64.8,17.6,82.4,0,0.0,0,0,Republican,0,0
+South Dakota,Custer County,4705,1177,3528,Republican,50.0,25.0,75.0,0,0.0,0,0,Republican,0,0
+South Dakota,Lawrence County,11833,3267,8566,Republican,44.8,27.6,72.4,0,0.0,0,0,Republican,0,0
+South Dakota,Miner County,1091,284,807,Republican,48.0,26.0,74.0,0,0.0,0,0,Republican,0,0
+South Dakota,,2863,2210,653,Democrat,54.4,77.2,22.8,0,0.0,0,0,Republican,0,0
+South Dakota,Dewey County,1694,832,862,Republican,1.8,49.1,50.9,0,0.0,0,0,Republican,0,0
+South Dakota,Kingsbury County,2573,674,1899,Republican,47.6,26.2,73.8,0,0.0,0,0,Republican,0,0
+South Dakota,Hyde County,691,124,567,Republican,64.2,17.9,82.1,0,0.0,0,0,Republican,0,0
+South Dakota,Hamlin County,2789,536,2253,Republican,61.6,19.2,80.8,0,0.0,0,0,Republican,0,0
+South Dakota,Hand County,1852,335,1517,Republican,63.8,18.1,81.9,0,0.0,0,0,Republican,0,0
+South Dakota,Hughes County,8228,1890,6338,Republican,54.0,23.0,77.0,0,0.0,0,0,Republican,0,0
+New York,Tompkins County,41260,26310,7678,Democrat,45.2,63.8,18.6,0,0.0,0,0,Republican,0,0
+New York,Ontario County,18115,8816,6116,Democrat,14.9,48.7,33.8,0,0.0,0,0,Republican,0,0
+New York,Wyoming County,16878,6429,7431,Republican,5.9,38.1,44.0,0,0.0,0,0,Republican,0,0
+New York,Chemung County,34467,16784,13330,Democrat,10.0,48.7,38.7,0,0.0,0,0,Republican,0,0
+New York,Niagara County,87501,45026,26704,Democrat,21.0,51.5,30.5,0,0.0,0,0,Republican,0,0
+New York,Cayuga County,31991,17051,9687,Democrat,23.0,53.3,30.3,0,0.0,0,0,Republican,0,0
+New York,Albany County,135565,88107,28428,Democrat,44.0,65.0,21.0,0,0.0,0,0,Republican,0,0
+New York,Schenectady County,65178,37575,17311,Democrat,31.0,57.6,26.6,0,0.0,0,0,Republican,0,0
+New York,Schuyler County,8343,3439,3474,Republican,0.4,41.2,41.6,0,0.0,0,0,Republican,0,0
+New York,Seneca County,13486,6660,4678,Democrat,14.7,49.4,34.7,1063,7.9,542,362,Democrat,51.0,34.1
+New York,Madison County,28819,14115,9573,Democrat,15.8,49.0,33.2,0,0.0,0,0,Republican,0,0
+New York,Chenango County,19138,8362,7515,Democrat,4.4,43.7,39.3,0,0.0,0,0,Republican,0,0
+New York,Putnam County,46128,21453,17673,Democrat,8.2,46.5,38.3,0,0.0,0,0,Republican,0,0
+New York,Fulton County,19993,8811,8329,Democrat,2.4,44.1,41.7,0,0.0,0,0,Republican,0,0
+New York,Delaware County,19024,8221,7914,Democrat,1.6,43.2,41.6,0,0.0,0,0,Republican,0,0
+New York,Rockland County,126231,76113,34404,Democrat,33.0,60.3,27.3,0,0.0,0,0,Republican,0,0
+New York,Dutchess County,124623,64096,41533,Democrat,18.1,51.4,33.3,0,0.0,0,0,Republican,0,0
+New York,Otsego County,24474,12047,8640,Democrat,13.9,49.2,35.3,0,0.0,0,0,Republican,0,0
+New York,Cortland County,19450,10285,6129,Democrat,21.4,52.9,31.5,0,0.0,0,0,Republican,0,0
+New York,Chautauqua County,52362,25137,18184,Democrat,13.3,48.0,34.7,0,0.0,0,0,Republican,0,0
+New York,Richmond County,185927,97527,55658,Democrat,22.6,52.5,29.9,0,0.0,0,0,Republican,0,0
+New York,Orange County,146058,73998,48166,Democrat,17.7,50.7,33.0,0,0.0,0,0,Republican,0,0
+New York,Bronx County,409754,334821,22064,Democrat,76.3,81.7,5.4,0,0.0,0,0,Republican,0,0
+New York,Tioga County,21554,9217,9273,Republican,0.2,42.8,43.0,0,0.0,0,0,Republican,0,0
+New York,Lewis County,10776,4537,4473,Democrat,0.6,42.1,41.5,847,7.9,383,339,Democrat,45.2,40.0
+New York,Queens County,704005,515147,87499,Democrat,60.8,73.2,12.4,0,0.0,0,0,Republican,0,0
+New York,Montgomery County,18115,8816,6116,Democrat,14.9,48.7,33.8,0,0.0,0,0,Republican,0,0
+New York,Onondaga County,204805,127000,47561,Democrat,38.8,62.0,23.2,0,0.0,0,0,Republican,0,0
+New York,Sullivan County,28059,14468,8875,Democrat,20.0,51.6,31.6,0,0.0,0,0,Republican,0,0
+New York,Jefferson County,36750,17698,13548,Democrat,11.3,48.2,36.9,0,0.0,0,0,Republican,0,0
+New York,Ulster County,81391,44742,21355,Democrat,28.8,55.0,26.2,0,0.0,0,0,Republican,0,0
+New York,Greene County,21191,9148,8348,Democrat,3.8,43.2,39.4,0,0.0,0,0,Republican,0,0
+New York,Franklin County,16209,8515,5539,Democrat,18.3,52.5,34.2,0,0.0,0,0,Republican,0,0
+New York,Schoharie County,13608,5609,5549,Democrat,0.4,41.2,40.8,0,0.0,0,0,Republican,0,0
+New York,St. Lawrence County,37283,19833,12095,Democrat,20.8,53.2,32.4,3427,9.2,1989,986,Democrat,58.0,28.8
+New York,Rensselaer County,69368,36878,19135,Democrat,25.6,53.2,27.6,0,0.0,0,0,Republican,0,0
+New York,Columbia County,29843,16132,8366,Democrat,26.1,54.1,28.0,3176,10.6,2079,632,Democrat,65.5,19.9
+New York,Monroe County,337942,202496,83359,Democrat,35.2,59.9,24.7,0,0.0,0,0,Republican,0,0
+New York,Oswego County,46033,21880,16089,Democrat,12.5,47.5,35.0,0,0.0,0,0,Republican,0,0
+New York,Kings County,819052,619791,71408,Democrat,67.0,75.7,8.7,0,0.0,0,0,Republican,0,0
+New York,Nassau County,622973,378815,190331,Democrat,30.2,60.8,30.6,0,0.0,0,0,Republican,0,0
+New York,New York County,704206,527495,63149,Democrat,65.9,74.9,9.0,0,0.0,0,0,Republican,0,0
+New York,Westchester County,403181,269957,96003,Democrat,43.2,67.0,23.8,0,0.0,0,0,Republican,0,0
+New York,Allegany County,17864,6617,8525,Republican,10.7,37.0,47.7,0,0.0,0,0,Republican,0,0
+New York,Herkimer County,24640,11444,9093,Democrat,9.5,46.4,36.9,1869,7.6,962,645,Democrat,51.5,34.5
+New York,Oneida County,85634,42938,28330,Democrat,17.0,50.1,33.1,0,0.0,0,0,Republican,0,0
+New York,Washington County,23726,11276,8442,Democrat,11.9,47.5,35.6,0,0.0,0,0,Republican,0,0
+New York,Broome County,82275,45666,24761,Democrat,25.4,55.5,30.1,0,0.0,0,0,Republican,0,0
+New York,,9713,4464,3728,Democrat,7.6,46.0,38.4,0,0.0,0,0,Republican,0,0
+New York,Cattaraugus County,29443,12906,11516,Democrat,4.7,43.8,39.1,0,0.0,0,0,Republican,0,0
+New York,Wayne County,38495,16622,14848,Democrat,4.6,43.2,38.6,0,0.0,0,0,Republican,0,0
+New York,Suffolk County,650009,351084,213373,Democrat,21.2,54.0,32.8,0,0.0,0,0,Republican,0,0
+New York,Essex County,15964,7740,5975,Democrat,11.1,48.5,37.4,0,0.0,0,0,Republican,0,0
+New York,Erie County,410505,251370,91525,Democrat,38.9,61.2,22.3,0,0.0,0,0,Republican,0,0
+New York,Livingston County,28759,13061,11004,Democrat,7.1,45.4,38.3,0,0.0,0,0,Republican,0,0
+New York,Clinton County,30550,16422,9693,Democrat,22.1,53.8,31.7,0,0.0,0,0,Republican,0,0
+New York,Hamilton County,3074,1254,1407,Republican,5.0,40.8,45.8,0,0.0,0,0,Republican,0,0
+New York,Orleans County,16569,6041,6948,Republican,5.4,36.5,41.9,0,0.0,0,0,Republican,0,0
+New York,Warren County,30028,15479,9796,Democrat,18.9,51.5,32.6,0,0.0,0,0,Republican,0,0
+New York,Saratoga County,110726,57554,36535,Democrat,19.0,52.0,33.0,0,0.0,0,0,Republican,0,0
+New York,Genesee County,25181,10352,10121,Democrat,0.9,41.1,40.2,0,0.0,0,0,Republican,0,0
+New York,Steuben County,40204,14762,17288,Republican,6.3,36.7,43.0,3139,7.8,0,0,Republican,0.0,0.0
+Ohio,Hardin County,12028,2505,8852,Republican,52.8,20.8,73.6,0,0.0,0,0,Republican,0,0
+Ohio,Defiance County,17732,4908,11899,Republican,39.4,27.7,67.1,0,0.0,0,0,Republican,0,0
+Ohio,Seneca County,23530,6154,16097,Republican,42.2,26.2,68.4,0,0.0,0,0,Republican,0,0
+Ohio,Sandusky County,27619,7715,18075,Republican,37.5,27.9,65.4,0,0.0,0,0,Republican,0,0
+Ohio,Hocking County,12648,3753,8246,Republican,35.5,29.7,65.2,0,0.0,0,0,Republican,0,0
+Ohio,Licking County,81904,23345,54495,Republican,38.0,28.5,66.5,0,0.0,0,0,Republican,0,0
+Ohio,Union County,27045,5976,19868,Republican,51.4,22.1,73.5,0,0.0,0,0,Republican,0,0
+Ohio,Franklin County,568135,292165,252178,Democrat,7.0,51.4,44.4,0,0.0,0,0,Republican,0,0
+Ohio,Morrow County,16369,3453,11957,Republican,51.9,21.1,73.0,0,0.0,0,0,Republican,0,0
+Ohio,Fulton County,20858,5210,14605,Republican,45.0,25.0,70.0,0,0.0,0,0,Republican,0,0
+Ohio,Adams County,11125,2181,8489,Republican,56.7,19.6,76.3,0,0.0,0,0,Republican,0,0
+Ohio,Lake County,111918,37594,68348,Republican,27.5,33.6,61.1,0,0.0,0,0,Republican,0,0
+Ohio,Jefferson County,31339,10437,18957,Republican,27.2,33.3,60.5,0,0.0,0,0,Republican,0,0
+Ohio,Ashland County,23944,5083,17410,Republican,51.5,21.2,72.7,0,0.0,0,0,Republican,0,0
+Ohio,Wyandot County,10340,2124,7735,Republican,54.3,20.5,74.8,0,0.0,0,0,Republican,0,0
+Ohio,Monroe County,6622,2270,3981,Republican,25.8,34.3,60.1,0,0.0,0,0,Republican,0,0
+Ohio,Montgomery County,253824,98101,144700,Republican,18.4,38.6,57.0,0,0.0,0,0,Republican,0,0
+Ohio,Ashtabula County,40393,14097,23443,Republican,23.1,34.9,58.0,0,0.0,0,0,Republican,0,0
+Ohio,Coshocton County,15340,3565,10923,Republican,48.0,23.2,71.2,0,0.0,0,0,Republican,0,0
+Ohio,Athens County,27943,15077,11247,Democrat,13.8,54.0,40.2,0,0.0,0,0,Republican,0,0
+Ohio,Fairfield County,71856,21073,47649,Republican,37.0,29.3,66.3,0,0.0,0,0,Republican,0,0
+Ohio,Williams County,16973,3692,12224,Republican,50.2,21.8,72.0,0,0.0,0,0,Republican,0,0
+Ohio,Muskingum County,36469,8871,25944,Republican,46.8,24.3,71.1,0,0.0,0,0,Republican,0,0
+Ohio,Ross County,29793,9384,19018,Republican,32.3,31.5,63.8,0,0.0,0,0,Republican,0,0
+Ohio,Tuscarawas County,40546,11147,27032,Republican,39.2,27.5,66.7,0,0.0,0,0,Republican,0,0
+Ohio,Putnam County,18533,2538,15326,Republican,69.0,13.7,82.7,0,0.0,0,0,Republican,0,0
+Ohio,Erie County,37042,13610,21268,Republican,20.7,36.7,57.4,0,0.0,0,0,Republican,0,0
+Ohio,Wayne County,49025,12697,33604,Republican,42.6,25.9,68.5,0,0.0,0,0,Republican,0,0
+Ohio,Richland County,54484,15078,36357,Republican,39.0,27.7,66.7,0,0.0,0,0,Republican,0,0
+Ohio,Miami County,52119,9202,40745,Republican,60.5,17.7,78.2,0,0.0,0,0,Republican,0,0
+Ohio,Guernsey County,16219,3836,11639,Republican,48.1,23.7,71.8,0,0.0,0,0,Republican,0,0
+Ohio,Champaign County,17955,3796,13100,Republican,51.9,21.1,73.0,0,0.0,0,0,Republican,0,0
+Ohio,Lawrence County,25794,8269,16363,Republican,31.3,32.1,63.4,0,0.0,0,0,Republican,0,0
+Ohio,Highland County,18201,3521,13866,Republican,56.9,19.3,76.2,0,0.0,0,0,Republican,0,0
+Ohio,Jackson County,13455,3574,9310,Republican,42.6,26.6,69.2,0,0.0,0,0,Republican,0,0
+Ohio,Columbiana County,44798,11609,30416,Republican,42.0,25.9,67.9,0,0.0,0,0,Republican,0,0
+Ohio,Vinton County,5332,1546,3478,Republican,36.2,29.0,65.2,0,0.0,0,0,Republican,0,0
+Ohio,Meigs County,9580,2756,6415,Republican,38.2,28.8,67.0,0,0.0,0,0,Republican,0,0
+Ohio,Gallia County,12667,3523,8613,Republican,40.2,27.8,68.0,0,0.0,0,0,Republican,0,0
+Ohio,Shelby County,23486,3163,19370,Republican,69.0,13.5,82.5,0,0.0,0,0,Republican,0,0
+Ohio,Paulding County,8866,2576,5743,Republican,35.7,29.1,64.8,0,0.0,0,0,Republican,0,0
+Ohio,Mercer County,21442,2919,17812,Republican,69.5,13.6,83.1,0,0.0,0,0,Republican,0,0
+Ohio,Knox County,28501,7214,19775,Republican,44.1,25.3,69.4,0,0.0,0,0,Republican,0,0
+Ohio,Belmont County,30625,9305,19712,Republican,34.0,30.4,64.4,0,0.0,0,0,Republican,0,0
+Ohio,Ottawa County,21773,6608,14097,Republican,34.4,30.3,64.7,0,0.0,0,0,Republican,0,0
+Ohio,Cuyahoga County,578376,327680,222125,Democrat,18.3,56.7,38.4,0,0.0,0,0,Republican,0,0
+Ohio,Allen County,45047,10900,32085,Republican,47.0,24.2,71.2,0,0.0,0,0,Republican,0,0
+Ohio,Crawford County,18949,4113,13741,Republican,50.8,21.7,72.5,0,0.0,0,0,Republican,0,0
+Ohio,Lucas County,192294,95425,87961,Democrat,3.9,49.6,45.7,0,0.0,0,0,Republican,0,0
+Ohio,Van Wert County,13406,2727,9782,Republican,52.7,20.3,73.0,0,0.0,0,0,Republican,0,0
+Ohio,Scioto County,30661,10271,19336,Republican,29.6,33.5,63.1,0,0.0,0,0,Republican,0,0
+Ohio,Marion County,25848,7094,17058,Republican,38.6,27.4,66.0,0,0.0,0,0,Republican,0,0
+Ohio,Darke County,25073,3500,20524,Republican,67.9,14.0,81.9,0,0.0,0,0,Republican,0,0
+Ohio,Greene County,81385,22383,55612,Republican,40.8,27.5,68.3,0,0.0,0,0,Republican,0,0
+Ohio,Fayette County,11003,2442,8097,Republican,51.4,22.2,73.6,0,0.0,0,0,Republican,0,0
+Ohio,Carroll County,12752,2851,9011,Republican,48.3,22.4,70.7,0,0.0,0,0,Republican,0,0
+Ohio,Butler County,169772,45307,117597,Republican,42.6,26.7,69.3,0,0.0,0,0,Republican,0,0
+Ohio,Clermont County,98091,19062,74623,Republican,56.7,19.4,76.1,0,0.0,0,0,Republican,0,0
+Ohio,Perry County,14913,4066,10011,Republican,39.8,27.3,67.1,0,0.0,0,0,Republican,0,0
+Ohio,Washington County,29028,9676,18078,Republican,29.0,33.3,62.3,0,0.0,0,0,Republican,0,0
+Ohio,Wood County,63168,22393,37532,Republican,24.0,35.4,59.4,0,0.0,0,0,Republican,0,0
+Ohio,Warren County,114657,23827,85848,Republican,54.1,20.8,74.9,0,0.0,0,0,Republican,0,0
+Ohio,Geauga County,49514,13458,33807,Republican,41.1,27.2,68.3,0,0.0,0,0,Republican,0,0
+Ohio,Pickaway County,24412,5943,17387,Republican,46.9,24.3,71.2,0,0.0,0,0,Republican,0,0
+Ohio,Medina County,89228,25744,58835,Republican,37.0,28.9,65.9,0,0.0,0,0,Republican,0,0
+Ohio,Holmes County,10947,1575,8851,Republican,66.5,14.4,80.9,0,0.0,0,0,Republican,0,0
+Ohio,Clark County,60967,18384,39651,Republican,34.8,30.2,65.0,0,0.0,0,0,Republican,0,0
+Ohio,Morgan County,6317,1691,4336,Republican,41.8,26.8,68.6,0,0.0,0,0,Republican,0,0
+Ohio,Henry County,13758,3110,9976,Republican,49.9,22.6,72.5,0,0.0,0,0,Republican,0,0
+Ohio,Brown County,19174,3490,14824,Republican,59.1,18.2,77.3,0,0.0,0,0,Republican,0,0
+Ohio,Auglaize County,23374,3044,19414,Republican,70.1,13.0,83.1,0,0.0,0,0,Republican,0,0
+Ohio,Huron County,24304,6094,16493,Republican,42.8,25.1,67.9,0,0.0,0,0,Republican,0,0
+Ohio,Trumbull County,93861,38576,50252,Republican,12.4,41.1,53.5,0,0.0,0,0,Republican,0,0
+Ohio,Stark County,172436,58440,104011,Republican,26.4,33.9,60.3,0,0.0,0,0,Republican,0,0
+Ohio,Preble County,20316,3424,15900,Republican,61.4,16.9,78.3,0,0.0,0,0,Republican,0,0
+Ohio,Delaware County,102906,29801,69886,Republican,38.9,29.0,67.9,0,0.0,0,0,Republican,0,0
+Ohio,Hancock County,35425,7761,25928,Republican,51.3,21.9,73.2,0,0.0,0,0,Republican,0,0
+Ohio,Lorain County,137346,56032,73531,Republican,12.7,40.8,53.5,0,0.0,0,0,Republican,0,0
+Ohio,Portage County,73541,27492,41313,Republican,18.8,37.4,56.2,0,0.0,0,0,Republican,0,0
+Ohio,Clinton County,18389,3342,14311,Republican,59.6,18.2,77.8,0,0.0,0,0,Republican,0,0
+Ohio,Noble County,5758,1228,4259,Republican,52.7,21.3,74.0,0,0.0,0,0,Republican,0,0
+Ohio,Harrison County,6976,1823,4780,Republican,42.4,26.1,68.5,0,0.0,0,0,Republican,0,0
+Ohio,Logan County,21406,3556,16772,Republican,61.8,16.6,78.4,0,0.0,0,0,Republican,0,0
+Ohio,Summit County,249596,112591,123025,Republican,4.2,45.1,49.3,0,0.0,0,0,Republican,0,0
+Ohio,Madison County,17151,3895,12351,Republican,49.3,22.7,72.0,0,0.0,0,0,Republican,0,0
+Ohio,Pike County,11675,3839,7354,Republican,30.1,32.9,63.0,0,0.0,0,0,Republican,0,0
+Ohio,Hamilton County,402470,170427,216298,Republican,11.4,42.3,53.7,0,0.0,0,0,Republican,0,0
+Ohio,Mahoning County,112304,51211,55620,Republican,3.9,45.6,49.5,0,0.0,0,0,Republican,0,0
+Illinois,Edwards County,3192,727,2322,Republican,49.9,22.8,72.7,0,0.0,0,0,Republican,0,0
+Illinois,Crawford County,8542,2648,5455,Republican,32.9,31.0,63.9,0,0.0,0,0,Republican,0,0
+Illinois,Kendall County,53161,24035,25202,Republican,2.2,45.2,47.4,0,0.0,0,0,Republican,0,0
+Illinois,Scott County,2561,848,1606,Republican,29.6,33.1,62.7,0,0.0,0,0,Republican,0,0
+Illinois,Dekalb County,42869,20025,19355,Democrat,1.6,46.7,45.1,0,0.0,0,0,Republican,0,0
+Illinois,St. Clair County,120176,68709,45998,Democrat,18.9,57.2,38.3,0,0.0,0,0,Republican,0,0
+Illinois,Cumberland County,5504,1329,3797,Republican,44.9,24.1,69.0,0,0.0,0,0,Republican,0,0
+Illinois,Mason County,6393,2301,3708,Republican,22.0,36.0,58.0,0,0.0,0,0,Republican,0,0
+Illinois,Will County,299672,152790,127473,Democrat,8.5,51.0,42.5,0,0.0,0,0,Republican,0,0
+Illinois,Boone County,22606,8509,12520,Republican,17.8,37.6,55.4,0,0.0,0,0,Republican,0,0
+Illinois,Brown County,2273,794,1380,Republican,25.8,34.9,60.7,0,0.0,0,0,Republican,0,0
+Illinois,Menard County,6411,1773,4278,Republican,39.0,27.7,66.7,0,0.0,0,0,Republican,0,0
+Illinois,Clinton County,17170,6419,10049,Republican,21.1,37.4,58.5,0,0.0,0,0,Republican,0,0
+Illinois,Fayette County,9393,3201,5751,Republican,27.1,34.1,61.2,0,0.0,0,0,Republican,0,0
+Illinois,Richland County,7461,2208,4900,Republican,36.1,29.6,65.7,0,0.0,0,0,Republican,0,0
+Illinois,Moultrie County,6200,1574,4264,Republican,43.4,25.4,68.8,0,0.0,0,0,Republican,0,0
+Illinois,Clark County,7748,2394,4953,Republican,33.0,30.9,63.9,0,0.0,0,0,Republican,0,0
+Illinois,Montgomery County,12694,5367,6662,Republican,10.2,42.3,52.5,0,0.0,0,0,Republican,0,0
+Illinois,Rock Island County,62982,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Illinois,Carroll County,7329,2577,4354,Republican,24.2,35.2,59.4,0,0.0,0,0,Republican,0,0
+Illinois,Shelby County,10864,2733,7418,Republican,43.1,25.2,68.3,0,0.0,0,0,Republican,0,0
+Illinois,Ogle County,23932,7645,14768,Republican,29.8,31.9,61.7,0,0.0,0,0,Republican,0,0
+Illinois,Greene County,5414,2023,3064,Republican,19.2,37.4,56.6,0,0.0,0,0,Republican,0,0
+Illinois,Warren County,7726,3025,4184,Republican,15.0,39.2,54.2,0,0.0,0,0,Republican,0,0
+Illinois,Jefferson County,16601,6903,8790,Republican,11.3,41.6,52.9,0,0.0,0,0,Republican,0,0
+Illinois,Coles County,21457,7516,12555,Republican,23.5,35.0,58.5,0,0.0,0,0,Republican,0,0
+Illinois,Williamson County,31168,13518,16075,Republican,8.2,43.4,51.6,0,0.0,0,0,Republican,0,0
+Illinois,De Witt County,7475,1943,5009,Republican,41.0,26.0,67.0,0,0.0,0,0,Republican,0,0
+Illinois,Whiteside County,25212,11672,12149,Republican,1.9,46.3,48.2,0,0.0,0,0,Republican,0,0
+Illinois,Cass County,5024,1799,2917,Republican,22.3,35.8,58.1,0,0.0,0,0,Republican,0,0
+Illinois,Randolph County,13997,6119,7364,Republican,8.9,43.7,52.6,0,0.0,0,0,Republican,0,0
+Illinois,Stark County,2705,782,1760,Republican,36.2,28.9,65.1,0,0.0,0,0,Republican,0,0
+Illinois,Kankakee County,46567,20901,22850,Republican,4.2,44.9,49.1,0,0.0,0,0,Republican,0,0
+Illinois,Henry County,24048,9488,13214,Republican,15.4,39.5,54.9,0,0.0,0,0,Republican,0,0
+Illinois,Mchenry County,141566,58815,72296,Republican,9.6,41.5,51.1,0,0.0,0,0,Republican,0,0
+Illinois,Hancock County,8930,3394,5127,Republican,19.4,38.0,57.4,0,0.0,0,0,Republican,0,0
+Illinois,Pulaski County,2681,1394,1206,Democrat,7.0,52.0,45.0,0,0.0,0,0,Republican,0,0
+Illinois,Adams County,31735,12391,18094,Republican,18.0,39.0,57.0,0,0.0,0,0,Republican,0,0
+Illinois,Lasalle County,48634,22073,23471,Republican,2.9,45.4,48.3,0,0.0,0,0,Republican,0,0
+Illinois,Calhoun County,2477,1272,1131,Democrat,5.7,51.4,45.7,0,0.0,0,0,Republican,0,0
+Illinois,Jo Daviess County,11110,4525,5988,Republican,13.2,40.7,53.9,0,0.0,0,0,Republican,0,0
+Illinois,Iroquois County,12903,2755,9379,Republican,51.3,21.4,72.7,0,0.0,0,0,Republican,0,0
+Illinois,Jasper County,4949,1420,3312,Republican,38.2,28.7,66.9,0,0.0,0,0,Republican,0,0
+Illinois,Union County,8435,3843,4231,Republican,4.6,45.6,50.2,0,0.0,0,0,Republican,0,0
+Illinois,Stephenson County,20117,7411,11453,Republican,20.1,36.8,56.9,0,0.0,0,0,Republican,0,0
+Illinois,Bureau County,16239,6842,8434,Republican,9.8,42.1,51.9,0,0.0,0,0,Republican,0,0
+Illinois,Lake County,300526,150351,135334,Democrat,5.0,50.0,45.0,0,0.0,0,0,Republican,0,0
+Illinois,Bond County,7451,3203,3841,Republican,8.6,43.0,51.6,0,0.0,0,0,Republican,0,0
+Illinois,Pope County,2067,703,1279,Republican,27.9,34.0,61.9,0,0.0,0,0,Republican,0,0
+Illinois,Champaign County,89816,124,38731,Republican,43.0,0.1,43.1,0,0.0,0,0,Republican,0,0
+Illinois,Lee County,15266,5587,8640,Republican,20.0,36.6,56.6,0,0.0,0,0,Republican,0,0
+Illinois,Henderson County,3429,1407,1820,Republican,12.1,41.0,53.1,0,0.0,0,0,Republican,0,0
+Illinois,Peoria County,79263,36548,38169,Republican,2.1,46.1,48.2,0,0.0,0,0,Republican,0,0
+Illinois,Wabash County,5274,1541,3500,Republican,37.2,29.2,66.4,0,0.0,0,0,Republican,0,0
+Illinois,Douglas County,8077,1972,5599,Republican,44.9,24.4,69.3,0,0.0,0,0,Republican,0,0
+Illinois,Lawrence County,5890,1938,3701,Republican,29.9,32.9,62.8,0,0.0,0,0,Republican,0,0
+Illinois,Logan County,12249,3272,8236,Republican,40.5,26.7,67.2,0,0.0,0,0,Republican,0,0
+Illinois,Madison County,127684,64240,56665,Democrat,5.9,50.3,44.4,0,0.0,0,0,Republican,0,0
+Illinois,Marshall County,5898,1921,3588,Republican,28.2,32.6,60.8,0,0.0,0,0,Republican,0,0
+Illinois,Knox County,22218,10651,10350,Democrat,1.3,47.9,46.6,0,0.0,0,0,Republican,0,0
+Illinois,Christian County,15195,4876,9316,Republican,29.2,32.1,61.3,0,0.0,0,0,Republican,0,0
+Illinois,Massac County,6532,2461,3739,Republican,19.5,37.7,57.2,0,0.0,0,0,Republican,0,0
+Illinois,Perry County,9654,4279,4925,Republican,6.7,44.3,51.0,0,0.0,0,0,Republican,0,0
+Illinois,Alexander County,2723,1511,1121,Democrat,14.3,55.5,41.2,0,0.0,0,0,Republican,0,0
+Illinois,Woodford County,19606,5083,13291,Republican,41.9,25.9,67.8,0,0.0,0,0,Republican,0,0
+Illinois,Jersey County,10649,4233,5840,Republican,15.0,39.8,54.8,0,0.0,0,0,Republican,0,0
+Illinois,Sangamon County,97320,39928,51849,Republican,12.3,41.0,53.3,0,0.0,0,0,Republican,0,0
+Illinois,Putnam County,3013,1255,1587,Republican,11.0,41.7,52.7,0,0.0,0,0,Republican,0,0
+Illinois,Gallatin County,2560,1263,1209,Democrat,2.1,49.3,47.2,0,0.0,0,0,Republican,0,0
+Illinois,Fulton County,15600,6726,7702,Republican,6.3,43.1,49.4,0,0.0,0,0,Republican,0,0
+Illinois,Edgar County,7747,2027,5290,Republican,42.1,26.2,68.3,0,0.0,0,0,Republican,0,0
+Illinois,Washington County,7268,2553,4417,Republican,25.7,35.1,60.8,0,0.0,0,0,Republican,0,0
+Illinois,Pike County,7373,2654,4377,Republican,23.4,36.0,59.4,0,0.0,0,0,Republican,0,0
+Illinois,Kane County,197660,97088,87886,Democrat,4.6,49.1,44.5,0,0.0,0,0,Republican,0,0
+Illinois,Macon County,47400,18600,26114,Republican,15.9,39.2,55.1,0,0.0,0,0,Republican,0,0
+Illinois,Monroe County,19082,7458,10885,Republican,17.9,39.1,57.0,0,0.0,0,0,Republican,0,0
+Illinois,Tazewell County,64145,21215,38386,Republican,26.7,33.1,59.8,0,0.0,0,0,Republican,0,0
+Illinois,Mcdonough County,12911,6254,5917,Democrat,2.6,48.4,45.8,0,0.0,0,0,Republican,0,0
+Illinois,Saline County,10858,4797,5612,Republican,7.5,44.2,51.7,0,0.0,0,0,Republican,0,0
+Illinois,Macoupin County,21919,10264,10550,Republican,1.3,46.8,48.1,0,0.0,0,0,Republican,0,0
+Illinois,Schuyler County,3752,1612,1943,Republican,8.8,43.0,51.8,0,0.0,0,0,Republican,0,0
+Illinois,Clay County,6104,1917,3905,Republican,32.6,31.4,64.0,0,0.0,0,0,Republican,0,0
+Illinois,White County,7093,2408,4356,Republican,27.5,33.9,61.4,0,0.0,0,0,Republican,0,0
+Illinois,Livingston County,15159,4019,10169,Republican,40.6,26.5,67.1,0,0.0,0,0,Republican,0,0
+Illinois,Mercer County,8340,3391,4465,Republican,12.8,40.7,53.5,0,0.0,0,0,Republican,0,0
+Illinois,Effingham County,17287,3810,12520,Republican,50.4,22.0,72.4,0,0.0,0,0,Republican,0,0
+Illinois,Dupage County,425558,208669,193069,Democrat,3.6,49.0,45.4,0,0.0,0,0,Republican,0,0
+Illinois,Cook County,2132957,1499900,529781,Democrat,45.5,70.3,24.8,0,0.0,0,0,Republican,0,0
+Illinois,Jackson County,24166,13739,8938,Democrat,19.9,56.9,37.0,0,0.0,0,0,Republican,0,0
+Illinois,Vermilion County,30436,10511,18076,Republican,24.9,34.5,59.4,0,0.0,0,0,Republican,0,0
+Illinois,Hamilton County,3964,1628,2171,Republican,13.7,41.1,54.8,0,0.0,0,0,Republican,0,0
+Illinois,Mclean County,80261,33204,41579,Republican,10.4,41.4,51.8,0,0.0,0,0,Republican,0,0
+Illinois,Wayne County,7943,1924,5616,Republican,46.5,24.2,70.7,0,0.0,0,0,Republican,0,0
+Illinois,Hardin County,2072,865,1137,Republican,13.2,41.7,54.9,0,0.0,0,0,Republican,0,0
+Illinois,Winnebago County,118298,52730,57643,Republican,4.1,44.6,48.7,0,0.0,0,0,Republican,0,0
+Illinois,Franklin County,18343,8537,8894,Republican,2.0,46.5,48.5,0,0.0,0,0,Republican,0,0
+Illinois,Piatt County,8995,2563,5954,Republican,37.7,28.5,66.2,0,0.0,0,0,Republican,0,0
+Illinois,Grundy County,22853,9475,11624,Republican,9.4,41.5,50.9,0,0.0,0,0,Republican,0,0
+Illinois,Ford County,6333,1421,4507,Republican,48.8,22.4,71.2,0,0.0,0,0,Republican,0,0
+Illinois,Johnson County,5942,2056,3572,Republican,25.5,34.6,60.1,0,0.0,0,0,Republican,0,0
+Illinois,Marion County,16723,6827,9162,Republican,14.0,40.8,54.8,0,0.0,0,0,Republican,0,0
+Illinois,Morgan County,14647,4733,9112,Republican,29.9,32.3,62.2,0,0.0,0,0,Republican,0,0
+Colorado,Montrose County,20986,6055,13946,Republican,37.6,28.9,66.5,0,0.0,0,0,Republican,0,0
+Colorado,Baca County,2138,577,1469,Republican,41.7,27.0,68.7,0,0.0,0,0,Republican,0,0
+Colorado,Cheyenne County,1090,220,828,Republican,55.8,20.2,76.0,0,0.0,0,0,Republican,0,0
+Colorado,Park County,10377,3722,5937,Republican,21.3,35.9,57.2,0,0.0,0,0,Republican,0,0
+Colorado,Clear Creek County,5875,2883,2541,Democrat,5.8,49.1,43.3,0,0.0,0,0,Republican,0,0
+Colorado,Custer County,3060,944,1984,Republican,34.0,30.8,64.8,0,0.0,0,0,Republican,0,0
+Colorado,Lincoln County,2413,588,1742,Republican,47.8,24.4,72.2,0,0.0,0,0,Republican,0,0
+Colorado,Mineral County,658,301,326,Republican,3.8,45.7,49.5,0,0.0,0,0,Republican,0,0
+Colorado,Jefferson County,321371,163172,139237,Democrat,7.5,50.8,43.3,0,0.0,0,0,Republican,0,0
+Colorado,Lake County,3145,1704,1174,Democrat,16.9,54.2,37.3,0,0.0,0,0,Republican,0,0
+Colorado,Hinsdale County,586,246,316,Republican,11.9,42.0,53.9,0,0.0,0,0,Republican,0,0
+Colorado,Morgan County,11874,3910,7516,Republican,30.4,32.9,63.3,0,0.0,0,0,Republican,0,0
+Colorado,Phillips County,2316,695,1570,Republican,37.8,30.0,67.8,0,0.0,0,0,Republican,0,0
+Colorado,Saguache County,2849,1570,1042,Democrat,18.5,55.1,36.6,0,0.0,0,0,Republican,0,0
+Colorado,Moffat County,6395,1338,4786,Republican,53.9,20.9,74.8,0,0.0,0,0,Republican,0,0
+Colorado,Broomfield County,36617,19431,15077,Democrat,11.9,53.1,41.2,0,0.0,0,0,Republican,0,0
+Colorado,Garfield County,26201,12039,12596,Republican,2.2,45.9,48.1,0,0.0,0,0,Republican,0,0
+Colorado,Teller County,14330,4064,9547,Republican,38.2,28.4,66.6,0,0.0,0,0,Republican,0,0
+Colorado,Kit Carson County,3631,894,2607,Republican,47.2,24.6,71.8,0,0.0,0,0,Republican,0,0
+Colorado,Grand County,8566,3623,4402,Republican,9.1,42.3,51.4,0,0.0,0,0,Republican,0,0
+Colorado,Pueblo County,77819,40475,33051,Democrat,9.5,52.0,42.5,0,0.0,0,0,Republican,0,0
+Colorado,Rio Grande County,5573,2372,2974,Republican,10.8,42.6,53.4,0,0.0,0,0,Republican,0,0
+Colorado,Summit County,15914,9536,5178,Democrat,27.4,59.9,32.5,0,0.0,0,0,Republican,0,0
+Colorado,Huerfano County,3789,1942,1694,Democrat,6.6,51.3,44.7,0,0.0,0,0,Republican,0,0
+Colorado,Elbert County,15913,3684,11558,Republican,49.4,23.2,72.6,0,0.0,0,0,Republican,0,0
+Colorado,El Paso County,316719,113726,183709,Republican,22.1,35.9,58.0,0,0.0,0,0,Republican,0,0
+Colorado,Montezuma County,12599,4305,7484,Republican,25.2,34.2,59.4,0,0.0,0,0,Republican,0,0
+Colorado,Dolores County,1205,338,808,Republican,39.1,28.0,67.1,0,0.0,0,0,Republican,0,0
+Colorado,San Miguel County,4308,2951,1055,Democrat,44.0,68.5,24.5,0,0.0,0,0,Republican,0,0
+Colorado,Costilla County,1823,1186,547,Democrat,35.1,65.1,30.0,0,0.0,0,0,Republican,0,0
+Colorado,Routt County,13780,7793,5265,Democrat,18.4,56.6,38.2,0,0.0,0,0,Republican,0,0
+Colorado,Fremont County,21954,6671,14154,Republican,34.1,30.4,64.5,0,0.0,0,0,Republican,0,0
+Colorado,Delta County,16761,4916,10970,Republican,36.1,29.3,65.4,0,0.0,0,0,Republican,0,0
+Colorado,Denver County,327293,238774,71078,Democrat,51.3,73.0,21.7,0,0.0,0,0,Republican,0,0
+Colorado,Kiowa County,838,196,621,Republican,50.7,23.4,74.1,0,0.0,0,0,Republican,0,0
+Colorado,Otero County,8533,3651,4561,Republican,10.7,42.8,53.5,0,0.0,0,0,Republican,0,0
+Colorado,Sedgwick County,1340,426,863,Republican,32.6,31.8,64.4,0,0.0,0,0,Republican,0,0
+Colorado,La Plata County,30638,15903,12678,Democrat,10.5,51.9,41.4,0,0.0,0,0,Republican,0,0
+Colorado,Douglas County,186384,70005,107920,Republican,20.3,37.6,57.9,0,0.0,0,0,Republican,0,0
+Colorado,Boulder County,185820,126334,45755,Democrat,43.4,68.0,24.6,0,0.0,0,0,Republican,0,0
+Colorado,Adams County,184996,97402,76285,Democrat,11.5,52.7,41.2,0,0.0,0,0,Republican,0,0
+Colorado,Weld County,134383,52263,74843,Republican,16.8,38.9,55.7,0,0.0,0,0,Republican,0,0
+Colorado,Rio Blanco County,3375,600,2641,Republican,60.5,17.8,78.3,0,0.0,0,0,Republican,0,0
+Colorado,Archuleta County,7252,2750,4072,Republican,18.3,37.9,56.2,0,0.0,0,0,Republican,0,0
+Colorado,Crowley County,1518,504,936,Republican,28.5,33.2,61.7,0,0.0,0,0,Republican,0,0
+Colorado,Alamosa County,6972,3695,2894,Democrat,11.5,53.0,41.5,0,0.0,0,0,Republican,0,0
+Colorado,Yuma County,4762,1252,3386,Republican,44.8,26.3,71.1,0,0.0,0,0,Republican,0,0
+Colorado,Mesa County,77268,24109,48559,Republican,31.6,31.2,62.8,0,0.0,0,0,Republican,0,0
+Colorado,Arapahoe County,301361,162747,123509,Democrat,13.0,54.0,41.0,0,0.0,0,0,Republican,0,0
+Colorado,Washington County,2702,527,2092,Republican,57.9,19.5,77.4,0,0.0,0,0,Republican,0,0
+Colorado,Conejos County,4056,2073,1878,Democrat,4.8,51.1,46.3,0,0.0,0,0,Republican,0,0
+Colorado,San Juan County,498,279,193,Democrat,17.2,56.0,38.8,0,0.0,0,0,Republican,0,0
+Colorado,Larimer County,193866,95789,86101,Democrat,5.0,49.4,44.4,0,0.0,0,0,Republican,0,0
+Colorado,Prowers County,4945,1648,3110,Republican,29.6,33.3,62.9,0,0.0,0,0,Republican,0,0
+Colorado,Logan County,9666,2768,6534,Republican,39.0,28.6,67.6,0,0.0,0,0,Republican,0,0
+Colorado,Pitkin County,10020,6847,2656,Democrat,41.8,68.3,26.5,0,0.0,0,0,Republican,0,0
+Colorado,Gilpin County,3581,1729,1503,Democrat,6.3,48.3,42.0,0,0.0,0,0,Republican,0,0
+Colorado,Jackson County,854,235,583,Republican,40.8,27.5,68.3,0,0.0,0,0,Republican,0,0
+Colorado,Las Animas County,6774,3305,3174,Democrat,1.9,48.8,46.9,0,0.0,0,0,Republican,0,0
+Colorado,Ouray County,3309,1735,1397,Democrat,10.2,52.4,42.2,0,0.0,0,0,Republican,0,0
+Colorado,Gunnison County,9392,5517,3216,Democrat,24.5,58.7,34.2,0,0.0,0,0,Republican,0,0
+Colorado,Chaffee County,11261,5259,5384,Republican,1.1,46.7,47.8,0,0.0,0,0,Republican,0,0
+Colorado,Eagle County,24819,13707,8772,Democrat,19.9,55.2,35.3,0,0.0,0,0,Republican,0,0
+Colorado,Bent County,1918,810,1034,Republican,11.7,42.2,53.9,0,0.0,0,0,Republican,0,0
+Louisiana,St. Martin Parish,24160,5828,16911,Republican,45.9,24.1,70.0,0,0.0,0,0,Republican,0,0
+Louisiana,East Carroll Parish,2723,1550,1084,Democrat,17.1,56.9,39.8,0,0.0,0,0,Republican,0,0
+Louisiana,De Soto Parish,12925,4922,7825,Republican,22.4,38.1,60.5,0,0.0,0,0,Republican,0,0
+Louisiana,St. Bernard Parish,15029,4801,9766,Republican,33.1,31.9,65.0,0,0.0,0,0,Republican,0,0
+Louisiana,East Feliciana Parish,9586,3817,5568,Republican,18.3,39.8,58.1,0,0.0,0,0,Republican,0,0
+Louisiana,Avoyelles Parish,15208,4489,10228,Republican,37.8,29.5,67.3,0,0.0,0,0,Republican,0,0
+Louisiana,Lincoln Parish,17771,6790,10545,Republican,21.1,38.2,59.3,0,0.0,0,0,Republican,0,0
+Louisiana,St. James Parish,11247,5680,5328,Democrat,3.1,50.5,47.4,0,0.0,0,0,Republican,0,0
+Louisiana,Red River Parish,4186,1913,2192,Republican,6.7,45.7,52.4,0,0.0,0,0,Republican,0,0
+Louisiana,Ouachita Parish,64714,22882,40680,Republican,27.5,35.4,62.9,0,0.0,0,0,Republican,0,0
+Louisiana,Beauregard Parish,14528,2261,11952,Republican,66.7,15.6,82.3,0,0.0,0,0,Republican,0,0
+Louisiana,Sabine Parish,9308,1873,7300,Republican,58.3,20.1,78.4,0,0.0,0,0,Republican,0,0
+Louisiana,Cameron Parish,3574,299,3205,Republican,81.3,8.4,89.7,0,0.0,0,0,Republican,0,0
+Louisiana,Lasalle Parish,6279,777,5391,Republican,73.5,12.4,85.9,0,0.0,0,0,Republican,0,0
+Louisiana,West Baton Rouge Parish,12167,5077,6832,Republican,14.5,41.7,56.2,0,0.0,0,0,Republican,0,0
+Louisiana,Jefferson Davis Parish,13838,2579,10937,Republican,60.4,18.6,79.0,0,0.0,0,0,Republican,0,0
+Louisiana,Tensas Parish,2302,1163,1094,Democrat,3.0,50.5,47.5,0,0.0,0,0,Republican,0,0
+Louisiana,Tangipahoa Parish,49936,15518,31854,Republican,32.7,31.1,63.8,0,0.0,0,0,Republican,0,0
+Louisiana,Webster Parish,17490,6263,10992,Republican,27.0,35.8,62.8,0,0.0,0,0,Republican,0,0
+Louisiana,Vernon Parish,15798,2597,12777,Republican,64.5,16.4,80.9,0,0.0,0,0,Republican,0,0
+Louisiana,Bienville Parish,6658,3108,3439,Republican,5.0,46.7,51.7,0,0.0,0,0,Republican,0,0
+Louisiana,Jackson Parish,7087,2193,4776,Republican,36.5,30.9,67.4,0,0.0,0,0,Republican,0,0
+Louisiana,Washington Parish,17700,5122,12081,Republican,39.4,28.9,68.3,0,0.0,0,0,Republican,0,0
+Louisiana,Iberville Parish,14824,7191,7214,Republican,0.2,48.5,48.7,0,0.0,0,0,Republican,0,0
+Louisiana,Lafourche Parish,39674,8187,30260,Republican,55.7,20.6,76.3,0,0.0,0,0,Republican,0,0
+Louisiana,Richland Parish,9042,2960,5923,Republican,32.8,32.7,65.5,0,0.0,0,0,Republican,0,0
+Louisiana,Pointe Coupee Parish,11088,4362,6499,Republican,19.3,39.3,58.6,0,0.0,0,0,Republican,0,0
+Louisiana,Allen Parish,8836,1999,6613,Republican,52.2,22.6,74.8,0,0.0,0,0,Republican,0,0
+Louisiana,Jefferson Parish,172481,63235,104236,Republican,23.7,36.7,60.4,0,0.0,0,0,Republican,0,0
+Louisiana,West Feliciana Parish,5546,1964,3468,Republican,27.1,35.4,62.5,0,0.0,0,0,Republican,0,0
+Louisiana,Vermilion Parish,24600,3773,19857,Republican,65.4,15.3,80.7,0,0.0,0,0,Republican,0,0
+Louisiana,Grant Parish,8383,1202,6971,Republican,68.9,14.3,83.2,0,0.0,0,0,Republican,0,0
+Louisiana,Morehouse Parish,11007,4641,6171,Republican,13.9,42.2,56.1,0,0.0,0,0,Republican,0,0
+Louisiana,Evangeline Parish,13656,3255,9990,Republican,49.4,23.8,73.2,0,0.0,0,0,Republican,0,0
+Louisiana,Iberia Parish,30418,7882,19636,Republican,38.7,25.9,64.6,0,0.0,0,0,Republican,0,0
+Louisiana,West Carroll Parish,4482,820,3603,Republican,62.1,18.3,80.4,0,0.0,0,0,Republican,0,0
+Louisiana,Rapides Parish,53592,16220,35892,Republican,36.7,30.3,67.0,0,0.0,0,0,Republican,0,0
+Louisiana,St. Tammany Parish,120428,25249,92502,Republican,55.8,21.0,76.8,0,0.0,0,0,Republican,0,0
+Louisiana,Franklin Parish,8646,2388,6096,Republican,42.9,27.6,70.5,0,0.0,0,0,Republican,0,0
+Louisiana,Acadia Parish,26389,4346,21529,Republican,65.1,16.5,81.6,0,0.0,0,0,Republican,0,0
+Louisiana,Madison Parish,4303,2283,1896,Democrat,9.0,53.1,44.1,0,0.0,0,0,Republican,0,0
+Louisiana,Ascension Parish,52387,15414,35503,Republican,38.4,29.4,67.8,0,0.0,0,0,Republican,0,0
+Louisiana,Caddo Parish,100315,49024,49237,Republican,0.2,48.9,49.1,0,0.0,0,0,Republican,0,0
+Louisiana,Claiborne Parish,6044,2403,3538,Republican,18.7,39.8,58.5,0,0.0,0,0,Republican,0,0
+Louisiana,Winn Parish,5989,1631,4205,Republican,43.0,27.2,70.2,0,0.0,0,0,Republican,0,0
+Louisiana,St. Charles Parish,24844,7690,16579,Republican,35.7,31.0,66.7,0,0.0,0,0,Republican,0,0
+Louisiana,Catahoula Parish,4511,1297,3110,Republican,40.1,28.8,68.9,0,0.0,0,0,Republican,0,0
+Louisiana,East Baton Rouge Parish,190562,93909,92275,Democrat,0.9,49.3,48.4,0,0.0,0,0,Republican,0,0
+Louisiana,Livingston Parish,55799,8496,45837,Republican,66.9,15.2,82.1,0,0.0,0,0,Republican,0,0
+Louisiana,Bossier Parish,47870,12888,34108,Republican,44.4,26.9,71.3,0,0.0,0,0,Republican,0,0
+Louisiana,St. Helena Parish,5585,2902,2320,Democrat,10.5,52.0,41.5,0,0.0,0,0,Republican,0,0
+Louisiana,Assumption Parish,10080,3583,6210,Republican,26.1,35.5,61.6,0,0.0,0,0,Republican,0,0
+Louisiana,Calcasieu Parish,80786,21734,57152,Republican,43.8,26.9,70.7,0,0.0,0,0,Republican,0,0
+Louisiana,Lafayette Parish,101826,25242,73813,Republican,47.7,24.8,72.5,0,0.0,0,0,Republican,0,0
+Louisiana,St. Mary Parish,21472,6827,13758,Republican,32.3,31.8,64.1,0,0.0,0,0,Republican,0,0
+Louisiana,Orleans Parish,157333,119106,34282,Democrat,53.9,75.7,21.8,0,0.0,0,0,Republican,0,0
+Louisiana,Terrebonne Parish,41720,9599,30600,Republican,50.3,23.0,73.3,0,0.0,0,0,Republican,0,0
+Louisiana,Natchitoches Parish,15759,6849,8536,Republican,10.7,43.5,54.2,0,0.0,0,0,Republican,0,0
+Louisiana,St. Landry Parish,37067,12843,23242,Republican,28.1,34.6,62.7,0,0.0,0,0,Republican,0,0
+Louisiana,Plaquemines Parish,10091,2850,6930,Republican,40.5,28.2,68.7,0,0.0,0,0,Republican,0,0
+Louisiana,St. John The Baptist Parish,19237,10958,7798,Democrat,16.5,57.0,40.5,0,0.0,0,0,Republican,0,0
+Louisiana,Union Parish,10312,2678,7445,Republican,46.2,26.0,72.2,0,0.0,0,0,Republican,0,0
+Louisiana,Concordia Parish,7935,2924,4841,Republican,24.2,36.8,61.0,0,0.0,0,0,Republican,0,0
+Louisiana,Caldwell Parish,4502,982,3457,Republican,55.0,21.8,76.8,0,0.0,0,0,Republican,0,0
+Missouri,St. Charles County,200749,88238,103946,Republican,7.8,44.0,51.8,0,0.0,0,0,Republican,0,0
+Missouri,Bates County,7975,2866,4630,Republican,22.2,35.9,58.1,0,0.0,0,0,Republican,0,0
+Missouri,Marion County,12852,4115,8239,Republican,32.1,32.0,64.1,0,0.0,0,0,Republican,0,0
+Missouri,New Madrid County,7254,2844,4157,Republican,18.1,39.2,57.3,0,0.0,0,0,Republican,0,0
+Missouri,Clark County,3277,1059,2037,Republican,29.9,32.3,62.2,0,0.0,0,0,Republican,0,0
+Missouri,Perry County,8592,2637,5599,Republican,34.5,30.7,65.2,0,0.0,0,0,Republican,0,0
+Missouri,Morgan County,8768,2916,5410,Republican,28.4,33.3,61.7,0,0.0,0,0,Republican,0,0
+Missouri,Phelps County,18532,6576,11063,Republican,24.2,35.5,59.7,0,0.0,0,0,Republican,0,0
+Missouri,Mississippi County,5068,2063,2826,Republican,15.1,40.7,55.8,0,0.0,0,0,Republican,0,0
+Missouri,Howard County,4834,1928,2671,Republican,15.4,39.9,55.3,0,0.0,0,0,Republican,0,0
+Missouri,Callaway County,19187,7084,10983,Republican,20.3,36.9,57.2,0,0.0,0,0,Republican,0,0
+Missouri,St. Francois County,24589,10117,13110,Republican,12.2,41.1,53.3,0,0.0,0,0,Republican,0,0
+Missouri,Miller County,11333,3032,7760,Republican,41.7,26.8,68.5,0,0.0,0,0,Republican,0,0
+Missouri,Lafayette County,15865,6150,8812,Republican,16.7,38.8,55.5,0,0.0,0,0,Republican,0,0
+Missouri,Lincoln County,24800,9264,14061,Republican,19.3,37.4,56.7,0,0.0,0,0,Republican,0,0
+Missouri,Iron County,4227,1671,2329,Republican,15.6,39.5,55.1,0,0.0,0,0,Republican,0,0
+Missouri,Polk County,13861,3605,9693,Republican,43.9,26.0,69.9,0,0.0,0,0,Republican,0,0
+Missouri,Carroll County,4343,1290,2875,Republican,36.5,29.7,66.2,0,0.0,0,0,Republican,0,0
+Missouri,Moniteau County,6787,2097,4431,Republican,34.4,30.9,65.3,0,0.0,0,0,Republican,0,0
+Missouri,Carter County,2785,742,1908,Republican,41.9,26.6,68.5,0,0.0,0,0,Republican,0,0
+Missouri,Boone County,83071,45100,34171,Democrat,13.2,54.3,41.1,0,0.0,0,0,Republican,0,0
+Missouri,Vernon County,8551,2700,5448,Republican,32.1,31.6,63.7,0,0.0,0,0,Republican,0,0
+Missouri,Pettis County,17991,6657,10361,Republican,20.6,37.0,57.6,0,0.0,0,0,Republican,0,0
+Missouri,Clay County,110098,55322,49173,Democrat,5.5,50.2,44.7,0,0.0,0,0,Republican,0,0
+Missouri,Clinton County,10223,3990,5614,Republican,15.9,39.0,54.9,0,0.0,0,0,Republican,0,0
+Missouri,Jefferson County,105710,46975,53218,Republican,5.9,44.4,50.3,0,0.0,0,0,Republican,0,0
+Missouri,Scott County,17132,5439,11040,Republican,32.7,31.7,64.4,0,0.0,0,0,Republican,0,0
+Missouri,Grundy County,4435,1325,2898,Republican,35.4,29.9,65.3,0,0.0,0,0,Republican,0,0
+Missouri,St. Louis County,515813,308925,189726,Democrat,23.1,59.9,36.8,0,0.0,0,0,Republican,0,0
+Missouri,Platte County,49039,23795,22929,Democrat,1.7,48.5,46.8,0,0.0,0,0,Republican,0,0
+Missouri,Texas County,10935,2829,7619,Republican,43.8,25.9,69.7,0,0.0,0,0,Republican,0,0
+Missouri,Atchison County,2675,704,1861,Republican,43.3,26.3,69.6,0,0.0,0,0,Republican,0,0
+Missouri,Laclede County,16044,3965,11316,Republican,45.8,24.7,70.5,0,0.0,0,0,Republican,0,0
+Missouri,Pemiscot County,5854,2203,3476,Republican,21.8,37.6,59.4,0,0.0,0,0,Republican,0,0
+Missouri,Camden County,22427,6995,14434,Republican,33.2,31.2,64.4,0,0.0,0,0,Republican,0,0
+Missouri,Cass County,50874,20628,27532,Republican,13.6,40.5,54.1,0,0.0,0,0,Republican,0,0
+Missouri,Jasper County,48414,13799,32123,Republican,37.9,28.5,66.4,0,0.0,0,0,Republican,0,0
+Missouri,Webster County,16799,4612,11450,Republican,40.7,27.5,68.2,0,0.0,0,0,Republican,0,0
+Missouri,Washington County,9173,3516,5083,Republican,17.1,38.3,55.4,0,0.0,0,0,Republican,0,0
+Missouri,Montgomery County,5417,1722,3405,Republican,31.1,31.8,62.9,0,0.0,0,0,Republican,0,0
+Missouri,Stoddard County,13229,3426,9318,Republican,44.5,25.9,70.4,0,0.0,0,0,Republican,0,0
+Missouri,Cedar County,6295,1541,4445,Republican,46.1,24.5,70.6,0,0.0,0,0,Republican,0,0
+Missouri,Sullivan County,2472,735,1662,Republican,37.5,29.7,67.2,0,0.0,0,0,Republican,0,0
+Missouri,Livingston County,6347,2208,3834,Republican,25.6,34.8,60.4,0,0.0,0,0,Republican,0,0
+Missouri,Bollinger County,5608,1379,4016,Republican,47.0,24.6,71.6,0,0.0,0,0,Republican,0,0
+Missouri,Cole County,37476,14216,21940,Republican,20.6,37.9,58.5,0,0.0,0,0,Republican,0,0
+Missouri,Ralls County,5201,1763,3220,Republican,28.0,33.9,61.9,0,0.0,0,0,Republican,0,0
+Missouri,Putnam County,2281,486,1708,Republican,53.6,21.3,74.9,0,0.0,0,0,Republican,0,0
+Missouri,Caldwell County,4314,1517,2513,Republican,23.1,35.2,58.3,0,0.0,0,0,Republican,0,0
+Missouri,Mcdonald County,8176,1793,5812,Republican,49.2,21.9,71.1,0,0.0,0,0,Republican,0,0
+Missouri,Linn County,5565,2058,3245,Republican,21.3,37.0,58.3,0,0.0,0,0,Republican,0,0
+Missouri,Dunklin County,10371,3433,6536,Republican,29.9,33.1,63.0,0,0.0,0,0,Republican,0,0
+Missouri,Macon County,7551,2323,4894,Republican,34.0,30.8,64.8,0,0.0,0,0,Republican,0,0
+Missouri,Monroe County,4109,1330,2584,Republican,30.5,32.4,62.9,0,0.0,0,0,Republican,0,0
+Missouri,Douglas County,6665,1556,4753,Republican,48.0,23.3,71.3,0,0.0,0,0,Republican,0,0
+Missouri,Ste. Genevieve County,8390,3929,4096,Republican,2.0,46.8,48.8,0,0.0,0,0,Republican,0,0
+Missouri,Pike County,7352,2872,4084,Republican,16.4,39.1,55.5,0,0.0,0,0,Republican,0,0
+Missouri,Barton County,5911,1231,4479,Republican,55.0,20.8,75.8,0,0.0,0,0,Republican,0,0
+Missouri,Benton County,9522,3097,5891,Republican,29.4,32.5,61.9,0,0.0,0,0,Republican,0,0
+Missouri,Holt County,2333,629,1614,Republican,42.2,27.0,69.2,0,0.0,0,0,Republican,0,0
+Missouri,Hickory County,4702,1490,2959,Republican,31.2,31.7,62.9,0,0.0,0,0,Republican,0,0
+Missouri,Saline County,9241,4061,4613,Republican,6.0,43.9,49.9,0,0.0,0,0,Republican,0,0
+Missouri,Ripley County,5383,1340,3814,Republican,46.0,24.9,70.9,0,0.0,0,0,Republican,0,0
+Missouri,Buchanan County,35602,16103,17658,Republican,4.4,45.2,49.6,0,0.0,0,0,Republican,0,0
+Missouri,Scotland County,1940,570,1283,Republican,36.7,29.4,66.1,0,0.0,0,0,Republican,0,0
+Missouri,Dade County,3945,969,2810,Republican,46.6,24.6,71.2,0,0.0,0,0,Republican,0,0
+Missouri,Oregon County,4631,1385,3031,Republican,35.6,29.9,65.5,0,0.0,0,0,Republican,0,0
+Missouri,Reynolds County,2939,1009,1780,Republican,26.3,34.3,60.6,0,0.0,0,0,Republican,0,0
+Missouri,Warren County,15731,5928,8918,Republican,19.0,37.7,56.7,0,0.0,0,0,Republican,0,0
+Missouri,Schuyler County,1903,547,1259,Republican,37.5,28.7,66.2,0,0.0,0,0,Republican,0,0
+Missouri,Ray County,10809,4725,5415,Republican,6.4,43.7,50.1,0,0.0,0,0,Republican,0,0
+Missouri,Randolph County,10358,3656,6135,Republican,23.9,35.3,59.2,0,0.0,0,0,Republican,0,0
+Missouri,Maries County,4494,1339,2978,Republican,36.5,29.8,66.3,0,0.0,0,0,Republican,0,0
+Missouri,Gasconade County,7420,2319,4743,Republican,32.6,31.3,63.9,0,0.0,0,0,Republican,0,0
+Missouri,Lawrence County,16692,4336,11525,Republican,43.0,26.0,69.0,0,0.0,0,0,Republican,0,0
+Missouri,Pulaski County,13429,4065,8663,Republican,34.2,30.3,64.5,0,0.0,0,0,Republican,0,0
+Missouri,Wright County,8091,1836,5930,Republican,50.6,22.7,73.3,0,0.0,0,0,Republican,0,0
+Missouri,Newton County,26612,6691,18598,Republican,44.8,25.1,69.9,0,0.0,0,0,Republican,0,0
+Missouri,Crawford County,9831,3144,6163,Republican,30.7,32.0,62.7,0,0.0,0,0,Republican,0,0
+Missouri,Howell County,17339,4375,12070,Republican,44.4,25.2,69.6,0,0.0,0,0,Republican,0,0
+Missouri,Ozark County,4470,1113,3085,Republican,44.1,24.9,69.0,0,0.0,0,0,Republican,0,0
+Missouri,Madison County,5289,1766,3203,Republican,27.2,33.4,60.6,0,0.0,0,0,Republican,0,0
+Missouri,Gentry County,3015,1025,1860,Republican,27.7,34.0,61.7,0,0.0,0,0,Republican,0,0
+Missouri,St. Louis City,130967,107070,19586,Democrat,66.8,81.8,15.0,0,0.0,0,0,Republican,0,0
+Missouri,Johnson County,21156,8315,11611,Republican,15.6,39.3,54.9,0,0.0,0,0,Republican,0,0
+Missouri,Audrain County,10000,3680,5726,Republican,20.5,36.8,57.3,0,0.0,0,0,Republican,0,0
+Missouri,Butler County,16995,4543,11764,Republican,42.5,26.7,69.2,0,0.0,0,0,Republican,0,0
+Missouri,Christian County,41556,11857,27812,Republican,38.4,28.5,66.9,0,0.0,0,0,Republican,0,0
+Missouri,Shelby County,3218,989,2129,Republican,35.5,30.7,66.2,0,0.0,0,0,Republican,0,0
+Missouri,Worth County,1034,321,667,Republican,33.5,31.0,64.5,0,0.0,0,0,Republican,0,0
+Missouri,St. Clair County,4654,1460,2941,Republican,31.8,31.4,63.2,0,0.0,0,0,Republican,0,0
+Missouri,Daviess County,3731,1266,2213,Republican,25.4,33.9,59.3,0,0.0,0,0,Republican,0,0
+Missouri,Cooper County,7972,2920,4668,Republican,22.0,36.6,58.6,0,0.0,0,0,Republican,0,0
+Missouri,Harrison County,3665,1053,2415,Republican,37.2,28.7,65.9,0,0.0,0,0,Republican,0,0
+Missouri,Barry County,14645,3864,10059,Republican,42.3,26.4,68.7,0,0.0,0,0,Republican,0,0
+Missouri,Lewis County,4418,1472,2732,Republican,28.5,33.3,61.8,0,0.0,0,0,Republican,0,0
+Missouri,Dent County,6767,1795,4653,Republican,42.3,26.5,68.8,0,0.0,0,0,Republican,0,0
+Missouri,Taney County,23358,6143,16117,Republican,42.7,26.3,69.0,0,0.0,0,0,Republican,0,0
+Missouri,Dallas County,7428,1980,5101,Republican,42.0,26.7,68.7,0,0.0,0,0,Republican,0,0
+Missouri,Nodaway County,9405,3466,5516,Republican,21.7,36.9,58.6,0,0.0,0,0,Republican,0,0
+Missouri,Franklin County,49952,19102,28258,Republican,18.4,38.2,56.6,0,0.0,0,0,Republican,0,0
+Missouri,Mercer County,1701,396,1231,Republican,49.1,23.3,72.4,0,0.0,0,0,Republican,0,0
+Missouri,Stone County,16522,4162,11620,Republican,45.1,25.2,70.3,0,0.0,0,0,Republican,0,0
+Missouri,Dekalb County,4571,1478,2826,Republican,29.5,32.3,61.8,0,0.0,0,0,Republican,0,0
+Missouri,Chariton County,3960,1465,2322,Republican,21.6,37.0,58.6,0,0.0,0,0,Republican,0,0
+Missouri,Cape Girardeau County,36815,11219,24173,Republican,35.2,30.5,65.7,0,0.0,0,0,Republican,0,0
+Missouri,Henry County,9853,3785,5500,Republican,17.4,38.4,55.8,0,0.0,0,0,Republican,0,0
+Missouri,Adair County,10201,4198,5603,Republican,13.7,41.2,54.9,0,0.0,0,0,Republican,0,0
+Missouri,Greene County,129827,50967,72993,Republican,16.9,39.3,56.2,0,0.0,0,0,Republican,0,0
+Missouri,Andrew County,9102,3122,5610,Republican,27.3,34.3,61.6,0,0.0,0,0,Republican,0,0
+Missouri,Jackson County,172676,85664,77941,Democrat,4.5,49.6,45.1,0,0.0,0,0,Republican,0,0
+Missouri,,128699,100102,24048,Democrat,59.1,77.8,18.7,0,0.0,0,0,Republican,0,0
+Missouri,Wayne County,5636,1706,3636,Republican,34.2,30.3,64.5,0,0.0,0,0,Republican,0,0
+Missouri,Osage County,7064,2039,4789,Republican,38.9,28.9,67.8,0,0.0,0,0,Republican,0,0
+Missouri,Shannon County,3876,1234,2436,Republican,31.0,31.8,62.8,0,0.0,0,0,Republican,0,0
+Missouri,Knox County,1825,558,1208,Republican,35.6,30.6,66.2,0,0.0,0,0,Republican,0,0
+Vermont,Caledonia County,14074,7348,5910,Democrat,10.2,52.2,42.0,0,0.0,0,0,Republican,0,0
+Vermont,Bennington County,17249,10246,5527,Democrat,27.4,59.4,32.0,0,0.0,0,0,Republican,0,0
+Vermont,Franklin County,21478,11948,8526,Democrat,15.9,55.6,39.7,0,0.0,0,0,Republican,0,0
+Vermont,Windsor County,29797,18034,9813,Democrat,27.6,60.5,32.9,0,0.0,0,0,Republican,0,0
+Vermont,Essex County,2891,1324,1356,Republican,1.1,45.8,46.9,0,0.0,0,0,Republican,0,0
+Vermont,Grand Isle County,4110,2363,1556,Democrat,19.6,57.5,37.9,0,0.0,0,0,Republican,0,0
+Vermont,Rutland County,29458,15404,12492,Democrat,9.9,52.3,42.4,0,0.0,0,0,Republican,0,0
+Vermont,Lamoille County,12767,7902,4163,Democrat,29.3,61.9,32.6,0,0.0,0,0,Republican,0,0
+Vermont,Washington County,31184,19628,9914,Democrat,31.1,62.9,31.8,0,0.0,0,0,Republican,0,0
+Vermont,Windham County,22301,14720,5410,Democrat,41.7,66.0,24.3,0,0.0,0,0,Republican,0,0
+Vermont,Addison County,19029,11882,6294,Democrat,29.3,62.4,33.1,0,0.0,0,0,Republican,0,0
+Vermont,Orleans County,11973,6033,5199,Democrat,7.0,50.4,43.4,0,0.0,0,0,Republican,0,0
+Vermont,Orange County,14650,8073,5823,Democrat,15.4,55.1,39.7,0,0.0,0,0,Republican,0,0
+Vermont,Chittenden County,82848,57338,21654,Democrat,43.1,69.2,26.1,0,0.0,0,0,Republican,0,0
+Idaho,Caribou County,3034,350,2450,Republican,69.3,11.5,80.8,0,0.0,0,0,Republican,0,0
+Idaho,Jerome County,6758,1253,4931,Republican,54.5,18.5,73.0,1534,22.7,325,1074,Republican,21.2,70.0
+Idaho,Madison County,15416,1473,12826,Republican,73.6,9.6,83.2,2634,17.1,383,2072,Republican,14.5,78.7
+Idaho,Bonneville County,43428,9158,31093,Republican,50.5,21.1,71.6,10537,24.3,3076,6763,Republican,29.2,64.2
+Idaho,Custer County,2375,429,1693,Republican,53.2,18.1,71.3,585,24.6,151,368,Republican,25.8,62.9
+Idaho,Bear Lake County,2914,291,2415,Republican,72.9,10.0,82.9,0,0.0,0,0,Republican,0,0
+Idaho,Valley County,5325,1883,3202,Republican,24.7,35.4,60.1,1914,35.9,755,1090,Republican,39.4,56.9
+Idaho,Washington County,4391,842,3218,Republican,54.1,19.2,73.3,0,0.0,0,0,Republican,0,0
+Idaho,Blaine County,10749,5961,4562,Democrat,13.1,55.5,42.4,5144,47.9,3203,1855,Democrat,62.3,36.1
+Idaho,Butte County,1233,185,948,Republican,61.9,15.0,76.9,0,0.0,0,0,Republican,0,0
+Idaho,Latah County,18321,8050,9626,Republican,8.6,43.9,52.5,5086,27.8,3024,1938,Democrat,59.5,38.1
+Idaho,Teton County,4985,2156,2659,Republican,10.1,43.2,53.3,2567,51.5,1300,1202,Democrat,50.6,46.8
+Idaho,Gem County,7851,1378,5779,Republican,56.0,17.6,73.6,2312,29.4,512,1593,Republican,22.1,68.9
+Idaho,Camas County,576,126,414,Republican,50.0,21.9,71.9,0,0.0,0,0,Republican,0,0
+Idaho,Gooding County,5191,958,3834,Republican,55.4,18.5,73.9,1062,20.5,303,694,Republican,28.5,65.3
+Idaho,Nez Perce County,17369,4621,12188,Republican,43.6,26.6,70.2,5481,31.6,1844,3453,Republican,33.6,63.0
+Idaho,Power County,2790,686,1942,Republican,45.0,24.6,69.6,0,0.0,0,0,Republican,0,0
+Idaho,Bonner County,20704,5767,13908,Republican,39.3,27.9,67.2,0,0.0,0,0,Republican,0,0
+Idaho,Boise County,3748,860,2497,Republican,43.7,22.9,66.6,785,20.9,246,456,Republican,31.3,58.1
+Idaho,Oneida County,2058,206,1719,Republican,73.5,10.0,83.5,0,0.0,0,0,Republican,0,0
+Idaho,Fremont County,5711,692,4521,Republican,67.1,12.1,79.2,889,15.6,187,623,Republican,21.0,70.1
+Idaho,Shoshone County,5145,1477,3463,Republican,38.6,28.7,67.3,739,14.4,236,468,Republican,31.9,63.3
+Idaho,Clearwater County,3734,711,2865,Republican,57.7,19.0,76.7,658,17.6,188,445,Republican,28.6,67.6
+Idaho,Twin Falls County,29712,6559,20701,Republican,47.6,22.1,69.7,9402,31.6,2593,6054,Republican,27.6,64.4
+Idaho,Elmore County,8421,1752,6059,Republican,51.2,20.8,72.0,2179,25.9,549,1496,Republican,25.2,68.7
+Idaho,Kootenai County,65946,15365,47636,Republican,48.9,23.3,72.2,20648,31.3,6061,13761,Republican,29.4,66.6
+Idaho,Ada County,187143,72847,104650,Republican,17.0,38.9,55.9,0,0.0,0,0,Republican,0,0
+Idaho,Idaho County,8113,1247,6272,Republican,61.9,15.4,77.3,1897,23.4,401,1365,Republican,21.1,72.0
+Idaho,Canyon County,72255,17007,50006,Republican,45.7,23.5,69.2,0,0.0,0,0,Republican,0,0
+Idaho,Bannock County,33649,11585,19883,Republican,24.7,34.4,59.1,9322,27.7,4354,4458,Republican,46.7,47.8
+Idaho,Bingham County,16512,2997,12114,Republican,55.2,18.2,73.4,3593,21.8,923,2356,Republican,25.7,65.6
+Idaho,Jefferson County,11383,1196,9120,Republican,69.6,10.5,80.1,1874,16.5,279,1417,Republican,14.9,75.6
+Idaho,Boundary County,5155,920,3961,Republican,59.0,17.8,76.8,1405,27.3,380,949,Republican,27.0,67.5
+Idaho,Adams County,2124,459,1463,Republican,47.3,21.6,68.9,509,24.0,140,323,Republican,27.5,63.5
+Idaho,Benewah County,4142,746,3103,Republican,56.9,18.0,74.9,0,0.0,0,0,Republican,0,0
+Idaho,Minidoka County,6766,1108,5067,Republican,58.5,16.4,74.9,1442,21.3,277,1025,Republican,19.2,71.1
+Idaho,Lincoln County,1740,354,1263,Republican,52.3,20.3,72.6,0,0.0,0,0,Republican,0,0
+Idaho,Clark County,280,32,225,Republican,69.0,11.4,80.4,0,0.0,0,0,Republican,0,0
+Idaho,Lewis County,1598,257,1239,Republican,61.4,16.1,77.5,0,0.0,0,0,Republican,0,0
+Idaho,Lemhi County,4045,723,3013,Republican,56.6,17.9,74.5,1299,32.1,311,899,Republican,23.9,69.2
+Idaho,Franklin County,5488,441,4682,Republican,77.3,8.0,85.3,0,0.0,0,0,Republican,0,0
+Idaho,Cassia County,8150,1011,6418,Republican,66.3,12.4,78.7,0,0.0,0,0,Republican,0,0
+Idaho,Payette County,8629,1549,6480,Republican,57.1,18.0,75.1,0,0.0,0,0,Republican,0,0
+Idaho,Owyhee County,3834,581,2909,Republican,60.7,15.2,75.9,372,9.7,74,267,Republican,19.9,71.8
+Kentucky,Casey County,6307,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Trimble County,3760,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Washington County,5556,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Monroe County,4723,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Hopkins County,20082,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Clay County,6423,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Robertson County,994,344,650,Republican,30.8,34.6,65.4,0,0.0,0,0,Republican,0,0
+Kentucky,Clinton County,4192,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Pulaski County,27619,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Oldham County,32968,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Knott County,5454,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Greenup County,16074,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Bourbon County,8761,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Grant County,9459,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Lyon County,3939,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Mason County,7092,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Muhlenberg County,12843,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Wayne County,7692,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Calloway County,16002,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Pendleton County,5869,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Leslie County,4254,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Pike County,23715,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Hancock County,4225,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Gallatin County,3297,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Butler County,5499,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Christian County,21749,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Bracken County,3452,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Johnson County,9155,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Lewis County,5003,1434,3569,Republican,42.6,28.7,71.3,0,0.0,0,0,Republican,0,0
+Kentucky,Henry County,7094,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Floyd County,15697,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Carlisle County,2582,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Estill County,5448,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Marshall County,16666,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Taylor County,11137,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Morgan County,4612,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Fulton County,2351,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Barren County,18336,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Lincoln County,9408,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Bath County,4478,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Clark County,16143,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Jefferson County,352609,207610,144628,Democrat,17.9,58.9,41.0,0,0.0,0,0,Republican,0,0
+Kentucky,Hardin County,42937,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Owen County,4915,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Anderson County,11385,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Lawrence County,5870,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Mccreary County,5541,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Wolfe County,2575,1268,1307,Republican,1.6,49.2,50.8,0,0.0,0,0,Republican,0,0
+Kentucky,Carter County,10068,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Hart County,7151,2647,4504,Republican,26.0,37.0,63.0,0,0.0,0,0,Republican,0,0
+Kentucky,Magoffin County,4927,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Edmonson County,5201,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Russell County,7965,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Meade County,12112,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Laurel County,24281,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Fayette County,136465,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Crittenden County,3967,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Boyle County,12919,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Graves County,16390,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Larue County,6296,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Ohio County,10247,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Shelby County,20488,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Metcalfe County,4505,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Franklin County,23860,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Carroll County,3818,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Menifee County,2715,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Elliott County,2634,1477,1157,Democrat,12.2,56.1,43.9,92,3.5,60,32,Democrat,65.2,34.8
+Kentucky,Nicholas County,2799,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Perry County,10190,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Green County,5147,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Boone County,57335,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Bullitt County,35641,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Bell County,9275,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Ballard County,4092,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Adair County,7969,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Harlan County,10110,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Webster County,5708,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Knox County,11484,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Fleming County,6152,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Breathitt County,5526,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Cumberland County,2892,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Spencer County,9436,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Marion County,7973,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Madison County,37256,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Livingston County,4577,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Harrison County,7697,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Powell County,4889,2225,2664,Republican,9.0,45.5,54.5,0,0.0,0,0,Republican,0,0
+Kentucky,Whitley County,13543,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Owsley County,1641,481,1160,Republican,41.4,29.3,70.7,0,0.0,0,0,Republican,0,0
+Kentucky,Campbell County,58437,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Rowan County,8748,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Nelson County,20578,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Mccracken County,31251,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Lee County,2586,898,1688,Republican,30.6,34.7,65.3,0,0.0,0,0,Republican,0,0
+Kentucky,Trigg County,6661,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Caldwell County,5924,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Mclean County,4501,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Union County,6142,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Mercer County,10484,4113,6371,Republican,21.6,39.2,60.8,0,0.0,0,0,Republican,0,0
+Kentucky,Boyd County,20266,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Breckinridge County,8646,3233,5413,Republican,25.2,37.4,62.6,0,0.0,0,0,Republican,0,0
+Kentucky,Montgomery County,11332,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Simpson County,7437,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Garrard County,7549,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Warren County,68564,27647,40480,Republican,18.7,40.3,59.0,0,0.0,0,0,Republican,0,0
+Kentucky,Jackson County,5233,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Kenton County,71745,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Woodford County,13594,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Hickman County,2131,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Scott County,24173,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Rockcastle County,6503,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Todd County,4684,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Henderson County,19541,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Logan County,10769,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Allen County,7919,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Grayson County,10404,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Letcher County,8539,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Jessamine County,23283,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Daviess County,45420,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Kentucky,Martin County,3723,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Iowa,Benton County,13685,3811,9351,Republican,40.5,27.8,68.3,4179,30.5,1452,2605,Republican,34.7,62.3
+Iowa,Chickasaw County,6382,1956,4177,Republican,34.8,30.6,65.4,2884,45.2,1106,1692,Republican,38.3,58.7
+Iowa,Johnson County,74833,42699,28914,Democrat,18.5,57.1,38.6,40555,54.2,27642,11626,Democrat,68.2,28.7
+Iowa,Lyon County,6254,761,5328,Republican,73.0,12.2,85.2,1891,30.2,269,1590,Republican,14.2,84.1
+Iowa,Cerro Gordo County,22633,8173,13417,Republican,23.2,36.1,59.3,9154,40.4,4279,4553,Republican,46.7,49.7
+Iowa,Monona County,4530,1049,3315,Republican,50.0,23.2,73.2,1436,31.7,444,951,Republican,30.9,66.2
+Iowa,Lucas County,4277,1068,3064,Republican,46.6,25.0,71.6,1746,40.8,518,1183,Republican,29.7,67.8
+Iowa,Ringgold County,2686,617,1989,Republican,51.1,23.0,74.1,1016,37.8,305,683,Republican,30.0,67.2
+Iowa,Wright County,5981,1550,4208,Republican,44.5,25.9,70.4,2220,37.1,682,1477,Republican,30.7,66.5
+Iowa,Boone County,14056,4820,8593,Republican,26.8,34.3,61.1,6496,46.2,2772,3491,Republican,42.7,53.7
+Iowa,Clarke County,4385,1273,2903,Republican,37.2,29.0,66.2,1688,38.5,630,983,Republican,37.3,58.2
+Iowa,Palo Alto County,4653,1109,3377,Republican,48.8,23.8,72.6,2082,44.7,584,1444,Republican,28.0,69.4
+Iowa,Cass County,6929,1558,5081,Republican,50.8,22.5,73.3,2474,35.7,757,1646,Republican,30.6,66.5
+Iowa,Carroll County,10344,2714,7259,Republican,44.0,26.2,70.2,3837,37.1,1368,2357,Republican,35.7,61.4
+Iowa,Marshall County,17739,6585,10432,Republican,21.7,37.1,58.8,8822,49.7,3919,4592,Republican,44.4,52.1
+Iowa,Sioux County,17932,1709,15902,Republican,79.2,9.5,88.7,5663,31.6,678,4893,Republican,12.0,86.4
+Iowa,Buena Vista County,8050,2382,5369,Republican,37.1,29.6,66.7,2904,36.1,1182,1624,Republican,40.7,55.9
+Iowa,Madison County,8520,2205,5921,Republican,43.6,25.9,69.5,3601,42.3,1177,2291,Republican,32.7,63.6
+Iowa,Cherokee County,6193,1331,4670,Republican,53.9,21.5,75.4,2643,42.7,686,1882,Republican,26.0,71.2
+Iowa,Jasper County,18855,6170,11688,Republican,29.3,32.7,62.0,7986,42.4,3413,4231,Republican,42.7,53.0
+Iowa,Kossuth County,8574,2247,6027,Republican,44.1,26.2,70.3,3416,39.8,1159,2156,Republican,33.9,63.1
+Iowa,Hancock County,5819,1324,4232,Republican,49.9,22.8,72.7,1738,29.9,534,1143,Republican,30.7,65.8
+Iowa,Humboldt County,5039,999,3860,Republican,56.8,19.8,76.6,1904,37.8,475,1372,Republican,24.9,72.1
+Iowa,Hardin County,8464,2284,5841,Republican,42.0,27.0,69.0,3395,40.1,1127,2160,Republican,33.2,63.6
+Iowa,Clay County,8472,1894,6260,Republican,51.5,22.4,73.9,3860,45.6,1062,2688,Republican,27.5,69.6
+Iowa,Audubon County,3282,847,2323,Republican,45.0,25.8,70.8,1428,43.5,448,937,Republican,31.4,65.6
+Iowa,Linn County,115614,47635,62737,Republican,13.1,41.2,54.3,42736,37.0,22130,19164,Democrat,51.8,44.8
+Iowa,Harrison County,7298,1788,5108,Republican,45.5,24.5,70.0,2116,29.0,668,1363,Republican,31.6,64.4
+Iowa,Pocahontas County,3824,784,2891,Republican,55.1,20.5,75.6,1275,33.3,385,852,Republican,30.2,66.8
+Iowa,Plymouth County,12970,2300,10338,Republican,62.0,17.7,79.7,5101,39.3,1156,3846,Republican,22.7,75.4
+Iowa,Mahaska County,10482,2302,7812,Republican,52.5,22.0,74.5,4743,45.2,1278,3337,Republican,26.9,70.4
+Iowa,Winneshiek County,11219,4436,6349,Republican,17.1,39.5,56.6,6293,56.1,3012,3064,Republican,47.9,48.7
+Iowa,Hamilton County,7619,2170,5142,Republican,39.0,28.5,67.5,3086,40.5,1194,1799,Republican,38.7,58.3
+Iowa,Muscatine County,19095,6963,11157,Republican,21.9,36.5,58.4,8788,46.0,3793,4673,Republican,43.2,53.2
+Iowa,Davis County,3843,972,2750,Republican,46.3,25.3,71.6,1475,38.4,489,955,Republican,33.2,64.7
+Iowa,Clinton County,22754,8852,12821,Republican,17.4,38.9,56.3,10516,46.2,5143,5026,Democrat,48.9,47.8
+Iowa,Greene County,4743,1344,3197,Republican,39.1,28.3,67.4,1889,39.8,690,1139,Republican,36.5,60.3
+Iowa,Adair County,3772,894,2708,Republican,48.1,23.7,71.8,1422,37.7,424,946,Republican,29.8,66.5
+Iowa,Wayne County,2929,645,2195,Republican,52.9,22.0,74.9,1051,35.9,293,729,Republican,27.9,69.4
+Iowa,Lee County,15846,6382,8441,Republican,13.0,40.3,53.3,7317,46.2,3596,3389,Democrat,49.1,46.3
+Iowa,Jefferson County,7936,3447,4094,Republican,8.2,43.4,51.6,4122,51.9,2434,1510,Democrat,59.0,36.6
+Iowa,Floyd County,7978,2725,4947,Republican,27.8,34.2,62.0,3450,43.2,1511,1851,Republican,43.8,53.7
+Iowa,Webster County,17159,5396,11045,Republican,33.0,31.4,64.4,6478,37.8,2594,3679,Republican,40.0,56.8
+Iowa,Sac County,5131,1015,3965,Republican,57.5,19.8,77.3,1403,27.3,359,1019,Republican,25.6,72.6
+Iowa,Taylor County,2941,613,2220,Republican,54.7,20.8,75.5,897,30.5,203,661,Republican,22.6,73.7
+Iowa,Jackson County,10057,3450,6283,Republican,28.2,34.3,62.5,4243,42.2,1794,2338,Republican,42.3,55.1
+Iowa,Des Moines County,18669,7589,10353,Republican,14.8,40.7,55.5,8828,47.3,4416,4165,Democrat,50.0,47.2
+Iowa,Fremont County,3505,735,2582,Republican,52.7,21.0,73.7,1113,31.8,302,765,Republican,27.1,68.7
+Iowa,Page County,6921,1461,5208,Republican,54.1,21.1,75.2,2619,37.8,743,1809,Republican,28.4,69.1
+Iowa,Pottawattamie County,41466,12943,25721,Republican,30.8,31.2,62.0,17302,41.7,6792,9679,Republican,39.3,55.9
+Iowa,Ida County,3571,590,2868,Republican,63.8,16.5,80.3,1029,28.8,261,746,Republican,25.4,72.5
+Iowa,Union County,5775,1625,3913,Republican,39.7,28.1,67.8,2728,47.2,946,1685,Republican,34.7,61.8
+Iowa,Tama County,8722,2769,5536,Republican,31.8,31.7,63.5,2538,29.1,1016,1418,Republican,40.0,55.9
+Iowa,Crawford County,6721,1771,4674,Republican,43.1,26.4,69.5,2752,40.9,891,1778,Republican,32.4,64.6
+Iowa,Guthrie County,5724,1413,4004,Republican,45.3,24.7,70.0,2031,35.5,680,1261,Republican,33.5,62.1
+Iowa,Keokuk County,4915,1045,3697,Republican,53.9,21.3,75.2,1453,29.6,457,951,Republican,31.5,65.5
+Iowa,Adams County,2062,454,1515,Republican,51.5,22.0,73.5,932,45.2,234,665,Republican,25.1,71.4
+Iowa,Black Hawk County,63527,27245,33884,Republican,10.4,42.9,53.3,26528,41.8,13826,11927,Democrat,52.1,45.0
+Iowa,Iowa County,8824,2443,6062,Republican,41.0,27.7,68.7,2956,33.5,1034,1848,Republican,35.0,62.5
+Iowa,Washington County,10777,3062,7251,Republican,38.9,28.4,67.3,4585,42.5,1696,2744,Republican,37.0,59.8
+Iowa,Van Buren County,3531,764,2618,Republican,52.5,21.6,74.1,903,25.6,264,609,Republican,29.2,67.4
+Iowa,Mitchell County,5379,1536,3680,Republican,39.8,28.6,68.4,2020,37.6,812,1161,Republican,40.2,57.5
+Iowa,Butler County,7464,1782,5433,Republican,48.9,23.9,72.8,2518,33.7,687,1776,Republican,27.3,70.5
+Iowa,Grundy County,6868,1370,5261,Republican,56.7,19.9,76.6,2086,30.4,559,1478,Republican,26.8,70.9
+Iowa,Monroe County,3837,1280,2458,Republican,30.7,33.4,64.1,1558,40.6,610,915,Republican,39.2,58.7
+Iowa,Fayette County,9947,3069,6412,Republican,33.6,30.9,64.5,3554,35.7,1389,2035,Republican,39.1,57.3
+Iowa,Woodbury County,43012,13909,27166,Republican,30.9,32.3,63.2,19579,45.5,7674,11202,Republican,39.2,57.2
+Iowa,Scott County,84692,34503,46415,Republican,14.1,40.7,54.8,40551,47.9,20220,19091,Democrat,49.9,47.1
+Iowa,Worth County,4222,1246,2774,Republican,36.2,29.5,65.7,1212,28.7,515,646,Republican,42.5,53.3
+Iowa,O'Brien County,7304,1060,6076,Republican,68.7,14.5,83.2,2062,28.2,377,1648,Republican,18.3,79.9
+Iowa,Warren County,26879,8700,17081,Republican,31.1,32.4,63.5,12031,44.8,4937,6702,Republican,41.0,55.7
+Iowa,Henry County,9225,2535,6294,Republican,40.7,27.5,68.2,4356,47.2,1440,2759,Republican,33.1,63.3
+Iowa,Dubuque County,48500,19291,27348,Republican,16.6,39.8,56.4,22178,45.7,11187,10355,Democrat,50.4,46.7
+Iowa,Mills County,7422,1740,5290,Republican,47.9,23.4,71.3,3241,43.7,912,2210,Republican,28.1,68.2
+Iowa,Calhoun County,5118,1154,3798,Republican,51.7,22.5,74.2,1679,32.8,497,1147,Republican,29.6,68.3
+Iowa,Winnebago County,5761,1590,3938,Republican,40.8,27.6,68.4,1734,30.1,678,987,Republican,39.1,56.9
+Iowa,Bremer County,13415,4357,8583,Republican,31.5,32.5,64.0,5423,40.4,2251,3015,Republican,41.5,55.6
+Iowa,Jones County,10071,3063,6551,Republican,34.6,30.4,65.0,3612,35.9,1407,2089,Republican,39.0,57.8
+Iowa,Franklin County,4940,1172,3550,Republican,48.2,23.7,71.9,1655,33.5,471,1122,Republican,28.5,67.8
+Iowa,Cedar County,9410,2908,6103,Republican,34.0,30.9,64.9,3450,36.7,1324,2013,Republican,38.4,58.3
+Iowa,Story County,49316,21472,25475,Republican,8.2,43.5,51.7,20959,42.5,11860,8339,Democrat,56.6,39.8
+Iowa,Shelby County,6110,1409,4480,Republican,50.2,23.1,73.3,2939,48.1,819,2018,Republican,27.9,68.7
+Iowa,Clayton County,9012,2779,5851,Republican,34.1,30.8,64.9,3158,35.0,1169,1878,Republican,37.0,59.5
+Iowa,Louisa County,4939,1429,3303,Republican,38.0,28.9,66.9,1809,36.6,649,1100,Republican,35.9,60.8
+Iowa,Montgomery County,4949,1067,3646,Republican,52.1,21.6,73.7,1725,34.9,476,1197,Republican,27.6,69.4
+Iowa,Buchanan County,10149,3313,6382,Republican,30.3,32.6,62.9,3688,36.3,1508,2065,Republican,40.9,56.0
+Iowa,Appanoose County,6013,1690,4122,Republican,40.5,28.1,68.6,2230,37.1,846,1319,Republican,37.9,59.1
+Iowa,Polk County,228391,100317,118164,Republican,7.8,43.9,51.7,85980,37.6,47595,35652,Democrat,55.4,41.5
+Iowa,Decatur County,3681,1037,2488,Republican,39.4,28.2,67.6,1174,31.9,431,698,Republican,36.7,59.5
+Iowa,Poweshiek County,9731,3748,5617,Republican,19.2,38.5,57.7,4608,47.4,2356,2120,Democrat,51.1,46.0
+Iowa,Dickinson County,10235,2421,7489,Republican,49.5,23.7,73.2,5173,50.5,1415,3636,Republican,27.4,70.3
+Iowa,Emmet County,4711,1171,3341,Republican,46.0,24.9,70.9,1487,31.6,503,942,Republican,33.8,63.3
+Iowa,Marion County,17621,4562,12407,Republican,44.5,25.9,70.4,7915,44.9,2529,5147,Republican,32.0,65.0
+Iowa,Delaware County,9180,2369,6445,Republican,44.4,25.8,70.2,3379,36.8,1085,2177,Republican,32.1,64.4
+Iowa,Osceola County,3143,455,2601,Republican,68.3,14.5,82.8,851,27.1,143,685,Republican,16.8,80.5
+Iowa,Dallas County,37775,11876,24374,Republican,33.1,31.4,64.5,12330,32.6,5124,6846,Republican,41.6,55.5
+Iowa,Howard County,4510,1459,2859,Republican,31.0,32.4,63.4,1580,35.0,687,839,Republican,43.5,53.1
+Iowa,Wapello County,14790,5365,8692,Republican,22.5,36.3,58.8,6175,41.8,2795,3168,Republican,45.3,51.3
+Iowa,Allamakee County,6827,2099,4473,Republican,34.8,30.7,65.5,3018,44.2,1113,1813,Republican,36.9,60.1
+South Carolina,Williamsburg County,24198,16410,7428,Democrat,37.1,67.8,30.7,5181,21.4,4151,985,Democrat,80.1,19.0
+South Carolina,Calhoun County,11422,5927,5282,Democrat,5.7,51.9,46.2,2802,24.5,1897,874,Democrat,67.7,31.2
+South Carolina,Chester County,19637,9960,9110,Democrat,4.3,50.7,46.4,5983,30.5,3619,2224,Democrat,60.5,37.2
+South Carolina,Fairfield County,16458,10599,5506,Democrat,30.9,64.4,33.5,4446,27.0,3022,1371,Democrat,68.0,30.8
+South Carolina,Saluda County,11746,4391,7048,Republican,22.6,37.4,60.0,1776,15.1,803,949,Republican,45.2,53.4
+South Carolina,Horry County,198074,53741,139714,Republican,43.4,27.1,70.5,28929,14.6,9294,19260,Republican,32.1,66.6
+South Carolina,Oconee County,47330,9380,36813,Republican,58.0,19.8,77.8,12834,27.1,2945,9717,Republican,22.9,75.7
+South Carolina,Dorchester County,89886,31669,55957,Republican,27.1,35.2,62.3,21534,24.0,8607,12653,Republican,40.0,58.8
+South Carolina,Barnwell County,14620,7263,7081,Democrat,1.3,49.7,48.4,3159,21.6,1657,1473,Democrat,52.5,46.6
+South Carolina,Darlington County,46006,22668,22508,Democrat,0.4,49.3,48.9,11677,25.4,6202,5343,Democrat,53.1,45.8
+South Carolina,Allendale County,5739,4486,1139,Democrat,58.4,78.2,19.8,2270,39.6,1968,278,Democrat,86.7,12.2
+South Carolina,Edgefield County,16771,7117,9286,Republican,13.0,42.4,55.4,4385,26.1,2280,2035,Democrat,52.0,46.4
+South Carolina,Marlboro County,15678,9733,5611,Democrat,26.3,62.1,35.8,7036,44.9,4959,1985,Democrat,70.5,28.2
+South Carolina,Greenwood County,41490,15637,24958,Republican,22.5,37.7,60.2,10082,24.3,4435,5526,Republican,44.0,54.8
+South Carolina,Jasper County,14017,6979,6567,Democrat,2.9,49.8,46.9,3193,22.8,1915,1201,Democrat,60.0,37.6
+South Carolina,Anderson County,115000,28181,84103,Republican,48.6,24.5,73.1,20526,17.8,5770,14489,Republican,28.1,70.6
+South Carolina,Dillon County,14821,7544,6891,Democrat,4.4,50.9,46.5,2351,15.9,1160,1138,Democrat,49.3,48.4
+South Carolina,Cherokee County,31635,9234,21595,Republican,39.1,29.2,68.3,6401,20.2,2377,3948,Republican,37.1,61.7
+South Carolina,Charleston County,253248,113340,134625,Republican,8.4,44.8,53.2,87399,34.5,40502,45936,Republican,46.3,52.6
+South Carolina,Georgetown County,47766,19777,27282,Republican,15.7,41.4,57.1,13941,29.2,5967,7810,Republican,42.8,56.0
+South Carolina,Kershaw County,41550,14857,25628,Republican,25.9,35.8,61.7,10811,26.0,5183,5492,Republican,47.9,50.8
+South Carolina,Hampton County,12616,8061,4228,Democrat,30.4,63.9,33.5,3371,26.7,2548,778,Democrat,75.6,23.1
+South Carolina,Clarendon County,23568,12789,10416,Democrat,10.1,54.3,44.2,9525,40.4,6254,3178,Democrat,65.7,33.4
+South Carolina,Newberry County,22081,9183,12313,Republican,14.2,41.6,55.8,4944,22.4,2414,2448,Republican,48.8,49.5
+South Carolina,Berkeley County,118656,41844,73891,Republican,27.0,35.3,62.3,23926,20.2,10325,13312,Republican,43.2,55.6
+South Carolina,Florence County,86701,41012,44125,Republican,3.6,47.3,50.9,27074,31.2,13971,12788,Democrat,51.6,47.2
+South Carolina,Mccormick County,7614,3692,3793,Republican,1.3,48.5,49.8,3059,40.2,1516,1510,Democrat,49.6,49.4
+South Carolina,Lee County,13045,8999,3806,Democrat,39.8,69.0,29.2,3097,23.7,2264,796,Democrat,73.1,25.7
+South Carolina,Chesterfield County,24211,10991,12640,Republican,6.8,45.4,52.2,4334,17.9,2332,1938,Democrat,53.8,44.7
+South Carolina,Lexington County,166893,43430,119026,Republican,45.3,26.0,71.3,37847,22.7,9783,27511,Republican,25.8,72.7
+South Carolina,Pickens County,67786,11918,54238,Republican,62.4,17.6,80.0,10339,15.3,2164,8029,Republican,20.9,77.7
+South Carolina,Abbeville County,15523,5843,9343,Republican,22.6,37.6,60.2,4147,26.7,2024,2059,Republican,48.8,49.7
+South Carolina,Laurens County,34833,10680,22950,Republican,35.2,30.7,65.9,5627,16.2,2154,3338,Republican,38.3,59.3
+South Carolina,Richland County,247096,154484,87848,Democrat,26.9,62.5,35.6,80973,32.8,54584,25495,Democrat,67.4,31.5
+South Carolina,York County,161232,56908,100259,Republican,26.9,35.3,62.2,40184,24.9,16260,23330,Republican,40.5,58.1
+South Carolina,Union County,15497,6817,8132,Republican,8.5,44.0,52.5,2606,16.8,1183,1360,Republican,45.4,52.2
+South Carolina,Lancaster County,54609,19436,33826,Republican,26.3,35.6,61.9,14946,27.4,5978,8739,Republican,40.0,58.5
+South Carolina,Aiken County,110158,37098,70426,Republican,30.2,33.7,63.9,25332,23.0,8915,16077,Republican,35.2,63.5
+South Carolina,Beaufort County,113303,40631,70408,Republican,26.2,35.9,62.1,32883,29.0,14771,17689,Republican,44.9,53.8
+South Carolina,Marion County,20794,13654,6722,Democrat,33.4,65.7,32.3,5106,24.6,3659,1391,Democrat,71.7,27.2
+South Carolina,Orangeburg County,66120,47008,18256,Democrat,43.5,71.1,27.6,19264,29.1,15762,3378,Democrat,81.8,17.5
+South Carolina,Sumter County,68028,39503,27231,Democrat,18.1,58.1,40.0,22289,32.8,14460,7601,Democrat,64.9,34.1
+South Carolina,Spartanburg County,172798,54281,114376,Republican,34.8,31.4,66.2,41156,23.8,14701,25883,Republican,35.7,62.9
+South Carolina,Colleton County,24834,11121,13160,Republican,8.2,44.8,53.0,7774,31.3,3956,3711,Democrat,50.9,47.7
+South Carolina,Greenville County,308020,98300,202902,Republican,34.0,31.9,65.9,44786,14.5,18010,26230,Republican,40.2,58.6
+South Carolina,Bamberg County,10225,6979,3111,Democrat,37.9,68.3,30.4,2540,24.8,1929,600,Democrat,75.9,23.6
+Washington,Lewis County,34244,13174,21070,Republican,23.0,38.5,61.5,0,0.0,0,0,Republican,0,0
+Washington,Snohomish County,350229,201910,148319,Democrat,15.4,57.7,42.3,0,0.0,0,0,Republican,0,0
+Washington,Columbia County,2193,854,1339,Republican,22.2,38.9,61.1,0,0.0,0,0,Republican,0,0
+Washington,Stevens County,22980,8150,14830,Republican,29.0,35.5,64.5,0,0.0,0,0,Republican,0,0
+Washington,Okanogan County,17255,8095,9160,Republican,6.2,46.9,53.1,0,0.0,0,0,Republican,0,0
+Washington,Kittitas County,19122,8830,10292,Republican,7.6,46.2,53.8,0,0.0,0,0,Republican,0,0
+Washington,Walla Walla County,25536,12604,12932,Republican,1.2,49.4,50.6,0,0.0,0,0,Republican,0,0
+Washington,Chelan County,33711,15582,18129,Republican,7.6,46.2,53.8,0,0.0,0,0,Republican,0,0
+Washington,Whitman County,17507,9517,7990,Democrat,8.8,54.4,45.6,0,0.0,0,0,Republican,0,0
+Washington,Asotin County,9745,4248,5497,Republican,12.8,43.6,56.4,0,0.0,0,0,Republican,0,0
+Washington,Clark County,200559,102922,97637,Democrat,2.6,51.3,48.7,0,0.0,0,0,Republican,0,0
+Washington,Kitsap County,126462,71746,54716,Democrat,13.4,56.7,43.3,0,0.0,0,0,Republican,0,0
+Washington,Klickitat County,10813,5121,5692,Republican,5.2,47.4,52.6,0,0.0,0,0,Republican,0,0
+Washington,King County,1001523,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Washington,Island County,43456,23695,19761,Democrat,9.0,54.5,45.5,0,0.0,0,0,Republican,0,0
+Washington,Skagit County,57164,30566,26598,Democrat,7.0,53.5,46.5,0,0.0,0,0,Republican,0,0
+Washington,Skamania County,5633,2688,2945,Republican,4.6,47.7,52.3,0,0.0,0,0,Republican,0,0
+Washington,Ferry County,3619,1520,2099,Republican,16.0,42.0,58.0,0,0.0,0,0,Republican,0,0
+Washington,Jefferson County,20506,14098,6408,Democrat,37.6,68.8,31.2,0,0.0,0,0,Republican,0,0
+Washington,Thurston County,130756,78153,52603,Democrat,19.6,59.8,40.2,0,0.0,0,0,Republican,0,0
+Washington,Garfield County,1211,474,737,Republican,21.8,39.1,60.9,270,22.3,76,194,Republican,28.1,71.9
+Washington,Pierce County,353800,196164,157636,Democrat,10.8,55.4,44.6,0,0.0,0,0,Republican,0,0
+Washington,Lincoln County,5780,1943,3837,Republican,32.8,33.6,66.4,0,0.0,0,0,Republican,0,0
+Washington,Benton County,82039,35673,46366,Republican,13.0,43.5,56.5,0,0.0,0,0,Republican,0,0
+Washington,Whatcom County,110754,65830,44924,Democrat,18.8,59.4,40.6,0,0.0,0,0,Republican,0,0
+Washington,Wahkiakum County,2346,1129,1217,Republican,3.8,48.1,51.9,0,0.0,0,0,Republican,0,0
+Washington,Douglas County,15655,6322,9333,Republican,19.2,40.4,59.6,0,0.0,0,0,Republican,0,0
+Washington,Pend Oreille County,6868,2775,4093,Republican,19.2,40.4,59.6,0,0.0,0,0,Republican,0,0
+Washington,Yakima County,78310,37722,40588,Republican,3.6,48.2,51.8,0,0.0,0,0,Republican,0,0
+Washington,Adams County,4677,1859,2818,Republican,20.6,39.7,60.3,0,0.0,0,0,Republican,0,0
+Washington,Mason County,28525,14848,13677,Democrat,4.2,52.1,47.9,0,0.0,0,0,Republican,0,0
+Washington,Spokane County,230914,113717,117197,Republican,1.6,49.2,50.8,0,0.0,0,0,Republican,0,0
+Washington,Grant County,28733,10329,18404,Republican,28.2,35.9,64.1,0,0.0,0,0,Republican,0,0
+Washington,San Juan County,10880,7789,3091,Democrat,43.2,71.6,28.4,0,0.0,0,0,Republican,0,0
+Washington,Clallam County,39504,20549,18955,Democrat,4.0,52.0,48.0,0,0.0,0,0,Republican,0,0
+Washington,Franklin County,23643,10668,12975,Republican,9.8,45.1,54.9,0,0.0,0,0,Republican,0,0
+Washington,Pacific County,10770,5951,4819,Democrat,10.6,55.3,44.7,0,0.0,0,0,Republican,0,0
+Washington,Grays Harbor County,28819,15390,13429,Democrat,6.8,53.4,46.6,0,0.0,0,0,Republican,0,0
+Washington,Cowlitz County,45209,22468,22741,Republican,0.6,49.7,50.3,0,0.0,0,0,Republican,0,0
+Indiana,Blackford County,4820,1707,2748,Republican,21.6,35.4,57.0,0,0.0,0,0,Republican,0,0
+Indiana,Gibson County,15515,5519,9220,Republican,23.8,35.6,59.4,0,0.0,0,0,Republican,0,0
+Indiana,Jay County,7846,2721,4529,Republican,23.0,34.7,57.7,0,0.0,0,0,Republican,0,0
+Indiana,Dubois County,23220,8810,13443,Republican,20.0,37.9,57.9,0,0.0,0,0,Republican,0,0
+Indiana,Crawford County,4559,1890,2500,Republican,13.3,41.5,54.8,0,0.0,0,0,Republican,0,0
+Indiana,Steuben County,14641,4546,9078,Republican,31.0,31.0,62.0,0,0.0,0,0,Republican,0,0
+Indiana,Union County,3289,901,2252,Republican,41.1,27.4,68.5,0,0.0,0,0,Republican,0,0
+Indiana,Warren County,5680,1517,3902,Republican,42.0,26.7,68.7,0,0.0,0,0,Republican,0,0
+Indiana,White County,14692,4425,9435,Republican,34.1,30.1,64.2,0,0.0,0,0,Republican,0,0
+Indiana,Wells County,16858,4094,11922,Republican,46.4,24.3,70.7,0,0.0,0,0,Republican,0,0
+Indiana,Bartholomew County,32243,11354,19050,Republican,23.9,35.2,59.1,0,0.0,0,0,Republican,0,0
+Indiana,Dearborn County,23492,5251,17288,Republican,51.2,22.4,73.6,0,0.0,0,0,Republican,0,0
+Indiana,Shelby County,17929,5549,11267,Republican,31.9,30.9,62.8,0,0.0,0,0,Republican,0,0
+Indiana,Clay County,13236,4253,8284,Republican,30.5,32.1,62.6,0,0.0,0,0,Republican,0,0
+Indiana,Jennings County,11166,3702,6949,Republican,29.0,33.2,62.2,0,0.0,0,0,Republican,0,0
+Indiana,Tippecanoe County,63015,28921,30081,Republican,1.8,45.9,47.7,0,0.0,0,0,Republican,0,0
+Indiana,Grant County,25265,8345,15280,Republican,27.5,33.0,60.5,0,0.0,0,0,Republican,0,0
+Indiana,Spencer County,9883,3960,5465,Republican,15.2,40.1,55.3,0,0.0,0,0,Republican,0,0
+Indiana,Delaware County,44770,20515,21515,Republican,2.3,45.8,48.1,0,0.0,0,0,Republican,0,0
+Indiana,Whitley County,19434,5169,13047,Republican,40.5,26.6,67.1,0,0.0,0,0,Republican,0,0
+Indiana,Jackson County,35015,11239,22589,Republican,32.4,32.1,64.5,0,0.0,0,0,Republican,0,0
+Indiana,Tipton County,9169,3913,4760,Republican,9.2,42.7,51.9,0,0.0,0,0,Republican,0,0
+Indiana,Vigo County,39836,21028,16581,Democrat,11.2,52.8,41.6,0,0.0,0,0,Republican,0,0
+Indiana,Lawrence County,18827,5493,12327,Republican,36.3,29.2,65.5,0,0.0,0,0,Republican,0,0
+Indiana,Posey County,12512,4857,7058,Republican,17.6,38.8,56.4,0,0.0,0,0,Republican,0,0
+Indiana,Allen County,147741,68371,79370,Republican,7.4,46.3,53.7,0,0.0,0,0,Republican,0,0
+Indiana,Knox County,15263,6571,7876,Republican,8.5,43.1,51.6,0,0.0,0,0,Republican,0,0
+Indiana,Fulton County,11908,3623,7618,Republican,33.6,30.4,64.0,0,0.0,0,0,Republican,0,0
+Indiana,Scott County,9097,3763,5046,Republican,14.1,41.4,55.5,0,0.0,0,0,Republican,0,0
+Indiana,Harrison County,18602,6580,11442,Republican,26.1,35.4,61.5,0,0.0,0,0,Republican,0,0
+Indiana,Daviess County,10677,3131,7096,Republican,37.2,29.3,66.5,0,0.0,0,0,Republican,0,0
+Indiana,Madison County,53934,22188,28057,Republican,10.9,41.1,52.0,0,0.0,0,0,Republican,0,0
+Indiana,Huntington County,15853,4574,9970,Republican,34.0,28.9,62.9,0,0.0,0,0,Republican,0,0
+Indiana,Cass County,14246,4927,8306,Republican,23.7,34.6,58.3,0,0.0,0,0,Republican,0,0
+Indiana,Benton County,5353,1485,3544,Republican,38.5,27.7,66.2,0,0.0,0,0,Republican,0,0
+Indiana,Jasper County,13237,4106,8556,Republican,33.6,31.0,64.6,0,0.0,0,0,Republican,0,0
+Indiana,St. Joseph County,152673,85510,66137,Democrat,12.7,56.0,43.3,0,0.0,0,0,Republican,0,0
+Indiana,Pulaski County,5340,1859,3109,Republican,23.4,34.8,58.2,0,0.0,0,0,Republican,0,0
+Indiana,Putnam County,14690,4319,9510,Republican,35.3,29.4,64.7,0,0.0,0,0,Republican,0,0
+Indiana,Fountain County,10914,2773,7602,Republican,44.3,25.4,69.7,0,0.0,0,0,Republican,0,0
+Indiana,Starke County,9037,3443,4895,Republican,16.1,38.1,54.2,0,0.0,0,0,Republican,0,0
+Indiana,Floyd County,53642,22100,29855,Republican,14.5,41.2,55.7,0,0.0,0,0,Republican,0,0
+Indiana,Howard County,37101,14316,20408,Republican,16.4,38.6,55.0,0,0.0,0,0,Republican,0,0
+Indiana,Wabash County,17812,4724,12228,Republican,42.2,26.5,68.7,0,0.0,0,0,Republican,0,0
+Indiana,Laporte County,44908,22401,19733,Democrat,6.0,49.9,43.9,0,0.0,0,0,Republican,0,0
+Indiana,Adams County,13136,3840,8430,Republican,35.0,29.2,64.2,0,0.0,0,0,Republican,0,0
+Indiana,Wayne County,37567,13275,22297,Republican,24.1,35.3,59.4,0,0.0,0,0,Republican,0,0
+Indiana,Randolph County,10255,3230,6411,Republican,31.0,31.5,62.5,0,0.0,0,0,Republican,0,0
+Indiana,Decatur County,10926,3022,7301,Republican,39.1,27.7,66.8,0,0.0,0,0,Republican,0,0
+Indiana,Pike County,5948,2228,3405,Republican,19.7,37.5,57.2,0,0.0,0,0,Republican,0,0
+Indiana,Newton County,7892,2264,4936,Republican,33.8,28.7,62.5,0,0.0,0,0,Republican,0,0
+Indiana,Carroll County,12716,3422,8517,Republican,40.1,26.9,67.0,0,0.0,0,0,Republican,0,0
+Indiana,Vermillion County,7099,3447,3197,Democrat,3.6,48.6,45.0,0,0.0,0,0,Republican,0,0
+Indiana,Marshall County,22901,7365,14471,Republican,31.0,32.2,63.2,0,0.0,0,0,Republican,0,0
+Indiana,Parke County,6633,2339,3859,Republican,22.9,35.3,58.2,0,0.0,0,0,Republican,0,0
+Indiana,Vanderburgh County,72699,32077,36835,Republican,6.6,44.1,50.7,0,0.0,0,0,Republican,0,0
+Indiana,Clinton County,11724,3693,7291,Republican,30.7,31.5,62.2,0,0.0,0,0,Republican,0,0
+Indiana,Brown County,12211,4235,7438,Republican,26.2,34.7,60.9,0,0.0,0,0,Republican,0,0
+Indiana,Hancock County,36361,10772,23187,Republican,34.2,29.6,63.8,0,0.0,0,0,Republican,0,0
+Indiana,Boone County,41753,12164,27849,Republican,37.6,29.1,66.7,0,0.0,0,0,Republican,0,0
+Indiana,Lake County,197231,122036,67657,Democrat,27.6,61.9,34.3,0,0.0,0,0,Republican,0,0
+Indiana,Franklin County,13976,3156,10365,Republican,51.6,22.6,74.2,0,0.0,0,0,Republican,0,0
+Indiana,Rush County,7151,2238,4472,Republican,31.2,31.3,62.5,0,0.0,0,0,Republican,0,0
+Indiana,Washington County,14794,4669,9622,Republican,33.4,31.6,65.0,0,0.0,0,0,Republican,0,0
+Indiana,Morgan County,31025,7821,21193,Republican,43.1,25.2,68.3,0,0.0,0,0,Republican,0,0
+Indiana,Hamilton County,155116,55663,92655,Republican,23.8,35.9,59.7,0,0.0,0,0,Republican,0,0
+Indiana,Switzerland County,3641,1242,2260,Republican,28.0,34.1,62.1,0,0.0,0,0,Republican,0,0
+Indiana,Johnson County,66933,19897,43317,Republican,35.0,29.7,64.7,0,0.0,0,0,Republican,0,0
+Indiana,Kosciusko County,32195,8025,22188,Republican,44.0,24.9,68.9,0,0.0,0,0,Republican,0,0
+Indiana,Elkhart County,104193,35256,64731,Republican,28.3,33.8,62.1,0,0.0,0,0,Republican,0,0
+Indiana,Warrick County,38138,13130,23680,Republican,27.7,34.4,62.1,0,0.0,0,0,Republican,0,0
+Indiana,Porter County,106086,51302,49721,Democrat,1.5,48.4,46.9,0,0.0,0,0,Republican,0,0
+Indiana,Perry County,7990,3990,3612,Democrat,4.7,49.9,45.2,0,0.0,0,0,Republican,0,0
+Indiana,Sullivan County,8449,3856,4164,Republican,3.7,45.6,49.3,0,0.0,0,0,Republican,0,0
+Indiana,Owen County,8532,2642,5333,Republican,31.5,31.0,62.5,0,0.0,0,0,Republican,0,0
+Indiana,Hendricks County,75037,24427,46722,Republican,29.7,32.6,62.3,0,0.0,0,0,Republican,0,0
+Indiana,Orange County,8220,2795,5134,Republican,28.5,34.0,62.5,0,0.0,0,0,Republican,0,0
+Indiana,Jefferson County,13428,5424,7541,Republican,15.8,40.4,56.2,0,0.0,0,0,Republican,0,0
+Indiana,Fayette County,11737,3826,7298,Republican,29.6,32.6,62.2,0,0.0,0,0,Republican,0,0
+Indiana,Monroe County,58796,34260,21057,Democrat,22.5,58.3,35.8,0,0.0,0,0,Republican,0,0
+Indiana,Dekalb County,16669,5028,10228,Republican,31.2,30.2,61.4,0,0.0,0,0,Republican,0,0
+Indiana,Clark County,51092,21415,27681,Republican,12.3,41.9,54.2,0,0.0,0,0,Republican,0,0
+Indiana,Ohio County,2896,853,1948,Republican,37.8,29.5,67.3,0,0.0,0,0,Republican,0,0
+Indiana,Ripley County,12873,3182,9227,Republican,47.0,24.7,71.7,0,0.0,0,0,Republican,0,0
+Indiana,Martin County,5906,1818,3793,Republican,33.4,30.8,64.2,0,0.0,0,0,Republican,0,0
+Indiana,Greene County,13629,5062,7866,Republican,20.6,37.1,57.7,0,0.0,0,0,Republican,0,0
+Indiana,Henry County,20136,6915,11664,Republican,23.6,34.3,57.9,0,0.0,0,0,Republican,0,0
+Indiana,Lagrange County,9622,2782,6222,Republican,35.8,28.9,64.7,0,0.0,0,0,Republican,0,0
+Indiana,Montgomery County,15177,4393,9808,Republican,35.7,28.9,64.6,0,0.0,0,0,Republican,0,0
+Indiana,Miami County,13296,3836,8453,Republican,34.7,28.9,63.6,0,0.0,0,0,Republican,0,0
+Indiana,Marion County,365191,213477,131574,Democrat,22.5,58.5,36.0,0,0.0,0,0,Republican,0,0
+Indiana,Noble County,16722,4996,10509,Republican,32.9,29.9,62.8,0,0.0,0,0,Republican,0,0
+California,San Joaquin County,192858,192858,0,Democrat,100.0,100.0,0.0,127629,66.2,127629,0,Democrat,100.0,0.0
+California,Humboldt County,49006,49006,0,Democrat,100.0,100.0,0.0,25983,53.0,25983,0,Democrat,100.0,0.0
+California,Kings County,27813,27813,0,Democrat,100.0,100.0,0.0,21525,77.4,21525,0,Democrat,100.0,0.0
+California,Placer County,141879,141879,0,Democrat,100.0,100.0,0.0,91316,64.4,91316,0,Democrat,100.0,0.0
+California,Orange County,1042242,1042242,0,Democrat,100.0,100.0,0.0,581037,55.7,581037,0,Democrat,100.0,0.0
+California,Plumas County,7024,7024,0,Democrat,100.0,100.0,0.0,7024,100.0,7024,0,Democrat,100.0,0.0
+California,San Francisco County,367708,367708,0,Democrat,100.0,100.0,0.0,234202,63.7,234202,0,Democrat,100.0,0.0
+California,Sacramento County,473711,473711,0,Democrat,100.0,100.0,0.0,0,0.0,0,0,Republican,0,0
+California,Mono County,4202,4202,0,Democrat,100.0,100.0,0.0,2581,61.4,2581,0,Democrat,100.0,0.0
+California,Santa Cruz County,114163,114163,0,Democrat,100.0,100.0,0.0,71546,62.7,71546,0,Democrat,100.0,0.0
+California,Monterey County,120719,120719,0,Democrat,100.0,100.0,0.0,83049,68.8,83049,0,Democrat,100.0,0.0
+California,Tuolumne County,18584,18584,0,Democrat,100.0,100.0,0.0,14460,77.8,14460,0,Democrat,100.0,0.0
+California,Merced County,60007,60007,0,Democrat,100.0,100.0,0.0,28662,47.8,28662,0,Democrat,100.0,0.0
+California,Mariposa County,6653,6653,0,Democrat,100.0,100.0,0.0,4734,71.2,4734,0,Democrat,100.0,0.0
+California,Sutter County,26891,26891,0,Democrat,100.0,100.0,0.0,19641,73.0,19641,0,Democrat,100.0,0.0
+California,Inyo County,6121,6121,0,Democrat,100.0,100.0,0.0,3575,58.4,3575,0,Democrat,100.0,0.0
+California,Tehama County,17447,17447,0,Democrat,100.0,100.0,0.0,12057,69.1,12057,0,Democrat,100.0,0.0
+California,Stanislaus County,141721,141721,0,Democrat,100.0,100.0,0.0,100245,70.7,100245,0,Democrat,100.0,0.0
+California,Lassen County,7377,7377,0,Democrat,100.0,100.0,0.0,3079,41.7,3079,0,Democrat,100.0,0.0
+California,Trinity County,4491,4491,0,Democrat,100.0,100.0,0.0,3282,73.1,3282,0,Democrat,100.0,0.0
+California,Imperial County,42845,42845,0,Democrat,100.0,100.0,0.0,20021,46.7,20021,0,Democrat,100.0,0.0
+California,Los Angeles County,3113911,3113911,0,Democrat,100.0,100.0,0.0,0,0.0,0,0,Republican,0,0
+California,San Benito County,18719,18719,0,Democrat,100.0,100.0,0.0,13299,71.0,13299,0,Democrat,100.0,0.0
+California,Alpine County,475,475,0,Democrat,100.0,100.0,0.0,475,100.0,475,0,Democrat,100.0,0.0
+California,Santa Barbara County,149856,149856,0,Democrat,100.0,100.0,0.0,99090,66.1,99090,0,Democrat,100.0,0.0
+California,Ventura County,297749,297749,0,Democrat,100.0,100.0,0.0,178974,60.1,178974,0,Democrat,100.0,0.0
+California,Riverside County,620934,620934,0,Democrat,100.0,100.0,0.0,410228,66.1,410228,0,Democrat,100.0,0.0
+California,Glenn County,7216,7216,0,Democrat,100.0,100.0,0.0,5525,76.6,5525,0,Democrat,100.0,0.0
+California,San Luis Obispo County,106645,106645,0,Democrat,100.0,100.0,0.0,74800,70.1,74800,0,Democrat,100.0,0.0
+California,Calaveras County,17561,17561,0,Democrat,100.0,100.0,0.0,12368,70.4,12368,0,Democrat,100.0,0.0
+California,Yuba County,17788,17788,0,Democrat,100.0,100.0,0.0,11618,65.3,11618,0,Democrat,100.0,0.0
+California,Colusa County,5141,5141,0,Democrat,100.0,100.0,0.0,3110,60.5,3110,0,Democrat,100.0,0.0
+California,Modoc County,2575,2575,0,Democrat,100.0,100.0,0.0,1781,69.2,1781,0,Democrat,100.0,0.0
+California,San Diego County,1071906,1071906,0,Democrat,100.0,100.0,0.0,682738,63.7,682738,0,Democrat,100.0,0.0
+California,Shasta County,56246,56246,0,Democrat,100.0,100.0,0.0,38764,68.9,38764,0,Democrat,100.0,0.0
+California,Mendocino County,31899,31899,0,Democrat,100.0,100.0,0.0,26891,84.3,26891,0,Democrat,100.0,0.0
+California,Fresno County,236104,236104,0,Democrat,100.0,100.0,0.0,129452,54.8,129452,0,Democrat,100.0,0.0
+California,Del Norte County,7542,7542,0,Democrat,100.0,100.0,0.0,4724,62.6,4724,0,Democrat,100.0,0.0
+California,Santa Clara County,619145,619145,0,Democrat,100.0,100.0,0.0,460561,74.4,460561,0,Democrat,100.0,0.0
+California,Yolo County,72330,72330,0,Democrat,100.0,100.0,0.0,41816,57.8,41816,0,Democrat,100.0,0.0
+California,Amador County,13562,13562,0,Democrat,100.0,100.0,0.0,0,0.0,0,0,Republican,0,0
+California,El Dorado County,72079,72079,0,Democrat,100.0,100.0,0.0,48278,67.0,48278,0,Democrat,100.0,0.0
+California,Napa County,53703,53703,0,Democrat,100.0,100.0,0.0,50474,94.0,50474,0,Democrat,100.0,0.0
+California,Nevada County,42968,42968,0,Democrat,100.0,100.0,0.0,31985,74.4,31985,0,Democrat,100.0,0.0
+California,Siskiyou County,15201,15201,0,Democrat,100.0,100.0,0.0,10921,71.8,10921,0,Democrat,100.0,0.0
+California,Tulare County,91189,91189,0,Democrat,100.0,100.0,0.0,28896,31.7,28896,0,Democrat,100.0,0.0
+California,Kern County,196215,196215,0,Democrat,100.0,100.0,0.0,117600,59.9,117600,0,Democrat,100.0,0.0
+California,Madera County,34331,34331,0,Democrat,100.0,100.0,0.0,22489,65.5,22489,0,Democrat,100.0,0.0
+California,Contra Costa County,407318,407318,0,Democrat,100.0,100.0,0.0,263569,64.7,263569,0,Democrat,100.0,0.0
+California,Sierra County,1268,1268,0,Democrat,100.0,100.0,0.0,1268,100.0,1268,0,Democrat,100.0,0.0
+California,San Bernardino County,551984,551984,0,Democrat,100.0,100.0,0.0,317304,57.5,317304,0,Democrat,100.0,0.0
+California,Marin County,125297,125297,0,Democrat,100.0,100.0,0.0,87799,70.1,87799,0,Democrat,100.0,0.0
+California,Solano County,146639,146639,0,Democrat,100.0,100.0,0.0,96995,66.1,96995,0,Democrat,100.0,0.0
+California,Butte County,74171,74171,0,Democrat,100.0,100.0,0.0,51000,68.8,51000,0,Democrat,100.0,0.0
+California,Sonoma County,202132,202132,0,Democrat,100.0,100.0,0.0,154708,76.5,154708,0,Democrat,100.0,0.0
+California,San Mateo County,281046,281046,0,Democrat,100.0,100.0,0.0,184629,65.7,184629,0,Democrat,100.0,0.0
+California,Alameda County,587670,587670,0,Democrat,100.0,100.0,0.0,393977,67.0,393977,0,Democrat,100.0,0.0
+California,Lake County,20197,20197,0,Democrat,100.0,100.0,0.0,13796,68.3,13796,0,Democrat,100.0,0.0
+Oklahoma,Okfuskee County,3921,906,2795,Republican,48.2,23.1,71.3,3921,100.0,906,2795,Republican,23.1,71.3
+Oklahoma,Ellis County,1827,135,1615,Republican,81.0,7.4,88.4,1827,100.0,135,1615,Republican,7.4,88.4
+Oklahoma,Sequoyah County,14128,3640,9458,Republican,41.1,25.8,66.9,14128,100.0,3640,9458,Republican,25.8,66.9
+Oklahoma,Marshall County,5427,1197,3824,Republican,48.4,22.1,70.5,5427,100.0,1197,3824,Republican,22.1,70.5
+Oklahoma,Woods County,3644,404,3040,Republican,72.3,11.1,83.4,3644,100.0,404,3040,Republican,11.1,83.4
+Oklahoma,Grant County,2187,205,1863,Republican,75.8,9.4,85.2,2187,100.0,205,1863,Republican,9.4,85.2
+Oklahoma,Pawnee County,6336,1242,4661,Republican,54.0,19.6,73.6,6336,100.0,1242,4661,Republican,19.6,73.6
+Oklahoma,Muskogee County,24074,7472,15144,Republican,31.9,31.0,62.9,24074,100.0,7472,15144,Republican,31.0,62.9
+Oklahoma,Payne County,27813,6932,18275,Republican,40.8,24.9,65.7,27813,100.0,6932,18275,Republican,24.9,65.7
+Oklahoma,Canadian County,55275,8987,42127,Republican,59.9,16.3,76.2,55275,100.0,8987,42127,Republican,16.3,76.2
+Oklahoma,Hughes County,4501,889,3379,Republican,55.3,19.8,75.1,4501,100.0,889,3379,Republican,19.8,75.1
+Oklahoma,Tulsa County,246208,72350,154406,Republican,33.3,29.4,62.7,246208,100.0,72350,154406,Republican,29.4,62.7
+Oklahoma,Delaware County,15577,3301,11382,Republican,51.9,21.2,73.1,15577,100.0,3301,11382,Republican,21.2,73.1
+Oklahoma,Noble County,4849,759,3819,Republican,63.1,15.7,78.8,4849,100.0,759,3819,Republican,15.7,78.8
+Oklahoma,Love County,3719,855,2600,Republican,46.9,23.0,69.9,3719,100.0,855,2600,Republican,23.0,69.9
+Oklahoma,Craig County,5725,1226,4195,Republican,51.9,21.4,73.3,5725,100.0,1226,4195,Republican,21.4,73.3
+Oklahoma,Beaver County,2222,169,1940,Republican,79.7,7.6,87.3,2222,100.0,169,1940,Republican,7.6,87.3
+Oklahoma,Wagoner County,31065,6037,23039,Republican,54.8,19.4,74.2,31065,100.0,6037,23039,Republican,19.4,74.2
+Oklahoma,Jackson County,7756,1229,6064,Republican,62.4,15.8,78.2,7756,100.0,1229,6064,Republican,15.8,78.2
+Oklahoma,Garfield County,21690,3401,16776,Republican,61.6,15.7,77.3,21690,100.0,3401,16776,Republican,15.7,77.3
+Oklahoma,Caddo County,9343,1971,6894,Republican,52.7,21.1,73.8,9343,100.0,1971,6894,Republican,21.1,73.8
+Oklahoma,Lincoln County,14063,2007,11215,Republican,65.4,14.3,79.7,14063,100.0,2007,11215,Republican,14.3,79.7
+Oklahoma,Adair County,6466,1552,4576,Republican,46.8,24.0,70.8,6466,100.0,1552,4576,Republican,24.0,70.8
+Oklahoma,Washington County,22182,4223,16445,Republican,55.1,19.0,74.1,22182,100.0,4223,16445,Republican,19.0,74.1
+Oklahoma,Mcintosh County,7904,2163,5299,Republican,39.6,27.4,67.0,7904,100.0,2163,5299,Republican,27.4,67.0
+Oklahoma,Custer County,10544,1628,8317,Republican,63.5,15.4,78.9,10544,100.0,1628,8317,Republican,15.4,78.9
+Oklahoma,Kay County,16719,3145,12310,Republican,54.8,18.8,73.6,16719,100.0,3145,12310,Republican,18.8,73.6
+Oklahoma,Jefferson County,2291,434,1711,Republican,55.8,18.9,74.7,2291,100.0,434,1711,Republican,18.9,74.7
+Oklahoma,Osage County,18886,5142,12469,Republican,38.8,27.2,66.0,18886,100.0,5142,12469,Republican,27.2,66.0
+Oklahoma,Alfalfa County,2262,169,1982,Republican,80.1,7.5,87.6,2262,100.0,169,1982,Republican,7.5,87.6
+Oklahoma,Pontotoc County,14757,3549,10173,Republican,44.9,24.0,68.9,14757,100.0,3549,10173,Republican,24.0,68.9
+Oklahoma,Cotton County,2575,387,2011,Republican,63.1,15.0,78.1,2575,100.0,387,2011,Republican,15.0,78.1
+Oklahoma,Pushmataha County,4341,971,3061,Republican,48.1,22.4,70.5,4341,100.0,971,3061,Republican,22.4,70.5
+Oklahoma,Oklahoma County,274314,89222,160491,Republican,26.0,32.5,58.5,274314,100.0,89222,160491,Republican,32.5,58.5
+Oklahoma,Kingfisher County,6123,524,5323,Republican,78.3,8.6,86.9,6123,100.0,524,5323,Republican,8.6,86.9
+Oklahoma,Cleveland County,109612,29105,67796,Republican,35.3,26.6,61.9,109612,100.0,29105,67796,Republican,26.6,61.9
+Oklahoma,Atoka County,4922,1185,3441,Republican,45.8,24.1,69.9,4922,100.0,1185,3441,Republican,24.1,69.9
+Oklahoma,Johnston County,3917,999,2636,Republican,41.8,25.5,67.3,3917,100.0,999,2636,Republican,25.5,67.3
+Oklahoma,Tillman County,2669,577,1941,Republican,51.1,21.6,72.7,2669,100.0,577,1941,Republican,21.6,72.7
+Oklahoma,Cimarron County,1063,77,903,Republican,77.7,7.2,84.9,1063,100.0,77,903,Republican,7.2,84.9
+Oklahoma,Logan County,18995,3319,14234,Republican,57.4,17.5,74.9,18995,100.0,3319,14234,Republican,17.5,74.9
+Oklahoma,Pottawatomie County,25499,4647,19184,Republican,57.0,18.2,75.2,25499,100.0,4647,19184,Republican,18.2,75.2
+Oklahoma,Okmulgee County,13893,4064,8936,Republican,35.0,29.3,64.3,13893,100.0,4064,8936,Republican,29.3,64.3
+Oklahoma,Nowata County,4212,845,3115,Republican,53.9,20.1,74.0,4212,100.0,845,3115,Republican,20.1,74.0
+Oklahoma,Ottawa County,10571,2792,6970,Republican,39.5,26.4,65.9,10571,100.0,2792,6970,Republican,26.4,65.9
+Oklahoma,Bryan County,13584,2965,9566,Republican,48.6,21.8,70.4,13584,100.0,2965,9566,Republican,21.8,70.4
+Oklahoma,Harper County,1509,97,1354,Republican,83.3,6.4,89.7,1509,100.0,97,1354,Republican,6.4,89.7
+Oklahoma,Kiowa County,3483,635,2717,Republican,59.8,18.2,78.0,3483,100.0,635,2717,Republican,18.2,78.0
+Oklahoma,Roger Mills County,1747,144,1537,Republican,79.8,8.2,88.0,1747,100.0,144,1537,Republican,8.2,88.0
+Oklahoma,Major County,3405,226,3032,Republican,82.4,6.6,89.0,3405,100.0,226,3032,Republican,6.6,89.0
+Oklahoma,Murray County,5495,999,4162,Republican,57.5,18.2,75.7,5495,100.0,999,4162,Republican,18.2,75.7
+Oklahoma,Washita County,4616,528,3885,Republican,72.8,11.4,84.2,4616,100.0,528,3885,Republican,11.4,84.2
+Oklahoma,Harmon County,958,186,736,Republican,57.4,19.4,76.8,958,100.0,186,736,Republican,19.4,76.8
+Oklahoma,Coal County,2307,613,1525,Republican,39.5,26.6,66.1,2307,100.0,613,1525,Republican,26.6,66.1
+Oklahoma,Latimer County,3997,966,2803,Republican,45.9,24.2,70.1,3997,100.0,966,2803,Republican,24.2,70.1
+Oklahoma,Comanche County,32444,9653,20022,Republican,31.9,29.8,61.7,32444,100.0,9653,20022,Republican,29.8,61.7
+Oklahoma,Stephens County,17823,2780,14102,Republican,63.5,15.6,79.1,17823,100.0,2780,14102,Republican,15.6,79.1
+Oklahoma,Seminole County,8049,1672,5897,Republican,52.5,20.8,73.3,8049,100.0,1672,5897,Republican,20.8,73.3
+Oklahoma,Beckham County,7540,870,6305,Republican,72.1,11.5,83.6,7540,100.0,870,6305,Republican,11.5,83.6
+Oklahoma,Creek County,28603,5229,21506,Republican,56.9,18.3,75.2,28603,100.0,5229,21506,Republican,18.3,75.2
+Oklahoma,Choctaw County,5315,1279,3694,Republican,45.4,24.1,69.5,5315,100.0,1279,3694,Republican,24.1,69.5
+Oklahoma,Cherokee County,16436,5267,9898,Republican,28.2,32.0,60.2,16436,100.0,5267,9898,Republican,32.0,60.2
+Oklahoma,Le Flore County,16865,4049,11611,Republican,44.8,24.0,68.8,16865,100.0,4049,11611,Republican,24.0,68.8
+Oklahoma,Mayes County,15641,3409,11306,Republican,50.5,21.8,72.3,15641,100.0,3409,11306,Republican,21.8,72.3
+Oklahoma,Rogers County,40773,6862,31194,Republican,59.7,16.8,76.5,40773,100.0,6862,31194,Republican,16.8,76.5
+Oklahoma,Mcclain County,16862,2388,13434,Republican,65.5,14.2,79.7,16862,100.0,2388,13434,Republican,14.2,79.7
+Oklahoma,Garvin County,10500,1684,8170,Republican,61.8,16.0,77.8,10500,100.0,1684,8170,Republican,16.0,77.8
+Oklahoma,Carter County,18378,4030,12935,Republican,48.5,21.9,70.4,18378,100.0,4030,12935,Republican,21.9,70.4
+Oklahoma,Pittsburg County,17140,4138,11888,Republican,45.3,24.1,69.4,17140,100.0,4138,11888,Republican,24.1,69.4
+Oklahoma,Blaine County,3797,551,3041,Republican,65.6,14.5,80.1,3797,100.0,551,3041,Republican,14.5,80.1
+Oklahoma,Greer County,1880,317,1466,Republican,61.1,16.9,78.0,1880,100.0,317,1466,Republican,16.9,78.0
+Oklahoma,Mccurtain County,10375,2321,7330,Republican,48.3,22.4,70.7,10375,100.0,2321,7330,Republican,22.4,70.7
+Oklahoma,Dewey County,2240,185,1979,Republican,80.0,8.3,88.3,2240,100.0,185,1979,Republican,8.3,88.3
+Oklahoma,Woodward County,7551,754,6401,Republican,74.8,10.0,84.8,7551,100.0,754,6401,Republican,10.0,84.8
+Oklahoma,Grady County,22248,3218,17667,Republican,64.9,14.5,79.4,22248,100.0,3218,17667,Republican,14.5,79.4
+Oklahoma,Texas County,5750,769,4526,Republican,65.3,13.4,78.7,5750,100.0,769,4526,Republican,13.4,78.7
+Oklahoma,Haskell County,4669,1094,3368,Republican,48.7,23.4,72.1,4669,100.0,1094,3368,Republican,23.4,72.1
+Wisconsin,Lafayette County,7594,3757,3659,Democrat,1.3,49.5,48.2,0,0.0,0,0,Republican,0,0
+Wisconsin,Brown County,127438,51008,71760,Republican,16.3,40.0,56.3,0,0.0,0,0,Republican,0,0
+Wisconsin,Price County,7551,2955,4282,Republican,17.6,39.1,56.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Kenosha County,75900,35670,37540,Republican,2.5,47.0,49.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Clark County,13515,4779,8084,Republican,24.4,35.4,59.8,0,0.0,0,0,Republican,0,0
+Wisconsin,Walworth County,50855,18358,30786,Republican,24.4,36.1,60.5,0,0.0,0,0,Republican,0,0
+Wisconsin,La Crosse County,62697,32903,27694,Democrat,8.3,52.5,44.2,0,0.0,0,0,Republican,0,0
+Wisconsin,Trempealeau County,13550,5963,7081,Republican,8.3,44.0,52.3,0,0.0,0,0,Republican,0,0
+Wisconsin,Sauk County,31387,16323,14127,Democrat,7.0,52.0,45.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Green County,18852,10207,8106,Democrat,11.1,54.1,43.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Grant County,23932,10926,12197,Republican,5.3,45.7,51.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Waushara County,11904,3834,7579,Republican,31.5,32.2,63.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Portage County,37952,18985,17547,Democrat,3.8,50.0,46.2,0,0.0,0,0,Republican,0,0
+Wisconsin,Racine County,93773,41606,49682,Republican,8.6,44.4,53.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Richland County,7981,3905,3837,Democrat,0.8,48.9,48.1,0,0.0,0,0,Republican,0,0
+Wisconsin,Waupaca County,25727,8514,16209,Republican,29.9,33.1,63.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Fond Du Lac County,51329,17131,32464,Republican,29.8,33.4,63.2,0,0.0,0,0,Republican,0,0
+Wisconsin,Columbia County,29467,15057,13557,Democrat,5.1,51.1,46.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Burnett County,8599,3143,5198,Republican,23.8,36.6,60.4,0,0.0,0,0,Republican,0,0
+Wisconsin,Jefferson County,42334,17149,23902,Republican,16.0,40.5,56.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Langlade County,9889,3465,6007,Republican,25.7,35.0,60.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Vernon County,14121,6887,6712,Democrat,1.3,48.8,47.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Kewaunee County,10763,3697,6678,Republican,27.7,34.3,62.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Manitowoc County,39881,14299,23769,Republican,23.7,35.9,59.6,0,0.0,0,0,Republican,0,0
+Wisconsin,Calumet County,26619,9197,16485,Republican,27.3,34.6,61.9,0,0.0,0,0,Republican,0,0
+Wisconsin,Marathon County,68937,27812,38570,Republican,15.6,40.3,55.9,0,0.0,0,0,Republican,0,0
+Wisconsin,Rock County,75353,42437,30487,Democrat,15.8,56.3,40.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Marinette County,19872,6502,12597,Republican,30.7,32.7,63.4,0,0.0,0,0,Republican,0,0
+Wisconsin,Washington County,77461,19831,55961,Republican,46.6,25.6,72.2,0,0.0,0,0,Republican,0,0
+Wisconsin,Dodge County,43166,14760,27078,Republican,28.5,34.2,62.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Winnebago County,86286,36077,46843,Republican,12.5,41.8,54.3,0,0.0,0,0,Republican,0,0
+Wisconsin,Marquette County,7804,3190,4357,Republican,14.9,40.9,55.8,0,0.0,0,0,Republican,0,0
+Wisconsin,Buffalo County,6883,2746,3851,Republican,16.0,39.9,55.9,0,0.0,0,0,Republican,0,0
+Wisconsin,Dunn County,21812,9491,11425,Republican,8.9,43.5,52.4,0,0.0,0,0,Republican,0,0
+Wisconsin,Jackson County,9155,4096,4615,Republican,5.7,44.7,50.4,0,0.0,0,0,Republican,0,0
+Wisconsin,Waukesha County,237651,71779,161351,Republican,37.7,30.2,67.9,0,0.0,0,0,Republican,0,0
+Wisconsin,Juneau County,11549,4697,6441,Republican,15.1,40.7,55.8,0,0.0,0,0,Republican,0,0
+Wisconsin,Oconto County,19810,6061,13004,Republican,35.0,30.6,65.6,0,0.0,0,0,Republican,0,0
+Wisconsin,Shawano County,19666,6114,12794,Republican,34.0,31.1,65.1,0,0.0,0,0,Republican,0,0
+Wisconsin,Sheboygan County,59521,22441,35146,Republican,21.3,37.7,59.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Wood County,37643,15175,20925,Republican,15.3,40.3,55.6,0,0.0,0,0,Republican,0,0
+Wisconsin,Taylor County,9390,2828,6177,Republican,35.7,30.1,65.8,0,0.0,0,0,Republican,0,0
+Wisconsin,Door County,17558,7671,9295,Republican,9.2,43.7,52.9,0,0.0,0,0,Republican,0,0
+Wisconsin,Dane County,306960,220344,80670,Democrat,45.5,71.8,26.3,0,0.0,0,0,Republican,0,0
+Wisconsin,Lincoln County,14564,5785,8031,Republican,15.4,39.7,55.1,0,0.0,0,0,Republican,0,0
+Wisconsin,Iowa County,12206,7226,4679,Democrat,20.9,59.2,38.3,0,0.0,0,0,Republican,0,0
+Wisconsin,Douglas County,22052,11893,9364,Democrat,11.4,53.9,42.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Menominee County,1231,844,303,Democrat,44.0,68.6,24.6,0,0.0,0,0,Republican,0,0
+Wisconsin,Bayfield County,9445,5162,4020,Democrat,12.1,54.7,42.6,0,0.0,0,0,Republican,0,0
+Wisconsin,Milwaukee County,434714,276556,147923,Democrat,29.6,63.6,34.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Eau Claire County,54160,27527,24650,Democrat,5.3,50.8,45.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Polk County,22379,8094,13535,Republican,24.3,36.2,60.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Florence County,2614,759,1770,Republican,38.7,29.0,67.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Adams County,10032,4093,5446,Republican,13.5,40.8,54.3,0,0.0,0,0,Republican,0,0
+Wisconsin,Oneida County,21273,8293,12049,Republican,17.6,39.0,56.6,0,0.0,0,0,Republican,0,0
+Wisconsin,Barron County,22350,8699,12894,Republican,18.8,38.9,57.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Crawford County,7651,3708,3671,Democrat,0.5,48.5,48.0,0,0.0,0,0,Republican,0,0
+Wisconsin,Outagamie County,93768,37067,53253,Republican,17.3,39.5,56.8,0,0.0,0,0,Republican,0,0
+Wisconsin,Pierce County,20879,8646,11418,Republican,13.3,41.4,54.7,0,0.0,0,0,Republican,0,0
+Wisconsin,St. Croix County,46700,17713,27407,Republican,20.8,37.9,58.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Rusk County,6993,2443,4229,Republican,25.6,34.9,60.5,0,0.0,0,0,Republican,0,0
+Wisconsin,Washburn County,9024,3508,5250,Republican,19.3,38.9,58.2,0,0.0,0,0,Republican,0,0
+Wisconsin,Chippewa County,31324,12661,17339,Republican,15.0,40.4,55.4,0,0.0,0,0,Republican,0,0
+Wisconsin,Forest County,4443,1651,2589,Republican,21.1,37.2,58.3,0,0.0,0,0,Republican,0,0
+Wisconsin,Green Lake County,9319,2774,6215,Republican,36.9,29.8,66.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Vilas County,13492,4820,8247,Republican,25.4,35.7,61.1,0,0.0,0,0,Republican,0,0
+Wisconsin,Sawyer County,8930,3507,5154,Republican,18.4,39.3,57.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Pepin County,3699,1491,2097,Republican,16.4,40.3,56.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Ozaukee County,54677,18159,35456,Republican,31.6,33.2,64.8,0,0.0,0,0,Republican,0,0
+Wisconsin,Monroe County,19426,7673,10797,Republican,16.1,39.5,55.6,0,0.0,0,0,Republican,0,0
+Wisconsin,Ashland County,7907,4452,3215,Democrat,15.6,56.3,40.7,0,0.0,0,0,Republican,0,0
+Wisconsin,Iron County,3402,1361,1949,Republican,17.3,40.0,57.3,0,0.0,0,0,Republican,0,0
+Alaska,,311441,36200,138149,Republican,32.8,11.6,44.4,99240,31.9,14884,43153,Republican,15.0,43.5
+Connecticut,Middlesex County,86913,48756,30996,Democrat,20.4,56.1,35.7,0,0.0,0,0,Republican,0,0
+Connecticut,Tolland County,76104,41324,27989,Democrat,17.5,54.3,36.8,0,0.0,0,0,Republican,0,0
+Connecticut,Fairfield County,406695,233234,148935,Democrat,20.7,57.3,36.6,0,0.0,0,0,Republican,0,0
+Connecticut,Windham County,49042,25000,18546,Democrat,13.2,51.0,37.8,0,0.0,0,0,Republican,0,0
+Connecticut,New Haven County,366950,217354,119774,Democrat,26.6,59.2,32.6,0,0.0,0,0,Republican,0,0
+Connecticut,New London County,118840,67190,40238,Democrat,22.6,56.5,33.9,0,0.0,0,0,Republican,0,0
+Connecticut,Hartford County,395982,243788,122624,Democrat,30.6,61.6,31.0,0,0.0,0,0,Republican,0,0
+Connecticut,Litchfield County,95525,44120,43519,Democrat,0.6,46.2,45.6,0,0.0,0,0,Republican,0,0
+Kansas,Leavenworth County,30267,10171,18287,Republican,26.8,33.6,60.4,0,0.0,0,0,Republican,0,0
+Kansas,Cheyenne County,1400,125,1227,Republican,78.7,8.9,87.6,0,0.0,0,0,Republican,0,0
+Kansas,Anderson County,3304,717,2426,Republican,51.7,21.7,73.4,0,0.0,0,0,Republican,0,0
+Kansas,Montgomery County,11853,2702,8232,Republican,46.7,22.8,69.5,0,0.0,0,0,Republican,0,0
+Kansas,Ottawa County,2887,354,2316,Republican,67.9,12.3,80.2,0,0.0,0,0,Republican,0,0
+Kansas,Gray County,2060,222,1756,Republican,74.4,10.8,85.2,0,0.0,0,0,Republican,0,0
+Kansas,Jewell County,1467,127,1263,Republican,77.4,8.7,86.1,0,0.0,0,0,Republican,0,0
+Kansas,Scott County,2183,187,1902,Republican,78.5,8.6,87.1,0,0.0,0,0,Republican,0,0
+Kansas,Ellis County,11988,2211,9319,Republican,59.3,18.4,77.7,0,0.0,0,0,Republican,0,0
+Kansas,Rawlins County,1470,126,1263,Republican,77.3,8.6,85.9,0,0.0,0,0,Republican,0,0
+Kansas,Shawnee County,76112,30925,41689,Republican,14.2,40.6,54.8,0,0.0,0,0,Republican,0,0
+Kansas,Kingman County,3337,490,2661,Republican,65.0,14.7,79.7,0,0.0,0,0,Republican,0,0
+Kansas,Labette County,8039,2319,5212,Republican,36.0,28.8,64.8,0,0.0,0,0,Republican,0,0
+Kansas,Sumner County,9625,2128,6827,Republican,48.8,22.1,70.9,0,0.0,0,0,Republican,0,0
+Kansas,Marion County,5652,913,4490,Republican,63.2,16.2,79.4,0,0.0,0,0,Republican,0,0
+Kansas,Butler County,27528,5915,19705,Republican,50.1,21.5,71.6,0,0.0,0,0,Republican,0,0
+Kansas,Reno County,24297,5532,17218,Republican,48.1,22.8,70.9,0,0.0,0,0,Republican,0,0
+Kansas,Morton County,1186,108,1010,Republican,76.1,9.1,85.2,0,0.0,0,0,Republican,0,0
+Kansas,Washington County,2736,285,2341,Republican,75.2,10.4,85.6,0,0.0,0,0,Republican,0,0
+Kansas,Greeley County,641,48,570,Republican,81.4,7.5,88.9,0,0.0,0,0,Republican,0,0
+Kansas,Decatur County,1418,127,1237,Republican,78.2,9.0,87.2,0,0.0,0,0,Republican,0,0
+Kansas,Riley County,21635,7170,13438,Republican,29.0,33.1,62.1,0,0.0,0,0,Republican,0,0
+Kansas,Harper County,2518,371,2021,Republican,65.6,14.7,80.3,0,0.0,0,0,Republican,0,0
+Kansas,Stevens County,1844,169,1600,Republican,77.6,9.2,86.8,0,0.0,0,0,Republican,0,0
+Kansas,Dickinson County,8173,1273,6368,Republican,62.3,15.6,77.9,0,0.0,0,0,Republican,0,0
+Kansas,Mcpherson County,12777,2527,9637,Republican,55.6,19.8,75.4,0,0.0,0,0,Republican,0,0
+Kansas,Barber County,2225,275,1836,Republican,70.1,12.4,82.5,0,0.0,0,0,Republican,0,0
+Kansas,Wilson County,3562,544,2806,Republican,63.5,15.3,78.8,0,0.0,0,0,Republican,0,0
+Kansas,Doniphan County,3296,602,2538,Republican,58.7,18.3,77.0,0,0.0,0,0,Republican,0,0
+Kansas,Saline County,21915,5117,15123,Republican,45.7,23.3,69.0,0,0.0,0,0,Republican,0,0
+Kansas,Cloud County,3905,597,3089,Republican,63.8,15.3,79.1,0,0.0,0,0,Republican,0,0
+Kansas,Norton County,2243,238,1895,Republican,73.9,10.6,84.5,0,0.0,0,0,Republican,0,0
+Kansas,Crawford County,14802,5065,8957,Republican,26.3,34.2,60.5,0,0.0,0,0,Republican,0,0
+Kansas,Logan County,1346,106,1197,Republican,81.0,7.9,88.9,0,0.0,0,0,Republican,0,0
+Kansas,Clay County,3831,419,3250,Republican,73.9,10.9,84.8,0,0.0,0,0,Republican,0,0
+Kansas,Ness County,1442,109,1290,Republican,81.9,7.6,89.5,0,0.0,0,0,Republican,0,0
+Kansas,Osage County,7107,1636,4977,Republican,47.0,23.0,70.0,0,0.0,0,0,Republican,0,0
+Kansas,Linn County,4341,796,3261,Republican,56.8,18.3,75.1,0,0.0,0,0,Republican,0,0
+Kansas,Geary County,7443,2187,4918,Republican,36.7,29.4,66.1,0,0.0,0,0,Republican,0,0
+Kansas,Thomas County,3576,417,3012,Republican,72.5,11.7,84.2,0,0.0,0,0,Republican,0,0
+Kansas,Coffey County,4025,604,3146,Republican,63.2,15.0,78.2,0,0.0,0,0,Republican,0,0
+Kansas,Elk County,1249,154,1012,Republican,68.7,12.3,81.0,0,0.0,0,0,Republican,0,0
+Kansas,Meade County,1712,158,1491,Republican,77.9,9.2,87.1,0,0.0,0,0,Republican,0,0
+Kansas,Finney County,10053,2348,7165,Republican,47.9,23.4,71.3,0,0.0,0,0,Republican,0,0
+Kansas,Trego County,1467,203,1202,Republican,68.1,13.8,81.9,0,0.0,0,0,Republican,0,0
+Kansas,Comanche County,866,98,732,Republican,73.2,11.3,84.5,0,0.0,0,0,Republican,0,0
+Kansas,Osborne County,1794,188,1521,Republican,74.3,10.5,84.8,0,0.0,0,0,Republican,0,0
+Kansas,Atchison County,6513,1917,4295,Republican,36.5,29.4,65.9,0,0.0,0,0,Republican,0,0
+Kansas,Sedgwick County,187023,62816,112455,Republican,26.5,33.6,60.1,0,0.0,0,0,Republican,0,0
+Kansas,Chase County,1375,271,1021,Republican,54.6,19.7,74.3,0,0.0,0,0,Republican,0,0
+Kansas,Haskell County,1344,158,1137,Republican,72.8,11.8,84.6,0,0.0,0,0,Republican,0,0
+Kansas,Clark County,994,103,840,Republican,74.1,10.4,84.5,0,0.0,0,0,Republican,0,0
+Kansas,Republic County,2501,274,2117,Republican,73.6,11.0,84.6,0,0.0,0,0,Republican,0,0
+Kansas,Kiowa County,1080,83,950,Republican,80.3,7.7,88.0,0,0.0,0,0,Republican,0,0
+Kansas,Stafford County,1873,230,1563,Republican,71.1,12.3,83.4,0,0.0,0,0,Republican,0,0
+Kansas,Rush County,1509,169,1281,Republican,73.7,11.2,84.9,0,0.0,0,0,Republican,0,0
+Kansas,Jefferson County,8364,2504,5456,Republican,35.3,29.9,65.2,0,0.0,0,0,Republican,0,0
+Kansas,Nemaha County,5126,667,4294,Republican,70.8,13.0,83.8,0,0.0,0,0,Republican,0,0
+Kansas,Cowley County,12571,3286,8530,Republican,41.8,26.1,67.9,0,0.0,0,0,Republican,0,0
+Kansas,Marshall County,4649,867,3591,Republican,58.6,18.6,77.2,0,0.0,0,0,Republican,0,0
+Kansas,Seward County,4716,1213,3168,Republican,41.5,25.7,67.2,0,0.0,0,0,Republican,0,0
+Kansas,Hamilton County,863,87,729,Republican,74.4,10.1,84.5,0,0.0,0,0,Republican,0,0
+Kansas,Allen County,5402,1192,3889,Republican,49.9,22.1,72.0,0,0.0,0,0,Republican,0,0
+Kansas,Cherokee County,8552,2165,5938,Republican,44.1,25.3,69.4,0,0.0,0,0,Republican,0,0
+Kansas,Ford County,7590,1655,5530,Republican,51.1,21.8,72.9,0,0.0,0,0,Republican,0,0
+Kansas,Miami County,14937,3773,10448,Republican,44.6,25.3,69.9,0,0.0,0,0,Republican,0,0
+Kansas,Graham County,1284,135,1095,Republican,74.8,10.5,85.3,0,0.0,0,0,Republican,0,0
+Kansas,Lincoln County,1470,167,1234,Republican,72.5,11.4,83.9,0,0.0,0,0,Republican,0,0
+Kansas,Jackson County,5831,1425,4115,Republican,46.2,24.4,70.6,0,0.0,0,0,Republican,0,0
+Kansas,Rooks County,2410,192,2104,Republican,79.3,8.0,87.3,0,0.0,0,0,Republican,0,0
+Kansas,Chautauqua County,1463,198,1186,Republican,67.6,13.5,81.1,0,0.0,0,0,Republican,0,0
+Kansas,Harvey County,14877,4237,9815,Republican,37.5,28.5,66.0,0,0.0,0,0,Republican,0,0
+Kansas,Pawnee County,2677,432,2108,Republican,62.6,16.1,78.7,0,0.0,0,0,Republican,0,0
+Kansas,Sherman County,2577,296,2158,Republican,72.2,11.5,83.7,0,0.0,0,0,Republican,0,0
+Kansas,Brown County,4047,751,3105,Republican,58.1,18.6,76.7,0,0.0,0,0,Republican,0,0
+Kansas,Sheridan County,1358,119,1201,Republican,79.6,8.8,88.4,0,0.0,0,0,Republican,0,0
+Kansas,Stanton County,620,78,506,Republican,69.0,12.6,81.6,0,0.0,0,0,Republican,0,0
+Kansas,Douglas County,50329,30436,17563,Democrat,25.6,60.5,34.9,0,0.0,0,0,Republican,0,0
+Kansas,Johnson County,288899,112283,160074,Republican,16.5,38.9,55.4,0,0.0,0,0,Republican,0,0
+Kansas,Wyandotte County,47306,28525,15863,Democrat,26.8,60.3,33.5,0,0.0,0,0,Republican,0,0
+Kansas,Barton County,10172,1308,8321,Republican,68.9,12.9,81.8,0,0.0,0,0,Republican,0,0
+Kansas,Pratt County,3837,602,3019,Republican,63.0,15.7,78.7,0,0.0,0,0,Republican,0,0
+Kansas,Neosho County,6251,1427,4378,Republican,47.2,22.8,70.0,0,0.0,0,0,Republican,0,0
+Kansas,Wichita County,947,114,793,Republican,71.7,12.0,83.7,0,0.0,0,0,Republican,0,0
+Kansas,Edwards County,1322,166,1078,Republican,68.9,12.6,81.5,0,0.0,0,0,Republican,0,0
+Kansas,Woodson County,1412,257,1063,Republican,57.1,18.2,75.3,0,0.0,0,0,Republican,0,0
+Kansas,Kearny County,1344,161,1132,Republican,72.2,12.0,84.2,0,0.0,0,0,Republican,0,0
+Kansas,Ellsworth County,2695,384,2199,Republican,67.4,14.2,81.6,0,0.0,0,0,Republican,0,0
+Kansas,Bourbon County,6082,1308,4427,Republican,51.3,21.5,72.8,0,0.0,0,0,Republican,0,0
+Kansas,Lyon County,12303,3760,7925,Republican,33.8,30.6,64.4,0,0.0,0,0,Republican,0,0
+Kansas,Pottawatomie County,10726,1829,8407,Republican,61.3,17.1,78.4,0,0.0,0,0,Republican,0,0
+Kansas,Rice County,3820,611,2979,Republican,62.0,16.0,78.0,0,0.0,0,0,Republican,0,0
+Kansas,Hodgeman County,1012,83,889,Republican,79.6,8.2,87.8,0,0.0,0,0,Republican,0,0
+Kansas,Mitchell County,2913,336,2463,Republican,73.1,11.5,84.6,0,0.0,0,0,Republican,0,0
+Kansas,Lane County,881,79,763,Republican,77.6,9.0,86.6,0,0.0,0,0,Republican,0,0
+Kansas,Wabaunsee County,3398,619,2580,Republican,57.7,18.2,75.9,0,0.0,0,0,Republican,0,0
+Kansas,Greenwood County,2802,460,2164,Republican,60.8,16.4,77.2,0,0.0,0,0,Republican,0,0
+Kansas,Franklin County,10863,2735,7394,Republican,42.9,25.2,68.1,0,0.0,0,0,Republican,0,0
+Kansas,Gove County,1356,117,1200,Republican,79.9,8.6,88.5,0,0.0,0,0,Republican,0,0
+Kansas,Grant County,2344,316,1897,Republican,67.4,13.5,80.9,0,0.0,0,0,Republican,0,0
+Kansas,Morris County,2636,420,2087,Republican,63.3,15.9,79.2,0,0.0,0,0,Republican,0,0
+Kansas,Phillips County,2641,211,2316,Republican,79.7,8.0,87.7,0,0.0,0,0,Republican,0,0
+Kansas,Russell County,3174,380,2635,Republican,71.0,12.0,83.0,0,0.0,0,0,Republican,0,0
+Kansas,Smith County,2049,219,1744,Republican,74.4,10.7,85.1,0,0.0,0,0,Republican,0,0
+Kansas,Wallace County,794,35,733,Republican,87.9,4.4,92.3,0,0.0,0,0,Republican,0,0
+Arkansas,Crawford County,22006,5042,16008,Republican,49.8,22.9,72.7,11156,50.7,2579,8156,Republican,23.1,73.1
+Arkansas,Prairie County,5267,1093,2130,Republican,19.6,20.8,40.4,2214,42.0,454,904,Republican,20.5,40.8
+Arkansas,Columbia County,24733,2757,5440,Republican,10.9,11.1,22.0,18093,73.2,1856,3995,Republican,10.3,22.1
+Arkansas,Marion County,6967,1320,5265,Republican,56.7,18.9,75.6,3864,55.5,805,2866,Republican,20.8,74.2
+Arkansas,Grant County,12459,1877,5015,Republican,25.2,15.1,40.3,6013,48.3,859,2471,Republican,14.3,41.1
+Arkansas,Yell County,6356,1881,4221,Republican,36.8,29.6,66.4,3050,48.0,891,2050,Republican,29.2,67.2
+Arkansas,Pope County,39201,5819,15344,Republican,24.3,14.8,39.1,28621,73.0,4212,11296,Republican,14.7,39.5
+Arkansas,Cleburne County,19597,2902,8382,Republican,28.0,14.8,42.8,9754,49.8,1399,4185,Republican,14.3,42.9
+Arkansas,Mississippi County,12310,5023,6835,Republican,14.7,40.8,55.5,8188,66.5,3512,4419,Republican,42.9,54.0
+Arkansas,Phillips County,11493,3776,2400,Democrat,12.0,32.9,20.9,6233,54.2,2309,1008,Democrat,37.0,16.2
+Arkansas,Saline County,85649,16140,33125,Republican,19.9,18.8,38.7,57204,66.8,10344,21944,Republican,18.1,38.4
+Arkansas,Clay County,5049,1527,3286,Republican,34.9,30.2,65.1,2446,48.4,736,1612,Republican,30.1,65.9
+Arkansas,Baxter County,19255,4231,14074,Republican,51.1,22.0,73.1,10977,57.0,2538,7941,Republican,23.1,72.3
+Arkansas,Montgomery County,3473,985,2366,Republican,39.7,28.4,68.1,1711,49.3,529,1134,Republican,30.9,66.3
+Arkansas,Izard County,8931,1404,3593,Republican,24.5,15.7,40.2,4023,45.0,651,1602,Republican,16.2,39.8
+Arkansas,Cleveland County,3302,1034,2164,Republican,34.2,31.3,65.5,1312,39.7,429,850,Republican,32.7,64.8
+Arkansas,Lawrence County,10397,1380,3912,Republican,24.3,13.3,37.6,5067,48.7,650,1927,Republican,12.8,38.0
+Arkansas,Clark County,15101,4087,3947,Democrat,1.0,27.1,26.1,8904,59.0,2573,2146,Democrat,28.9,24.1
+Arkansas,Craighead County,34933,10241,23218,Republican,37.2,29.3,66.5,22553,64.6,6576,15168,Republican,29.2,67.3
+Arkansas,Chicot County,4202,2288,1824,Democrat,11.1,54.5,43.4,2151,51.2,1012,1112,Republican,47.0,51.7
+Arkansas,Calhoun County,2193,773,1336,Republican,25.7,35.2,60.9,897,40.9,335,539,Republican,37.3,60.1
+Arkansas,Sebastian County,44560,13060,29405,Republican,36.7,29.3,66.0,29973,67.3,8528,20284,Republican,28.5,67.7
+Arkansas,Dallas County,2689,1171,1429,Republican,9.6,43.5,53.1,1402,52.1,657,701,Republican,46.9,50.0
+Arkansas,Scott County,6070,867,2461,Republican,26.2,14.3,40.5,2486,41.0,394,982,Republican,15.8,39.5
+Arkansas,Benton County,169758,27423,63503,Republican,21.2,16.2,37.4,118947,70.1,19466,44780,Republican,16.4,37.6
+Arkansas,Woodruff County,2487,1521,917,Democrat,24.3,61.2,36.9,894,35.9,573,307,Democrat,64.1,34.3
+Arkansas,Union County,25856,4902,10168,Republican,20.3,19.0,39.3,0,0.0,0,0,Republican,0,0
+Arkansas,Bradley County,6584,1343,2019,Republican,10.3,20.4,30.7,3457,52.5,728,1054,Republican,21.1,30.5
+Arkansas,Pulaski County,256181,88892,64378,Democrat,9.6,34.7,25.1,133381,52.1,48190,31772,Democrat,36.1,23.8
+Arkansas,St. Francis County,12865,3643,3153,Democrat,3.8,28.3,24.5,7095,55.1,2138,1616,Democrat,30.1,22.8
+Arkansas,Monroe County,5001,1361,1363,Republican,0.1,27.2,27.3,1868,37.4,492,527,Republican,26.3,28.2
+Arkansas,Nevada County,5177,1115,1881,Republican,14.8,21.5,36.3,2232,43.1,530,771,Republican,23.7,34.5
+Arkansas,Johnson County,15823,2882,5680,Republican,17.7,18.2,35.9,8067,51.0,1522,2842,Republican,18.9,35.2
+Arkansas,Pike County,3911,955,2819,Republican,47.7,24.4,72.1,2032,52.0,508,1452,Republican,25.0,71.5
+Arkansas,Arkansas County,10704,2341,3684,Republican,12.5,21.9,34.4,7259,67.8,1574,2529,Republican,21.7,34.8
+Arkansas,Lafayette County,2739,954,1713,Republican,27.7,34.8,62.5,1337,48.8,506,805,Republican,37.8,60.2
+Arkansas,Sevier County,7315,1076,3036,Republican,26.8,14.7,41.5,3529,48.2,503,1495,Republican,14.3,42.4
+Arkansas,Conway County,13316,3023,4403,Republican,10.4,22.7,33.1,6391,48.0,1590,1970,Republican,24.9,30.8
+Arkansas,Garland County,68081,14385,24262,Republican,14.5,21.1,35.6,47890,70.3,10058,17237,Republican,21.0,36.0
+Arkansas,Hempstead County,6711,2352,4168,Republican,27.1,35.0,62.1,3504,52.2,1297,2122,Republican,37.0,60.6
+Arkansas,Lincoln County,3720,1440,2190,Republican,20.2,38.7,58.9,2191,58.9,893,1231,Republican,40.8,56.2
+Arkansas,Polk County,12903,1654,6062,Republican,34.2,12.8,47.0,7693,59.6,992,3578,Republican,12.9,46.5
+Arkansas,Hot Spring County,11655,4006,7259,Republican,27.9,34.4,62.3,6021,51.7,2141,3709,Republican,35.6,61.6
+Arkansas,Greene County,23126,3405,9842,Republican,27.9,14.7,42.6,14361,62.1,2011,6269,Republican,14.0,43.7
+Arkansas,Stone County,5486,1530,3690,Republican,39.4,27.9,67.3,3245,59.2,901,2186,Republican,27.8,67.4
+Arkansas,Lee County,5149,1636,1271,Democrat,7.1,31.8,24.7,3172,61.6,1049,753,Democrat,33.1,23.7
+Arkansas,Poinsett County,7628,2026,5357,Republican,43.6,26.6,70.2,2133,28.0,488,1586,Republican,22.9,74.4
+Arkansas,Miller County,25828,4099,10974,Republican,26.6,15.9,42.5,16360,63.3,2606,6956,Republican,15.9,42.5
+Arkansas,Howard County,4481,1377,2969,Republican,35.6,30.7,66.3,2478,55.3,761,1657,Republican,30.7,66.9
+Arkansas,Lonoke County,26453,7666,17483,Republican,37.1,29.0,66.1,25948,98.1,7468,17200,Republican,28.8,66.3
+Arkansas,Perry County,6732,1394,2588,Republican,17.7,20.7,38.4,3055,45.4,634,1171,Republican,20.8,38.3
+Arkansas,Carroll County,18011,3318,6771,Republican,19.2,18.4,37.6,10346,57.4,2215,3728,Republican,21.4,36.0
+Arkansas,Jefferson County,24930,15342,8805,Democrat,26.2,61.5,35.3,12922,51.8,8678,3894,Democrat,67.2,30.1
+Arkansas,Ashley County,14174,2346,5106,Republican,19.4,16.6,36.0,7496,52.9,1180,2778,Republican,15.7,37.1
+Arkansas,Little River County,8007,1443,3368,Republican,24.1,18.0,42.1,3965,49.5,673,1679,Republican,17.0,42.3
+Arkansas,Logan County,14249,2342,5209,Republican,20.2,16.4,36.6,6174,43.3,1040,2237,Republican,16.8,36.2
+Arkansas,Crittenden County,26748,7412,6779,Democrat,2.4,27.7,25.3,17666,66.0,4271,5078,Republican,24.2,28.7
+Arkansas,White County,47708,7341,19413,Republican,25.3,15.4,40.7,25193,52.8,3705,10406,Republican,14.7,41.3
+Arkansas,Madison County,6828,2045,4520,Republican,36.2,30.0,66.2,2421,35.5,877,1459,Republican,36.2,60.3
+Arkansas,Faulkner County,73477,16770,27632,Republican,14.8,22.8,37.6,56104,76.4,12626,21238,Republican,22.5,37.9
+Arkansas,Van Buren County,7133,2145,4670,Republican,35.4,30.1,65.5,3681,51.6,1124,2404,Republican,30.5,65.3
+Arkansas,Cross County,6671,1997,4456,Republican,36.9,29.9,66.8,4653,69.7,1352,3156,Republican,29.1,67.8
+Arkansas,Boone County,26166,2620,12490,Republican,37.7,10.0,47.7,17732,67.8,1850,8423,Republican,10.4,47.5
+Arkansas,Searcy County,3624,725,2704,Republican,54.6,20.0,74.6,1967,54.3,399,1471,Republican,20.3,74.8
+Arkansas,Sharp County,12618,1609,5127,Republican,27.8,12.8,40.6,7137,56.6,921,2890,Republican,12.9,40.5
+Arkansas,Desha County,7330,2256,1727,Democrat,7.2,30.8,23.6,3893,53.1,1084,1006,Democrat,27.8,25.8
+Arkansas,Jackson County,8119,1951,2958,Republican,12.4,24.0,36.4,4599,56.6,1164,1648,Republican,25.3,35.8
+Arkansas,Independence County,13268,3747,9020,Republican,39.8,28.2,68.0,7817,58.9,2207,5362,Republican,28.2,68.6
+Arkansas,Ouachita County,9564,4052,5277,Republican,12.8,42.4,55.2,0,0.0,0,0,Republican,0,0
+Arkansas,Drew County,6327,2413,3701,Republican,20.4,38.1,58.5,3340,52.8,1308,1919,Republican,39.2,57.5
+Arkansas,Randolph County,6255,1659,4266,Republican,41.7,26.5,68.2,3979,63.6,1034,2742,Republican,26.0,68.9
+Arkansas,Franklin County,6719,1690,4749,Republican,45.5,25.2,70.7,3716,55.3,936,2637,Republican,25.2,71.0
+Arkansas,Newton County,3727,754,2833,Republican,55.8,20.2,76.0,1388,37.2,346,988,Republican,24.9,71.2
+Arkansas,Fulton County,7474,1059,3254,Republican,29.3,14.2,43.5,3919,52.4,600,1642,Republican,15.3,41.9
+Arkansas,Washington County,81107,34475,43137,Republican,10.7,42.5,53.2,48734,60.1,22321,24713,Republican,45.8,50.7
+Oregon,Sherman County,999,440,498,Republican,5.8,44.0,49.8,0,0.0,0,0,Republican,0,0
+Oregon,Wheeler County,803,355,384,Republican,3.6,44.2,47.8,0,0.0,0,0,Republican,0,0
+Oregon,Union County,12721,5302,6372,Republican,8.4,41.7,50.1,0,0.0,0,0,Republican,0,0
+Oregon,Coos County,30759,13468,14086,Republican,2.0,43.8,45.8,0,0.0,0,0,Republican,0,0
+Oregon,Morrow County,4127,1719,1978,Republican,6.2,41.7,47.9,0,0.0,0,0,Republican,0,0
+Oregon,Linn County,57146,23908,26991,Republican,5.4,41.8,47.2,0,0.0,0,0,Republican,0,0
+Oregon,Josephine County,43510,18463,20767,Republican,5.3,42.4,47.7,0,0.0,0,0,Republican,0,0
+Oregon,Jackson County,106468,53474,42336,Democrat,10.4,50.2,39.8,0,0.0,0,0,Republican,0,0
+Oregon,Hood River County,10729,6967,2646,Democrat,40.2,64.9,24.7,0,0.0,0,0,Republican,0,0
+Oregon,Klamath County,29999,12342,14808,Republican,8.3,41.1,49.4,0,0.0,0,0,Republican,0,0
+Oregon,Grant County,4239,1631,2277,Republican,15.2,38.5,53.7,0,0.0,0,0,Republican,0,0
+Oregon,Polk County,39565,19250,16693,Democrat,6.5,48.7,42.2,0,0.0,0,0,Republican,0,0
+Oregon,Columbia County,26109,13064,10123,Democrat,11.2,50.0,38.8,0,0.0,0,0,Republican,0,0
+Oregon,Tillamook County,13563,7187,5100,Democrat,15.4,53.0,37.6,0,0.0,0,0,Republican,0,0
+Oregon,Deschutes County,96489,52098,36041,Democrat,16.6,54.0,37.4,0,0.0,0,0,Republican,0,0
+Oregon,Multnomah County,386684,285058,56395,Democrat,59.1,73.7,14.6,0,0.0,0,0,Republican,0,0
+Oregon,Harney County,3914,1540,2070,Republican,13.6,39.3,52.9,0,0.0,0,0,Republican,0,0
+Oregon,Clackamas County,209173,113152,78099,Democrat,16.8,54.1,37.3,0,0.0,0,0,Republican,0,0
+Oregon,Baker County,8679,3348,4654,Republican,15.0,38.6,53.6,0,0.0,0,0,Republican,0,0
+Oregon,Yamhill County,47596,22807,20150,Democrat,5.6,47.9,42.3,0,0.0,0,0,Republican,0,0
+Oregon,Wasco County,11739,6512,4124,Democrat,20.4,55.5,35.1,0,0.0,0,0,Republican,0,0
+Oregon,Douglas County,52404,19832,27634,Republican,14.9,37.8,52.7,0,0.0,0,0,Republican,0,0
+Oregon,Wallowa County,4308,1767,2238,Republican,10.9,41.0,51.9,0,0.0,0,0,Republican,0,0
+Oregon,Clatsop County,19273,11143,6201,Democrat,25.6,57.8,32.2,0,0.0,0,0,Republican,0,0
+Oregon,Crook County,11997,4840,6254,Republican,11.8,40.3,52.1,0,0.0,0,0,Republican,0,0
+Oregon,Benton County,47597,29007,12998,Democrat,33.6,60.9,27.3,0,0.0,0,0,Republican,0,0
+Oregon,Marion County,133827,66269,55351,Democrat,8.1,49.5,41.4,0,0.0,0,0,Republican,0,0
+Oregon,Curry County,12297,5395,5633,Republican,1.9,43.9,45.8,0,0.0,0,0,Republican,0,0
+Oregon,Washington County,262243,158685,78184,Democrat,30.7,60.5,29.8,0,0.0,0,0,Republican,0,0
+Oregon,Lane County,187296,110836,56716,Democrat,28.9,59.2,30.3,0,0.0,0,0,Republican,0,0
+Oregon,Umatilla County,26905,11279,12899,Republican,6.0,41.9,47.9,0,0.0,0,0,Republican,0,0
+Oregon,Jefferson County,9319,4517,3967,Democrat,5.9,48.5,42.6,0,0.0,0,0,Republican,0,0
+Oregon,Malheur County,10188,3082,6045,Republican,29.0,30.3,59.3,0,0.0,0,0,Republican,0,0
+Oregon,Gilliam County,1019,507,442,Democrat,6.4,49.8,43.4,0,0.0,0,0,Republican,0,0
+Oregon,Lincoln County,24925,14512,7725,Democrat,27.2,58.2,31.0,0,0.0,0,0,Republican,0,0
+Oregon,Lake County,3868,1363,2227,Republican,22.4,35.2,57.6,0,0.0,0,0,Republican,0,0
+North Dakota,Barnes County,5338,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Bowman County,1794,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Golden Valley County,956,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Stutsman County,10087,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Grant County,1406,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Steele County,1032,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Eddy County,1226,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Richland County,7562,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Mcintosh County,1473,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Slope County,428,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Morton County,15756,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Billings County,605,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Dickey County,2431,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Lamoure County,2182,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Burke County,1055,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Towner County,1177,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Sioux County,1192,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Stark County,12200,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Rolette County,3726,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Mercer County,4677,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Mountrail County,4083,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Wells County,2397,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Ransom County,2368,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Oliver County,1025,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Williams County,12596,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Logan County,1092,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Sargent County,2024,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Bottineau County,3499,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Sheridan County,792,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Adams County,1223,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Pembina County,3184,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Ward County,27225,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Burleigh County,47831,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Nelson County,1750,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Ramsey County,5368,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Pierce County,2094,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Traill County,3958,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Cavalier County,2048,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Benson County,2022,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Walsh County,4708,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Divide County,1230,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Mckenzie County,4605,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Grand Forks County,29840,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Renville County,1293,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Emmons County,1978,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Mclean County,5336,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Hettinger County,1296,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Cass County,79822,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Kidder County,1398,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Griggs County,1281,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Mchenry County,2856,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Dunn County,2233,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+North Dakota,Foster County,1743,0,0,Republican,0.0,0.0,0.0,0,0.0,0,0,Republican,0,0
+Arizona,Pinal County,127515,45402,72787,Republican,21.5,35.6,57.1,87214,68.4,31926,48836,Republican,36.6,56.0
+Arizona,Yavapai County,111366,34527,68032,Republican,30.1,31.0,61.1,22230,20.0,5663,14649,Republican,25.5,65.9
+Arizona,Yuma County,49882,19451,27290,Republican,15.7,39.0,54.7,38156,76.5,14855,20897,Republican,38.9,54.8
+Arizona,Greenlee County,3276,1189,1784,Republican,18.2,36.3,54.5,2234,68.2,873,1157,Republican,39.1,51.8
+Arizona,Maricopa County,1534633,602635,842425,Republican,15.6,39.3,54.9,0,0.0,0,0,Republican,0,0
+Arizona,Mohave County,77404,19045,50486,Republican,40.6,24.6,65.2,48676,62.9,12898,30686,Republican,26.5,63.0
+Arizona,Navajo County,39470,17645,18760,Republican,2.8,44.7,47.5,21502,54.5,8118,11430,Republican,37.8,53.2
+Arizona,Santa Cruz County,16031,9745,5635,Democrat,25.6,60.8,35.2,10141,63.3,6187,3525,Democrat,61.0,34.8
+Arizona,Graham County,11986,3280,7728,Republican,37.1,27.4,64.5,7378,61.6,1886,4880,Republican,25.6,66.1
+Arizona,Coconino County,59181,31695,24031,Democrat,13.0,53.6,40.6,39689,67.1,21286,16046,Democrat,53.6,40.4
+Arizona,Apache County,27866,18446,7944,Democrat,37.7,66.2,28.5,12408,44.5,7353,4259,Democrat,59.3,34.3
+Arizona,La Paz County,5803,1629,3662,Republican,35.0,28.1,63.1,2967,51.1,789,1907,Republican,26.6,64.3
+Arizona,Cochise County,48975,17638,27627,Republican,20.4,36.0,56.4,32860,67.1,12942,17412,Republican,39.4,53.0
+Arizona,Pima County,412002,202213,187910,Democrat,3.5,49.1,45.6,312873,75.9,159270,137220,Democrat,50.9,43.9
+Arizona,Gila County,21652,6701,13157,Republican,29.9,30.9,60.8,16053,74.1,4836,9882,Republican,30.1,61.6
+Florida,Indian River County,79094,28288,48181,Republican,25.1,35.8,60.9,0,0.0,0,0,Republican,0,0
+Florida,Alachua County,127538,69399,54203,Democrat,11.9,54.4,42.5,0,0.0,0,0,Republican,0,0
+Florida,Collier County,169524,49470,115719,Republican,39.1,29.2,68.3,0,0.0,0,0,Republican,0,0
+Florida,Levy County,19112,5294,12914,Republican,39.9,27.7,67.6,0,0.0,0,0,Republican,0,0
+Florida,Marion County,172606,59537,104400,Republican,26.0,34.5,60.5,0,0.0,0,0,Republican,0,0
+Florida,St. Lucie County,139776,69590,66222,Democrat,2.4,49.8,47.4,0,0.0,0,0,Republican,0,0
+Florida,Broward County,820035,522932,278766,Democrat,29.8,63.8,34.0,0,0.0,0,0,Republican,0,0
+Florida,Sumter County,75984,21187,51846,Republican,40.3,27.9,68.2,0,0.0,0,0,Republican,0,0
+Florida,Washington County,11044,2232,8323,Republican,55.2,20.2,75.4,0,0.0,0,0,Republican,0,0
+Florida,Liberty County,3212,748,2290,Republican,48.0,23.3,71.3,0,0.0,0,0,Republican,0,0
+Florida,Suwannee County,18529,4483,13335,Republican,47.8,24.2,72.0,0,0.0,0,0,Republican,0,0
+Florida,Clay County,105457,23251,77965,Republican,51.9,22.0,73.9,0,0.0,0,0,Republican,0,0
+Florida,Okeechobee County,13505,4287,8647,Republican,32.3,31.7,64.0,0,0.0,0,0,Republican,0,0
+Florida,Columbia County,28341,7361,19924,Republican,44.3,26.0,70.3,0,0.0,0,0,Republican,0,0
+Florida,Franklin County,5913,1826,3861,Republican,34.4,30.9,65.3,0,0.0,0,0,Republican,0,0
+Florida,Taylor County,9241,2658,6216,Republican,38.5,28.8,67.3,0,0.0,0,0,Republican,0,0
+Florida,Bay County,86859,19971,62906,Republican,49.4,23.0,72.4,0,0.0,0,0,Republican,0,0
+Florida,Madison County,8409,3564,4584,Republican,12.1,42.4,54.5,0,0.0,0,0,Republican,0,0
+Florida,Jackson County,20882,6362,13820,Republican,35.7,30.5,66.2,0,0.0,0,0,Republican,0,0
+Florida,Calhoun County,6009,1275,4331,Republican,50.9,21.2,72.1,0,0.0,0,0,Republican,0,0
+Florida,Bradford County,11881,2694,8720,Republican,50.7,22.7,73.4,0,0.0,0,0,Republican,0,0
+Florida,Holmes County,8426,976,7039,Republican,71.9,11.6,83.5,0,0.0,0,0,Republican,0,0
+Florida,Escambia County,151679,51316,94200,Republican,28.3,33.8,62.1,0,0.0,0,0,Republican,0,0
+Florida,Highlands County,45047,14498,28123,Republican,30.2,32.2,62.4,0,0.0,0,0,Republican,0,0
+Florida,Hamilton County,5362,2106,3050,Republican,17.6,39.3,56.9,0,0.0,0,0,Republican,0,0
+Florida,Hillsborough County,591645,281122,283871,Republican,0.5,47.5,48.0,0,0.0,0,0,Republican,0,0
+Florida,Leon County,151276,86641,59958,Democrat,17.7,57.3,39.6,0,0.0,0,0,Republican,0,0
+Florida,Pasco County,238081,88665,134779,Republican,19.4,37.2,56.6,0,0.0,0,0,Republican,0,0
+Florida,Osceola County,138736,75646,57103,Democrat,13.3,54.5,41.2,0,0.0,0,0,Republican,0,0
+Florida,Lee County,321840,104591,204778,Republican,31.1,32.5,63.6,0,0.0,0,0,Republican,0,0
+Florida,Lake County,167960,59151,100664,Republican,24.7,35.2,59.9,0,0.0,0,0,Republican,0,0
+Florida,Lafayette County,3365,669,2572,Republican,56.5,19.9,76.4,0,0.0,0,0,Republican,0,0
+Florida,Gilchrist County,8336,1675,6303,Republican,55.5,20.1,75.6,0,0.0,0,0,Republican,0,0
+Florida,Seminole County,221760,94435,117728,Republican,10.5,42.6,53.1,0,0.0,0,0,Republican,0,0
+Florida,Santa Rosa County,87234,16284,66921,Republican,58.0,18.7,76.7,0,0.0,0,0,Republican,0,0
+Florida,Union County,5589,1064,4313,Republican,58.2,19.0,77.2,0,0.0,0,0,Republican,0,0
+Florida,Gulf County,7212,1750,5191,Republican,47.7,24.3,72.0,0,0.0,0,0,Republican,0,0
+Florida,Citrus County,78419,24038,48798,Republican,31.5,30.7,62.2,0,0.0,0,0,Republican,0,0
+Florida,Flagler County,56708,21260,32914,Republican,20.5,37.5,58.0,0,0.0,0,0,Republican,0,0
+Florida,Pinellas County,485351,222928,236421,Republican,2.8,45.9,48.7,0,0.0,0,0,Republican,0,0
+Florida,Hendry County,10939,3892,6683,Republican,25.5,35.6,61.1,0,0.0,0,0,Republican,0,0
+Florida,Baker County,12486,2135,9901,Republican,62.2,17.1,79.3,0,0.0,0,0,Republican,0,0
+Florida,Jefferson County,7602,3623,3751,Republican,1.6,47.7,49.3,0,0.0,0,0,Republican,0,0
+Florida,Brevard County,312001,112914,181496,Republican,22.0,36.2,58.2,0,0.0,0,0,Republican,0,0
+Florida,Nassau County,46192,9544,34974,Republican,55.0,20.7,75.7,0,0.0,0,0,Republican,0,0
+Florida,Polk County,280806,110363,156196,Republican,16.3,39.3,55.6,0,0.0,0,0,Republican,0,0
+Florida,Gadsden County,21953,14573,6887,Democrat,35.0,66.4,31.4,0,0.0,0,0,Republican,0,0
+Florida,Walton County,33399,6334,25722,Republican,58.0,19.0,77.0,0,0.0,0,0,Republican,0,0
+Florida,Miami-Dade County,971184,529445,420063,Democrat,11.2,54.5,43.3,0,0.0,0,0,Republican,0,0
+Florida,Volusia County,257116,104531,139933,Republican,13.7,40.7,54.4,0,0.0,0,0,Republican,0,0
+Florida,Okaloosa County,100182,20813,74749,Republican,53.8,20.8,74.6,0,0.0,0,0,Republican,0,0
+Florida,Monroe County,41875,18738,21629,Republican,7.0,44.7,51.7,0,0.0,0,0,Republican,0,0
+Florida,Sarasota County,225954,92332,124163,Republican,14.1,40.9,55.0,0,0.0,0,0,Republican,0,0
+Florida,Glades County,4298,1196,2927,Republican,40.3,27.8,68.1,0,0.0,0,0,Republican,0,0
+Florida,Hernando County,92573,32766,53708,Republican,22.6,35.4,58.0,0,0.0,0,0,Republican,0,0
+Florida,Hardee County,7511,2025,5151,Republican,41.6,27.0,68.6,0,0.0,0,0,Republican,0,0
+Florida,St. Johns County,135776,35580,95753,Republican,44.3,26.2,70.5,0,0.0,0,0,Republican,0,0
+Florida,Dixie County,6991,1582,5040,Republican,49.5,22.6,72.1,0,0.0,0,0,Republican,0,0
+Florida,Charlotte County,95222,30207,60194,Republican,31.5,31.7,63.2,0,0.0,0,0,Republican,0,0
+Florida,Duval County,428590,171598,241000,Republican,16.2,40.0,56.2,0,0.0,0,0,Republican,0,0
+Florida,Desoto County,10661,3346,6844,Republican,32.8,31.4,64.2,0,0.0,0,0,Republican,0,0
+Florida,Wakulla County,15211,4852,9773,Republican,32.3,31.9,64.2,0,0.0,0,0,Republican,0,0
+Florida,Putnam County,32745,9910,21474,Republican,35.3,30.3,65.6,0,0.0,0,0,Republican,0,0
+Florida,Martin County,85601,33685,49806,Republican,18.8,39.4,58.2,0,0.0,0,0,Republican,0,0
+Florida,Orange County,540576,293696,224853,Democrat,12.7,54.3,41.6,0,0.0,0,0,Republican,0,0
+Florida,Palm Beach County,653317,350625,287899,Democrat,9.6,53.7,44.1,0,0.0,0,0,Republican,0,0
+Florida,Manatee County,177526,66545,102717,Republican,20.4,37.5,57.9,0,0.0,0,0,Republican,0,0
+North Carolina,Chatham County,39701,20530,18049,Democrat,6.2,51.7,45.5,1710,4.3,995,678,Democrat,58.2,39.6
+North Carolina,Watauga County,29524,13837,14259,Republican,1.4,46.9,48.3,1211,4.1,621,556,Democrat,51.3,45.9
+North Carolina,Camden County,4860,1279,3401,Republican,43.7,26.3,70.0,123,2.5,34,85,Republican,27.6,69.1
+North Carolina,Scotland County,13561,7161,6113,Democrat,7.7,52.8,45.1,289,2.1,116,168,Republican,40.1,58.1
+North Carolina,Durham County,155240,117884,33718,Democrat,54.2,75.9,21.7,5600,3.6,4005,1483,Democrat,71.5,26.5
+North Carolina,Warren County,9775,6336,3258,Democrat,31.5,64.8,33.3,250,2.6,147,98,Democrat,58.8,39.2
+North Carolina,Hoke County,17953,9561,7669,Democrat,10.6,53.3,42.7,482,2.7,231,226,Democrat,47.9,46.9
+North Carolina,Mcdowell County,19532,4901,13671,Republican,44.9,25.1,70.0,453,2.3,131,313,Republican,28.9,69.1
+North Carolina,Transylvania County,17665,6749,10221,Republican,19.7,38.2,57.9,736,4.2,314,403,Republican,42.7,54.8
+North Carolina,Henderson County,57508,19793,35486,Republican,27.3,34.4,61.7,3121,5.4,1158,1857,Republican,37.1,59.5
+North Carolina,Lee County,24791,10392,13535,Republican,12.7,41.9,54.6,666,2.7,293,355,Republican,44.0,53.3
+North Carolina,Catawba County,71437,20744,47232,Republican,37.1,29.0,66.1,2318,3.2,719,1503,Republican,31.0,64.8
+North Carolina,Robeson County,39650,19053,19792,Republican,1.8,48.1,49.9,639,1.6,271,350,Republican,42.4,54.8
+North Carolina,Stokes County,22447,4774,16698,Republican,53.1,21.3,74.4,747,3.3,139,583,Republican,18.6,78.0
+North Carolina,Cabarrus County,92371,34266,53723,Republican,21.1,37.1,58.2,4249,4.6,1458,2646,Republican,34.3,62.3
+North Carolina,Bladen County,15635,6999,8242,Republican,7.9,44.8,52.7,979,6.3,606,360,Democrat,61.9,36.8
+North Carolina,Forsyth County,177213,89666,82004,Democrat,4.3,50.6,46.3,19356,10.9,9293,9604,Republican,48.0,49.6
+North Carolina,Haywood County,30297,10953,17873,Republican,22.8,36.2,59.0,1023,3.4,460,541,Republican,45.0,52.9
+North Carolina,Swain County,5992,2320,3323,Republican,16.8,38.7,55.5,155,2.6,68,84,Republican,43.9,54.2
+North Carolina,Edgecombe County,24645,15847,8353,Democrat,30.4,64.3,33.9,183,0.7,94,86,Democrat,51.4,47.0
+North Carolina,Halifax County,25001,15601,8983,Democrat,26.5,62.4,35.9,448,1.8,258,180,Democrat,57.6,40.2
+North Carolina,Wayne County,50104,21286,27530,Republican,12.4,42.5,54.9,1268,2.5,490,725,Republican,38.6,57.2
+North Carolina,Granville County,27163,12758,13580,Republican,3.0,47.0,50.0,670,2.5,270,370,Republican,40.3,55.2
+North Carolina,Guilford County,254932,143914,103341,Democrat,16.0,56.5,40.5,11139,4.4,5211,5599,Republican,46.8,50.3
+North Carolina,Pender County,27428,9087,17180,Republican,29.5,33.1,62.6,842,3.1,310,514,Republican,36.8,61.0
+North Carolina,Sampson County,25617,10269,14819,Republican,17.7,40.1,57.8,491,1.9,192,283,Republican,39.1,57.6
+North Carolina,Union County,104394,32116,67893,Republican,34.2,30.8,65.0,4849,4.6,1492,3185,Republican,30.8,65.7
+North Carolina,Burke County,38408,11471,25165,Republican,35.6,29.9,65.5,1178,3.1,423,698,Republican,35.9,59.3
+North Carolina,Davie County,21614,5117,15568,Republican,48.3,23.7,72.0,741,3.4,203,508,Republican,27.4,68.6
+North Carolina,Stanly County,29646,7255,20831,Republican,45.8,24.5,70.3,689,2.3,173,485,Republican,25.1,70.4
+North Carolina,Avery County,8094,1705,6071,Republican,53.9,21.1,75.0,329,4.1,80,238,Republican,24.3,72.3
+North Carolina,Pamlico County,6780,2374,4200,Republican,26.9,35.0,61.9,233,3.4,117,112,Democrat,50.2,48.1
+North Carolina,Wilson County,37870,19435,17641,Democrat,4.7,51.3,46.6,1149,3.0,453,667,Republican,39.4,58.1
+North Carolina,Buncombe County,137516,75897,56086,Democrat,14.4,55.2,40.8,5603,4.1,3201,2246,Democrat,57.1,40.1
+North Carolina,Beaufort County,23619,8436,14313,Republican,24.9,35.7,60.6,563,2.4,204,338,Republican,36.2,60.0
+North Carolina,Dare County,19209,7226,11393,Republican,21.7,37.6,59.3,1014,5.3,428,556,Republican,42.2,54.8
+North Carolina,Mitchell County,7942,1714,5951,Republican,53.3,21.6,74.9,329,4.1,92,228,Republican,28.0,69.3
+North Carolina,Mecklenburg County,467547,277020,173272,Democrat,22.1,59.2,37.1,25539,5.5,12118,12614,Republican,47.4,49.4
+North Carolina,Hyde County,2270,949,1244,Republican,13.0,41.8,54.8,56,2.5,26,27,Republican,46.4,48.2
+North Carolina,Currituck County,12337,2999,8921,Republican,48.0,24.3,72.3,353,2.9,119,224,Republican,33.7,63.5
+North Carolina,Craven County,46474,16955,27741,Republican,23.2,36.5,59.7,2070,4.5,770,1245,Republican,37.2,60.1
+North Carolina,Northampton County,9724,6065,3511,Democrat,26.3,62.4,36.1,200,2.1,135,65,Democrat,67.5,32.5
+North Carolina,Columbus County,23228,8841,13637,Republican,20.6,38.1,58.7,483,2.1,226,245,Republican,46.8,50.7
+North Carolina,Carteret County,37388,9668,26189,Republican,44.1,25.9,70.0,1275,3.4,390,853,Republican,30.6,66.9
+North Carolina,Macon County,17469,5367,11357,Republican,34.3,30.7,65.0,889,5.1,311,550,Republican,35.0,61.9
+North Carolina,Martin County,11818,5678,5825,Republican,1.3,48.0,49.3,228,1.9,93,126,Republican,40.8,55.3
+North Carolina,Perquimans County,6565,2281,4153,Republican,28.6,34.7,63.3,169,2.6,49,118,Republican,29.0,69.8
+North Carolina,Richmond County,18866,8430,9732,Republican,6.9,44.7,51.6,301,1.6,118,170,Republican,39.2,56.5
+North Carolina,Jones County,5069,2001,2911,Republican,17.9,39.5,57.4,104,2.1,28,74,Republican,26.9,71.2
+North Carolina,Ashe County,13339,3575,9253,Republican,42.6,26.8,69.4,481,3.6,158,312,Republican,32.8,64.9
+North Carolina,Lincoln County,39580,9798,27867,Republican,45.6,24.8,70.4,1214,3.1,375,794,Republican,30.9,65.4
+North Carolina,Greene County,8000,3518,4280,Republican,9.5,44.0,53.5,342,4.3,275,66,Democrat,80.4,19.3
+North Carolina,Rockingham County,41888,14193,26157,Republican,28.5,33.9,62.4,1049,2.5,313,693,Republican,29.8,66.1
+North Carolina,Johnston County,85244,28279,53977,Republican,30.1,33.2,63.3,2110,2.5,677,1356,Republican,32.1,64.3
+North Carolina,Pasquotank County,17105,8579,8083,Democrat,2.9,50.2,47.3,482,2.8,188,269,Republican,39.0,55.8
+North Carolina,Alamance County,70621,28873,39380,Republican,14.9,40.9,55.8,2788,3.9,1000,1701,Republican,35.9,61.0
+North Carolina,Lenoir County,26455,12297,13518,Republican,4.6,46.5,51.1,507,1.9,200,300,Republican,39.4,59.2
+North Carolina,Cleveland County,44121,15025,27491,Republican,28.2,34.1,62.3,1332,3.0,384,903,Republican,28.8,67.8
+North Carolina,Caswell County,10937,4671,5991,Republican,12.1,42.7,54.8,260,2.4,71,179,Republican,27.3,68.8
+North Carolina,Wilkes County,30918,6749,22852,Republican,52.1,21.8,73.9,1038,3.4,268,743,Republican,25.8,71.6
+North Carolina,Tyrrell County,1707,695,941,Republican,14.4,40.7,55.1,28,1.6,12,14,Republican,42.9,50.0
+North Carolina,Franklin County,30197,12880,16279,Republican,11.2,42.7,53.9,756,2.5,343,385,Republican,45.4,50.9
+North Carolina,Bertie County,9183,5590,3446,Democrat,23.4,60.9,37.5,150,1.6,80,66,Democrat,53.3,44.0
+North Carolina,Cherokee County,13815,3210,10116,Republican,50.0,23.2,73.2,604,4.4,132,458,Republican,21.9,75.8
+North Carolina,New Hanover County,110215,48994,56153,Republican,6.4,44.5,50.9,4613,4.2,2104,2370,Republican,45.6,51.4
+North Carolina,Onslow County,56116,17029,36180,Republican,34.2,30.3,64.5,1890,3.4,506,1304,Republican,26.8,69.0
+North Carolina,Orange County,81816,57877,21884,Democrat,44.0,70.7,26.7,3926,4.8,3086,773,Democrat,78.6,19.7
+North Carolina,Rutherford County,29758,8240,20366,Republican,40.7,27.7,68.4,0,0.0,0,0,Republican,0,0
+North Carolina,Yadkin County,17535,3162,13704,Republican,60.2,18.0,78.2,537,3.1,91,433,Republican,16.9,80.6
+North Carolina,Alexander County,18095,3895,13271,Republican,51.8,21.5,73.3,593,3.3,145,423,Republican,24.5,71.3
+North Carolina,Anson County,10426,5793,4383,Democrat,13.6,55.6,42.0,234,2.2,131,97,Democrat,56.0,41.5
+North Carolina,Randolph County,63988,13208,48048,Republican,54.5,20.6,75.1,2084,3.3,426,1576,Republican,20.4,75.6
+North Carolina,Madison County,11062,4271,6286,Republican,18.2,38.6,56.8,348,3.1,154,179,Republican,44.3,51.4
+North Carolina,Moore County,48339,16059,30724,Republican,30.4,33.2,63.6,2622,5.4,870,1673,Republican,33.2,63.8
+North Carolina,Caldwell County,35917,8538,25532,Republican,47.3,23.8,71.1,1035,2.9,320,674,Republican,30.9,65.1
+North Carolina,Chowan County,7041,2881,4027,Republican,16.3,40.9,57.2,262,3.7,107,150,Republican,40.8,57.3
+North Carolina,Jackson County,18499,8014,9628,Republican,8.7,43.3,52.0,543,2.9,256,269,Republican,47.1,49.5
+North Carolina,Nash County,47476,23093,23450,Republican,0.8,48.6,49.4,1013,2.1,357,625,Republican,35.2,61.7
+North Carolina,Brunswick County,67306,22370,42112,Republican,29.4,33.2,62.6,2354,3.5,866,1426,Republican,36.8,60.6
+North Carolina,Person County,19363,7765,11033,Republican,16.9,40.1,57.0,324,1.7,124,193,Republican,38.3,59.6
+North Carolina,Polk County,10715,3970,6362,Republican,22.3,37.1,59.4,566,5.3,236,318,Republican,41.7,56.2
+North Carolina,Hertford County,9950,6714,3116,Democrat,36.2,67.5,31.3,171,1.7,123,47,Democrat,71.9,27.5
+North Carolina,Yancey County,9893,3566,5956,Republican,24.2,36.0,60.2,583,5.9,276,296,Republican,47.3,50.8
+North Carolina,Washington County,6081,3392,2534,Democrat,14.1,55.8,41.7,123,2.0,75,47,Democrat,61.0,38.2
+North Carolina,Harnett County,45765,16821,27305,Republican,22.9,36.8,59.7,1701,3.7,527,1099,Republican,31.0,64.6
+North Carolina,Cumberland County,125901,69733,51902,Democrat,14.2,55.4,41.2,3546,2.8,1616,1785,Republican,45.6,50.3
+North Carolina,Gaston County,95268,30582,60298,Republican,31.2,32.1,63.3,3404,3.6,909,2381,Republican,26.7,69.9
+North Carolina,Vance County,19762,12056,7362,Democrat,23.7,61.0,37.3,375,1.9,175,193,Republican,46.7,51.5
+North Carolina,Iredell County,81560,24187,53125,Republican,35.4,29.7,65.1,4158,5.1,1165,2843,Republican,28.0,68.4
+North Carolina,Clay County,5857,1482,4183,Republican,46.1,25.3,71.4,241,4.1,80,158,Republican,33.2,65.6
+North Carolina,Montgomery County,11440,4206,6838,Republican,23.0,36.8,59.8,375,3.3,105,256,Republican,28.0,68.3
+North Carolina,Alleghany County,5286,1337,3720,Republican,45.1,25.3,70.4,190,3.6,51,133,Republican,26.8,70.0
+North Carolina,Surry County,31814,7509,23143,Republican,49.1,23.6,72.7,1512,4.8,347,1135,Republican,22.9,75.1
+North Carolina,Duplin County,20557,8013,12002,Republican,19.4,39.0,58.4,311,1.5,97,209,Republican,31.2,67.2
+North Carolina,Wake County,524609,290286,217789,Democrat,13.8,55.3,41.5,28343,5.4,14584,13039,Democrat,51.5,46.0
+North Carolina,Pitt County,79647,40062,37150,Democrat,3.7,50.3,46.6,1521,1.9,759,728,Democrat,49.9,47.9
+North Carolina,Davidson County,74151,17753,53535,Republican,48.3,23.9,72.2,3563,4.8,836,2625,Republican,23.5,73.7
+North Carolina,Rowan County,63679,19227,41230,Republican,34.5,30.2,64.7,2409,3.8,641,1653,Republican,26.6,68.6
+North Carolina,Graham County,3981,872,2935,Republican,51.8,21.9,73.7,159,4.0,33,123,Republican,20.8,77.4
+North Carolina,Gates County,5266,2316,2821,Republican,9.6,44.0,53.6,111,2.1,51,59,Republican,45.9,53.2
+Utah,Washington County,61156,10220,48544,Republican,62.7,16.7,79.4,0,0.0,0,0,Republican,0,0
+Utah,Salt Lake County,411338,168403,220652,Republican,12.7,40.9,53.6,0,0.0,0,0,Republican,0,0
+Utah,Uintah County,12702,1232,10989,Republican,76.8,9.7,86.5,0,0.0,0,0,Republican,0,0
+Utah,Rich County,1107,110,970,Republican,77.7,9.9,87.6,0,0.0,0,0,Republican,0,0
+Utah,Beaver County,2442,295,2075,Republican,72.9,12.1,85.0,0,0.0,0,0,Republican,0,0
+Utah,Juab County,4165,448,3576,Republican,75.1,10.8,85.9,0,0.0,0,0,Republican,0,0
+Utah,Cache County,46218,8782,35393,Republican,57.6,19.0,76.6,0,0.0,0,0,Republican,0,0
+Utah,Grand County,4549,2032,2258,Republican,4.9,44.7,49.6,0,0.0,0,0,Republican,0,0
+Utah,Davis County,138148,28459,102865,Republican,53.9,20.6,74.5,0,0.0,0,0,Republican,0,0
+Utah,San Juan County,5418,1947,3243,Republican,24.0,35.9,59.9,0,0.0,0,0,Republican,0,0
+Utah,Millard County,5186,469,4575,Republican,79.2,9.0,88.2,0,0.0,0,0,Republican,0,0
+Utah,Garfield County,2336,361,1903,Republican,66.0,15.5,81.5,0,0.0,0,0,Republican,0,0
+Utah,Morgan County,5163,595,4378,Republican,73.3,11.5,84.8,0,0.0,0,0,Republican,0,0
+Utah,Kane County,3466,752,2568,Republican,52.4,21.7,74.1,0,0.0,0,0,Republican,0,0
+Utah,Wasatch County,11880,2898,8464,Republican,46.8,24.4,71.2,0,0.0,0,0,Republican,0,0
+Utah,Summit County,20189,9610,9409,Democrat,1.0,47.6,46.6,0,0.0,0,0,Republican,0,0
+Utah,Carbon County,7834,1882,5606,Republican,47.6,24.0,71.6,0,0.0,0,0,Republican,0,0
+Utah,Box Elder County,19494,2328,16240,Republican,71.4,11.9,83.3,0,0.0,0,0,Republican,0,0
+Utah,Utah County,200812,26246,163557,Republican,68.3,13.1,81.4,0,0.0,0,0,Republican,0,0
+Utah,Tooele County,21482,4959,15325,Republican,48.2,23.1,71.3,0,0.0,0,0,Republican,0,0
+Utah,Iron County,17481,2567,14239,Republican,66.8,14.7,81.5,0,0.0,0,0,Republican,0,0
+Utah,Sanpete County,10069,1128,8583,Republican,74.0,11.2,85.2,0,0.0,0,0,Republican,0,0
+Utah,Wayne County,2118,336,1708,Republican,64.7,15.9,80.6,0,0.0,0,0,Republican,0,0
+Utah,Duchesne County,6886,621,6047,Republican,78.8,9.0,87.8,0,0.0,0,0,Republican,0,0
+Utah,Daggett County,461,95,340,Republican,53.2,20.6,73.8,0,0.0,0,0,Republican,0,0
+Utah,Piute County,712,54,640,Republican,82.3,7.6,89.9,0,0.0,0,0,Republican,0,0
+Utah,Sevier County,8564,836,7438,Republican,77.1,9.8,86.9,0,0.0,0,0,Republican,0,0
+Utah,Weber County,83664,24214,55278,Republican,37.2,28.9,66.1,0,0.0,0,0,Republican,0,0
+Utah,Emery County,4221,457,3630,Republican,75.2,10.8,86.0,0,0.0,0,0,Republican,0,0
+Nevada,Lincoln County,2121,315,1609,Republican,61.0,14.9,75.9,0,0.0,0,0,Republican,0,0
+Nevada,Eureka County,849,88,692,Republican,71.1,10.4,81.5,0,0.0,0,0,Republican,0,0
+Nevada,White Pine County,3747,723,2589,Republican,49.8,19.3,69.1,0,0.0,0,0,Republican,0,0
+Nevada,Carson City,24826,9741,13027,Republican,13.3,39.2,52.5,0,0.0,0,0,Republican,0,0
+Nevada,Elko County,18367,3199,13462,Republican,55.9,17.4,73.3,0,0.0,0,0,Republican,0,0
+Nevada,Mineral County,1985,626,1139,Republican,25.9,31.5,57.4,0,0.0,0,0,Republican,0,0
+Nevada,Washoe County,207783,95694,97322,Republican,0.7,46.1,46.8,0,0.0,0,0,Republican,0,0
+Nevada,Esmeralda County,413,64,307,Republican,58.8,15.5,74.3,0,0.0,0,0,Republican,0,0
+Nevada,Churchill County,10892,2240,7709,Republican,50.2,20.6,70.8,0,0.0,0,0,Republican,0,0
+Nevada,Humboldt County,6376,1403,4393,Republican,46.9,22.0,68.9,0,0.0,0,0,Republican,0,0
+Nevada,Lander County,2393,417,1704,Republican,53.8,17.4,71.2,0,0.0,0,0,Republican,0,0
+Nevada,Clark County,753060,386121,303623,Democrat,11.0,51.3,40.3,0,0.0,0,0,Republican,0,0
+Nevada,Douglas County,27643,8407,17584,Republican,33.2,30.4,63.6,0,0.0,0,0,Republican,0,0
+Nevada,Nye County,19356,5252,11608,Republican,32.9,27.1,60.0,0,0.0,0,0,Republican,0,0
+Nevada,Storey County,2542,791,1550,Republican,29.9,31.1,61.0,0,0.0,0,0,Republican,0,0
+Nevada,Lyon County,23575,6322,15229,Republican,37.8,26.8,64.6,0,0.0,0,0,Republican,0,0
+Nevada,Pershing County,1972,466,1286,Republican,41.6,23.6,65.2,0,0.0,0,0,Republican,0,0
+New Hampshire,Carroll County,29348,13431,14838,Republican,4.8,45.8,50.6,0,0.0,0,0,Republican,0,0
+New Hampshire,Merrimack County,56984,26435,28490,Republican,3.6,46.4,50.0,0,0.0,0,0,Republican,0,0
+New Hampshire,Strafford County,30754,16178,13381,Democrat,9.1,52.6,43.5,0,0.0,0,0,Republican,0,0
+New Hampshire,Rockingham County,166966,72786,87030,Republican,8.5,43.6,52.1,0,0.0,0,0,Republican,0,0
+New Hampshire,Hillsborough County,121018,51529,64606,Republican,10.8,42.6,53.4,0,0.0,0,0,Republican,0,0
+New Hampshire,Grafton County,43594,23326,18503,Democrat,11.1,53.5,42.4,0,0.0,0,0,Republican,0,0
+New Hampshire,,202428,109902,83617,Democrat,13.0,54.3,41.3,0,0.0,0,0,Republican,0,0
+New Hampshire,Sullivan County,16862,7960,8141,Republican,1.1,47.2,48.3,0,0.0,0,0,Republican,0,0
+New Hampshire,Cheshire County,28954,14709,12847,Democrat,6.4,50.8,44.4,0,0.0,0,0,Republican,0,0
+New Hampshire,Belknap County,26739,11053,14640,Republican,13.5,41.3,54.8,0,0.0,0,0,Republican,0,0
+New Hampshire,Coos County,15493,7340,7539,Republican,1.3,47.4,48.7,0,0.0,0,0,Republican,0,0
