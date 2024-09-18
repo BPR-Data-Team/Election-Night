@@ -54,3 +54,5 @@ exit_poll_list <- expand_grid(!!!factors_to_fetch) %>%
   pmap(~get_exit_polls(..1, ..2), .progress = TRUE)
 
 exit_polls_df <- bind_rows(exit_poll_list)
+
+write.csv(exit_polls_df, "cleaned_data/CNN_exit_polls_2020.csv")
