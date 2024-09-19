@@ -133,7 +133,7 @@ results_df <- results_df %>%
   state = str_remove(state, "[0-9]")) %>%
   mutate(office_type = str_remove(office_type, "US ")) %>%
   select(test_data,ddhq_id, year, office_type, election_type, state, county, district, fips, 
-         Democratic_name, Republican_name, Independent_name, Green_name, 
+         Democratic_name, Republican_name, Independent_name, Green_name, total, reporting,
          pct_reporting, vote_type, Democratic_votes, Republican_votes, Independent_votes, Green_votes, 
          Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
          margin_votes, margin_pct, pct_absentee, absentee_margin) %>%
@@ -144,15 +144,60 @@ results_df <- results_df %>%
          fips = str_sub(fips, -3))
 
 
-test_df <- results_df %>% filter(test_data)
-
 #------ COMBINING DATA ------
 past_county <- read_csv("cleaned_data/Past_county_values.csv") %>% 
-  mutate(fips = ifelse(state == "AK", "", fips))
+  mutate(fips = ifelse(state == "AK", "", fips)) %>% 
+  select(-county)
 
-final_election_dataset <- test_df %>%
+#For senate/gov elections, calculating how well they're doing relative to the president
+performance_vs_president <- results_df %>%
+  filter(office_type != "House") %>%
+  select(office_type, state, district, county, margin_pct) %>%
+  pivot_wider(id_cols = c(state, district, county), 
+              names_from = office_type, 
+              values_from = margin_pct) %>% 
+  mutate(Senate = Senate - President, 
+         Governor = Governor - President) %>% 
+  select(-President) %>%
+  pivot_longer(cols = c(Senate, Governor), 
+               names_to = "office_type",
+               values_to = "performance_vs_president") 
+  
+#Combining everything together to get a county dataset
+final_county_dataset <- results_df %>%
   left_join(past_county, by = c("office_type", "state", "fips")) %>% 
-  filter(!(is.na(margin_pct_1) & office_type == "President" & state %in% c("HI", "IL", "MO"))) #Weird cases with these counties
+  filter(!(is.na(margin_pct_1) & office_type == "President" & state %in% c("HI", "IL", "MO"))) %>% #Weird cases with these counties
+  mutate(swing = margin_pct - margin_pct_1) %>% #Calculating swing from previous election
+  left_join(performance_vs_president, by = c("state", "district", "county", "office_type"))
+  
+past_race_data <- read_csv("cleaned_data/Past_race_data.csv")
+
+#Combining all county datasets to get a final dataset of one value by race!
+final_race_dataset <- final_county_dataset %>% 
+  rowwise() %>%
+  mutate(total_votes = sum(c(Democratic_votes, Republican_votes, Independent_votes, Green_votes), na.rm = TRUE), 
+         total_absentee_votes = ifelse(is.na(pct_absentee), 0, pct_absentee * total_votes), 
+         absentee_margin_votes = absentee_margin * total_absentee_votes) %>%
+  group_by(office_type, state, district, Democratic_name, Republican_name, Independent_name) %>%
+  summarize(
+    precincts_reporting = sum(reporting), 
+    total_precincts = sum(total),
+    total_votes = sum(total_votes),
+    dem_votes = sum(Democratic_votes), 
+    rep_votes = sum(Republican_votes), 
+    ind_votes = sum(Independent_votes), 
+    total_absentee_votes = sum(total_absentee_votes), 
+    absentee_margin_votes = sum(absentee_margin_votes)
+  ) %>%
+  mutate(pct_reporting = 100 * precincts_reporting / total_precincts, 
+         margin_votes = dem_votes - rep_votes, 
+         margin_pct = 100*(dem_votes - rep_votes) / total_votes, 
+         absentee_pct = 100 * total_absentee_votes/ total_votes, 
+         absentee_margin_pct = 100 * absentee_margin_votes / total_absentee_votes) %>%
+  select(office_type, state, district, Democratic_name, Republican_name, Independent_name, 
+         pct_reporting, total_votes, margin_votes, margin_pct,
+         absentee_pct, absentee_margin_pct) %>%
+  left_join(past_race_data, by = c("office_type", "state"))
 
 write_csv(test_df, "cleaned_data/DDHQ_test_data.csv")
 #write_csv(results_df, "cleaned_data/DDHQ_current_results.csv")
