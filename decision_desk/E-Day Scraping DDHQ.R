@@ -129,7 +129,9 @@ results_df <- results_df %>%
     district == "At-Large" ~ "1", 
     district == "" ~ "0",
     TRUE ~ district
-  ), pct_reporting = 100 * reporting / total) %>%
+  ), pct_reporting = 100 * reporting / total, 
+  state = str_remove(state, "[0-9]")) %>%
+  mutate(office_type = str_remove(office_type, "US ")) %>%
   select(test_data,ddhq_id, year, office_type, election_type, state, county, district, fips, 
          Democratic_name, Republican_name, Independent_name, Green_name, 
          pct_reporting, vote_type, Democratic_votes, Republican_votes, Independent_votes, Green_votes, 
@@ -138,16 +140,19 @@ results_df <- results_df %>%
   #When no votes have been counted, we want this to show zero? I THINK
   mutate(across(contains("votes"), ~ replace_na(., 0)),
          across(contains("name"), ~ ifelse(. == "NULL", "NONE", .)), 
-         margin_pct = replace_na(margin_pct, 0))
+         margin_pct = replace_na(margin_pct, 0), 
+         fips = str_sub(fips, -3))
 
 
 test_df <- results_df %>% filter(test_data)
 
 #------ COMBINING DATA ------
-past_county <- read_csv("cleaned_data/Past_county_values.csv")
+past_county <- read_csv("cleaned_data/Past_county_values.csv") %>% 
+  mutate(fips = ifelse(state == "AK", "", fips))
 
 final_election_dataset <- test_df %>%
-  full_join(past_county, by = c("office_type", "state", "county"))
+  left_join(past_county, by = c("office_type", "state", "fips")) %>% 
+  filter(!(is.na(margin_pct_1) & office_type == "President" & state %in% c("HI", "IL", "MO"))) #Weird cases with these counties
 
 write_csv(test_df, "cleaned_data/DDHQ_test_data.csv")
 #write_csv(results_df, "cleaned_data/DDHQ_current_results.csv")
