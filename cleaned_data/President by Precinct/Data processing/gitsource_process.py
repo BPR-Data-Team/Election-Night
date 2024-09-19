@@ -11,7 +11,7 @@
 import csv 
 import pandas as pd
 
-year = 2016 # 2016 or 2020
+year = 2020 # 2016 or 2020
 input_file = f'{year} git raw.csv'
 output_file = f'{year} git data.csv'
 
@@ -26,7 +26,8 @@ data = pd.DataFrame(columns=['state',
                             'democrat_votes', 
                             'republican_votes', 
                             'democrat_vote_share', 
-                            'republican_vote_share'])
+                            'republican_vote_share', 
+                            'fips'])
 
 with open(input_file, 'r') as f_in:
     in_file = csv.reader(f_in)
@@ -43,6 +44,7 @@ with open(input_file, 'r') as f_in:
         margin = round(abs(dem_share - gop_share), 1)
         state = row[0] if year == 2020 else row[8] 
         county = row[2] if year == 2020 else row[9]
+        fips = row[1] if year == 2020 else row[10]
         
         data = pd.concat([data, pd.DataFrame(
             ({'state': state, 
@@ -53,7 +55,8 @@ with open(input_file, 'r') as f_in:
             'democrat_votes': dem_votes, 
             'republican_votes': gop_votes, 
             'democrat_vote_share': dem_share,
-            'republican_vote_share': gop_share}), index=[0])])
+            'republican_vote_share': gop_share, 
+            'fips': fips}), index=[0])])
 
 # ---------------------------------- #
 # Select and aggregate data
@@ -67,7 +70,8 @@ final_data = pd.DataFrame(columns=['state',
                         'democrat_votes', 
                         'republican_votes', 
                         'democrat_vote_share', 
-                        'republican_vote_share'])
+                        'republican_vote_share', 
+                        'fips'])
 
 for state in data['state'].unique():
     print(state)
@@ -82,6 +86,7 @@ for state in data['state'].unique():
         gop_share = round(gop_votes/total_votes*100, 1)
         winner = "Democrat" if dem_share > gop_share else "Republican"
         margin = round(abs(dem_share - gop_share), 1)
+        fips = county_data['fips'].values[0]
         
         final_data = pd.concat([final_data, pd.DataFrame(
             ({'state': state, 
@@ -92,6 +97,7 @@ for state in data['state'].unique():
             'democrat_votes': dem_votes, 
             'republican_votes': gop_votes, 
             'democrat_vote_share': dem_share,
-            'republican_vote_share': gop_share}), index=[0])])
+            'republican_vote_share': gop_share, 
+            'fips': fips}), index=[0])])
         
 final_data.to_csv(output_file, index=False)
