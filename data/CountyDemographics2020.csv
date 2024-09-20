@@ -1,4 +1,4 @@
-"fips_code","county","state","total_pop_2020","percent_one_race","percent_white_alone","percent_black_alone","percent_indigenous_alone","percent_asian_alone","percent_pacific_alone","percent_other_alone","percent_multiracial","pop_hispanic_latino","median_household_income","hs_degree_over_25","bachelors_degree_over_25","rank"
+"fips_code","county","state","total_pop_2020","percent_one_race","percent_white_alone","percent_black_alone","percent_indigenous_alone","percent_asian_alone","percent_pacific_alone","percent_other_alone","percent_multiracial","pop_hispanic_latino","median_household_income","hs_degree_over_25","bachelors_degree_over_25","county_pop_rank"
 "01001","Autauga","Alabama",58805,"94.63%","71.69%","19.46%","0.37%","1.50%","0.06%","1.55%","5.37%","3.60%",57982,"88.70%","28.30%",24
 "01003","Baldwin","Alabama",231767,"93.52%","81.72%","7.86%","0.68%","0.89%","0.06%","2.30%","6.48%","5.47%",61756,"90.50%","31.90%",4
 "01005","Barbour","Alabama",25223,"97.22%","44.87%","47.31%","0.46%","0.46%","0.00%","4.12%","2.78%","5.99%",34990,"74.70%","11.60%",40
