@@ -4,7 +4,7 @@ import csv
 years = [2016, 2018, 2020, 2022]
 
 fips_dict = []
-with open('county_fips.csv', 'r', encoding='utf-8') as f:
+with open('FIPS References\\county_fips.csv', 'r', encoding='utf-8') as f:
     reader = csv.reader(f)
     for row in reader:
         fips_dict.append(row)
@@ -152,8 +152,11 @@ for year in years:
                 total_votes = county_level_data['votes'].sum()
                 dem_votes = county_level_data.filter((pl.col('party') == 'Democratic') | (pl.col('party') == 'Democrat'))['votes'].sum()
                 gop_votes = county_level_data.filter(pl.col('party') == 'Republican')['votes'].sum()
+                other_votes = total_votes - dem_votes - gop_votes
+
                 dem_vote_share = round(dem_votes / total_votes * 100, 1)
                 gop_vote_share = round(gop_votes / total_votes * 100, 1)
+                other_vote_share = round(other_votes / total_votes * 100, 1)
 
                 winner = "Democrat" if dem_votes > gop_votes else "Republican"
                 margin_votes = (dem_votes - gop_votes)
@@ -180,8 +183,8 @@ for year in years:
                     fips,
                     [],
                     100,
-                    [dem_votes, gop_votes],
-                    [dem_vote_share, gop_vote_share], 
+                    [dem_votes, gop_votes, other_votes],
+                    [dem_vote_share, gop_vote_share, other_vote_share], 
                     margin_votes,
                     margin_percent,
                     absentee_percent,
