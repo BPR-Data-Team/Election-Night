@@ -2,8 +2,10 @@
 
 SOURCES
 
-Data from MIT Election Data + Science Lab
+2012 Data scraped from NYT
+2012: https://www.nytimes.com/elections/2012/results/senate.html 
 
+Other Data from MIT Election Data + Science Lab
 2016: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/NLTQAD
 2018: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DGNAFS
 2020: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ER9XTV 
