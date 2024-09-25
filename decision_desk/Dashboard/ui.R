@@ -1,18 +1,7 @@
 library(shiny)
 
 election_types <- c("President", "Senate", "House", "Governor")
-
-election_states <- list(
-  President = c("US", state.abb),  # All states for President
-  Senate = c("US", "AZ", "CA", "CT", "DE", "FL", "HI", 
-             "IN", "MD", "MA", "MI", "MN", "MO", "MT",
-             "NE", "NV", "NJ", "NM", "NY", "ND", "OH",
-             "PA", "RI", "TN", "TX", "UT", "VT", "VA",
-             "WA", "WV", "WI", "WY"),    # States with Senate elections
-  House = c("US", state.abb),     # All states for House
-  Governor = c("DE", "IN", "MO", "MT", "NH", "NC",
-               "ND", "UT", "VT", "WA", "WV")    # States with Governor elections
-)
+states <- c("US", state.abb)
 
 # Define UI for application that draws a histogram
 fluidPage(
