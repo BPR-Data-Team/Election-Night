@@ -10,7 +10,8 @@ election_states <- list(
              "PA", "RI", "TN", "TX", "UT", "VT", "VA",
              "WA", "WV", "WI", "WY"),    # States with Senate elections
   House = c("US", state.abb),     # All states for House
-  Governor = c("US", "OH", "GA", "AZ")    # States with Governor elections
+  Governor = c("DE", "IN", "MO", "MT", "NH", "NC",
+               "ND", "UT", "VT", "WA", "WV")    # States with Governor elections
 )
 
 # Define UI for application that draws a histogram
