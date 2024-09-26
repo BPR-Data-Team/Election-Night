@@ -9,7 +9,7 @@ export default function Canvas() {
         width="100%"
         height="100%"
         canvasColor="transparent"
-        strokeColor="#7AC943"
+        strokeColor="#88EE88"
         withViewBox
       />
     </div>

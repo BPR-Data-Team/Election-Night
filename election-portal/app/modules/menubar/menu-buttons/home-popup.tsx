@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "./home-popup.module.css";
+import { MdArrowRight } from "react-icons/md";
 
 interface HomePopupProps {
     currentPage: string;
@@ -29,6 +30,7 @@ const HomePopup: React.FC<HomePopupProps> = (props: HomePopupProps) => {
                     Exit Poll Explorer
                 </button>
             </div>
+            <MdArrowRight className={styles.arrow} /> {/* arrow part of the box */}
         </div>
     );
 };

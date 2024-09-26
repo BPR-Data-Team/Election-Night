@@ -7,7 +7,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Menubar from "../modules/menubar/menubar";
 import Banner from "./modules/banner";
-import Canvas from "./modules/canvas";
+import Canvas from "../modules/canvas/canvas";
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -45,12 +45,14 @@ export default function Election_Breakdown_Page() {
 
           {/* Needs to be topmost during content screens */}
           <Menubar
-            pageSwitch={toggleBanner}
+            page={"test"}
+            setCurrentPage={stringTest}
             exit={toggleBanner}
+            drawMode={drawMode}
             toggleDraw={toggleDraw}
-            availableBreakdowns={["asdf"]}
+            availableBreakdowns={["asdf", "asdf2", "asdf3", "asdf4"]}
             breakdownSwitch={stringTest}
-            availableYears={["1"]}
+            availableYears={["1", "2", "3"]}
             yearSwitch={stringTest}
             isVisible={isBannerVisible}
             toggleVisibility={toggleBanner}

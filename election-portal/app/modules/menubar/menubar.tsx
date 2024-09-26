@@ -4,12 +4,14 @@ import React from 'react';
 import './menubar.css';
 import HomeButton from './menu-buttons/home-button';
 import ExitButton from './menu-buttons/exit-button';
+import DrawButton from './menu-buttons/draw-button';
 import { useRouter } from "next/navigation";
 
 type MenubarProps = {
   page: string;
-  pageSwitch: (page: string) => void;
+  setCurrentPage: (page: string) => void;
   exit: () => void; // should give an alternative to this: click on a non-map area
+  drawMode: boolean;
   toggleDraw: () => void;
   availableBreakdowns: string[];
   breakdownSwitch: (breakdown: string) => void; // enum?
@@ -19,27 +21,41 @@ type MenubarProps = {
   toggleVisibility: () => void;
 };
 
-const Menubar: React.FC<MenubarProps> = ({    page, pageSwitch, exit, toggleDraw, availableBreakdowns, breakdownSwitch,
-                                                availableYears, yearSwitch, isVisible, toggleVisibility }) => {
+const Menubar: React.FC<MenubarProps> = 
+  ({  page, setCurrentPage, exit, drawMode, toggleDraw, availableBreakdowns, breakdownSwitch,
+      availableYears, yearSwitch, isVisible, toggleVisibility }) => {
+
   return (
     <div className="rightbar">
       <div className="contents">
         {isVisible && (
           <>
             <div className="menu-buttons">
-              <HomeButton currentPage={page} setCurrentPage={pageSwitch} />
+              <HomeButton currentPage={page} setCurrentPage={setCurrentPage} />
               <br></br>
-              <ExitButton currentPage={page} setCurrentPage={pageSwitch}/>
+              <ExitButton currentPage={page} setCurrentPage={setCurrentPage}/>
               <br>{/* better way to do this (.menu-buttons in css?))*/}</br>
-              <button onClick={toggleDraw}>
-                draw
-              </button>
+              <DrawButton drawMode={drawMode} toggleDraw={toggleDraw}/>
             </div>
+
+            <div className="divider"></div>
+
             <div className="breakdowns">
-              breakdown options go here
+              {availableBreakdowns.map((breakdown, index) => (
+                <button className="breakdown" key={index} onClick={() => breakdownSwitch(breakdown)}>
+                  {breakdown}
+                </button>
+              ))}
             </div>
+
+            <div className="divider"></div>
+
             <div className="years">
-              years go here
+              {availableYears.map((year, index) => (
+                <button className="year" key={index} onClick={() => yearSwitch(year)}>
+                  {year}
+                </button>
+              ))}
             </div>
           </>
         )}

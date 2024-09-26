@@ -4,6 +4,12 @@
   cursor: pointer;
 }
 
+.button:hover {
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
 .button_container {
     background-color: transparent;
     border: none;
@@ -11,7 +17,8 @@
     height: 4rem;
     display: flex;
     justify-content: center;
-  }
+}
+
 .button_col {
   display: flex;
   flex-direction: column;
@@ -19,14 +26,17 @@
   align-items: center;
 }
 
-.button_image {
-  width: 3rem;
-  height: 3rem;
-}
-
 .button_image_container {
   display: flex;
   justify-content: center;
+}
+
+.home_icon {
+  color: white;
+  opacity: 0.75;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: middle;
 }
 
 .catch_clicks_overlay {
@@ -47,4 +57,9 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -2;
+}
+
+.button_container_active {
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.3);
 }

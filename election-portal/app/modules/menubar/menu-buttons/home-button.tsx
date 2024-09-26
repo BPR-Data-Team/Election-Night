@@ -2,7 +2,7 @@ import styles from "./home-button.module.css";
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
-import home_icon from "../../../assets/home.png";
+import { MdHome } from "react-icons/md";
 
 import HomePopup from "./home-popup";
 
@@ -45,14 +45,14 @@ const HomeButton: React.FC<HomeButtonProps> = (props: HomeButtonProps) => {
   return (
     <div>
       <button onClick={toggleMenu} className={styles.button}>
-        <div className={styles.button_container}>
+        <div 
+          className={`${styles.button_container} ${isOpen ? styles.button_container_active : ""}`}
+          >
           <div className={styles.button_col}>
-            <div className={styles.button_image_container} ref={menuRef}>
-              <Image
-                className={styles.button_image}
-                src={home_icon}
-                alt={"This is a picture of a house icon for aesthetic purposes"}
-              ></Image>
+            <div className={styles.button_icon_container} ref={menuRef}>
+              <MdHome
+                className={styles.home_icon}
+                title="Home Menu" />
             </div>
           </div>
         </div>
@@ -62,7 +62,9 @@ const HomeButton: React.FC<HomeButtonProps> = (props: HomeButtonProps) => {
           <>
             <div className={styles.catch_clicks_overlay} ref={catchClickRef}></div>
             <div className={styles.overlay}></div>
-            <HomePopup currentPage={props.currentPage} setCurrentPage={props.setCurrentPage} />
+            <HomePopup 
+              currentPage={props.currentPage}
+              setCurrentPage={props.setCurrentPage} />
           </>
         )}
       </div>
