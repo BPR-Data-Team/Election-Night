@@ -10,9 +10,24 @@ const HomePopup: React.FC<HomePopupProps> = (props: HomePopupProps) => {
     return (
         <div className={styles.container}> 
             <div className={styles.popup}>
-                <button className={styles.button}>Election Breakdown</button>
-                <button className={styles.button}>Race for Control</button>
-                <button className={styles.button}>Exit Poll Explorer</button>
+                <button 
+                    className={styles.button} 
+                    onClick={() => props.setCurrentPage("/election-breakdown")}
+                >
+                    Election Breakdown
+                </button>
+                <button 
+                    className={styles.button} 
+                    onClick={() => props.setCurrentPage("/road-to-control")}
+                >
+                    Road to Control
+                </button>
+                <button 
+                    className={styles.button} 
+                    onClick={() => props.setCurrentPage("/exit-poll-explorer")}
+                >
+                    Exit Poll Explorer
+                </button>
             </div>
         </div>
     );

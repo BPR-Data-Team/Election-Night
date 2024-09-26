@@ -3,6 +3,8 @@
 import React from 'react';
 import './menubar.css';
 import HomeButton from './menu-buttons/home-button';
+import ExitButton from './menu-buttons/exit-button';
+import { useRouter } from "next/navigation";
 
 type MenubarProps = {
   page: string;
@@ -27,9 +29,7 @@ const Menubar: React.FC<MenubarProps> = ({    page, pageSwitch, exit, toggleDraw
             <div className="menu-buttons">
               <HomeButton currentPage={page} setCurrentPage={pageSwitch} />
               <br></br>
-              <button onClick={exit}>
-                exit
-              </button>
+              <ExitButton currentPage={page} setCurrentPage={pageSwitch}/>
               <br>{/* better way to do this (.menu-buttons in css?))*/}</br>
               <button onClick={toggleDraw}>
                 draw
