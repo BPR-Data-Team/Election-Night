@@ -4,7 +4,7 @@
   width: 70%;
   position: relative;
   height: 2.5rem;
-  background-color: rgba(0, 0, 0, 0.30);
+  background-color: var(--statusbar-bgcolor);
   display: flex;
   justify-content: space-between; /* Ensures the bars are on the sides */
   border-radius: 0.5rem;
@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   font-weight: bold;
-  color: #FFF;
+  color: var(--statusbar-text);
   text-align: center;
   font-family: Gelica;
   font-size: 1.7rem;
@@ -28,7 +28,7 @@
 .statusBarLeft {
   left: 0;
   margin-right: 0.01rem;
-  background-color: #595D9A;
+  background-color: var(--statusbar-left);
   justify-content: flex-start;
   padding-left: 1rem; 
   border-radius: 0.5rem;
@@ -37,8 +37,9 @@
 
 .statusBarRight {
   right: 0;
+
   margin-left: 0.01rem;
-  background-color: #B83C2B;
+  background-color: var(--statusbar-right);
   justify-content: flex-end;
   padding-right: 1rem; 
   border-radius: 0.5rem;
@@ -48,9 +49,9 @@
 
 
 .separator {
-  width: 0.25rem;
+  width: 0.35rem;
   height: 100%;
-  background-color: #e0e0e0;
+  background-color: var(--statusbar-separator);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
