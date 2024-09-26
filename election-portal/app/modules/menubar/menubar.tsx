@@ -10,13 +10,13 @@ import { useRouter } from "next/navigation";
 type MenubarProps = {
   page: string;
   setCurrentPage: (page: string) => void;
-  exit: () => void; // should give an alternative to this: click on a non-map area
+  exit: () => void;
   drawMode: boolean;
   toggleDraw: () => void;
   availableBreakdowns: string[];
-  breakdownSwitch: (breakdown: string) => void; // enum?
+  breakdownSwitch: (breakdown: string) => void;
   availableYears: string[];
-  yearSwitch: (year: string) => void; // should be int => void
+  yearSwitch: (year: number) => void;
   isVisible: boolean;
   toggleVisibility: () => void;
 };
