@@ -111,14 +111,16 @@ results <- future_map(ids, scrape_data, .progress = TRUE)
 
 results_df <- list_rbind(results)
 
+#----- CLEANING DATA ------
 results_df <- results_df %>%
-  mutate(total_votes = rowSums(across(contains("votes")), na.rm = TRUE)) %>%
-  mutate(across(contains("votes"), ~ 100 * .x / total_votes, .names = "{.col}_percent"),
+  #Total returned is the term we use for votes, but we don't call it votes
+  mutate(total_returned = rowSums(across(contains("votes")), na.rm = TRUE)) %>%
+  mutate(across(contains("votes"), ~ 100 * .x / total_returned, .names = "{.col}_percent"),
          margin_pct = Democratic_votes_percent - Republican_votes_percent, 
          margin_votes = Democratic_votes - Republican_votes) %>%
   group_by(year, fips, office_type, state, district) %>%
-  mutate(pct_absentee = ifelse(vote_type == "absentee_ballots_early_votes", total_votes_percent, NA), 
-         absentee_margin = ifelse(vote_type == "absentee_ballots_early_votes", Democratic_votes_percent - Republican_votes_percent, NA)) %>%
+  mutate(pct_absentee = ifelse(vote_type == "absentee_ballots_early_votes", total_returned / sum(total_returned), NA), 
+         absentee_margin = ifelse(vote_type == "absentee_ballots_early_votes", margin_pct, NA)) %>%
   fill(pct_absentee, absentee_margin, .direction = "updown") %>% #Tested that this works! It does it by county/office_type/district combo!
   filter(vote_type == "total_votes") %>%
   ungroup() %>%
@@ -134,7 +136,7 @@ results_df <- results_df %>%
   mutate(office_type = str_remove(office_type, "US ")) %>%
   select(test_data,ddhq_id, year, office_type, election_type, state, county, district, fips, 
          Democratic_name, Republican_name, Independent_name, Green_name, total, reporting,
-         pct_reporting, vote_type, Democratic_votes, Republican_votes, Independent_votes, Green_votes, 
+         pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, 
          Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
          margin_votes, margin_pct, pct_absentee, absentee_margin) %>%
   #When no votes have been counted, we want this to show zero? I THINK
@@ -145,31 +147,37 @@ results_df <- results_df %>%
 
 
 #------ COMBINING DATA ------
-past_county <- read_csv("cleaned_data/Past_county_values.csv") %>% 
-  mutate(fips = ifelse(state == "AK", "", fips)) %>% 
+
+
+#------ COUNTY DATASET -------
+past_county <- read_csv("cleaned_data/historical_county.csv") %>% 
+  mutate(fips = ifelse(state == "AK", "", fips), 
+         district = as.character(district)) %>% 
   select(-county)
 
 #For senate/gov elections, calculating how well they're doing relative to the president
 performance_vs_president <- results_df %>%
   filter(office_type != "House") %>%
-  select(office_type, state, district, county, margin_pct) %>%
+  select(office_type, state, district, county, margin_pct)  %>%
   pivot_wider(id_cols = c(state, district, county), 
               names_from = office_type, 
-              values_from = margin_pct) %>% 
+              values_from = margin_pct) %>%
   mutate(Senate = Senate - President, 
-         Governor = Governor - President) %>% 
+         Governor = Governor - President, 
+         district = as.character(district)) %>%
   select(-President) %>%
   pivot_longer(cols = c(Senate, Governor), 
                names_to = "office_type",
                values_to = "performance_vs_president") 
   
-#Combining everything together to get a county dataset
 final_county_dataset <- results_df %>%
-  left_join(past_county, by = c("office_type", "state", "fips")) %>% 
-  filter(!(is.na(margin_pct_1) & office_type == "President" & state %in% c("HI", "IL", "MO"))) %>% #Weird cases with these counties
+  left_join(past_county, by = c("office_type", "district", "state", "fips")) 
+  filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate") & state %in% c("HI", "MO", "MD"))) %>% #Some weird stuff here...
   mutate(swing = margin_pct - margin_pct_1) %>% #Calculating swing from previous election
   left_join(performance_vs_president, by = c("state", "district", "county", "office_type"))
   
+
+#------ RACE-LEVEL DATASET ------
 past_race_data <- read_csv("cleaned_data/Past_race_data.csv")
 
 #Combining all county datasets to get a final dataset of one value by race!
