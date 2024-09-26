@@ -5,10 +5,7 @@ library(glue)
 library(httr)
 library(furrr)
 
-
-#We read in files here
-load("data/dataverse_shareable_gubernatorial_county_returns_1865_2020.Rdata")
-
+#----- PRESIDENTIAL HISTORICAL ------
 pres_2020 <- read_csv("cleaned_data/President by Precinct/2020 git data.csv") %>%
   mutate(margin_votes_1 = democrat_votes - republican_votes , 
          margin_pct_1 = 100*(democrat_votes - republican_votes)/total_votes, 
@@ -20,10 +17,23 @@ pres_2020 <- read_csv("cleaned_data/President by Precinct/2020 git data.csv") %>
     county == "Doña Ana County" ~ "Dona Ana County", 
     county == "Oglala Lakota County" ~ "Oglala County", 
     TRUE ~ county
-  )) %>% #Some weird county naming...
-  select(state, county, fips, margin_pct_1, margin_votes_1,) %>%
-  add_row(state = "DC", county = "District of Columbia", margin_pct_1 = 86.75, 
-          margin_votes_1 = 298737, fips = "001")
+  ), 
+  state = ifelse(county == "District of Columbia", "DC", state)) %>% #Some weird county naming...
+  select(state, county, fips, margin_pct_1, margin_votes_1)
+
+#Treating all of alaska as one county, I guess?
+alaska_2020 <- pres_2020 %>% 
+  filter(state == "AK") %>%
+  mutate(total_votes = 100 * margin_votes_1 / margin_pct_1) %>%
+  summarize(state = 'AK', 
+            county = "Alaska", 
+            margin_votes_1 = sum(margin_votes_1),
+            margin_pct_1 = 100 * margin_votes_1 / sum(total_votes), 
+            fips = "013")
+  
+pres_2020 <- pres_2020 %>% 
+  filter(state != "AK") %>% 
+  bind_rows(alaska_2020)
 
 pres_2016 <- read_csv("cleaned_data/President by Precinct/2016 git data.csv") %>%
   mutate(margin_votes_2 = democrat_votes - republican_votes , 
@@ -33,50 +43,81 @@ pres_2016 <- read_csv("cleaned_data/President by Precinct/2016 git data.csv") %>
          fips = ifelse(county == "Oglala County", 102, fips)) %>%
   select(state, county, fips, margin_pct_2, margin_votes_2)
 
-senate_2018 <- read_csv("cleaned_data/Senate by Precinct/2018 Senate.csv") %>%
-  mutate(margin_votes_1 = dem_votes - gop_votes,
-         margin_pct_1 = 100 *(dem_votes - gop_votes)/total_votes, 
-         office_type = "Senate", 
-         state = state.abb[match(state, state.name)]) %>%
-  select(state, county, office_type, margin_pct_1, margin_votes_1)
 
-#When we're dealing with Pres files, we want to include both the previous election and the election before
-#Harder to do so with senate, so we only take the most recent (1) instead of both (2)
+#Final presidential values, by county
+pres_county <- pres_2020 %>%
+  full_join(pres_2016, by = c("state", "county", "fips")) %>%
+  mutate(office_type = "President", 
+         district = 0, .before = everything())
 
-past_county_values <- pres_2020 %>%
-  full_join(pres_2016, by = c("state", "county", "fips")) 
+#------ SENATE HISTORICAL -------
+senate_2012 <- read_csv("cleaned_data/Senate by Precinct/2018 Senate.csv") %>%
+  select(office_type, state, county, district, fips, margin_votes, margin_percent) %>% 
+  rename(margin_votes_2 = margin_votes, margin_pct_2 = margin_percent) %>% 
+  rowwise() %>%
+  mutate(fips = str_sub(fips, -3)) %>%
+  bind_rows(data.frame(
+    office_type = rep("Senate", 4),
+    state = c("IN", "NY", "NY", "NY"),
+    county = c("Washington", "Jefferson", "Niagara", "Ulster"),
+    district = rep(0, 4),
+    fips = c("175", "045", "063", "111"),
+    margin_votes_2 = c(-942, 9336, 19797, 30455),
+    margin_pct_2 = c(-8.9, 30.4, 25.5, 43.5)
+  ))
+
+senate_2018 <- read_csv("cleaned_data/Senate by Precinct/2012 Senate.csv") %>%
+  select(office_type, state, county, district, fips, margin_votes, margin_percent) %>% 
+  rename(margin_votes_1 = margin_votes, margin_pct_1 = margin_percent) %>%
+  rowwise() %>%
+  mutate(fips = str_sub(as.character(fips), -3), 
+         county = str_remove(county, " County"))
+
+senate_county <- senate_2018 %>%
+  full_join(senate_2012, by = c("office_type", "district", "state", "fips")) %>%
+  filter(!is.na(margin_pct_1) & !is.na(margin_pct_1)) %>% 
+  select(-county.y) %>% 
+  rename(county = county.x)
+
+
+#----- GOVERNOR HISTORICAL ------
+
+
+#----- HOUSE HISTORICAL -----
+house_2022 <- read_csv("data/HouseHistory.csv") %>%
+  filter(year == 2022 & stage == "GEN" & !runoff & !special) %>%
+  pivot_wider(id_cols = c(state_po, office, district, totalvotes), 
+              names_from = party, 
+              values_from = candidatevotes, 
+              values_fn = max) %>%
+  mutate(margin_pct_1 = 100 * (DEMOCRAT - REPUBLICAN) / totalvotes, 
+         margin_votes_1 = DEMOCRAT - REPUBLICAN, 
+         office_type = "House", 
+         state = state_po, 
+         uncontested = is.na(margin_pct_1)) %>% 
+    select(state, office_type, district, margin_pct_1, margin_votes_1, uncontested) 
+
+
 
 #Finishing up past county values
-past_county_values <- past_county_values %>% 
-  filter(state != "AK") %>%
-  mutate(office_type = "President", .before = everything()) %>%
-  bind_rows(senate_2018) %>%
-  mutate(county = str_remove(county, " County")) %>% 
-  add_row(office_type = "President", 
-          state = "AK", 
-          county = "Alaska", 
-          fips = "", 
-          margin_pct_1 = -10.06, 
-          margin_pct_2 = -14.73, 
-          margin_votes_1 = -36173, 
-          margin_votes_2 = -46933)
-
-#----- GUBERNATORIAL DATA
-
-historical_gov <- gov_elections_release %>%
-  group_by(state) %>% 
-  mutate(recent_rank = dense_rank(desc(election_year))) %>% 
-  ungroup() %>%
-  filter(recent_rank %in% c(1, 2)) %>%
-  select(recent_rank, county, fips, raw_county_vote_totals, democratic_raw_votes, republican_raw_votes)
+historical_counties <- pres_county %>% 
+  bind_rows(senate_county) %>%
+  mutate(county = str_remove(county, " County")) %>%
+  filter(!str_detect(county, "[c|C]ity"))
 
 
-past_race_data <- past_county_values %>%
-  group_by(office_type, state) %>% 
-  summarize(margin_votes_1 = sum(margin_votes_1), 
-            margin_pct_1 = 100 * margin_votes_1 / sum(100 * margin_votes_1 / margin_pct_1), 
-            margin_votes_2 = sum(margin_votes_2), 
-            margin_pct_2 = 100 * margin_votes_2 / sum(100 * margin_votes_2 / margin_pct_2))
+#------ COMBINING TO GET FULL RACE VALUES ------
+full_races <- historical_counties %>%
+  mutate(total_votes_1 = 100 * margin_votes_1 / margin_pct_1, 
+         total_votes_2 = 100 * margin_votes_2 / margin_pct_2) %>%
+  group_by(office_type, state, district) %>%
+  summarize(
+    margin_pct_1 = sum(margin_votes_1 / total_votes_1, na.rm = TRUE),
+    margin_votes_1 = sum(margin_votes_1), 
+    margin_pct_2 = 100 * sum(margin_votes_2) / sum(100 * margin_votes_2 / margin_pct_2),
+    margin_votes_2 = sum(margin_votes_2))
 
-write_csv(past_county_values, "cleaned_data/Past_county_values.csv")
-write_csv(past_race_data, "cleaned_data/Past_race_data.csv")
+
+write_csv(historical_counties, "cleaned_data/historical_county.csv")
+write_csv(full_races, "cleaned_data/historical_elections.csv")
+write_csv(house_2022, "cleaned_data/House_2022.csv")
