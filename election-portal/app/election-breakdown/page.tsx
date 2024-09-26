@@ -5,7 +5,7 @@ import Head from "next/head";
 import Image from "next/image";
 
 import styles from "./page.module.css";
-import Rightbar from "./modules/rightbar";
+import Menubar from "../modules/menubar/menubar";
 import Banner from "./modules/banner";
 import Canvas from "./modules/canvas";
 
@@ -44,7 +44,7 @@ export default function Election_Breakdown_Page() {
           {drawMode && <Canvas />}
 
           {/* Needs to be topmost during content screens */}
-          <Rightbar
+          <Menubar
             pageSwitch={toggleBanner}
             exit={toggleBanner}
             toggleDraw={toggleDraw}

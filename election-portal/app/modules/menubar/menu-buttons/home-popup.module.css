@@ -1,0 +1,28 @@
+.container {
+    position: absolute;
+    right: 6rem;
+    top: 10rem;
+    z-index: 2;
+}
+
+.popup {
+    padding: 0.5rem;
+    padding-inline-end: 3rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 20rem;
+    text-align: center;
+}
+
+.button {
+    font-family: gelica, book antiqua, georgia, times new roman, serif;
+    font-weight: 550;
+    font-size: 1.2rem;
+    text-align: left;
+    display: block;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
