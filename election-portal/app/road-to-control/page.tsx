@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { RaceType } from "@/types/RaceType";
 import CountryMap from "@/components/dataviz/RTCMap";
 import { Year } from "@/types/Year";
+import StatusBar from "./modules/StatusBar";
+ import styles from "./page.module.css";
 import { State, getStateFromAbbreviation } from "@/types/State";
 
 export default function Road_To_Control_Page() {
@@ -18,7 +20,9 @@ export default function Road_To_Control_Page() {
 
   return (
     <>
-      <p>Road To Control Page</p>
+      <div className={styles.statusBar}>
+      <StatusBar />  {/* This should render the StatusBar */}
+      </div>
       <button onClick={() => setRaceType(RaceType.Presidential)}>Pres</button>
       <button onClick={() => setRaceType(RaceType.Senate)}>Sen</button>
       <button onClick={() => setRaceType(RaceType.House)}>Hse</button>

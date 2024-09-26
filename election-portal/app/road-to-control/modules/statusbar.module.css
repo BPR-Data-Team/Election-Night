@@ -1,0 +1,59 @@
+/* statusbar.module.css */
+
+.container {
+  width: 70%;
+  position: relative;
+  height: 2.5rem;
+  background-color: var(--statusbar-bgcolor);
+  display: flex;
+  justify-content: space-between; /* Ensures the bars are on the sides */
+  border-radius: 0.5rem;
+}
+
+.statusBar {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: var(--statusbar-text);
+  text-align: center;
+  font-family: Gelica;
+  font-size: 1.7rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.statusBarLeft {
+  left: 0;
+  margin-right: 0.01rem;
+  background-color: var(--statusbar-left);
+  justify-content: flex-start;
+  padding-left: 1rem; 
+  border-radius: 0.5rem;
+  transition: width 1s ease;
+}
+
+.statusBarRight {
+  right: 0;
+
+  margin-left: 0.01rem;
+  background-color: var(--statusbar-right);
+  justify-content: flex-end;
+  padding-right: 1rem; 
+  border-radius: 0.5rem;
+  transition: width 1s ease; 
+}
+
+
+
+.separator {
+  width: 0.35rem;
+  height: 100%;
+  background-color: var(--statusbar-separator);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
