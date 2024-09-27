@@ -16,6 +16,7 @@ scrape_data <- function(ddhq_id) {
   
   response <- GET(url)
   if (http_error(response)) {
+    print("Error on http response")
     return(NULL)
   }
   
@@ -59,7 +60,7 @@ scrape_data <- function(ddhq_id) {
       #Cleaning votes by county
       vcus <- json_data$vcus %>% 
         rename(county = vcu) %>% 
-        flatten() %>% 
+        jsonlite::flatten() %>% 
         rename_with(.cols = contains("."), ~ str_remove(., "^[^.]*\\.")) %>% 
         pivot_longer(
           cols = matches("[0-9]"), # All cols with candidate information is in this format
@@ -171,14 +172,14 @@ performance_vs_president <- results_df %>%
                values_to = "performance_vs_president") 
   
 final_county_dataset <- results_df %>%
-  left_join(past_county, by = c("office_type", "district", "state", "fips")) 
+  left_join(past_county, by = c("office_type", "district", "state", "fips")) %>%
   filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate") & state %in% c("HI", "MO", "MD"))) %>% #Some weird stuff here...
   mutate(swing = margin_pct - margin_pct_1) %>% #Calculating swing from previous election
   left_join(performance_vs_president, by = c("state", "district", "county", "office_type"))
   
 
 #------ RACE-LEVEL DATASET ------
-past_race_data <- read_csv("cleaned_data/Past_race_data.csv")
+past_race_data <- read_csv("cleaned_data/historical_elections.csv")
 
 #Combining all county datasets to get a final dataset of one value by race!
 final_race_dataset <- final_county_dataset %>% 
@@ -207,5 +208,5 @@ final_race_dataset <- final_county_dataset %>%
          absentee_pct, absentee_margin_pct) %>%
   left_join(past_race_data, by = c("office_type", "state"))
 
-write_csv(test_df, "cleaned_data/DDHQ_test_data.csv")
-#write_csv(results_df, "cleaned_data/DDHQ_current_results.csv")
+write_csv(final_county_dataset, "cleaned_data/DDHQ_current_county_results.csv")
+write_csv(final_race_dataset, "cleaned_data/DDHQ_current_race_results.csv")
