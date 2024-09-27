@@ -1,0 +1,526 @@
+office_type,state,district.x,Democratic_name,Republican_name,Independent_name,pct_reporting,total_votes,margin_votes,margin_pct,absentee_pct,absentee_margin_pct,district.y,margin_pct_1,margin_votes_1,margin_pct_2,margin_votes_2
+Governor,DE,0,Matt Meyer,Michael Ramone,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,IN,0,Jennifer McCormick,Mike Braun,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,MT,0,Ryan Busse,Greg Gianforte,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,NC,0,Josh Stein,Mark Robinson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,ND,0,Merrill Piepkorn,Kelly Armstrong,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,NH,0,Joyce Craig,Kelly  Ayotte,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,UT,0,Brian King,Spencer Cox,Tom Tomeny,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,VT,0,NA,Phil Scott,Eli Mutino,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,WA,0,Bob Ferguson,Dave Reichert,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+Governor,WV,0,Steve Williams,Patrick Morrisey,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AK,1,Eric Hafner,Nick Begich,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AL,1,Tom Holmes,Barry Moore,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AL,2,Shomari Figures,Caroleene Dobson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AL,3,NA,Mike Rogers,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AL,4,NA,Robert Aderholt,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AL,5,NA,Dale Strong,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AL,6,Elizabeth Anderson,Gary Palmer,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AL,7,Terri Sewall,Robin Litaker,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AR,1,Rodney Govens,Rick Crawford,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AR,2,Marcus Jones,French Hill,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AR,3,Caitlin Mattelin,Steve Womack,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AR,4,Risie Howard,Bruce Westerman,John White,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,1,Amish Shah,David Schweikert,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,2,Jonathan Nez,Eli Crane,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,3,Yassamin Ansari,Jeffrey Zink,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,4,Greg Stanton,Kelly Cooper,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,5,Katrina Schaffner,Andy Biggs,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,6,Kristen Engel,Juan Ciscomani,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,7,Raul Grijalva,Daniel Butierez,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,8,Gregory Whitten,Abraham Hamadeh,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,AZ,9,Quacy Smith,Paul Gosar,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,1,Rose Yee,Doug La Malfa,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,10,Mark DeSaulnier,Katherine Piccinini,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,11,Nancy Pelosi,Bruce Lou,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,12,Jennifer Tran,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,13,Adam Gray,John Duarte,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,14,Eric Swalwell,Vin Kruttiventi,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,15,Kevin Mullin,Anna Kramer,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,16,Evan Low,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,17,Ro Khanna,Anita Chen,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,18,Zoe Lofgren,Peter Hernandez,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,19,Jimmy Panetta,Jason Anderson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,2,Jared Huffman,Chris Coulombe,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,20,NA,Mike Boudreaux,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,21,Jim Costa,Michael Maher,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,22,Rudy Salas,David Valadao,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,23,Derek Marshall,Jay Obernolte,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,24,Salud Carbajal,Thomas Cole,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,25,Raul Ruiz,Ian Weeks,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,26,Julia Brownley,Michael Koslow,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,27,George Whitesides,Mike Garcia,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,28,Judy Chu,April Verlato,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,29,Luz Rivas,Benito Bernal,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,3,Jessica Morse,Kevin Kiley,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,30,Laura Friedman,Alex Balekian,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,31,Gil Cisneros,Daniel Martinez,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,32,Brad Sherman,Larry Thompson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,33,Pete Aguilar,Tom Herman,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,34,Jimmy Gomez,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,35,Norma Torres,Mike Cargile,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,36,Ted Lieu,Melissa Toomim,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,37,Sydney Kamlager-Dove,NA,Juan Rey,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,38,Linda Sanchez,Eric Ching,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,39,Mark Takano,David Serpa,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,4,Mike Thompson,John Munn,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,40,Joe Kerr,Young Kim,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,41,Will Rollins,Ken Calvert,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,42,Robert Garcia,John Briscoe,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,43,Maxine Waters,Steve Williams,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,44,Nanette Barragan,Roger Groh,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,45,Derek Tran,Michelle Steel,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,46,Lou Correa,David Pan,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,47,Dave Min,Scott Baugh,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,48,Stephen Houlahan,Darrell Issa,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,49,Mike Levin,Matt Gunderson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,5,Mike Barkley,Tom McClintock,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,50,Scott Peters,Peter Bono,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,51,Sara Jacobs,Bill Wells,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,52,Juan Vargas,Justin Lee,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,6,Ami Bera,Christine Bish,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,7,Doris Matsui,Tom Silva,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,8,John Garamendi,Rudy Recile,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CA,9,Josh Harder,Kevin Lincoln,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,1,Diana DeGette,Valdamar Archuleta,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,2,Joe Neguse,Marshall Dawson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,3,Adam Frisch,Jeff Hurd,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,4,Trish Calvarese,Lauren Boebert,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,5,River Gassen,Jeff Crank,Joseph Gaye,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,6,Jason Crow,John Fabbricatore,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,7,Brittany Pettersen,Sergei Matveyuk,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CO,8,Yadira Caraveo,Gabe Evans,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CT,1,John Larson,Jim Griffin,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CT,2,Joe Courtney,Mike France,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CT,3,Rosa DeLauro,Michael Massey,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CT,4,Jim Himes,Michael Goldstein,Jaden Skudlarek,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,CT,5,Jahana Hayes,George Logan,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,DE,1,Sarah McBride,John Whalen III,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,1,Gay Valimont,Matt Gaetz,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,10,Maxwell Alejandro Frost,Willie Montague,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,11,Barbie Harden Hall,Daniel Webster,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,12,Rock Aboujaoude,Gus Bilirakis,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,13,Whitney Fox,Anna Paulina Luna,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,14,Kathy Castor,Rocky Rochford,Christopher Bradley,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,15,Pat Kemp,Laurel Lee,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,16,Jan Schneider,Vernon Buchanan,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,17,Manny Lopez,Greg Steube,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,18,Andrea Doria Kale,Scott Franklin,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,19,Kari Lerner,Byron Donalds,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,2,Yen Bailey,Neal Dunn,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,20,Sheila Cherfilus-McCormick,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,21,Thomas Witkop,Brian Mast,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,22,Lois Frankel,Daniel Franzese,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,23,Jared Moskowitz,Joe Kaufman,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,24,Frederica Wilson,Jesus Navarro,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,25,Debbie Wasserman Schultz,Christopher Eddy,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,26,Joey David Atkins,Mario Diaz-Balart,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,27,Lucia Baez-Geller,María Elvira-Salazar,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,28,Phil Ehr,Carlos Gimenez,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,3,Tom Wells,Kat Cammack,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,4,LaShonda Holloway,Aaron Bean,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,5,Jay McGovern,John Rutherford,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,6,James Stockton,Michael Waltz,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,7,Jennifer Ada,Cory Mills,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,8,Sandy Kennedy,Mike Haridopolos,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,FL,9,Darren Soto,Thomas Chalifoux,Marcus Carter,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,1,Patti Hewitt,Earl Carter,Joyce Griggs,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,10,Lexy Doherty,Mike Collins,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,11,Katy Stamper,Barry Loudermilk,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,12,Liz Johnson,Rick Allen,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,13,David Scott,Jonathan Chavez,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,14,Shawn Harris,Marjorie Taylor Greene,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,2,Sanford Bishop,A Wayne Johnson,Colleen Massey,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,3,Maura Keller,Brian Jack,George Cantrell,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,4,Hank Johnson,Eugene Yu,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,5,Nikema Williams,John Salvesen,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,6,Lucy McBath,Jeff Criswell,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,7,Bob Christian,Rich McCormick,Charles King,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,8,Darrius Butler,Austin Scott,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,GA,9,Tambrei Cash,Andrew Clyde,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,HI,1,Ed Case,Patrick Largey,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,HI,2,Jill Tokuda,Steven Bond,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IA,1,Christina Bohannan,Mariannette Miller-Meeks,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IA,2,Sarah Corkery,Ashley Hinson,Jody Puffett,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IA,3,Lanon Baccam,Zach Nunn,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IA,4,Ryan Melton,Randy Feenstra,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,ID,1,Kaylee Peterson,Ross Fulcher,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,ID,2,David Roth,Mike Simpson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,1,Jonathan Jackson,Marcus Lewis,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,10,Brad Schneider,Jim Carris,Joseph Severino,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,11,Bill Foster,Jerry Evans,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,12,Brian Roberts,Mike Bost,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,13,Nikki Budzinski,Joshua Loyd,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,14,Lauren Underwood,James Marter,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,15,NA,Mary Miller,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,16,NA,Darin  LaHood,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,17,Eric Sorensen,Joseph McGraw,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,2,Robin Kelly,Ashley Ramos,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,3,Delia Ramirez,John Booras,Angel Oakley,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,4,Jesus Garcia,Lupe Castillo,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,5,Mike Quigley,Tom Hanson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,6,Sean Casten,Niki Conforti,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,7,Danny Davis,Chad Koppie,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,8,Raja Krishnamoorthi,Mark Rice,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IL,9,Jan Schakowsky,Seth Cohen,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,1,Frank Mrvan,Randall Niemeyer,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,2,Lori Camp,Rudy Yakym,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,3,Kiley Adolph,Marlin Stutzman,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,4,Derrick Holder,Jim Baird,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,5,Deborah Pickett,Victoria Spartz,Robby Slaughter,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,6,Cynthia Wirth,Jefferson Shreve,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,7,Andre Carson,John Schmitz,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,8,Erik Hurt,Mark Messmer,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,IN,9,Timothy Peck,Erin Houchin,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KS,1,Paul Buskirk,Tracey Mann,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KS,2,Nancy Boyda,Derek Schmidt,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KS,3,Sharice Davids,Prasanth Reddy,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KS,4,Esaua Freeman,Ron Estes,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KY,1,Erin Marshall,James Comer,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KY,2,Hank Linderman,Brett  Guthrie,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KY,3,Morgan McGarvey,Mike Craven,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KY,4,NA,Thomas Massie,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KY,5,NA,Hal Rogers,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,KY,6,Randy Cravens,Andy Barr,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,1,Richard Neal,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,2,Jim McGovern,NA,Cornelius Shea,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,3,Lori Trahan,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,4,Jake Auchincloss,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,5,Katherine Clark,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,6,Seth Moulton,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,7,Ayanna Pressley,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,8,Stephen Lynch,Robert Burke,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MA,9,William  Keating,Dan Sullivan,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,1,Blane Miller,Andy Harris,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,2,John Olszewski,Kim Klacik,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,3,Sarah Elfreth,Robert Steinberger,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,4,Glenn Ivey,George McDermott,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,5,Steny Hoyer,Michelle Talkington,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,6,April McClain-Delaney,Neil Parrott,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,7,Kweisi Mfume,Scott Collier,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MD,8,Jamie Raskin,Cheryl Riley,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,ME,1,Chellie Pingree,Ronald Russell,Ethan Alcorn,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,ME,2,Jared Golden,Austin Theriault,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,1,Callie Barr,John Bergman,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,10,Carl Marlinga,John James,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,11,Haley Stevens,Nick Somberg,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,12,Rashida Tlaib,James Hooper,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,13,Shri Thanedar,Martell Bivings,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,2,Michael Lynch,John Moolenaar,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,3,Hillary Scholten,Paul Hudson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,4,Jessica Swartz,Bill Huizenga,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,5,Libbi Urban,Tim Walberg,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,6,Debbie Dingell,Heather Smiley,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,7,Curtis Hertel,Tom Barrett,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,8,Kristen McDonald Rivet,Paul Junge,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MI,9,Clinton St. Mosley,Lisa McClain,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,1,Rachel Bohman,Brad Finstad,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,2,Angie Craig,Joe Teirab,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,3,Kelly Morrison,Tad Jude,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,4,Betty McCollum,May Lor Xiong,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,5,Ilhan Omar,Dalia Al-Aqidi,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,6,Jeanne Hendricks,Tom Emmer,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,7,John Peters,Michelle Fischbach,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MN,8,Jennifer Schultz,Peter Stauber,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,1,Wesley Bell,Andrew Jones,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,2,Ray Hartmann,Ann Wagner,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,3,Bethany Mann,Bob Onder,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,4,Jeanette Cass,Mark Alford,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,5,Emanuel Cleaver,Sean Smith,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,6,Pam May,Sam Graves,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,7,Missi Hesketh,Eric Burlison,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MO,8,Randi McCallian,Jason Smith,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MS,1,Dianne Black,Trent Kelly,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MS,2,Bennie  Thompson,Ronald Eller,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MS,3,NA,Michael Guest,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MS,4,Craig Raybon,Mike Ezell,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MT,1,Monica Tranel,Ryan Zinke,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,MT,2,John Driscoll,Troy Downing,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,1,Don Davis,Laurie Buckhout,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,10,Ralph Scott,Patrick Harrigan,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,11,Caleb Rudow,Chuck Edwards,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,12,Alma Adams,Addul Ali,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,13,Frank Pierce,Brad Knott,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,14,Pam Genant,Tim Moore,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,2,Deborah Ross,Alan Swain,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,3,NA,Greg Murphy,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,4,Valerie Foushee,Eric Blankenburg,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,5,Chuck Hubbard,Virginia  Foxx,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,6,NA,Addison McDowell,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,7,Marlando Pridgen,David  Rouzer,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,8,Justin Dues,Mark Harris,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NC,9,Nigel Bristow,Richard  Hudson,Shelane Etchison,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,ND,1,Trygve Hammer,Julie Fedorchak,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NE,1,Carol Blood,Mike Flood,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NE,2,Tony Vargas,Don Bacon,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NE,3,Daniel Ebers,Adrian Smith,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NH,1,Chris Pappas,Russell Prescott,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NH,2,Maggie Goodlander,Lily Williams,Ryan Donnelly,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,1,Donald Norcross,Theodore Liddell,Austin Johnson,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,10,LaMonica McIver,Carmen Bucco,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,11,Mikie Sherrill,Joseph Belnome,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,12,Bonnie Coleman,Darius Mayfield,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,2,Joe Salerno,Jeff Van Drew,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,3,Herbert Conaway,Rajesh Mohan,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,4,Matthew Jenkins,Chris Smith,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,5,Josh Gottheimer,Mary Jo Guinchard,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,6,Frank Pallone,Scott Fegler,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,7,Susan Altman,Thomas Kean,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,8,Robert Menendez,Anthony Valdes,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NJ,9,Nellie Pou,Billy Prempeh,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NM,1,Melanie Ann Stansbury,Steve Jones,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NM,2,Gabriel Vasquez,Yvette Herrell,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NM,3,Teresa Fernandez,Sharon Clahchischilliage,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NV,1,Dina Titus,Mark Robertson,Ron Quince,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NV,2,NA,Mark Amodei,Greg Kidd,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NV,3,Susie Lee,Drew Johnson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NV,4,Steven Horsford,John Lee,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,1,John Avlon,Nicholas LaLota,Patrick Denman,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,10,Daniel Goldman,Alexander Dodenhoff,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,11,Andrea Morse,Nicole Malliotakis,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,12,Jerrold Nadler,Mike Zumbluskas,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,13,Adriano Espaillat,Ruben Vargas,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,14,Alexandria Ocasio-Cortez,Tina Forte,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,15,Ritchie Torres,Gonzalo Duran,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,16,George Latimer,Miriam Flisser,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,17,Mondaire Jones,Michael Lawler,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,18,Pat Ryan,Alison Esposito,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,19,Josh Riley,Marcus Molinaro,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,2,Rob Lubin,Andrew Garbarino,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,20,Paul Tonko,Kevin Waltz,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,21,Paula Collins,Elise Stefanik,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,22,John Mannion,Brandon Williams,Christopher Gowett,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,23,Thomas Carle,Nick Langworthy,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,24,David Wagenhauser,Claudia Tenney,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,25,Joseph Morelle,Gregg Sadwick,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,26,Timothy Kennedy,Anthony Marecki,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,3,Tom Suozzi,Michael LiPetri Jr.,Matthew Nappo,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,4,Laura Gillen,Anthony D'Esposito,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,5,Gregory Meeks,Paul King,Khalif Havens,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,6,Grace Meng,Thomas Zmich,Joseph Chou,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,7,Nydia Velaquez,William Kregler,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,8,Hakeem Jeffries,John Delaney,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,NY,9,Yvette Clarke,Menachem Raitport,Joel Anabilah-Azumah,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,1,Greg Landsman,Orlando Sonza,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,10,Amy Cox,Michael Turner,Michael Harbaugh,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,11,Shontel Brown,Alan Rapoport,Tony Evans,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,12,Jerrad Christian,Troy Balderson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,13,Emilia Sykes,Kevin Coughlin,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,14,Brian Kenderes,David Joyce,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,15,Adam Miller,Mike Carey,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,2,Samantha Meadows,David Taylor,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,3,Joyce Beatty,Michael Young,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,4,Tamie Wilson,Jim Jordan,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,5,Keith  Mundy,Bob Latta,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,6,Michael Kripchak,Michael Rulli,William Farms,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,7,Matthew Diemer,Max Miller,Dennis Kucinich,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,8,Vanessa Enoch,Warren Davidson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OH,9,Marcy Kaptur,Derek Merrin,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OK,1,Dennis Baker,Kevin Hern,Mark Sanders,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OK,2,Brandon Wade,Josh Brecheen,Ronnie Hopkins,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OK,3,NA,Frank Lucas,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OK,4,Mary Brannon,Tom Cole,James Stacy,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OK,5,Madison Horn,Stephanie Bice,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OR,1,Suzanne Bonamici,Bob Todd,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OR,2,Dan Ruby,Cliff Bentz,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OR,3,Maxine Dexter,Joanna Harbour,David Walker,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OR,4,Val Hoyle,Monique DeSpain,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OR,5,Janelle Bynum,Lori Chavez-DeRemer,Andrew Aasen,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,OR,6,Andrea Salinas,Mike Erickson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,1,Ashley Ehasz,Brian Fitzpatrick,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,10,Janelle Stelson,Scott Perry,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,11,James Atkinson,Lloyd Smucker,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,12,Summer Lee,James Hayes,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,13,Elizabeth Farnham,John Joyce,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,14,Christopher Dziados,Guy Reschenthaler,Adam Halfhill,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,15,Zacheray Womer,Glenn Thompson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,16,Preston Nouri,George Kelly,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,17,Christopher Deluzio,Robert Mercuri,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,2,Brendan  Boyle,Aaron Bashir,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,3,Dwight Evans,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,4,Madeleine Dean,David Winkler,Chuck Keller,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,5,Mary Gay Scanlon,Alfeia Devaughn-Goodwin,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,6,Christina Houlahan,Neil Carlin Young,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,7,Susan Wild,Ryan Mackenzie,Lewis Shupe,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,8,Matthew Cartwright,Robert Bresnahan,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,PA,9,Amanda Waldman,Daniel Meuser,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,RI,1,Gabe Amo,Allen Waters,Christopher Reynolds,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,RI,2,Seth Magaziner,Steven Corvi,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SC,1,Michael Moore,Nancy Mace,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SC,2,David Robinson,Joe Wilson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SC,3,Bryon Best,Sheri Biggs,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SC,4,Kathryn Harvey,William Timmons,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SC,5,Evangeline Hundley,Ralph Norman,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SC,6,Jim Clyburn,Duke Buckner,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SC,7,Mal Hyman,Russell Fry,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,SD,1,Sheryl Johnson,Dusty Johnson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,1,Kevin Jenkins,Diana Harshbarger,Levi Brake,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,2,Jane George,Tim Burchett,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,3,Jack Allen,Charles Fleischmann,Stephen King,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,4,Victoria Broderick,Scott DesJarlais,Keith Nolan,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,5,Maryam Abolfazli,Andy Ogles,Jim Larkin,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,6,Lore Bergman,John Rose,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,7,Megan Barry,Mark Green,Shaun Greene,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,8,Sarah Freeman,David Kustoff,James Hart,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TN,9,Steve Cohen,Charlotte Bergmann,Wendell Wells,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,1,NA,Nathaniel Moran,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,10,Theresa Boisseau,Michael McCaul,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,11,NA,August Pfluger,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,12,Trey Hunt,Craig Goldman,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,13,NA,Ronny Jackson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,14,Rhonda Hart,Randy Weber,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,15,Michelle Vallejo,Monica De La Cruz,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,16,Veronica Escobar,Irene Armendariz-Jackson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,17,Mark Lorenzen,Pete Sessions,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,18,Sylvester Turner,Lana Centonze,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,19,NA,Jodey Arrington,Nathan Lewis,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,2,Peter Filler,Daniel Crenshaw,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,20,Joaquin Castro,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,21,Kristin Hook,Chip Roy,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,22,Marquette Greene-Scott,Troy Nehls,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,23,Santos Limon,Tony Gonzales,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,24,Sam Eppler,Beth Van Duyne,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,25,NA,Roger Williams,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,26,Ernest Lineberger,Brandon Gill,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,27,Tanya Lloyd,Michael Cloud,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,28,Henry Cuellar,Jay Furman,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,29,Sylvia Garcia,Alan Garza,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,3,Sandeep Srivastava,Keith Self,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,30,Jasmine Crockett,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,31,Stuart Whitlow,John Carter,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,32,Julie Johnson,Darrell Day,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,33,Marc Veasey,Patrick Gillespie,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,34,Vicente Gonzalez,Mayra Flores,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,35,Greg Casar,Steven Wright,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,36,Dayna Steele,Brian Babin,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,37,Lloyd Doggett,Jenny Sharon,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,38,Melissa McDonough,Wesley Hunt,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,4,Simon Cardell,Pat Fallon,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,5,Ruth Torres,Lance Gooden,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,6,John Love,Jake Ellzey,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,7,Lizzie Fletcher,Caroline Kane,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,8,Laura Jones,Morgan Luttrell,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,TX,9,Al Green,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,UT,1,Bill Campbell,Blake Moore,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,UT,2,Nathaniel Woodward,Celeste Maloy,Tyler Murset,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,UT,3,Glenn Wright,Mike Kennedy,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,UT,4,Katrina Fallick-Wang,Burgess Owens,M. Evan Bullard,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,1,Leslie Mehta,Robert J Wittman,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,10,Suhas Subramanyam,Mike Clancy,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,11,Gerald Connolly,Michael Van Meter,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,2,Missy Cotter Smasal,Jennifer Kiggans,Robert Reid,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,3,Robert C. Scott,John Sitka III,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,4,Jennifer McClellan,Bill Moher,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,5,Gloria Tinsley Witt,John McGuire III,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,6,Ken Mitchell,Benjamin Lee Cline,Robert Well Jr.,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,7,Eugene Vindman,Derrick Anderson,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,8,Donald Sternoff Beyer Jr.,Jerry Torres,David Kennedy,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VA,9,Karen Baker,H. Morgan Griffith,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,VT,1,Becca Balint,Mark Coester,Adam Ortiz,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,1,Suzan DelBene,Jeb Brewer,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,10,Marilyn Strickland,Don Hewett,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,2,Rick Larsen,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,3,Marie Gluesenkamp Perez,Joseph Kent,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,4,NA,Dan Newhouse,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,5,Carmela Conroy,Michael Baumgartner,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,6,Emily Randall,Drew MacEwen,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,7,Pramila Jayapal,Dan Alexander,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,8,Kim Schrier,Carmen Goers,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WA,9,Melissa Chaudhry,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,1,Peter Barca,Bryan Steil,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,2,Mark Pocan,Erik Olsen,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,3,Rebecca Cooke,Derrick Van Orden,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,4,Gwen S Moore,Tim Rogers,Robert R. Raymond,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,5,Ben Steinhoff,Scott Fitzgerald,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,6,John Zarbano,Glenn Grothman,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,7,Kyle Kilbourn,Tom Tiffany,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WI,8,Kristin Lyerly,Tony Wied,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WV,1,Chris Reed,Carol Miller,Wes Holden,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WV,2,Steven Wendelin,Riley Moore,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+House,WY,1,Kyle Cameron,Harriet Hageman,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+President,AK,0,Kamala Harris,Donald J. Trump,Cornel West,0,0,0,NA,NA,NA,0,-0.09323463124702948,-36487,-15.17105455253297,-1084890
+President,AL,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-20.41565916982085,-591520,-28.33466062608118,-588841
+President,AR,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-30.487373255144192,-336715,-26.986374891193066,-299175
+President,AZ,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-1.6929405038324246,10457,-4.115938937662703,-84904
+President,CA,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,5.665388937351413,5103803,28.828757008869683,3446281
+President,CO,0,Kamala Harris,Donald J. Trump,Cornel West,0,0,0,NA,NA,NA,0,-9.104271127800414,439745,2.915312272710432,74754
+President,CT,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,1.0663250773139274,365389,13.314469228390765,216166
+President,DC,0,Kamala Harris,Donald J. Trump,NA,NA,0,0,NA,NA,NA,0,0.8675237254469212,298737,88.72452474738824,248670
+President,DE,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,0.2990986618382793,95665,11.432389278313158,50478
+President,FL,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-18.506105383708743,-371686,-1.2759474791594534,-119770
+President,GA,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-45.99764729504034,11779,-5.740645886254692,-231323
+President,HI,0,Kamala Harris,Donald J. Trump,Claudia De la Cruz,0,0,0,NA,NA,NA,0,1.2733393471013927,169266,32.18375794321693,138012
+President,IA,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-29.118012541698892,-138611,-9.60107072487815,-148133
+President,ID,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-21.549865552752156,-267097,-31.60577419050179,-217522
+President,IL,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-33.149737182958475,1025024,15.989472078120231,859319
+President,IN,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-36.53978474411376,-487357,-19.2601548330308,-524267
+President,KS,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-55.14008632991254,-199431,-21.027979946702377,-241221
+President,KY,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-59.43628493039005,-554172,-29.866955777128297,-574108
+President,LA,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-19.678711644418307,-399742,-19.650979345879705,-398469
+President,MA,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,5.037070566352034,1215000,27.284250096935477,881699
+President,MD,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-0.2550880295810193,826723,20.67781827298557,468469
+President,ME,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-0.01824865079823351,70574,2.7017733126559236,20035
+President,ME,1,Kamala Harris,Donald J. Trump,NA,NA,0,0,NA,NA,NA,0,-0.01824865079823351,70574,2.7017733126559236,20035
+President,ME,2,Kamala Harris,Donald J. Trump,NA,NA,0,0,NA,NA,NA,0,-0.01824865079823351,70574,2.7017733126559236,20035
+President,MI,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-17.34538868413525,154188,-0.24237531144872684,-11612
+President,MN,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-19.66454864148113,233012,1.5013352059591196,43785
+President,MO,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-60.373760728802765,-554337,-23.11708863747524,-612070
+President,MS,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-11.398563325184975,-217366,-18.612073909682568,-216456
+President,MT,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-22.524624859893677,-98816,-20.596434051458516,-99599
+President,NC,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-18.138958583125437,-74481,-3.8347577941410584,-177529
+President,ND,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-25.31998550441547,-120693,-36.38535409890554,-122607
+President,NE,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-54.17933728320561,-182263,-26.309707337538697,-211961
+President,NE,2,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,NA,0,0,NA,NA,NA,0,-54.17933728320561,-182263,-26.309707337538697,-211961
+President,NH,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,0.6543491046236243,59267,0.37345209438003807,2732
+President,NJ,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,2.247970494634222,725061,13.231487284119565,486243
+President,NM,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-2.7825285778948547,99720,8.28077693656329,64849
+President,NV,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-7.023661708611537,36974,2.7276602178193654,29949
+President,NY,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-2.267342972095944,1993776,21.335036384989017,1503304
+President,OH,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-32.03727403374471,-475669,-8.543647935974702,-454983
+President,OK,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-44.32449117223668,-516390,-36.39735475405498,-528146
+President,OR,0,Kamala Harris,Donald J. Trump,Cornel West,0,0,0,NA,NA,NA,0,-5.83216661434233,381935,10.623004298964654,192125
+President,PA,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-19.09156659834163,81660,-1.1429610893071096,-68236
+President,RI,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,1.0896800449463897,106373,15.658234119270151,70481
+President,SC,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-3.82999621045969,-293562,-14.111292987482514,-294142
+President,SD,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-24.2961354894263,-110572,-29.795944839439315,-110259
+President,TN,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-48.504244128761115,-708764,-26.17194653178202,-650292
+President,TX,0,Kamala Harris,Donald J. Trump,Robert F. Kennedy Jr.,0,0,0,NA,NA,NA,0,-126.6681726662955,-631221,-9.140203725903287,-813774
+President,UT,0,Kamala Harris,Donald J. Trump,Claudia De la Cruz,0,0,0,NA,NA,NA,0,-14.133640253436385,-304858,-18.061499131434164,-177898
+President,VA,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-22.956908183411056,110350,-1.6923155990536245,-46429
+President,VT,0,Kamala Harris,Donald J. Trump,Cornel West,0,0,0,NA,NA,NA,0,3.689878773791453,130116,28.52515158898196,83126
+President,WA,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-2.8067684023606354,784961,16.274964147370028,481404
+President,WI,0,Kamala Harris,Donald J. Trump,NA,0.27292576419213976,2002,0,0,0,NA,0,-10.412929187330514,20608,-0.7786333556438747,-22871
+President,WV,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-27.39306963715999,-309398,-42.18159175178545,-298741
+President,WY,0,Kamala Harris,Donald J. Trump,NA,0,0,0,NA,NA,NA,0,-12.264254489708335,-120068,-47.55891646766529,-118299
+Senate,AZ,0,Ruben Gallego,Kari Lake,NA,NA,0,0,NA,NA,NA,0,-0.567,-80799,2.3377207087241234,55900
+Senate,CA,0,Adam Schiff,Steve Garvey,NA,NA,0,0,NA,NA,NA,0,3.887999999999999,2457040,100,11113364
+Senate,DE,0,Lisa Blunt Rochester,Eric Hansen,Michael Katz,NA,0,0,NA,NA,NA,0,0.893,149680,22.165088560753983,80258
+Senate,FL,0,Debbie Mucarsel-Powell,Rick Scott,Ben Everidge,0,0,0,NA,NA,NA,0,-1.265,1064280,-0,-11031
+Senate,HI,0,Mazie Hirono,Bob McDermott,NA,NA,0,0,NA,NA,NA,0,1.376,107433,42.35738560448261,164281
+Senate,IN,0,Valerie McCray,Jim Banks,NA,NA,0,0,NA,NA,NA,0,-4.642,141575,-5.654913927767857,-144816
+Senate,MA,0,Elizabeth Warren,John Deaton,Shiva Ayyadurai,0,0,0,NA,NA,NA,0,1.95,229228,23.648840714877785,654161
+Senate,MD,0,Angela Alsobrooks,Larry Hogan,NA,NA,0,0,NA,NA,NA,0,0.694,537790,30.756343287166857,650411
+Senate,ME,0,David Costello,Demi Kouzounas,Jason Cherry,NA,0,0,NA,NA,NA,0,-3.1300000000000003,-121950,-24.49833825188221,-157683
+Senate,MI,0,Elissa Slotkin,Mike Rogers,NA,0,0,0,NA,NA,NA,0,8.058000000000003,967338,6.613847600915393,275660
+Senate,MN,0,Amy Klobuchar,Royce White,NA,NA,0,0,NA,NA,NA,0,25.468000000000004,987219,17.45562673532421,900500
+Senate,MO,0,Lucas Kunce,Josh Hawley,NA,0,0,0,NA,NA,NA,0,-0.9680000000000004,315266,-13.132658446002589,-292094
+Senate,MS,0,Ty Pinkins,Roger Wicker,NA,NA,0,0,NA,NA,NA,0,-10.205,-200293,-17.48326223999236,-328379
+Senate,MT,0,Jon Tester,Tim Sheehy,NA,NA,0,0,NA,NA,NA,0,-5.987000000000002,18764,3.558741189145145,17913
+Senate,ND,0,Katrina Christiansen,Kevin Kramer,NA,NA,0,0,NA,NA,NA,0,-1.3039999999999998,2994,-10.84439824213382,-35344
+Senate,NE,0,NA,Deb Fischer,Dan Osborn,NA,0,0,NA,NA,NA,0,-39.50799999999999,-125389,-19.132626606404894,-133234
+Senate,NJ,0,Andy Kim,Curtis Bashaw,Patricia Mooneyham,NA,0,0,NA,NA,NA,0,3.047,583683,10.99161570149895,343628
+Senate,NM,0,Martin Heinrich,Nella Domenici,NA,NA,0,0,NA,NA,NA,0,-1.2690000000000003,42336,23.550057475537585,164185
+Senate,NV,0,Jacky Rosen,Sam Brown,NA,NA,0,0,NA,NA,NA,0,-6.391,-6155,5.463347624558106,51876
+Senate,NY,0,Kirsten Gillibrand,Mike Sapraicone,Jonathan Ramos,NA,0,0,NA,NA,NA,0,18.201999999999995,2650625,NA,2065818
+Senate,OH,0,Sherrod Brown,Bernie Moreno,NA,NA,0,0,NA,NA,NA,0,-9.699000000000002,274671,6.804021544972698,300949
+Senate,PA,0,Bob Casey Jr.,David McCormick,NA,NA,0,0,NA,NA,NA,0,-8.556999999999999,489559,13.121204037898108,657466
+Senate,RI,0,Sheldon Whitehouse,Patricia Morgan,NA,NA,0,0,NA,NA,NA,0,1.222,121067,23.08688583547199,86920
+Senate,TN,0,Gloria Johnson,Marsha Blackburn,Pamela Jeanine Moses,NA,0,0,NA,NA,NA,0,-43.16199999999999,-795915,-10.79023490719194,-242033
+Senate,TX,0,Colin Allred,Ted Cruz,NA,NA,0,0,NA,NA,NA,0,-102.34799999999996,-1273285,-2.579215617422174,-215557
+Senate,UT,0,Caroline Gleich,John Curtis,NA,NA,0,0,NA,NA,NA,0,-13.940999999999995,-320092,-31.592248650081594,-336555
+Senate,VA,0,Tim Kaine,Hung Cao,NA,NA,0,0,NA,NA,NA,0,-13.729999999999997,-59705,9.580760490728077,229710
+Senate,VT,0,Bernie Sanders,Gerald Malloy,Steve Berry,NA,0,0,NA,NA,NA,0,6.188,135624,-27.43363065243244,-74815
+Senate,WA,0,Maria Cantwell,Raul Garcia,NA,NA,0,0,NA,NA,NA,0,0.8300000000000001,578818,16.907579717925426,520773
+Senate,WI,0,Tammy Baldwin,Eric Hovde,NA,0,0,0,NA,NA,NA,0,1.137,167021,10.956889330222984,288029
+Senate,WV,0,Glenn Elliott,Jim Justice,NA,NA,0,0,NA,NA,NA,0,12.818999999999996,156707,3.308152433712352,19397
+Senate,WY,0,Scott Morrow,John Barrasso,NA,0,0,0,NA,NA,NA,0,-14.043,-131935,-36.536769750277735,-74983
