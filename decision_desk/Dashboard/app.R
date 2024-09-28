@@ -42,7 +42,14 @@ ui <- fluidPage(
           h3("State Information"),  # Header for the state info
           textOutput("stateInfo")    # Placeholder for the state information
         )
-      )
+      ),
+
+      fluidRow(
+        # State-level Map
+        column(width = 12,
+              h3("State Map"))
+      ),
+      
     )
   )
 )
