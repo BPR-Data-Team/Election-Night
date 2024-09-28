@@ -11,37 +11,40 @@ mapModuleUI <- function(id) {
   leafletOutput(ns("stateMap"), height = 400)  # Specify height for the map
 }
 
-
 # Define server logic for the map module
-mapModuleServer <- function(id) {
+mapModuleServer <- function(id, stateInfo) {
   moduleServer(id, function(input, output, session) {
+    ns <- session$ns  # Namespace for server-side elements
     
     # Render the leaflet map centered on the US
     output$stateMap <- renderLeaflet({
-      leaflet() %>%
-        addProviderTiles("CartoDB.Positron") %>%  # Add base map tiles
+      leaflet(us_states_geojson) %>%
+        addProviderTiles("CartoDB.Positron") %>%
+        setView(lng = -96, lat = 37.8, zoom = 4) %>%  # Center the map on the US with appropriate zoom
         addPolygons(
-          data = map("state", fill = TRUE, plot = FALSE),  # Use US state boundaries from 'maps' package
-          fillColor = "lightblue",  # Color for the states
-          color = "white",  # Border color for the states
-          weight = 2,  # Border thickness
-          popup = ~paste("State:", sub(":", "", names(map("state", plot = FALSE)))),  # Popup with state name
+          fillColor = "lightblue",  # Set default fill color
+          weight = 1,
+          opacity = 1,
+          color = "white",
+          dashArray = "3",
+          fillOpacity = 0.7,
           highlightOptions = highlightOptions(
-            weight = 3,
-            color = "blue",
-            fillOpacity = 0.7
-          )
-        ) %>%
-        setView(lng = -96, lat = 37.8, zoom = 4)  # Center the map on the US
+            weight = 5,
+            color = "#666",
+            dashArray = "",
+            fillOpacity = 0.7,
+            bringToFront = TRUE
+          ),
+          layerId = ~id,  # Ensure each state has a unique ID
+          popup = ~paste("<strong>State:</strong>", name)  # Customize popup info
+        )
     })
     
     # Add click event for state polygons
     observeEvent(input$stateMap_shape_click, {
       clicked_state <- input$stateMap_shape_click$id
-      showModal(modalDialog(
-        title = "State Information",
-        paste("You clicked on state:", clicked_state)
-      ))
+      # Update the stateInfo reactive value when a state is clicked
+      stateInfo(paste("You clicked on state:", clicked_state))
     })
   })
 }

@@ -20,18 +20,28 @@ ui <- fluidPage(
   sidebarLayout(
     # Sidebar panel for inputs
     sidebarPanel(
-      # Betting odds input UI
       bettingOddsInputUI("betting_odds", election_types, states),
       br(),  # Add some space
       # Map output below the betting odds input
-      mapModuleUI("state_map")
+      mapModuleUI("state_map"),
+      width = 5
     ),
     
     # Main panel for displaying outputs
     mainPanel(
+      width = 4,
       fluidRow(
         # Betting odds output
         column(width = 12, bettingOddsOutputUI("betting_odds"))
+      ),
+      
+      # New section for displaying state information
+      fluidRow(
+        column(
+          width = 12, 
+          h3("State Information"),  # Header for the state info
+          textOutput("stateInfo")    # Placeholder for the state information
+        )
       )
     )
   )
@@ -40,7 +50,17 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output, session) {
   bettingOddsServer("betting_odds")
-  mapModuleServer("state_map") 
+  
+  # Placeholder for clicked state information
+  stateInfo <- reactiveVal("Click on a state to see its information here.")
+  
+  # Call the map module and pass stateInfo to it
+  mapModuleServer("state_map", stateInfo)
+  
+  # Render the state information in the UI
+  output$stateInfo <- renderText({
+    stateInfo()  # Display the latest clicked state info
+  })
 }
 
 # Run the application
