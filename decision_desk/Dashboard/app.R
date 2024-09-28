@@ -1,10 +1,11 @@
-# app.R
 library(shiny)
 library(readr)
 library(dplyr)
+library(leaflet)
 
-# Source the betting odds module
-source("betting_odds_module.R")
+# Source the betting odds module and map module
+source("BettingOdds.R")
+source("NationMap.R")
 
 # Global variables
 election_types <- c("President", "Senate", "House", "Governor")
@@ -19,19 +20,27 @@ ui <- fluidPage(
   sidebarLayout(
     # Sidebar panel for inputs
     sidebarPanel(
-      bettingOddsInputUI("betting_odds", election_types, states)
+      # Betting odds input UI
+      bettingOddsInputUI("betting_odds", election_types, states),
+      br(),  # Add some space
+      # Map output below the betting odds input
+      mapModuleUI("state_map")
     ),
     
     # Main panel for displaying outputs
     mainPanel(
-      bettingOddsOutputUI("betting_odds")
+      fluidRow(
+        # Betting odds output
+        column(width = 12, bettingOddsOutputUI("betting_odds"))
+      )
     )
   )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output, session) {
   bettingOddsServer("betting_odds")
+  mapModuleServer("state_map") 
 }
 
 # Run the application
