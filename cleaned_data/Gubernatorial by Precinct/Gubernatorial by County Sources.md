@@ -1,0 +1,112 @@
+SOURCES
+
+Data for 2012-2020 from:
+Algara, Carlos; Sharif Amlani, 2021, "Replication Data for: Partisanship & Nationalization in American Elections: Evidence from Presidential, Senatorial, & Gubernatorial Elections in the U.S. Counties, 1872-2020", https://doi.org/10.7910/DVN/DGUMFI, Harvard Dataverse, V1, UNF:6:glfQoiLzpXDGTfErebfBIQ== [fileUNF]
+
+'True' margins (dem percent - gop percent) across state from:
+2012: https://en.wikipedia.org/wiki/2012_United_States_gubernatorial_elections
+2016: https://en.wikipedia.org/wiki/2016_United_States_gubernatorial_elections
+2018: https://en.wikipedia.org/wiki/2018_United_States_gubernatorial_elections
+2020: https://en.wikipedia.org/wiki/2020_United_States_gubernatorial_elections
+
+TESTING RESULTS 
+
+2016 Gubernatorial Election
++-------+---------+--------+-------------+-----------+
+| State | Turnout | Margin | True Margin | Error (%) |
++-------+---------+--------+-------------+-----------+
+|   VT  |  306070 |  -9.0  |     -8.7    |    3.4    |
+|   WV  |  652395 |  7.4   |     6.8     |    8.8    |
+|   DE  |  415256 |  19.6  |     19.1    |    2.6    |
+|   WA  | 3236866 |  8.8   |     8.8     |    0.0    |
+|   NC  | 4608037 |  0.2   |     0.2     |    0.0    |
+|   NH  |  691629 |  -2.4  |     -2.2    |    9.1    |
+|   OR  | 1830636 |  7.6   |     7.0     |    8.6    |
+|   UT  | 1074199 | -39.8  |    -38.0    |    4.7    |
+|   MO  | 2587137 |  -8.9  |     -5.5    |    61.8   |
+|   MT  |  492048 |  4.0   |     3.9     |    2.6    |
+|   IN  | 2632899 |  -6.1  |     -6.0    |    1.7    |
+|   ND  |  325718 | -59.6  |    -57.1    |    4.4    |
++-------+---------+--------+-------------+-----------+
+
+2018 Gubernatorial Election
++-------+----------+--------+-------------+-----------+
+| State | Turnout  | Margin | True Margin | Error (%) |
++-------+----------+--------+-------------+-----------+
+|   MN  | 2490801  |  11.9  |     11.4    |    4.4    |
+|   MI  | 4125727  |  9.9   |     9.6     |    3.1    |
+|   SD  |  333139  |  -3.5  |     -3.4    |    2.9    |
+|   CA  | 12464235 |  23.9  |     23.8    |    0.4    |
+|   OK  | 1145552  | -12.5  |    -12.1    |    3.3    |
+|   CT  | 1344648  |  3.3   |     3.2     |    3.1    |
+|   RI  |  338054  |  17.2  |     15.4    |    11.7   |
+|   AR  |  865624  | -34.6  |    -33.5    |    3.3    |
+|   ID  |  592742  | -22.0  |    -21.6    |    1.9    |
+|   OR  | 1749486  |  6.8   |     6.4     |    6.2    |
+|   AL  | 1716952  | -19.1  |    -19.1    |    -0.0   |
+|   NM  |  696459  |  14.4  |     14.4    |    0.0    |
+|   MA  | 2667111  | -33.6  |    -33.5    |    0.3    |
+|   NY  | 5842942  |  24.4  |     23.4    |    4.3    |
+|   WY  |  192377  | -41.8  |    -39.6    |    5.6    |
+|   FL  | 8119909  |  -0.4  |     -0.4    |    -0.0   |
+|   VT  |  261596  | -15.6  |    -15.0    |    4.0    |
+|   PA  | 4935534  |  17.3  |     17.1    |    1.2    |
+|   KS  |  959539  |  5.6   |     5.0     |    12.0   |
+|   NE  |  697981  | -18.0  |    -18.0    |    -0.0   |
+|   NH  |  565123  |  -7.1  |     -7.1    |    -0.0   |
+|   AZ  | 2325204  | -14.5  |    -14.2    |    2.1    |
+|   MD  | 2278283  | -12.0  |    -11.8    |    1.7    |
+|   TX  | 8202811  | -13.5  |    -13.3    |    1.5    |
+|   WI  | 2619387  |  1.1   |     1.1     |    0.0    |
+|   HI  |  376653  |  30.1  |     29.0    |    3.8    |
+|   OH  | 4299764  |  -3.8  |     -3.7    |    2.7    |
+|   TN  | 2200969  | -21.4  |    -21.1    |    1.4    |
+|   NV  |  920327  |  4.3   |     4.1     |    4.9    |
+|   ME  |  591018  |  7.9   |     7.7     |    2.6    |
+|   IL  | 4245497  |  16.8  |     15.7    |    7.0    |
+|   GA  | 3902093  |  -1.4  |     -1.4    |    -0.0   |
+|   CO  | 2429689  |  11.0  |     10.6    |    3.8    |
+|   IA  | 1298261  |  -2.8  |     -2.8    |    -0.0   |
+|   SC  | 1705524  |  -8.0  |     -8.1    |    -1.2   |
++-------+----------+--------+-------------+-----------+
+
+2020 Gubernatorial Election
++-------+---------+--------+-------------+-----------+
+| State | Turnout | Margin | True Margin | Error (%) |
++-------+---------+--------+-------------+-----------+
+|   DE  |  483215 |  21.2  |     20.9    |    1.4    |
+|   MT  |  579408 | -13.4  |    -12.8    |    4.7    |
+|   ND  |  326268 | -44.3  |    -40.4    |    9.7    |
+|   NC  | 5421394 |  4.6   |     4.5     |    2.2    |
+|   WV  |  734968 | -35.5  |    -33.3    |    6.6    |
+|   WA  | 4043309 |  13.5  |     13.5    |    0.0    |
+|   UT  | 1361508 | -35.0  |    -32.7    |    7.0    |
+|   VT  |  347626 | -42.9  |    -41.2    |    4.1    |
+|   NH  |  781248 | -32.3  |    -31.7    |    1.9    |
+|   MO  | 2945973 | -16.8  |    -16.4    |    2.4    |
+|   IN  | 2674816 | -27.6  |    -24.4    |    13.1   |
++-------+---------+--------+-------------+-----------+
+
+
+CODEBOOK
+
+The files '2012 Gubernatorial.csv', '2016 Gubernatorial.csv', '2018 Gubernatorial.csv', and '2020 Gubernatorial.csv' contain aggregated county-level election results for each gubernatorial elections.  
+
+All of the files share teh following columns:
+
+'test_data' - empty column used for standardization with DDHQ data
+'ddhq_id' - empty column used for standardization with DDHQ data
+'year' - 2016, 2018, 2020, or 2022
+'office_type' - Senate
+'state' - two letter abbreviation for state
+'county' - county name
+'district' - column of 0s for Senate to standardize with house data
+'fips' - 5 digit FIPS code
+'x_name' - empty list for standardization with DDHQ data
+'percent_precincts_reporting' - 100 for all counties to reflect past election results
+'x_votes' - list [dem_votes, gop_votes]
+'x_votes_percent' - list [dem_percent, gop_percent] calculated as (100 * x_votes / total_votes) 
+'margin_votes' - calculated as (dem_votes - gop_votes)
+'margin_percent' - calculated as (dem_percent - gop_percent)
+'absentee_percent' - calculated as (100 * absentee_votes / total_votes) 
+'absentee_margin' - calculated as (absentee_dem_votes - absentee_gop_votes)
