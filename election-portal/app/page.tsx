@@ -2,9 +2,9 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Election_Portal_Button from "./modules/election-portal-button/election-portal-button";
-import finance_image from "./assets/finance.png";
-import trophy_image from "./assets/trophy.png";
-import how_to_vote_image from "./assets/how_to_vote.png";
+import finance_image from "./assets/finance.svg";
+import trophy_image from "./assets/trophy.svg";
+import how_to_vote_image from "./assets/how_to_vote.svg";
 
 //TODO: Banner component
 //TODO: Responsive design
