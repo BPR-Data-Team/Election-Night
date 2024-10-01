@@ -15,7 +15,7 @@ type MenubarProps = {
   toggleDraw: () => void;
   availableBreakdowns: string[];
   breakdownSwitch: (breakdown: string) => void;
-  availableYears: string[];
+  availableYears: number[];
   yearSwitch: (year: number) => void;
   isVisible: boolean;
   toggleVisibility: () => void;

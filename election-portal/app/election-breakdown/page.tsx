@@ -21,6 +21,10 @@ export default function Election_Breakdown_Page() {
     console.log(test);
   };
 
+  const numTest = (test: number) => {
+    console.log(test);
+  }
+
   // If toggleDraw is true then we need to block mouse input to everything except Rightbar
   const toggleDraw = () => {
     setDrawMode(!drawMode);
@@ -52,8 +56,8 @@ export default function Election_Breakdown_Page() {
             toggleDraw={toggleDraw}
             availableBreakdowns={["asdf", "asdf2", "asdf3", "asdf4"]}
             breakdownSwitch={stringTest}
-            availableYears={["1", "2", "3"]}
-            yearSwitch={stringTest}
+            availableYears={[1, 2, 3]}
+            yearSwitch={numTest}
             isVisible={isBannerVisible}
             toggleVisibility={toggleBanner}
           />
