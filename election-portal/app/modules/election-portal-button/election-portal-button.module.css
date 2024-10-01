@@ -22,8 +22,8 @@
 }
 
 .button_image {
-  width: 15vw;
-  height: 18vh;
+  font-size: 9rem;
+  color: #D9D9D9;
 }
 
 .button_image_container {

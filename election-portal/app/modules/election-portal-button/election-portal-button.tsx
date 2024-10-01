@@ -1,10 +1,10 @@
 import styles from "../election-portal-button/election-portal-button.module.css";
-import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
+import {IconType} from "react-icons";
 
 interface ElectionPortalButtonProps {
   title: String;
-  image_location: StaticImageData;
+  image_icon: IconType;
   button_link: string;
   alt_text: string;
 }
@@ -18,11 +18,7 @@ export default function Election_Portal_Button(
         <div className={styles.button_col}>
           <div className={styles.button_title}>{props.title}</div>
           <div className={styles.button_image_container}>
-            <Image
-              className={styles.button_image}
-              src={props.image_location}
-              alt={props.alt_text}
-            ></Image>
+            <props.image_icon aria-label={props.alt_text} className={styles.button_image} />
           </div>
         </div>
       </div>
