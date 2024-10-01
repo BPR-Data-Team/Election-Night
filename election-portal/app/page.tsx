@@ -14,19 +14,19 @@ export default function Home() {
           title={"Election Breakdown"}
           button_link="/election-breakdown"
           image_icon={MdOutlineInsertChart}
-          alt_text="This is a picture of a finance graph for aesthetic purposes"
+          alt_text=""
         ></Election_Portal_Button>
         <Election_Portal_Button
           title={"Road to Control"}
           button_link="/road-to-control"
           image_icon={MdOutlineEmojiEvents}
-          alt_text="This is a picture of a trophy"
+          alt_text=""
         ></Election_Portal_Button>
         <Election_Portal_Button
           title={"Exit Poll Explorer"}
           button_link="/exit-poll-explorer"
           image_icon={MdHowToVote}
-          alt_text="This is a picture of a ballot box aesthetic purposes"
+          alt_text=""
         ></Election_Portal_Button>
       </div>
     </div>

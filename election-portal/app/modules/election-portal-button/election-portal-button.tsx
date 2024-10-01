@@ -16,7 +16,7 @@ export default function Election_Portal_Button(
     <button onClick={() => router.push(props.button_link)}>
       <div className={styles.button_container}>
         <div className={styles.button_col}>
-          <div className={styles.button_title}>{props.title}</div>
+          <h2 className={styles.button_title}>{props.title}</h2>
           <div className={styles.button_image_container}>
             <props.image_icon aria-label={props.alt_text} className={styles.button_image} />
           </div>
