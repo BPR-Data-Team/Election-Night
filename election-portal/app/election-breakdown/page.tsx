@@ -5,9 +5,9 @@ import Head from "next/head";
 import Image from "next/image";
 
 import styles from "./page.module.css";
-import Rightbar from "./modules/rightbar";
+import Menubar from "../modules/menubar/menubar";
 import Banner from "./modules/banner";
-import Canvas from "./modules/canvas";
+import Canvas from "../modules/canvas/canvas";
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -20,6 +20,10 @@ export default function Election_Breakdown_Page() {
   const stringTest = (test: string) => {
     console.log(test);
   };
+
+  const numTest = (test: number) => {
+    console.log(test);
+  }
 
   // If toggleDraw is true then we need to block mouse input to everything except Rightbar
   const toggleDraw = () => {
@@ -44,14 +48,16 @@ export default function Election_Breakdown_Page() {
           {drawMode && <Canvas />}
 
           {/* Needs to be topmost during content screens */}
-          <Rightbar
-            pageSwitch={toggleBanner}
+          <Menubar
+            page={"test"}
+            setCurrentPage={stringTest}
             exit={toggleBanner}
+            drawMode={drawMode}
             toggleDraw={toggleDraw}
-            availableBreakdowns={["asdf"]}
+            availableBreakdowns={["asdf", "asdf2", "asdf3", "asdf4"]}
             breakdownSwitch={stringTest}
-            availableYears={["1"]}
-            yearSwitch={stringTest}
+            availableYears={[1, 2, 3]}
+            yearSwitch={numTest}
             isVisible={isBannerVisible}
             toggleVisibility={toggleBanner}
           />
