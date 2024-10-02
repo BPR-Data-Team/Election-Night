@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useSharedState } from "../sharedContext";
 
 import Head from "next/head";
 import Image from "next/image";

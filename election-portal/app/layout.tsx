@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { SharedStateProvider } from "./sharedContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,11 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head> {/* Needs to be fixed */}
+      <head>
         <link rel="stylesheet" href="https:[[use.typekit.net/dze2nzm.css"></link>
       </head>
       <body>
-        {children}
+        <SharedStateProvider>
+          {children}
+        </SharedStateProvider>
       </body>
     </html>
   );
