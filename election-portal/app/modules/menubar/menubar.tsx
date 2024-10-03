@@ -1,17 +1,19 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { useSharedState } from "../../sharedContext";
 import { RaceType, Year } from "../../../types/SharedInfoType";
 
-import './menubar.css';
-import HomeButton from './menu-buttons/home-button';
-import ExitButton from './menu-buttons/exit-button';
-import DrawButton from './menu-buttons/draw-button';
+import "./menubar.css";
+import HomeButton from "./menu-buttons/home-button";
+import ExitButton from "./menu-buttons/exit-button";
+import DrawButton from "./menu-buttons/draw-button";
 import { useRouter } from "next/navigation";
 
-
-const breakdownToString = (breakdown: RaceType, currentBreakdown: RaceType): React.ReactNode => {
+const breakdownToString = (
+  breakdown: RaceType,
+  currentBreakdown: RaceType
+): React.ReactNode => {
   let str: string = "";
   const selected: boolean = breakdown === currentBreakdown;
   switch (breakdown) {
@@ -19,7 +21,7 @@ const breakdownToString = (breakdown: RaceType, currentBreakdown: RaceType): Rea
       str = "Pres.";
       break;
     case RaceType.Senate:
-      str = "Sen."
+      str = "Sen.";
       break;
     case RaceType.Gubernatorial:
       str = "Gub.";
@@ -32,11 +34,16 @@ const breakdownToString = (breakdown: RaceType, currentBreakdown: RaceType): Rea
       break;
   }
   return (
-    <span style={{ color: selected ? '#ffffff' : "#dddddd", textShadow: selected ? '0 0 10px rgba(255,255,255,0.5)' : 'none' }}>
+    <span
+      style={{
+        color: selected ? "#ffffff" : "#dddddd",
+        textShadow: selected ? "0 0 10px rgba(255,255,255,0.5)" : "none",
+      }}
+    >
       {str}
     </span>
-  )
-}
+  );
+};
 
 const yearToString = (year: Year, currentYear: Year): React.ReactNode => {
   let str = "";
@@ -62,33 +69,46 @@ const yearToString = (year: Year, currentYear: Year): React.ReactNode => {
       break;
   }
   return (
-    <span style={{ color: selected ? '#ffffff' : "#dddddd", textShadow: selected ? '0 0 10px rgba(255,255,255,0.5)' : 'none' }}>
+    <span
+      style={{
+        color: selected ? "#ffffff" : "#dddddd",
+        textShadow: selected ? "0 0 10px rgba(255,255,255,0.5)" : "none",
+      }}
+    >
       {str}
     </span>
-  )
-}
-
+  );
+};
 
 const Menubar: React.FC = () => {
-
   const state = useSharedState().state;
 
   return (
     <div className="rightbar">
       <div className="contents">
         <div className="menu-buttons">
-          <HomeButton currentPage={state.page} setCurrentPage={state.setCurrentPage} />
+          <HomeButton
+            currentPage={state.page}
+            setCurrentPage={state.setCurrentPage}
+          />
           <br></br>
-          <ExitButton currentPage={state.page} setCurrentPage={state.setCurrentPage}/>
+          <ExitButton
+            currentPage={state.page}
+            setCurrentPage={state.setCurrentPage}
+          />
           <br>{/* better way to do this (.menu-buttons in css?))*/}</br>
-          <DrawButton drawMode={state.drawMode} toggleDraw={state.toggleDraw}/>
+          <DrawButton />
         </div>
 
         <div className="divider"></div>
 
         <div className="breakdowns">
           {state.availableBreakdowns.map((breakdown, index) => (
-            <button className="breakdown" key={index} onClick={() => state.breakdownSwitch(breakdown)}>
+            <button
+              className="breakdown"
+              key={index}
+              onClick={() => state.breakdownSwitch(breakdown)}
+            >
               {breakdownToString(breakdown, state.breakdown)}
             </button>
           ))}
@@ -98,7 +118,11 @@ const Menubar: React.FC = () => {
 
         <div className="years">
           {state.availableYears.map((year, index) => (
-            <button className="year" key={index} onClick={() => state.yearSwitch(year)}>
+            <button
+              className="year"
+              key={index}
+              onClick={() => state.yearSwitch(year)}
+            >
               {yearToString(year, state.year)}
             </button>
           ))}
