@@ -198,7 +198,8 @@ final_race_dataset <- final_county_dataset %>%
     total_absentee_votes = sum(total_absentee_votes), 
     absentee_margin_votes = sum(absentee_margin_votes)
   ) %>%
-  mutate(pct_reporting = 100 * precincts_reporting / total_precincts, 
+  mutate(district = as.numeric(district), 
+         pct_reporting = 100 * precincts_reporting / total_precincts, 
          margin_votes = dem_votes - rep_votes, 
          margin_pct = 100*(dem_votes - rep_votes) / total_votes, 
          absentee_pct = 100 * total_absentee_votes/ total_votes, 
@@ -206,7 +207,7 @@ final_race_dataset <- final_county_dataset %>%
   select(office_type, state, district, Democratic_name, Republican_name, Independent_name, 
          pct_reporting, total_votes, margin_votes, margin_pct,
          absentee_pct, absentee_margin_pct) %>%
-  left_join(past_race_data, by = c("office_type", "state"))
+  left_join(past_race_data, by = c("office_type", "state", "district"))
 
 write_csv(final_county_dataset, "cleaned_data/DDHQ_current_county_results.csv")
 write_csv(final_race_dataset, "cleaned_data/DDHQ_current_race_results.csv")

@@ -2,7 +2,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   width: 20vw;
-  height: 35vh;
+  height: 38vh;
   display: flex;
   justify-content: center; /* Center the entire column inside the container */
 }
@@ -13,9 +13,8 @@
   align-items: center;
 }
 .button_title {
-  font-size: 2rem;
+  font-size: 2vw;
   text-align: center;
-  text-wrap: wrap;
   width: 12vw;
   font-family: gelica, book antiqua, georgia, times new roman, serif;
   font-weight: 600;
@@ -23,11 +22,28 @@
 }
 
 .button_image {
-  width: 8vw;
-  height: 15vh;
+  font-size: 9rem;
+  color: #D9D9D9;
 }
 
 .button_image_container {
   display: flex;
   justify-content: center;
+}
+
+@media (min-width: 2560px) {
+  .button_container {
+    width: 18vw;  /* Slightly smaller width for large screens */
+    height: 35vh; /* Adjust height to keep the aspect ratio */
+  }
+
+  .button_title {
+    font-size: 1.5vw;  /* Reduce font size slightly to prevent excessive scaling */
+    width: 10vw;       /* Adjust width for the text container */
+  }
+
+  .button_image {
+    width: 12vw;       /* Decrease the image size slightly */
+    height: 16vh;      /* Maintain aspect ratio for the image */
+  }
 }

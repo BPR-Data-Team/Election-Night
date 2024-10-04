@@ -4,7 +4,7 @@
     /* All of this is to hide the border that comes default with the library we're using */
     top: -1vh;
     left: -1vw;
-    width: 102vw;
+    width: 109vw;
     height: 105vh; 
     overflow: hidden;
 }
