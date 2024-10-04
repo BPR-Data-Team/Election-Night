@@ -18,14 +18,6 @@ export default function Election_Breakdown_Page() {
     setIsBannerVisible(!isBannerVisible);
   };
 
-  const toggleRightbar = () => {
-    setShowRightbar(!showRightbar);
-  };
-
-  const numTest = (test: number) => {
-    console.log(test);
-  };
-
   return (
     <>
       <div className={styles.page}>
@@ -41,7 +33,7 @@ export default function Election_Breakdown_Page() {
             toggleVisibility={toggleBanner}
           />
 
-          {state.drawMode && <Canvas />}
+          {state.drawMode ? <Canvas /> : null}
 
           {/* Needs to be topmost during content screens */}
           <Menubar />
