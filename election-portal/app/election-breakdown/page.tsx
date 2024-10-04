@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useSharedState } from "../sharedContext";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -11,8 +12,7 @@ import Canvas from "../modules/canvas/canvas";
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
-  const [drawMode, setDrawMode] = useState<boolean>(false);
-
+  const state = useSharedState().state;
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
   };
@@ -23,11 +23,6 @@ export default function Election_Breakdown_Page() {
 
   const numTest = (test: number) => {
     console.log(test);
-  }
-
-  // If toggleDraw is true then we need to block mouse input to everything except Rightbar
-  const toggleDraw = () => {
-    setDrawMode(!drawMode);
   };
 
   return (
@@ -45,22 +40,10 @@ export default function Election_Breakdown_Page() {
             toggleVisibility={toggleBanner}
           />
 
-          {drawMode && <Canvas />}
+          {state.drawMode && <Canvas />}
 
           {/* Needs to be topmost during content screens */}
-          <Menubar
-            page={"test"}
-            setCurrentPage={stringTest}
-            exit={toggleBanner}
-            drawMode={drawMode}
-            toggleDraw={toggleDraw}
-            availableBreakdowns={["asdf", "asdf2", "asdf3", "asdf4"]}
-            breakdownSwitch={stringTest}
-            availableYears={[1, 2, 3]}
-            yearSwitch={numTest}
-            isVisible={isBannerVisible}
-            toggleVisibility={toggleBanner}
-          />
+          <Menubar />
 
           {/* Future homepage topmost element */}
         </div>
