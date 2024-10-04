@@ -1,12 +1,7 @@
 "use client";
-import { useState } from "react";
-import { RaceType } from "@/types/RaceType";
 import RTCMap from "./modules/RTCMap";
-import { Year } from "@/types/Year";
 import StatusBar from "./modules/StatusBar";
 import styles from "./page.module.css";
-import Rightbar from "@/components/rightbar";
-import { useRouter } from "next/navigation";
 import Menubar from "../modules/menubar/menubar";
 import { useSharedState } from "../sharedContext";
 import Canvas from "../modules/canvas/canvas";
