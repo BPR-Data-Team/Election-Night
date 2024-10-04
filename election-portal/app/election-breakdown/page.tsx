@@ -43,17 +43,7 @@ export default function Election_Breakdown_Page() {
           {state.drawMode && <Canvas />}
 
           {/* Needs to be topmost during content screens */}
-          <Menubar
-            page={"test"}
-            setCurrentPage={stringTest}
-            exit={toggleBanner}
-            availableBreakdowns={["asdf", "asdf2", "asdf3", "asdf4"]}
-            breakdownSwitch={stringTest}
-            availableYears={[1, 2, 3]}
-            yearSwitch={numTest}
-            isVisible={isBannerVisible}
-            toggleVisibility={toggleBanner}
-          />
+          <Menubar />
 
           {/* Future homepage topmost element */}
         </div>
