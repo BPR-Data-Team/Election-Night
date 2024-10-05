@@ -4,6 +4,17 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useRouter } from "next/navigation";
 import { SharedInfo, State, Year, RaceType } from '../types/SharedInfoType';
 
+function getYearsFromBreakdown(breakdown: RaceType): Year[] {
+    switch (breakdown) {
+        case RaceType.Presidential:
+            return [Year.Twenty, Year.Sixteen];
+        case RaceType.Senate:
+            return [Year.Eighteen, Year.Twelve];
+        default:
+            return [Year.TwentyTwo, Year.Twenty, Year.Eighteen, Year.Sixteen];
+    }
+}
+
 interface SharedStateContextProps {
     state: SharedInfo;
 }
@@ -25,6 +36,8 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({ childre
             setLevel("state");
         } else if (level === "state") {
             setLevel("national");
+        } else if (level === "national") {
+            setCurrentPage("/");
         }
     };
     const [drawMode, setDrawMode] = useState<boolean>(false);
@@ -33,11 +46,11 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [availableBreakdowns, setAvailableBreakdowns] = useState<RaceType[]>([
         RaceType.Presidential,
         RaceType.Senate,
-        RaceType.Gubernatorial,
-        RaceType.House
+        RaceType.Gubernatorial
     ]);
     const breakdownSwitch = (breakdown: RaceType) => {
         if (availableBreakdowns.includes(breakdown)) {
+            setAvailableYears(getYearsFromBreakdown(breakdown));
             setBreakdown(breakdown);
         }
     };

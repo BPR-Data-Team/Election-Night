@@ -10,6 +10,7 @@ import ExitButton from "./menu-buttons/exit-button";
 import DrawButton from "./menu-buttons/draw-button";
 import { useRouter } from "next/navigation";
 
+// These can be turned into maps or better parsed from the types
 const breakdownToString = (
   breakdown: RaceType,
   currentBreakdown: RaceType
@@ -64,6 +65,12 @@ const yearToString = (year: Year, currentYear: Year): React.ReactNode => {
     case Year.Sixteen:
       str = "2016";
       break;
+    case Year.Fourteen:
+      str = "2014";
+      break;
+    case Year.Twelve:
+      str = "2012";
+      break;
     default:
       str = "Unk.";
       break;
@@ -93,8 +100,8 @@ const Menubar: React.FC = () => {
           />
           <br></br>
           <ExitButton
-            currentPage={state.page}
-            setCurrentPage={state.setCurrentPage}
+            currentLevel={state.level}
+            exitLevel={state.exitLevel}
           />
           <br>{/* better way to do this (.menu-buttons in css?))*/}</br>
           <DrawButton />
