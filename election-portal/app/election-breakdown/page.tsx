@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSharedState } from "../sharedContext";
 
 import Head from "next/head";
@@ -11,11 +11,28 @@ import Menubar from "../modules/menubar/menubar";
 import Banner from "./modules/banner";
 import Canvas from "../modules/canvas/canvas";
 
+import EBMap from "./modules/EBMap";
+import StateMap from "./modules/stateMap";
+
+import { fetchStateGeoJSON } from "./modules/mapDataCache";
+
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
   const state = useSharedState().state;
+
+  const [selectedState, setSelectedState] = useState<string | null>(null);
+  const [currStateData, setCurrStateData] = useState<JSON | null>(null);
+
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
+  };
+
+  const handleStateClick = async (stateName: string) => {
+    console.log(`The state name is ${stateName}`);
+    setSelectedState(stateName);
+    const stateData = await fetchStateGeoJSON(stateName);
+    console.log("Fetched geojson");
+    setCurrStateData(stateData);
   };
 
   return (
@@ -34,6 +51,9 @@ export default function Election_Breakdown_Page() {
           />
 
           {state.drawMode ? <Canvas /> : null}
+
+          <EBMap year={state.year} raceType={state.breakdown} onClick={handleStateClick}/>
+          {/* {selectedState ? <EBMap year={state.year} raceType={state.breakdown} onClick={handleStateClick}/> : <StateMap year={state.year} raceType={state.breakdown} stateData={currStateData}/>} */}
 
           {/* Needs to be topmost during content screens */}
           <Menubar />
