@@ -87,3 +87,9 @@ mapServer <- function(id, election_type, state) {
     ))
   })
 }
+
+# Map Module UI
+mapOutputUI <- function(id) {
+  ns <- NS(id)
+  leafletOutput(ns("map_container"))
+}
