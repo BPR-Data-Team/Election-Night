@@ -7,4 +7,5 @@
     width: 109vw;
     height: 105vh; 
     overflow: hidden;
+    z-index: 4;
 }
