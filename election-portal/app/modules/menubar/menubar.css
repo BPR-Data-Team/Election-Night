@@ -1,8 +1,6 @@
 .rightbar {
     position: absolute;
-    display: flex;
     justify-content: right;
-    align-items: center;
     right: 0rem;
     height: 100vh;
     width: 7rem;
@@ -16,6 +14,7 @@
     justify-content: center;
     align-items: center;
     margin: auto;
+    margin-top: 15vh;
     text-align: center;
 }
 
