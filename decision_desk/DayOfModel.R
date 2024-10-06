@@ -1,6 +1,5 @@
 library(tidyverse)
 library(glue)
-library(ggplot2)
 
 #Live data
 #We assume that 2% of votes are for third-party candidates or write-in across the board (maybe not great, but whatever)
@@ -149,10 +148,15 @@ estimated_race <- estimated_county %>%
 
 #We now need to combine these values with the original datasets, and put them back!
 finalized_county_results <- read_csv("cleaned_data/DDHQ_current_county_results.csv") %>%
-  left_join(estimated_county, by = c("state", "fips", "office_type"))
+  select(-c(total_votes_lower, total_votes_upper, dem_votes_lower, dem_votes_upper, rep_votes_lower, rep_votes_upper)) %>%
+  left_join(estimated_county, by = c("state", "fips", "office_type")) %>%
+  mutate(total_votes = Democratic_votes + Republican_votes + Independent_votes + Green_votes, 
+  expected_pct_in = min(100, 200 * total_votes / (total_votes_lower + total_votes_upper)))
 
 finalized_race_results <- read_csv("cleaned_data/DDHQ_current_race_results.csv") %>%
-  left_join(estimated_race, by = c('state', 'office_type'))
+  select(-c(total_votes_lower, total_votes_upper, dem_votes_lower, dem_votes_upper, rep_votes_lower, rep_votes_upper)) %>%
+  left_join(estimated_race, by = c('state', 'office_type')) %>%
+  mutate(expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper)))
   
 
 write_csv(finalized_county_results, "cleaned_data/DDHQ_current_county_results.csv")
