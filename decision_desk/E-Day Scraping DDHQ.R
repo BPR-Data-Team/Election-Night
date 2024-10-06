@@ -173,7 +173,7 @@ performance_vs_president <- results_df %>%
   
 final_county_dataset <- results_df %>%
   left_join(past_county, by = c("office_type", "district", "state", "fips")) %>%
-  filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate") & state %in% c("HI", "MO", "MD"))) %>% #Some weird stuff here...
+  filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate") & state %in% c("HI", "MO", "MD", "NE"))) %>% #Some weird stuff here...
   mutate(swing = margin_pct - margin_pct_1) %>% #Calculating swing from previous election
   left_join(performance_vs_president, by = c("state", "district", "county", "office_type"))
   
@@ -208,6 +208,10 @@ final_race_dataset <- final_county_dataset %>%
          pct_reporting, total_votes, margin_votes, margin_pct,
          absentee_pct, absentee_margin_pct) %>%
   left_join(past_race_data, by = c("office_type", "state", "district"))
+
+#Need to fix final county dataset, remove all places with weird county stuff like Maine
+final_county_dataset <- final_county_dataset %>%
+  filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate")))
 
 write_csv(final_county_dataset, "cleaned_data/DDHQ_current_county_results.csv")
 write_csv(final_race_dataset, "cleaned_data/DDHQ_current_race_results.csv")
