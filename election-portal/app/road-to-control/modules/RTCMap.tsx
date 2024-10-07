@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { RaceType } from "@/types/RaceType";
 import { Year } from "@/types/Year";
 import Highcharts from "highcharts";
@@ -6,598 +6,94 @@ import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 import "./rtcmap.css";
 
-const presData: FakeData[] = [
-  {
-    "hc-key": "us-al",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -9, // Changed to negative
-  },
-  {
-    "hc-key": "us-ak",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 3,
-  },
-  {
-    "hc-key": "us-az",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 11,
-  },
-  {
-    "hc-key": "us-ar",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 6,
-  },
-  {
-    "hc-key": "us-ca",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 55,
-  },
-  {
-    "hc-key": "us-co",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -9, // Changed to negative
-  },
-  {
-    "hc-key": "us-ct",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -7, // Changed to negative
-  },
-  {
-    "hc-key": "us-de",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 3,
-  },
-  {
-    "hc-key": "us-dc",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -3, // Changed to negative
-  },
-  {
-    "hc-key": "us-fl",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -29, // Changed to negative
-  },
-  {
-    "hc-key": "us-ga",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 16,
-  },
-  {
-    "hc-key": "us-hi",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 4,
-  },
-  {
-    "hc-key": "us-id",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -4, // Changed to negative
-  },
-  {
-    "hc-key": "us-il",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -20, // Changed to negative
-  },
-  {
-    "hc-key": "us-in",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -11, // Changed to negative
-  },
-  {
-    "hc-key": "us-ia",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 6,
-  },
-  {
-    "hc-key": "us-ks",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 6,
-  },
-  {
-    "hc-key": "us-ky",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -8, // Changed to negative
-  },
-  {
-    "hc-key": "us-la",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -8, // Changed to negative
-  },
-  {
-    "hc-key": "us-me",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 4,
-  },
-  {
-    "hc-key": "us-md",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -10, // Changed to negative
-  },
-  {
-    "hc-key": "us-ma",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 11,
-  },
-  {
-    "hc-key": "us-mi",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -16, // Changed to negative
-  },
-  {
-    "hc-key": "us-mn",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -10, // Changed to negative
-  },
-  {
-    "hc-key": "us-ms",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 6,
-  },
-  {
-    "hc-key": "us-mo",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -10, // Changed to negative
-  },
-  {
-    "hc-key": "us-mt",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 3,
-  },
-  {
-    "hc-key": "us-ne",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -5, // Changed to negative
-  },
-  {
-    "hc-key": "us-nv",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 6,
-  },
-  {
-    "hc-key": "us-nh",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -4, // Changed to negative
-  },
-  {
-    "hc-key": "us-nj",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 14,
-  },
-  {
-    "hc-key": "us-nm",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -5, // Changed to negative
-  },
-  {
-    "hc-key": "us-ny",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 29,
-  },
-  {
-    "hc-key": "us-nc",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -15, // Changed to negative
-  },
-  {
-    "hc-key": "us-nd",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -3, // Changed to negative
-  },
-  {
-    "hc-key": "us-oh",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 18,
-  },
-  {
-    "hc-key": "us-ok",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 7,
-  },
-  {
-    "hc-key": "us-or",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 7,
-  },
-  {
-    "hc-key": "us-pa",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 20,
-  },
-  {
-    "hc-key": "us-ri",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -4, // Changed to negative
-  },
-  {
-    "hc-key": "us-sc",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 9,
-  },
-  {
-    "hc-key": "us-sd",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -3, // Changed to negative
-  },
-  {
-    "hc-key": "us-tn",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 11,
-  },
-  {
-    "hc-key": "us-tx",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 38,
-  },
-  {
-    "hc-key": "us-ut",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -6, // Changed to negative
-  },
-  {
-    "hc-key": "us-vt",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -3, // Changed to negative
-  },
-  {
-    "hc-key": "us-va",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 13,
-  },
-  {
-    "hc-key": "us-wa",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 12,
-  },
-  {
-    "hc-key": "us-wv",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 5,
-  },
-  {
-    "hc-key": "us-wi",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 10,
-  },
-  {
-    "hc-key": "us-wy",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 3,
-  },
+const presData = [
+  { "hc-key": "us-al", Called: "R" },
+  { "hc-key": "us-ak", Called: "D" },
+  { "hc-key": "us-az", Called: "D" },
+  { "hc-key": "us-ar", Called: "D" },
+  { "hc-key": "us-ca", Called: "D" },
+  { "hc-key": "us-co", Called: "R" },
+  { "hc-key": "us-ct", Called: "R" },
+  { "hc-key": "us-de", Called: "D" },
+  { "hc-key": "us-dc", Called: "R" },
+  { "hc-key": "us-fl", Called: "R" },
+  { "hc-key": "us-ga", Called: "D" },
+  { "hc-key": "us-hi", Called: "D" },
+  { "hc-key": "us-id", Called: "R" },
+  { "hc-key": "us-il", Called: "R" },
+  { "hc-key": "us-in", Called: "R" },
+  { "hc-key": "us-ia", Called: "D" },
+  { "hc-key": "us-ks", Called: "D" },
+  { "hc-key": "us-ky", Called: "R" },
+  { "hc-key": "us-la", Called: "R" },
+  { "hc-key": "us-me", Called: "D" },
+  { "hc-key": "us-md", Called: "R" },
+  { "hc-key": "us-ma", Called: "D" },
+  { "hc-key": "us-mi", Called: "R" },
+  { "hc-key": "us-mn", Called: "R" },
+  { "hc-key": "us-ms", Called: "D" },
+  { "hc-key": "us-mo", Called: "R" },
+  { "hc-key": "us-mt", Called: "D" },
+  { "hc-key": "us-ne", Called: "R" },
+  { "hc-key": "us-nv", Called: "D" },
+  { "hc-key": "us-nh", Called: "R" },
+  { "hc-key": "us-nj", Called: "D" },
+  { "hc-key": "us-nm", Called: "R" },
+  { "hc-key": "us-ny", Called: "D" },
+  { "hc-key": "us-nc", Called: "R" },
+  { "hc-key": "us-nd", Called: "R" },
+  { "hc-key": "us-oh", Called: "D" },
+  { "hc-key": "us-ok", Called: "D" },
+  { "hc-key": "us-or", Called: "N" },
+  { "hc-key": "us-pa", Called: "N" },
+  { "hc-key": "us-ri", Called: "R" },
+  { "hc-key": "us-sc", Called: "D" },
+  { "hc-key": "us-sd", Called: "R" },
+  { "hc-key": "us-tn", Called: "D" },
+  { "hc-key": "us-tx", Called: "D" },
+  { "hc-key": "us-ut", Called: "R" },
+  { "hc-key": "us-vt", Called: "R" },
+  { "hc-key": "us-va", Called: "D" },
+  { "hc-key": "us-wa", Called: "N" },
+  { "hc-key": "us-wv", Called: "N" },
+  { "hc-key": "us-wi", Called: "N" },
+  { "hc-key": "us-wy", Called: "N" },
 ];
 
 const senData = [
-  {
-    "hc-key": "us-az",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 11,
-  },
-  {
-    "hc-key": "us-ca",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 55,
-  },
-  {
-    "hc-key": "us-ct",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -7, // Changed to negative
-  },
-  {
-    "hc-key": "us-de",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 3,
-  },
-  {
-    "hc-key": "us-fl",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -29, // Changed to negative
-  },
-  {
-    "hc-key": "us-hi",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 4,
-  },
-  {
-    "hc-key": "us-in",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -11, // Changed to negative
-  },
-  {
-    "hc-key": "us-me",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 4,
-  },
-  {
-    "hc-key": "us-md",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -10, // Changed to negative
-  },
-  {
-    "hc-key": "us-ma",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 11,
-  },
-  {
-    "hc-key": "us-mi",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -16, // Changed to negative
-  },
-  {
-    "hc-key": "us-mn",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -10, // Changed to negative
-  },
-  {
-    "hc-key": "us-ms",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 6,
-  },
-  {
-    "hc-key": "us-mo",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -10, // Changed to negative
-  },
-  {
-    "hc-key": "us-mt",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 3,
-  },
-  {
-    "hc-key": "us-ne",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -5, // Changed to negative
-  },
-  {
-    "hc-key": "us-nv",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 6,
-  },
-  {
-    "hc-key": "us-nj",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 14,
-  },
-  {
-    "hc-key": "us-nm",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -5, // Changed to negative
-  },
-  {
-    "hc-key": "us-ny",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 29,
-  },
-  {
-    "hc-key": "us-nd",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -3, // Changed to negative
-  },
-  {
-    "hc-key": "us-oh",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 18,
-  },
-  {
-    "hc-key": "us-pa",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 20,
-  },
-  {
-    "hc-key": "us-ri",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -4, // Changed to negative
-  },
-  {
-    "hc-key": "us-tn",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 11,
-  },
-  {
-    "hc-key": "us-tx",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 38,
-  },
-  {
-    "hc-key": "us-ut",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -6, // Changed to negative
-  },
-  {
-    "hc-key": "us-vt",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "TRUE",
-    value: -3, // Changed to negative
-  },
-  {
-    "hc-key": "us-va",
-    "Office Type": "President",
-    "Called for Dems": "TRUE",
-    "Called for Reps": "FALSE",
-    value: 13,
-  },
-  {
-    "hc-key": "us-wa",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 12,
-  },
-  {
-    "hc-key": "us-wv",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 5,
-  },
-  {
-    "hc-key": "us-wi",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 10,
-  },
-  {
-    "hc-key": "us-wy",
-    "Office Type": "President",
-    "Called for Dems": "FALSE",
-    "Called for Reps": "FALSE",
-    value: 3,
-  },
+  { "hc-key": "us-az", Called: "D" },
+  { "hc-key": "us-ca", Called: "D" },
+  { "hc-key": "us-ct", Called: "R" },
+  { "hc-key": "us-de", Called: "D" },
+  { "hc-key": "us-fl", Called: "R" },
+  { "hc-key": "us-hi", Called: "D" },
+  { "hc-key": "us-in", Called: "R" },
+  { "hc-key": "us-me", Called: "D" },
+  { "hc-key": "us-md", Called: "R" },
+  { "hc-key": "us-ma", Called: "D" },
+  { "hc-key": "us-mi", Called: "R" },
+  { "hc-key": "us-mn", Called: "R" },
+  { "hc-key": "us-ms", Called: "D" },
+  { "hc-key": "us-mo", Called: "R" },
+  { "hc-key": "us-mt", Called: "D" },
+  { "hc-key": "us-ne", Called: "R" },
+  { "hc-key": "us-nv", Called: "D" },
+  { "hc-key": "us-nj", Called: "D" },
+  { "hc-key": "us-nm", Called: "R" },
+  { "hc-key": "us-ny", Called: "D" },
+  { "hc-key": "us-nd", Called: "R" },
+  { "hc-key": "us-oh", Called: "D" },
+  { "hc-key": "us-pa", Called: "N" },
+  { "hc-key": "us-ri", Called: "R" },
+  { "hc-key": "us-tn", Called: "D" },
+  { "hc-key": "us-tx", Called: "D" },
+  { "hc-key": "us-ut", Called: "R" },
+  { "hc-key": "us-vt", Called: "R" },
+  { "hc-key": "us-va", Called: "D" },
+  { "hc-key": "us-wa", Called: "N" },
+  { "hc-key": "us-wv", Called: "N" },
+  { "hc-key": "us-wi", Called: "N" },
+  { "hc-key": "us-wy", Called: "N" },
 ];
 
 if (typeof window !== `undefined`) {
@@ -613,55 +109,38 @@ interface RTCMapProps {
   year: Year;
 }
 
-interface FakeData {
-  "hc-key": string;
-  "Office Type": string;
-  "Called for Dems": string;
-  "Called for Reps": string;
-  value: number;
-}
-
-const colorAxisStops: [number, string][] = [
-  [0, "#B83C2B"], // Republican red
-  [0.38, "#B83C2B"],
-  [0.47, "#EAEAEA"],
-  [0.53, "#EAEAEA"],
-  [0.62, "#595D9A"],
-  [1, "#595D9A"], // Democrat blue
-];
-
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const fetchMapDataAndInitializeMap = async () => {
     const geoResponse = await fetch(
       "https://code.highcharts.com/mapdata/countries/us/us-all.geo.json"
     );
-    let geoData = await geoResponse.json();
+    let mapData = await geoResponse.json();
 
-    initializeMap(geoData);
+    initializeMap(mapData);
   };
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
   }, [raceType]);
 
-  function getMaxState(stateData: FakeData[]): number {
-    return Math.max(...stateData.map((state) => state.value));
-  }
-
-  function getMinState(stateData: FakeData[]): number {
-    return Math.min(...stateData.map((state) => state.value));
-  }
   const initializeMap = (mapData: any) => {
-    const axisMax: number = Math.max(
-      Math.abs(getMinState(presData)),
-      Math.abs(getMaxState(presData))
-    );
-    const colorAxis: Highcharts.ColorAxisOptions = {
-      min: -axisMax,
-      max: axisMax,
-      stops: colorAxisStops,
-      visible: false,
+    const processData = (data: any[]) => {
+      return data.map((item) => {
+        let value: number;
+        if (item.Called === "D") {
+          value = 1; // Democrat
+        } else if (item.Called === "R") {
+          value = 2; // Republican
+        } else {
+          value = 0; // Uncalled
+        }
+        return {
+          "hc-key": item["hc-key"],
+          value: value,
+        };
+      });
     };
+
     const mapOptions: Highcharts.Options = {
       chart: {
         type: "map",
@@ -679,52 +158,59 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       },
       plotOptions: {
         map: {
-          cursor: "pointer",
+          cursor: "default",
         },
       },
       mapNavigation: {
         enabled: false,
         enableButtons: false,
       },
-      colorAxis: colorAxis,
-      tooltip: {
-        formatter: function (this: any) {
-          let prefix = this.point["Called for Dems"] == "TRUE" ? "D" : "R";
-          return (
-            "<b>" +
-            this.point.name +
-            "</b><br/>" +
-            prefix +
-            "+" +
-            (Math.abs(this.point.value) <= 0.1
-              ? "<0.1"
-              : Math.abs(this.point.value).toFixed(1))
-          );
-        },
-        style: {
-          fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
-        },
+      colorAxis: {
+        dataClasses: [
+          {
+            from: 0,
+            to: 0,
+            color: "#505050",
+            name: "Uncalled",
+          },
+          {
+            from: 1,
+            to: 1,
+            color: "#595D9A", // Democrat blue
+            name: "Democrat",
+          },
+          {
+            from: 2,
+            to: 2,
+            color: "#B83C2B", // Republican red
+            name: "Republican",
+          },
+        ],
+        dataClassColor: "category",
       },
       legend: {
         itemStyle: {
-          fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
+          fontFamily:
+            "gelica, book antiqua, georgia, times new roman, serif",
         },
+        enabled: false,
       },
       series: [
         {
           showInLegend: false,
           type: "map",
-          data: raceType == RaceType.Presidential ? presData : senData,
-          nullColor: "#505050",
-          name: "Predicted Margin",
+          data: processData(
+            raceType === RaceType.Presidential ? presData : senData
+          ),
+          mapData: mapData,
+          joinBy: "hc-key",
+          nullColor: "#EAEAEA",
+          name: "Call Status",
           states: {},
           dataLabels: {
-            format: "{point.name}",
-            style: {
-              fontFamily:
-                "gelica, book antiqua, georgia, times new roman, serif",
-            },
+            enabled: false,
           },
+          enableMouseTracking: false,
         },
       ],
     };
