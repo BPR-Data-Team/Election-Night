@@ -1,7 +1,7 @@
 import polars as pl 
 import csv
 
-years = [2016, 2018, 2020, 2022]
+years = [2012, 2016, 2018, 2020, 2022]
 
 fips_dict = []
 with open('FIPS References\\county_fips.csv', 'r', encoding='utf-8') as f:
@@ -15,7 +15,7 @@ county_fips_lookup = pl.DataFrame({'state': [row[1] for row in fips_dict], 'coun
 
 for year in years:
     print(f"Processing {year} data")
-    input_file = f'Senate by Precinct\\Raw Data\\{year} Senate Raw.csv'
+    input_file = f'Raw data\\Senate\\{year} Senate Raw.csv'
     output_file = f'Senate by Precinct\\{year} Senate.csv'
     
     # ---------------------------------- #
@@ -126,7 +126,7 @@ for year in years:
     with open(output_file, 'w+', newline='') as f_out:
         writer = csv.writer(f_out)
         writer.writerow([
-            'test_data',
+           'test_data',
             'ddhq_id',
             'year',
             'office_type',
@@ -134,10 +134,19 @@ for year in years:
             'county', 
             'district',
             'fips',
-            'x_name',
+            'dem_name',
+            'rep_name', 
+            'ind_name', 
+            'green_name',
             'percent_precincts_reporting',
-            'x_votes',
-            'x_votes_percent', 
+            'dem_votes',
+            'rep_votes', 
+            'ind_votes', 
+            'green_votes',
+            'dem_votes_percent',
+            'rep_votes_percent', 
+            'ind_votes_percent', 
+            'green_votes_percent',
             'margin_votes',
             'margin_percent',
             'absentee_percent',
@@ -181,10 +190,19 @@ for year in years:
                     county, 
                     0,
                     fips,
-                    [],
+                    '',
+                    '',
+                    '',
+                    '',
                     100,
-                    [dem_votes, gop_votes, other_votes],
-                    [dem_vote_share, gop_vote_share, other_vote_share], 
+                    dem_votes, 
+                    gop_votes, 
+                    other_votes,
+                    '',
+                    dem_vote_share, 
+                    gop_vote_share, 
+                    other_vote_share,
+                    '',
                     margin_votes,
                     margin_percent,
                     absentee_percent,
