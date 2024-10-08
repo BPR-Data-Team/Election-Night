@@ -2,7 +2,7 @@ import polars as pl
 import csv
 
 years = [2016, 2018, 2020]
-input_file = 'Gubernatorial by Precinct\\Raw Data\\raw data.csv'
+input_file = 'Raw data\\Gubernatorial\\raw data.csv'
 
 year_list = []
 fips_list = []
@@ -69,10 +69,19 @@ for year in years:
             'county', 
             'district',
             'fips',
-            'x_name',
+            'dem_name',
+            'rep_name', 
+            'ind_name', 
+            'green_name',
             'percent_precincts_reporting',
-            'x_votes',
-            'x_votes_percent', 
+            'dem_votes',
+            'rep_votes', 
+            'ind_votes', 
+            'green_votes',
+            'dem_votes_percent',
+            'rep_votes_percent', 
+            'ind_votes_percent', 
+            'green_votes_percent',
             'margin_votes',
             'margin_percent',
             'absentee_percent',
@@ -115,11 +124,21 @@ for year in years:
                 county, 
                 0,
                 fips,
-                [],
+                '',
+                '',
+                '',
+                '',
                 100,
-                [dem_votes, gop_votes],
-                [dem_vote_share, gop_vote_share],
+                dem_votes, 
+                gop_votes,
+                '',
+                '',
+                dem_vote_share, 
+                gop_vote_share,
+                '',
+                '',
                 margin_votes,
                 margin_percent,
+                '',
                 ''])
     
