@@ -31,11 +31,21 @@ The files '2016 Senate.csv', '2018 Senate.csv', '2020 Senate.csv', and '2022 Sen
 'county' - county name
 'district' - column of 0s for Senate to standardize with house data
 'fips' - 5 digit FIPS code
-'x_name' - empty list for standardization with DDHQ data
+'dem_name' - empty column used for standardization with DDHQ data
+'rep_name' - empty column used for standardization with DDHQ data
+'ind_name' - empty column used for standardization with DDHQ data
+'green_name' - empty column used for standardization with DDHQ data
+'absentee_votes' - number of absentee votes
 'percent_precincts_reporting' - 100 for all counties to reflect past election results
-'x_votes' - list [dem_votes, gop_votes]
-'x_votes_percent' - list [dem_percent, gop_percent] calculated as (100 * x_votes / total_votes) 
-'margin_votes' - calculated as (dem_votes - gop_votes)
-'margin_percent' - calculated as (dem_percent - gop_percent)
+'dem_votes' - number of votes for the Democratic candidate
+'rep_votes' - number of votes for the Republican candidate
+'ind_votes' - number of votes for the Independent candidate(s)
+'green_votes' - number of votes for the Green candidate
+'dem_votes_percent' - democratic vote share calculated as (100 * dem_votes / total_votes) 
+'rep_votes_percent' - republican vote share calculated as (100 * reo_votes / total_votes)
+'ind_votes_percent' - independent vote share calculated as (100 * ind_votes / total_votes)
+'green_votes_percent' - green vote share calculated as (100 * green_votes / total_votes)
+'margin_votes' - calculated as (dem_votes - rep_votes)
+'margin_percent' - calculated as (dem_percent - rep_percent)
 'absentee_percent' - calculated as (100 * absentee_votes / total_votes) 
-'absentee_margin' - calculated as (absentee_dem_votes - absentee_gop_votes)
+'absentee_margin' - calculated as (absentee_dem_votes - absentee_rep_votes)
