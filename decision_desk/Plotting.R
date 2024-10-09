@@ -2,10 +2,11 @@ library(tidyverse)
 library(leaflet)
 library(RColorBrewer)  # For color palettes
 library(sf)
+library(glue)
 
 county_data <- read_csv("cleaned_data/DDHQ_current_county_results.csv")
 
-
+#This is code to get a nicely-labeled 
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                       Republican_votes_percent, Democratic_votes_percent, expected_pct_in) {
   paste0(
@@ -37,13 +38,13 @@ get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, 
 get_graph <- function(state_abbrev, office, map_type) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
-  
-  geojson_link <- glue("GeoJSON/County/2022/{state.name[match(state_check, state.abb)]}_2022.geojson")
-  
+
+  geojson_link <- glue("GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
-  if (!(map_type %in% c("swing", "margin", "margin_bubble", "finished_counties"))) {
+  if (!(map_type %in% c("swing", "margin", "margin_bubble"))) {
     stop("Cannot create map of given type")
   }
   
@@ -149,28 +150,13 @@ get_graph <- function(state_abbrev, office, map_type) {
         fillOpacity = 0.7
       )
   }
-  
-  if (map_type == "finished_counties") {
-    graph <- leaflet(geo_data) %>%
-      addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
-      addPolygons(
-        fillColor = ~ifelse(pct_reporting == 100, "black", "white"),  # Set color based on pct_reporting
-        color = ~ifelse(pct_reporting == 100, "black", "transparent"),  # Set color based on pct_reporting
-        popup = ~glue("{ifelse(pct_reporting == 100, 'FINISHED', 'NOT FINISHED')}"),  # Custom label content
-        label = ~glue("{ifelse(pct_reporting == 100, 'FINISHED', 'NOT FINISHED')}"),  # Convert HTML for the popup
-        weight = 1,
-        opacity = 1,
-        fillOpacity = 0.7
-      )
-    
-  }
-  
+
   return (graph)
   
 }
 
-state <- "FL"
-office_type_check <- "Senate"
-map_version <- "finished_counties"
+state <- "NJ"
+office_type_check <- "President"
+map_version <- "margin"
 
 get_graph(state, office_type_check, map_version)
