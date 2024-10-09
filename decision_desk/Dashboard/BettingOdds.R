@@ -53,12 +53,16 @@ bettingOddsServer <- function(id, election_type, state) {
     
     # Render the iframe based on the selected URL
     output$betting_container <- renderUI({
-      tags$iframe(
-        src = polymarket_url(),
-        width = "400",
-        height = "180",
-        frameBorder = "0"
-      )
+      category <- election_type()
+      selected_state <- state()
+      if (category != "House" && !(category == "Governor" && selected_state == "All")) {
+        tags$iframe(
+          src = polymarket_url(),
+          width = "400",
+          height = "180",
+          frameBorder = "0"
+        )
+      }
     })
   })
 }

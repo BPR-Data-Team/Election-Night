@@ -10,18 +10,11 @@ source("BettingOdds.R")
 source("Maps.R")
 
 # Global variables
-election_types <- c("President", "Senate", "House", "Governor")
-election_states <- list(
-  President = c("US", state.abb),
-  Senate = c("US", "AZ", "CA", "CT", "DE", "FL", "HI", 
-             "IN", "MD", "MA", "MI", "MN", "MO", "MT",
-             "NE", "NV", "NJ", "NM", "NY", "ND", "OH",
-             "PA", "RI", "TN", "TX", "UT", "VT", "VA",
-             "WA", "WV", "WI", "WY"),
-  House = c("US", state.abb),
-  Governor = c("DE", "IN", "MO", "MT", "NH", "NC",
-               "ND", "UT", "VT", "WA", "WV")
-)
+all_races <- read_csv("../../cleaned_data/DDHQ_current_race_results.csv")
+
+election_types <- all_races %>%
+  pull("office_type") %>%
+  unique()
 
 # Define UI for application
 ui <- fluidPage(
@@ -37,11 +30,18 @@ ui <- fluidPage(
       selectInput(
         inputId = "state_select",
         label = "State:",
-        choices = election_states[["President"]],
-        selected = "US"
+        choices = NULL,
+        selected = NULL
+      ),
+      selectInput(
+        inputId = "district_select",
+        label = "District:",
+        choices = NULL,
+        selected = NULL
       )
     ),
     mainPanel(
+      tableOutput("elections"),
       bettingOddsOutputUI("betting_odds"),
       mapOutputUI("maps")
     )
@@ -55,11 +55,43 @@ server <- function(input, output, session) {
   
   
   observeEvent(input$category_select, {
+    filtered_states <- all_races %>%
+      filter(office_type == input$category_select) %>%
+      pull("state") %>%
+      unique() %>%
+      append(., "All", after = 0)
+
     updateSelectInput(session, "state_select",
-                      choices = election_states[[input$category_select]],
-                      selected = election_states[[input$category_select]][1]
+                      choices = filtered_states,
+                      selected = "All"
     )
   })
+  
+  
+  observeEvent(c(input$category_select, input$state_select), {
+    state_districts <- all_races %>%
+      filter(office_type == input$category_select & state == input$state_select) %>%
+      pull("district") %>%
+      unique()
+      # %>% .[. != "0"]
+    
+    updateSelectInput(session, "district_select",
+                      choices = state_districts,
+                      selected = state_districts[1]
+    )
+  })
+  
+  filtered_elections <- reactive({
+    req(input$category_select, input$state_select, input$district_select)  # Ensure inputs are available
+    all_races %>%
+      filter(office_type == input$category_select,
+             state == input$state_select,
+             district == input$district_select)  # Filter by district as well
+  })
+  output$elections <- renderTable({
+    filtered_elections()  # Display the filtered elections
+  })
+  
   
   bettingOddsServer("betting_odds", election_type, state)
   map_module <- mapServer("maps", election_type, state)
