@@ -140,7 +140,7 @@ get_graph <- function(state_abbrev, office, map_type) {
       addCircleMarkers(
         fillColor = ~pal(margin_votes), 
         color = "black",
-        radius = ~ 25 * abs(margin_votes / max_votes),
+        radius = ~ 25 * sqrt(abs(margin_votes / max_votes)),
         popup = ~get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                            Republican_votes_percent, Democratic_votes_percent, expected_pct_in),         # Add the custom label content
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
@@ -155,7 +155,7 @@ get_graph <- function(state_abbrev, office, map_type) {
   
 }
 
-state <- "NJ"
+state <- "PA"
 office_type_check <- "President"
 map_version <- "margin"
 
