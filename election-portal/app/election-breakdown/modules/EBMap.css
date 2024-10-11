@@ -1,5 +1,7 @@
 #container {
+    position: relative;
     height: 70%;
-    width: 100%;
+    width: 80%;
     top:0rem;
+    left: -4rem;
   }

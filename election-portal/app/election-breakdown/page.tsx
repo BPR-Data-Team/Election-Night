@@ -36,6 +36,7 @@ export default function Election_Breakdown_Page() {
     console.log("Fetched geojson");
     setCurrStateData(stateData);
     setStateView(true);
+    state.setLevel("state");
   };
 
   return (

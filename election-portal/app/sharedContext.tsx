@@ -60,6 +60,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({ childre
         view,
         setView,
         level,
+        setLevel,
         exitLevel,
         drawMode,
         toggleDraw,
