@@ -36,6 +36,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({ childre
             setLevel("state");
         } else if (level === "state") {
             setLevel("national");
+            setView(State.National);
         } else if (level === "national") {
             setCurrentPage("/");
         }

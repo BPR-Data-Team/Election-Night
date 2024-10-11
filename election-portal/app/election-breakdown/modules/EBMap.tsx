@@ -721,6 +721,8 @@ const EBMap: React.FC<RTCMapProps> = ({ raceType, year, onClick }) => {
           nullColor: "#505050",
           name: "Predicted Margin",
           states: {},
+          borderColor: "#000000",
+          borderWidth: 1,
           dataLabels: {
             format: "{point.name}",
             style: {

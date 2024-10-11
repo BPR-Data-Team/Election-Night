@@ -194,6 +194,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
           nullColor: "#FFFFFF",
           name: "Predicted Margin",
           borderColor: "black",
+          borderWidth: 1,
           events: {
             click: function(event: any) {
               const countyName = event.point.properties.NAME;

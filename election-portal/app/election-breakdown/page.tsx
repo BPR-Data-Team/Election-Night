@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSharedState } from "../sharedContext";
+import { State, getStateFromString } from "../../types/State";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -18,25 +19,23 @@ import { fetchStateGeoJSON } from "./modules/mapDataCache";
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
-  const state = useSharedState().state;
+  const sharedState = useSharedState().state;
 
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [currStateData, setCurrStateData] = useState<JSON | null>(null);
-
-  const [stateView, setStateView] = useState<boolean>(false);
 
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
   };
 
   const handleStateClick = async (stateName: string) => {
-    console.log(`The state name is ${stateName}`);
+    const stateEnum = getStateFromString(stateName);
     setSelectedState(stateName);
-    const stateData = await fetchStateGeoJSON(stateName, String(state.year));
-    console.log("Fetched geojson");
+    const stateData = await fetchStateGeoJSON(stateName, String(sharedState.year));
+
     setCurrStateData(stateData);
-    setStateView(true);
-    state.setLevel("state");
+    sharedState.setView(stateEnum);
+    sharedState.setLevel("state");
   };
 
   return (
@@ -54,11 +53,15 @@ export default function Election_Breakdown_Page() {
             toggleVisibility={toggleBanner}
           />
 
-          {state.drawMode ? <Canvas /> : null}
+          {sharedState.drawMode ? <Canvas /> : null}
 
           {/* <EBMap year={state.year} raceType={state.breakdown} onClick={handleStateClick}/> */}
           <div className={styles.mapWrapper}>
-            {stateView && selectedState ? <StateMap year={state.year} raceType={state.breakdown} stateName={selectedState}/> : <EBMap year={state.year} raceType={state.breakdown} onClick={handleStateClick}/>}
+            {((sharedState.level != "national") && selectedState) ?
+            <StateMap year={sharedState.year} raceType={sharedState.breakdown} stateName={sharedState.view}/>
+            :
+            <EBMap year={sharedState.year} raceType={sharedState.breakdown} onClick={handleStateClick}/>
+            }
           </div>
           
 
