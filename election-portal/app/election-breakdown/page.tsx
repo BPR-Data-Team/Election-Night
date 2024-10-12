@@ -20,29 +20,39 @@ import StateMap from "./modules/stateMap";
 import { fetchStateGeoJSON } from "./modules/mapDataCache";
 
 export default function Election_Breakdown_Page() {
-  const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
   const sharedState = useSharedState().state;
+  const [displayNational, setDisplayNational] = useState(true);
 
-  const toggleBanner = () => {
-    setIsBannerVisible(!isBannerVisible);
-  };
+  // When sharedState.level changes wait 250ms before changing display state
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (sharedState.level == "national") {
+        setDisplayNational(true);
+      } else {
+        setDisplayNational(false);
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [sharedState.level, displayNational]);
 
   // State Mode While National
-  const SMWN = (sharedState.view != State.National && sharedState.level == "national");
+  const SMWN = (sharedState.view != State.National && displayNational);
 
   // Would appreciate a better way to do this, if possible
-  const wrapperDiv = document.getElementById("mapWrapper");
-  const EBMapDiv = document.getElementById("EBContainer");
-  wrapperDiv?.addEventListener('click', function(event) {
-    if (event.target === event.currentTarget) {
-      sharedState.setView(State.National);
-    }
-  });
-  EBMapDiv?.addEventListener('click', function(event) {
-    if (event.target === event.currentTarget) {
-      sharedState.setView(State.National);
-    }
-  });
+  useEffect(() => {
+    const wrapperDiv = document?.getElementById("mapWrapper");
+    const EBMapDiv = document?.getElementById("EBContainer");
+    wrapperDiv?.addEventListener('click', function(event) {
+      if (event.target === event.currentTarget) {
+        sharedState.setView(State.National);
+      }
+    });
+    EBMapDiv?.addEventListener('click', function(event) {
+      if (event.target === event.currentTarget) {
+        sharedState.setView(State.National);
+      }
+    });
+  }, [sharedState]);
 
 
   return (
@@ -54,12 +64,19 @@ export default function Election_Breakdown_Page() {
 
           {/* <EBMap year={state.year} raceType={state.breakdown} onClick={handleStateClick}/> */}
           <div className={styles.mapWrapper} id="mapWrapper">
-            {sharedState.level == "national" ? (
-              <div className={styles.EBMapContainer} id="EBContainer" style={{ ...SMWN ? { left: "24%" } : {} }}>
+            {displayNational && (
+              <div
+                className={styles.EBMapContainer} id="EBContainer"
+                style={{ ...(SMWN ? { left: "24%" } : {}), ...(sharedState.level == "national" ? { opacity: 1 } : { opacity: 0 }) }}
+              >
                 <EBMap />
               </div>
-            ) : (
-              <div className={styles.StateMapContainer}>
+            )}
+            {!displayNational && (
+              <div
+                className={styles.StateMapContainer}
+                style={{...(sharedState.level != "national" ? { opacity: 1 } : { opacity: 0 })}}
+              >
                 <StateMap
                 year={sharedState.year}
                 raceType={sharedState.breakdown}
@@ -76,8 +93,6 @@ export default function Election_Breakdown_Page() {
             wordmark={"view:" + sharedState.view}
             header=""
             message={"level:" + sharedState.level}
-            isVisible={isBannerVisible}
-            toggleVisibility={toggleBanner}
           />
 
           {SMWN && <DataDisplay /> }
