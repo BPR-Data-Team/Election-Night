@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState, useRef } from "react";
 import { RaceType } from "@/types/RaceType";
 import { Year } from "@/types/Year";
 import Highcharts from "highcharts";
 import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 import "./EBMap.css";
+
+import { useSharedState } from "../../sharedContext";
+import { State, getStateFromString } from "../../../types/State";
+import { SharedInfo } from "../../../types/SharedInfoType";
+import { fetchStateGeoJSON } from "../modules/mapDataCache";
+import { only } from "node:test";
 
 const presData: FakeData[] = [
   {
@@ -608,11 +614,6 @@ if (typeof Highcharts === "object") {
   HighchartsMap(Highcharts);
 }
 
-interface RTCMapProps {
-  raceType: RaceType;
-  year: Year;
-  onClick: (stateName: string) => void;
-}
 
 interface FakeData {
   "hc-key": string;
@@ -631,7 +632,14 @@ const colorAxisStops: [number, string][] = [
   [1, "#595D9A"], // Democrat blue
 ];
 
-const EBMap: React.FC<RTCMapProps> = ({ raceType, year, onClick }) => {
+const EBMap: React.FC = () => {
+
+  const sharedState = useSharedState().state;
+  const raceType = sharedState.breakdown;
+  const year = sharedState.year;
+
+  const [geoData, setGeoData] = useState<any>(null);
+
   const fetchMapDataAndInitializeMap = async () => {
     console.log("Map data has begun to load")
     const geoResponse = await fetch(
@@ -639,13 +647,39 @@ const EBMap: React.FC<RTCMapProps> = ({ raceType, year, onClick }) => {
     );
     let geoData = await geoResponse.json();
     console.log("Map data loaded")
-
+    setGeoData(geoData);
     initializeMap(geoData);
+  };
+
+  const onlyInitializeMap = () => {
+    initializeMap(geoData);
+  }
+
+  const handleStateClick = async (stateName: string) => {
+    const stateEnum = getStateFromString(stateName);
+    const stateData = await fetchStateGeoJSON(stateName, String(sharedState.year));
+
+    console.log("view: " + sharedState.view + " level: " + sharedState.level);
+
+    if (sharedState.view != stateEnum) {
+      sharedState.setView(stateEnum as State);
+    } else if (sharedState.view == stateEnum) {
+      sharedState.setLevel("state");
+    }
+  };
+
+  // Exists because page.tsx doesn't work if inside container div but outside USA boundaries
+  const handleOOBClick = () => {
+    sharedState.setView(State.National);
   };
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
   }, [raceType]);
+
+  useEffect(() => {
+    onlyInitializeMap();
+  }, [sharedState.view])
 
   function getMaxState(stateData: FakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -670,6 +704,13 @@ const EBMap: React.FC<RTCMapProps> = ({ raceType, year, onClick }) => {
         type: "map",
         map: mapData,
         backgroundColor: "transparent",
+        events: {
+          click: function (event: any) {
+            if (!event.point) {
+              handleOOBClick();
+            }
+          }
+        }
       },
       credits: {
         enabled: false,
@@ -717,10 +758,18 @@ const EBMap: React.FC<RTCMapProps> = ({ raceType, year, onClick }) => {
         {
           showInLegend: false,
           type: "map",
-          data: raceType == RaceType.Presidential ? presData : senData,
+          data: (raceType == RaceType.Presidential ? presData : senData),
           nullColor: "#505050",
           name: "Predicted Margin",
-          states: {},
+          states: {
+            hover: {
+              borderColor: 'lightgreen',
+            }
+          },
+          point : {
+            events: {
+            }
+          },
           borderColor: "#000000",
           borderWidth: 1,
           dataLabels: {
@@ -733,10 +782,9 @@ const EBMap: React.FC<RTCMapProps> = ({ raceType, year, onClick }) => {
           events: {
             click: function (event: any) {
                 const stateName = event.point["name"];
-                console.log(`Just clicked: ${stateName}`);
-                onClick(stateName);
-            }
-          }
+                handleStateClick(stateName);
+            },
+          }          
         },
       ],
     };

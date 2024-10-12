@@ -1,31 +1,38 @@
 .page {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     width: 100vw;
   }
   
-  .mapWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+.mapWrapper {
+    width: 100vw;
+    height: 100vh;
     z-index: 0;
-  }
-  
-  .mapContainer {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-  }
+    position: fixed;
+}
 
-  .overflowCatch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.EBMapContainer {
+    position: absolute;
     width: 100vw;
     height: 100vh;
-  }
+    left: 14%;
+    top: 12%;
+    transition: left 0.5s ease-out; 
+    /* could possibly add a delay if you want "double taps" without animation */
+}
+
+.StateMapContainer {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 14%;
+  top: 12%;
+}
+
+/* .overflowCatch {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+} */
