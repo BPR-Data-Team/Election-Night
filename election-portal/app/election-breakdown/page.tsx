@@ -56,9 +56,9 @@ export default function Election_Breakdown_Page() {
     }
 
     // Load Historical County Data
-    // if (storedCountyData) {
-    //   setHistoricalCountyData(JSON.parse(storedCountyData) as HistoricalCountyData[]);
-    // } else {
+    if (storedCountyData) {
+      setHistoricalCountyData(JSON.parse(storedCountyData) as HistoricalCountyData[]);
+    } else {
       fetch('/cleaned_data/historical_county.csv')
         .then((response) => response.text())
         .then((csvText) => {
@@ -86,6 +86,7 @@ export default function Election_Breakdown_Page() {
           });
         })
         .catch((error) => console.error("Error loading historical county data:", error));
+      }
     // } 
   }, []);
 
@@ -110,7 +111,7 @@ export default function Election_Breakdown_Page() {
 
           {/* Needs to be topmost during content screens */}
           <Menubar />
-
+          
           {/* Future homepage topmost element */}
         </div>
       </div>
