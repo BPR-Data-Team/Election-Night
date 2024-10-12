@@ -1,0 +1,18 @@
+.dataDisplay {
+    position: fixed;
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 40%;
+    max-width: 25%;
+}
+
+/* Put a future class for state or national and have the max width differ */
+
+h1, h2, h3, h4, h5, h6, p, em, i, .wordmark {
+    display: inline;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+}

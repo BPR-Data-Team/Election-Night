@@ -8,6 +8,7 @@ export type SharedInfo = {
   view: State;
   setView: (view: State) => void;
   level: "county" | "state" | "national";
+  setLevel: (level: "county" | "state" | "national") => void;
   exitLevel: () => void;
   drawMode: boolean;
   toggleDraw: () => void;

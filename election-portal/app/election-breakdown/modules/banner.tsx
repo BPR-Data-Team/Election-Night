@@ -9,12 +9,10 @@ type BannerProps = {
   wordmark: string;
   header: string;
   message: string;
-  isVisible: boolean;
-  toggleVisibility: () => void;
 };
 
 
-const Banner: React.FC<BannerProps> = ({ align, height, wordmark, header, message, isVisible, toggleVisibility }) => {
+const Banner: React.FC<BannerProps> = ({ align, height, wordmark, header, message }) => {
 
   const divStyle = {
     top: height.toString() + 'rem'
@@ -23,16 +21,12 @@ const Banner: React.FC<BannerProps> = ({ align, height, wordmark, header, messag
   return (
     <div style={{ top: `${height}rem` }} className={align}> {/* Is this good practice? Idk :P */}
       <div className="banner">
-        {isVisible && (
-          <>
-            <span className="wordmark">{wordmark}</span>
-            <span className="wordmark">{header}</span>
-            <p> | </p>
-            <p>
-              {message}
-            </p>
-          </>
-        )}
+        <span className="wordmark">{wordmark}</span>
+        <span className="wordmark">{header}</span>
+        <p> | </p>
+        <p>
+          {message}
+        </p>
       </div>
     </div>
   );
