@@ -53,6 +53,15 @@ export enum State {
   Wyoming = "Wyoming",
 }
 
+export const getStateFromString = (stateName: string): State => {
+  const formattedStateName = stateName.replace(/\s+/g, '');
+  const state = State[formattedStateName as keyof typeof State];
+  if (!state) {
+    throw new Error(`Invalid state name: ${stateName}`);
+  }
+  return state;
+};
+
 /**
  * @returns {State[]} An array of states that have Senate races
  */
