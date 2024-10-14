@@ -45,7 +45,6 @@ timeline <- json_data$data$races %>%
          pct_in = eevp, 
          timestamp = as_datetime(timestamp)) %>%
   select(state, biden_pct, trump_pct, margin, eevp, votes, timestamp) %>% 
-  filter(votes != 0) %>% 
-  mutate(timestamp = timestamp - hours(5))
+  filter(votes != 0) 
 
-write_csv(timeline, "cleaned_data/Same_Time_2020.csv")
+write_csv(timeline, "cleaned_data/Locally-Hosted Data/Same_Time_2020.csv")
