@@ -1,6 +1,7 @@
 import { RaceType } from "./RaceType";
 import { Year } from "./Year";
 import { State } from "./State";
+import { Demographic } from "./Demographic";
 
 export type SharedInfo = {
   page: string;
@@ -20,6 +21,10 @@ export type SharedInfo = {
   availableYears: Year[];
   setAvailableYears: (years: Year[]) => void;
   yearSwitch: (year: Year) => void;
+  demographic: Demographic;
+  demographicSwitch: (demographic: Demographic) => void;
+  availableDemographics: Demographic[];
+  setAvailibleDemographics: (demographics: Demographic[]) => void;
 };
 
-export { RaceType, Year, State };
+export { RaceType, Year, State, Demographic };
