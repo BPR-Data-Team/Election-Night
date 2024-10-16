@@ -7,15 +7,16 @@ const GeoJsonCache = () => {
 
 // Fetch a single state's GeoJSON data and store it in the cache
 const fetchStateGeoJSON = async (stateName: string, year: string) => {
-    if (!stateGeoJSONCache.has(stateName)) { 
-      const stripped_year =  year.trim();
+    const stripped_year =  year.trim();
+    const nameYearKey = stateName + "_" + stripped_year;
+    if (!stateGeoJSONCache.has(nameYearKey)) {
       console.log(`/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
       const response = await fetch(`/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
       const geoJSON = await response.json();
-      stateGeoJSONCache.set(stateName, geoJSON); 
+      stateGeoJSONCache.set(nameYearKey, geoJSON); 
     }
     console.log(stateGeoJSONCache);
-    return stateGeoJSONCache.get(stateName); 
+    return stateGeoJSONCache.get(nameYearKey); 
   };
 
 const fetchCityGeoJSON = async (stateName: string) => {
