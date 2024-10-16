@@ -62,10 +62,8 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     RaceType.Gubernatorial,
   ]);
   const breakdownSwitch = (breakdown: RaceType) => {
-    if (availableBreakdowns.includes(breakdown)) {
-      setAvailableYears(getYearsFromBreakdown(breakdown));
-      setBreakdown(breakdown);
-    }
+    setAvailableYears(getYearsFromBreakdown(breakdown));
+    setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
   const [availableYears, setAvailableYears] = useState<Year[]>([
@@ -75,9 +73,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     Year.Sixteen,
   ]);
   const yearSwitch = (year: Year) => {
-    if (availableYears.includes(year)) {
-      setYear(year);
-    }
+    setYear(year);
   };
 
   const [demographic, setDemographic] = useState<Demographic>(Demographic.All);

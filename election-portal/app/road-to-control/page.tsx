@@ -11,7 +11,9 @@ import { Year } from "@/types/Year";
 
 export default function Road_To_Control_Page() {
   const state = useSharedState().state;
+
   useEffect(() => {
+    // set menubar options
     state.setAvailableBreakdowns([
       RaceType.Presidential,
       RaceType.Senate,

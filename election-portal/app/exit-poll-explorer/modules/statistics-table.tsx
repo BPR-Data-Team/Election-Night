@@ -17,7 +17,7 @@ const StatsTable: React.FC<StatsTableProps> = ({ data }) => {
           </tr>
         </thead>
         <tbody className="table-contents">
-          {data.map((category, idx) => (
+          {data.map((category: any, idx: number) => (
             <tr key={idx} className="stats-row">
               <th>{category.category}</th>
               <td>{category.percentVote}</td>
