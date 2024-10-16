@@ -725,7 +725,8 @@ const EBMap: React.FC = () => {
         },
       },
       mapNavigation: {
-        enabled: false,
+        enabled: true,
+        enableMouseWheelZoom: true,
         enableButtons: false,
       },
       colorAxis: colorAxis,

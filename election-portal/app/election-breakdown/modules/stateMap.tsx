@@ -7,7 +7,7 @@ import highchartsAccessibility from "highcharts/modules/accessibility";
 
 import GeoJsonCache from "./mapDataCache";
 
-import "./EBMap.css";
+import "./stateMap.css";
 import { json } from "stream/consumers";
 
 const presData: FakeData[] = [{'GEOID': '01069', 'value': 9.95},
@@ -182,7 +182,8 @@ const initializeMap = (mapData: any, cityData: any) => {
           },
       },
       mapNavigation: {
-          enabled: false,
+          enabled: true,
+          enableMouseWheelZoom: true,
           enableButtons: false,
       },
       colorAxis: colorAxis,
