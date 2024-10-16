@@ -3,7 +3,9 @@ library(bslib)
 library(ggplot2)
 library(leaflet)
 
-BASEPATH <- "~/GitHub/Election-Night"
+BASEPATH <- ifelse(Sys.getenv("ElectionNightPath") == "", 
+                   "~/GitHub/Election-Night", 
+                   Sys.getenv("ElectionNightPath"))
 
 setwd(BASEPATH)
 
