@@ -39,7 +39,7 @@ get_graph <- function(state_abbrev, office, map_type) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
 
-  geojson_link <- glue("GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  geojson_link <- glue("~/Github/24Cast/Election-Night/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
 
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
@@ -140,7 +140,7 @@ get_graph <- function(state_abbrev, office, map_type) {
       addCircleMarkers(
         fillColor = ~pal(margin_votes), 
         color = "black",
-        radius = ~ 25 * sqrt(abs(margin_votes / max_votes)),
+        radius = ~ 25 * abs(margin_votes / max_votes),
         popup = ~get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                            Republican_votes_percent, Democratic_votes_percent, expected_pct_in),         # Add the custom label content
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
@@ -155,8 +155,8 @@ get_graph <- function(state_abbrev, office, map_type) {
   
 }
 
-state <- "PA"
+state <- "GA"
 office_type_check <- "President"
-map_version <- "margin"
+map_version <- "margin_bubble"
 
-get_graph(state, office_type_check, map_version)
+#get_graph(state, office_type_check, map_version)
