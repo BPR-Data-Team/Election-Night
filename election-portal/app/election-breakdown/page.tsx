@@ -16,8 +16,6 @@ import DataDisplay from "./modules/dataDisplay";
 import EBMap from "./modules/EBMap";
 import StateMap from "./modules/stateMap";
 
-import { fetchStateGeoJSON } from "./modules/mapDataCache";
-
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
   const [historicalElectionsData, setHistoricalElectionsData] = useState<HistoricalElectionData[] | null>(null);
