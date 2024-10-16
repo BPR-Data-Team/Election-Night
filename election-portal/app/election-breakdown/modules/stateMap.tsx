@@ -144,175 +144,297 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     return Math.min(...stateData.map((state) => state.value));
   }
 
-  const initializeMap = (mapData: any, cityData: any) => {
-    const axisMax: number = Math.max(
+//   const initializeMap = (mapData: any, cityData: any) => {
+//     const axisMax: number = Math.max(
+//       Math.abs(getMinState(presData)),
+//       Math.abs(getMaxState(presData))
+//     );
+//     const colorAxis: Highcharts.ColorAxisOptions = {
+//       min: -axisMax,
+//       max: axisMax,
+//       stops: colorAxisStops,
+//       visible: false,
+//     };
+
+//     const mapOptions: Highcharts.Options = {
+//       chart: {
+//         type: "map",
+//         map: mapData,
+//         backgroundColor: "transparent",
+//       },
+//       credits: {
+//         enabled: false,
+//       },
+//       accessibility: {
+//         description: "State Map .",
+//       },
+//       title: {
+//         text: "",
+//       },
+//       plotOptions: {
+//         map: {
+//           cursor: "pointer",
+//         },
+//       },
+//       mapNavigation: {
+//         enabled: false,
+//         enableButtons: false,
+//       },
+//       colorAxis: colorAxis,
+//       // tooltip: {
+//       //   formatter: function (this: any) {
+//       //     let countyName = this.point.properties.NAME ? this.point.properties.NAME : null;
+//       //     return "<b>" + countyName + " County" + "</b>";
+//       //   },
+//       //   style: {
+//       //     fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
+//       //   },
+//       // },
+//       legend: {
+//         itemStyle: {
+//           fontFamily:
+//             "gelica, book antiqua, georgia, times new roman, serif",
+//         },
+//       },
+//       series: [
+//         {
+//           showInLegend: false,
+//           type: "map",
+//           mapData: mapData,
+//           data: presData,
+//           joinBy: "GEOID",
+//           nullColor: "#FFFFFF",
+//           name: "Counties",
+//           borderColor: "black",
+//           borderWidth: 1,
+//           states: {
+//             hover: {
+//               borderColor: 'lightgreen',
+//             }
+//           },
+//           events: {
+//             click: function (event: any) {
+//               const countyName = event.point.properties.NAME;
+//               alert(`You just clicked ${countyName}`);
+//               console.log(cityData);
+//             },
+//           },
+//           dataLabels: {
+//             // enabled: true,
+            
+//             format: "{point.properties.NAME}",
+//             style: {
+//               fontFamily:
+//                 "gelica, book antiqua, georgia, times new roman, serif",
+//             },
+//             padding: 10,
+//           },
+//           tooltip: {
+//             pointFormat: "{point.properties.NAME} County",
+//           },
+//         },
+//         {
+//           // New series for cities (points)
+//           type: 'mappoint',
+//           name: 'Cities',
+//           accessibility: {
+//             point: {
+//                 valueDescriptionFormat: '{xDescription}. Lat: ' +
+//                     '{point.lat:.2f}, lon: {point.lon:.2f}.'
+//             }
+//           },
+//           color: '#D9D9D9',  // Marker color for cities
+          
+//             data: cityData,  // Pass the city data array
+//             dataLabels: {
+//               enabled: true,
+//               defer: true,
+//               allowOverlap: true,  // Prevent overlap
+//               // format: '{point.name}',  // Display the city name
+//               padding: 8,  // Add padding between labels
+//               // align: function() {
+//               //   const point = (this as any).point;
+//               //   console.log("POINT: ", point);
+//               //   console.log("POINT INDEX: ", point.index);
+//               //   return point.index % 2 === 0 ? 'left' : 'right';  // Alternate label alignment
+//               // },
+//               // verticalAlign: function() {
+//               //   const point = (this as any).point;
+//               //   console.log("POINT: ", point);
+//               //   console.log("POINT INDEX: ", point.index);
+//               //   return point.index % 2 === 0 ? 'bottom' : 'top';  // Alternate label alignment
+//               // },
+//               style: {
+//                 fontSize: '10px',  // Adjust font size
+//                 fontWeight: 'bold',
+//               },
+//               formatter: function () {
+//                 const point = this.point;
+//                 const index = point.index;
+//                 const xOffset = index % 2 === 0 ? -10 : 10;  // Adjust x offset
+//                 const yOffset = index % 2 === 0 ? -10 : 10;  // Adjust y offset
+
+//                 return `<div style="transform: translate(${xOffset}px, ${yOffset}px);">${point.name}</div>`;
+//               },
+//               overflow: 'allow',  // Allow labels to overflow if needed
+//               crop: false,  // Don't crop labels that are near the edges of the map
+//             },
+//           marker: {
+//             radius: 5,  // Marker size
+//             lineColor: '#000000',
+//             lineWidth: 1,
+//           },
+//           tooltip: {
+//             pointFormat: '{point.name}',  // Show the city name in the tooltip
+//           }
+//         },
+//       ],
+//     };
+//     Highcharts.mapChart("container", mapOptions);
+//   };
+
+const initializeMap = (mapData: any, cityData: any) => {
+  const axisMax: number = Math.max(
       Math.abs(getMinState(presData)),
       Math.abs(getMaxState(presData))
-    );
-    const colorAxis: Highcharts.ColorAxisOptions = {
+  );
+  const colorAxis: Highcharts.ColorAxisOptions = {
       min: -axisMax,
       max: axisMax,
       stops: colorAxisStops,
       visible: false,
-    };
+  };
 
-    const mapOptions: Highcharts.Options = {
+  const mapOptions: Highcharts.Options = {
       chart: {
-        type: "map",
-        map: mapData,
-        backgroundColor: "transparent",
+          type: "map",
+          map: mapData,
+          backgroundColor: "transparent",
+          events: {
+              load: function () {
+                  const chart = this;
+                  // Adjust dataLabels positions after chart load
+                  chart.series.forEach(function (series) {
+                      if (series.type === 'mappoint') {
+                          series.points.forEach(function (point, index) {
+                              // Dynamically adjust data label position based on the point index
+                              const xOffset = index % 2 === 0 ? point.x - 20 : point.x + 20;
+                              const yOffset = index % 2 === 0 ? -5 : +5;
+
+                              point.update({
+                                dataLabels: {
+                                  x: xOffset,
+                                  y: -2,
+                                }
+                              }, false)
+                              
+                          });
+                      }
+                  });
+                chart.redraw();
+              }
+          }
       },
       credits: {
-        enabled: false,
+          enabled: false,
       },
       accessibility: {
-        description: "State Map .",
+          description: "State Map.",
       },
       title: {
-        text: "",
+          text: "",
       },
       plotOptions: {
-        map: {
-          cursor: "pointer",
-        },
+          map: {
+              cursor: "pointer",
+          },
       },
       mapNavigation: {
-        enabled: false,
-        enableButtons: false,
+          enabled: false,
+          enableButtons: false,
       },
       colorAxis: colorAxis,
-      // tooltip: {
-      //   formatter: function (this: any) {
-      //     let countyName = this.point.properties.NAME ? this.point.properties.NAME : null;
-      //     return "<b>" + countyName + " County" + "</b>";
-      //   },
-      //   style: {
-      //     fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
-      //   },
-      // },
       legend: {
-        itemStyle: {
-          fontFamily:
-            "gelica, book antiqua, georgia, times new roman, serif",
-        },
+          itemStyle: {
+              fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
+          },
       },
       series: [
-        {
-          showInLegend: false,
-          type: "map",
-          mapData: mapData,
-          data: presData,
-          joinBy: "GEOID",
-          nullColor: "#FFFFFF",
-          name: "Counties",
-          borderColor: "black",
-          borderWidth: 1,
-          states: {
-            hover: {
-              borderColor: 'lightgreen',
-            }
-          },
-          events: {
-            click: function (event: any) {
-              const countyName = event.point.properties.NAME;
-              alert(`You just clicked ${countyName}`);
-              console.log(cityData);
-            },
-          },
-          dataLabels: {
-            // enabled: true,
-            
-            format: "{point.properties.NAME}",
-            style: {
-              fontFamily:
-                "gelica, book antiqua, georgia, times new roman, serif",
-            },
-            padding: 10,
-          },
-          tooltip: {
-            pointFormat: "{point.properties.NAME} County",
-          },
-        },
-        {
-          // New series for cities (points)
-          type: 'mappoint',
-          name: 'Cities',
-          accessibility: {
-            point: {
-                valueDescriptionFormat: '{xDescription}. Lat: ' +
-                    '{point.lat:.2f}, lon: {point.lon:.2f}.'
-            }
-          },
-          color: '#D9D9D9',  // Marker color for cities
-          
-            data: cityData,  // Pass the city data array
-            dataLabels: {
-              enabled: true,
-              defer: true,
-              allowOverlap: true,  // Prevent overlap
-              format: '{point.name}',  // Display the city name
-              padding: 8,  // Add padding between labels
-              align: 'center',  // Center align labels
-              verticalAlign: 'top',  // Align labels to the top of the marker
-              style: {
-                fontSize: '10px',  // Adjust font size
-                fontWeight: 'bold',
+          {
+              showInLegend: false,
+              type: "map",
+              mapData: mapData,
+              data: presData,
+              joinBy: "GEOID",
+              nullColor: "#FFFFFF",
+              name: "Counties",
+              borderColor: "black",
+              borderWidth: 2,
+              states: {
+                  hover: {
+                      borderColor: 'lightgreen',
+                  }
               },
-              formatter: function () {
-                const point = this.point;
-                // console.log("HELLO: ", point.lat, point.lon);
-
-                
-                // // Detect nearby points (cities) to handle collisions
-                // const nearbyPoints = this.series.data.filter(otherPoint => {
-                //   if (otherPoint !== point) {
-                //     const distance = Math.sqrt(
-                //       Math.pow(otherPoint.lat - point.lat, 2) +
-                //       Math.pow(otherPoint.lon - point.lon, 2)
-                //     );
-                //     return distance < 1;  // Adjust threshold for proximity
-                //   }
-                //   return false;
-                // });
-          
-                // // Apply dynamic offsets if there are nearby points (collision detection)
-                // if (nearbyPoints.length > 0) {
-                //   console.log("Yes, they are nearby");
-                //   const randomOffset = () => Math.floor(Math.random() * 30 - 15);
-                //   // const index = nearbyPoints.indexOf(point);
-                //   // const angle = index * (360 / nearbyPoints.length);  // Spread out the labels around the marker
-                //   // const radians = (angle * Math.PI) / 180;
-                //   // const xOffset = Math.cos(radians) * 40;  // Adjust the 15 value as needed for better separation
-                //   // const yOffset = Math.sin(radians) * 40;
-                //   const xOffset = randomOffset();
-                //   const yOffset = randomOffset();
-                //   console.log("X: ", xOffset, "Y: ", yOffset, "text: ", point.name);
-                  
-                //   return `<div style="transform: translate(${xOffset}px, ${yOffset}px);">${point.name}</div>`;
-
-
-                // }
-          
-                return point.name;  // Default label for cities with no nearby collisions
+              dataLabels: {
+                  format: "{point.properties.NAME}",
+                  style: {
+                      fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
+                  },
+                  padding: 10,
               },
-              overflow: 'allow',  // Allow labels to overflow if needed
-              crop: false,  // Don't crop labels that are near the edges of the map
-            },
-          marker: {
-            radius: 5,  // Marker size
-            lineColor: '#000000',
-            lineWidth: 1,
+              tooltip: {
+                  pointFormat: "{point.properties.NAME} County",
+              },
           },
-          tooltip: {
-            pointFormat: '{point.name}',  // Show the city name in the tooltip
-          }
-        },
+          {
+              // Series for cities (mappoint)
+              type: 'mappoint',
+              name: 'Cities',
+              color: '#D9D9D9', 
+              data: cityData,
+              dataLabels: {
+                  enabled: true,
+                  allowOverlap: true,  
+                  style: {
+                      fontSize: '12px', 
+                      fontWeight: 'bold',
+                      textOutline: '1px contrast',
+                      color: '#FFFFFF',
+                      fontFamily: 'Gelica Arial, sans-serif',
+                  },
+                  formatter: function () {
+                      // console.log(this.point.index);
+                      // const xOffset = this.point.index % 2 === 0 ? -10 : 10;
+                      // const yOffset = this.point.index % 2 === 0 ? -10 : 10;
+
+                      // this.attr({
+                      //   x: xOffset,
+                      //   y: yOffset,
+                      // })
+
+                      return this.point.name;
+                  },
+                  overflow: 'allow',
+                  crop: false,
+              },
+              marker: {
+                  radius: 5,  // Marker size
+                  lineColor: '#000000',
+                  lineWidth: 1,
+              },
+              tooltip: {
+                  pointFormat: '{point.name}',  // Show the city name in the tooltip
+              }
+          },
       ],
-    };
-    Highcharts.mapChart("container", mapOptions);
   };
+
+  Highcharts.mapChart("container", mapOptions);
+};
+
 
   return <div id="container" />;
 };
+
 
 export default StateMap;
