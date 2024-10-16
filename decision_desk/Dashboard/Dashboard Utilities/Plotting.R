@@ -39,7 +39,7 @@ get_graph <- function(state_abbrev, office, map_type) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
 
-  geojson_link <- glue("~/Github/24Cast/Election-Night/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
 
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))

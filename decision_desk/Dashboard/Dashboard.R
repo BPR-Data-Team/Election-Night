@@ -3,13 +3,15 @@ library(bslib)
 library(ggplot2)
 library(leaflet)
 
-setwd("~/Github/24Cast/Election-Night")
+BASEPATH <- "~/GitHub/Election-Night"
 
-source("decision_desk/dashboard/Dashboard Utilities/Plotting.R")
-source("decision_desk/dashboard/Dashboard Utilities/TimeToNextPoll.R")
-source("decision_desk/dashboard/Dashboard Utilities/DemographicTable.R")
-source("decision_desk/dashboard/Dashboard Utilities/BettingOdds.R")
-source("decision_desk/dashboard/Dashboard Utilities/Margins.R")
+setwd(BASEPATH)
+
+source("./decision_desk/Dashboard/Dashboard Utilities/Plotting.R", local = TRUE)
+source("./decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
+source("./decision_desk/Dashboard/Dashboard Utilities/DemographicTable.R")
+source("./decision_desk/Dashboard/Dashboard Utilities/BettingOdds.R")
+source("./decision_desk/Dashboard/Dashboard Utilities/Margins.R")
 
 
 # ------------------------------ TODO --------------------------------------- #
