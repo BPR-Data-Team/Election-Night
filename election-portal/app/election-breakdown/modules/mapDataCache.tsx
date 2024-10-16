@@ -1,7 +1,12 @@
+import React, { useRef } from 'react';
+
 let stateGeoJSONCache: Map<string, any> = new Map();
+let cityGeoJSONCache: Map<string, any> = new Map();
+
+const GeoJsonCache = () => {
 
 // Fetch a single state's GeoJSON data and store it in the cache
-export const fetchStateGeoJSON = async (stateName: string, year: string) => {
+const fetchStateGeoJSON = async (stateName: string, year: string) => {
     if (!stateGeoJSONCache.has(stateName)) { 
       const stripped_year =  year.trim();
       console.log(`/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
@@ -12,6 +17,22 @@ export const fetchStateGeoJSON = async (stateName: string, year: string) => {
     console.log(stateGeoJSONCache);
     return stateGeoJSONCache.get(stateName); 
   };
+
+const fetchCityGeoJSON = async (stateName: string) => {
+    if (!cityGeoJSONCache.has(stateName)) { 
+      console.log(`/GeoJSON/City/${stateName}.json`);
+      const response = await fetch(`/GeoJSON/City/${stateName}.json`);
+      const geoJSON = await response.json();  
+      cityGeoJSONCache.set(stateName, geoJSON); 
+    }
+    console.log(cityGeoJSONCache);
+    return cityGeoJSONCache.get(stateName);
+  };
+
+  return { fetchStateGeoJSON, fetchCityGeoJSON };
+};
+
+export default GeoJsonCache;
   
 // Preload all state-level GeoJSON data and store it in the map (like the national map data one)
 // export const preloadAllStateGeoJSON = async () => {
