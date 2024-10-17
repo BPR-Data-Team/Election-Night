@@ -4,7 +4,6 @@ library(leaflet.extras)
 library(RColorBrewer)  # For color palettes
 library(sf)
 library(glue)
-library(rbenchmark)
 
 county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv")
 
