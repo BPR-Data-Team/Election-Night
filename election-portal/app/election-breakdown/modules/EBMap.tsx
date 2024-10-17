@@ -9,7 +9,6 @@ import "./EBMap.css";
 import { useSharedState } from "../../sharedContext";
 import { State, getStateFromString } from "../../../types/State";
 import { SharedInfo } from "../../../types/SharedInfoType";
-import { fetchStateGeoJSON } from "../modules/mapDataCache";
 import { only } from "node:test";
 
 const presData: FakeData[] = [
@@ -657,7 +656,6 @@ const EBMap: React.FC = () => {
 
   const handleStateClick = async (stateName: string) => {
     const stateEnum = getStateFromString(stateName);
-    const stateData = await fetchStateGeoJSON(stateName, String(sharedState.year));
 
     console.log("view: " + sharedState.view + " level: " + sharedState.level);
 
@@ -727,7 +725,8 @@ const EBMap: React.FC = () => {
         },
       },
       mapNavigation: {
-        enabled: false,
+        enabled: true,
+        enableMouseWheelZoom: true,
         enableButtons: false,
       },
       colorAxis: colorAxis,

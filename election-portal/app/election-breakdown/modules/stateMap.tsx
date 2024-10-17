@@ -5,9 +5,10 @@ import Highcharts from "highcharts";
 import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 
-import { fetchStateGeoJSON } from "./mapDataCache";
+import GeoJsonCache from "./mapDataCache";
 
-import "./EBMap.css";
+import "./stateMap.css";
+import { json } from "stream/consumers";
 
 const presData: FakeData[] = [{'GEOID': '01069', 'value': 9.95},
     {'GEOID': '01023', 'value': 45.82},
@@ -105,22 +106,18 @@ const colorAxisStops: [number, string][] = [
 ];
 
 
-
 const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
-  const [currMapData, setCurrMapData] = useState<JSON | null>(null);
-    
-    useEffect(() => {
-      retrieveMapData();
-    }, [raceType, year]);
+  const { fetchStateGeoJSON, fetchCityGeoJSON } = GeoJsonCache();
+  
+  useEffect(() => {
+    retrieveMapData();
+  }, [raceType, year, stateName]);
 
-    const retrieveMapData = async() => {
-      const newMapData = await fetchStateGeoJSON(stateName, String(year))
-      setCurrMapData(newMapData);
-      console.log("Set map data in state");
-      console.log(newMapData);
-      initializeMap(newMapData);
-    }
-
+  const retrieveMapData = async () => {
+    const newMapData = await fetchStateGeoJSON(stateName, String(year));
+    const newCityData = await fetchCityGeoJSON(stateName);
+    initializeMap(newMapData, newCityData);
+  };
 
   function getMaxState(stateData: FakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -130,92 +127,136 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     return Math.min(...stateData.map((state) => state.value));
   }
 
-
-  const initializeMap = (mapData: any) => {
-    const axisMax: number = Math.max(
+const initializeMap = (mapData: any, cityData: any) => {
+  const axisMax: number = Math.max(
       Math.abs(getMinState(presData)),
       Math.abs(getMaxState(presData))
-    );
-    const colorAxis: Highcharts.ColorAxisOptions = {
+  );
+  const colorAxis: Highcharts.ColorAxisOptions = {
       min: -axisMax,
       max: axisMax,
       stops: colorAxisStops,
       visible: false,
-    };
-    const mapOptions: Highcharts.Options = {
+  };
+
+  const mapOptions: Highcharts.Options = {
       chart: {
-        type: "map",
-        map: mapData,
-        backgroundColor: "transparent",
+          type: "map",
+          map: mapData,
+          backgroundColor: "transparent",
+          events: {
+              load: function () {
+                    const chart = this;
+
+                    chart.series.forEach(function (series) {
+                        if (series.type === 'mappoint') {
+
+                            series.points.forEach(function (point, index) {
+                                const xOffset = index % 2 === 0 ? point.x - 20 : point.x + 20;
+                                point.update({
+                                dataLabels: {
+                                    x: xOffset,
+                                    y: -2,
+                                }
+                                }, false) //Don't redraw the chart every time we update a point
+                            });
+                        }
+                    });
+
+                    chart.redraw();
+              }
+          }
       },
       credits: {
-        enabled: false,
+          enabled: false,
       },
       accessibility: {
-        description: "State Map .",
+          description: "State Map.",
       },
       title: {
-        text: "",
+          text: "",
       },
       plotOptions: {
-        map: {
-          cursor: "pointer",
-        },
+          map: {
+              cursor: "pointer",
+          },
       },
       mapNavigation: {
-        enabled: false,
-        enableButtons: false,
+          enabled: true,
+          enableMouseWheelZoom: true,
+          enableButtons: false,
       },
       colorAxis: colorAxis,
-      tooltip: {
-        formatter: function (this: any) {
-          return (
-            "<b>" +
-            this.point.properties.NAME + " County" +
-            "</b>"
-          );
-        },
-        style: {
-          fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
-        },
-      },
       legend: {
-        itemStyle: {
-          fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
-        },
+          itemStyle: {
+              fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
+          },
       },
       series: [
-        {
-          showInLegend: false,
-          type: "map",
-          mapData: mapData,
-          data: presData,
-          joinBy: 'GEOID',
-          nullColor: "#FFFFFF",
-          name: "Predicted Margin",
-          borderColor: "black",
-          borderWidth: 1,
-          events: {
-            click: function(event: any) {
-              const countyName = event.point.properties.NAME;
-              alert(`You just clicked ${countyName}`);
-            },
+          {
+              showInLegend: false,
+              type: "map",
+              mapData: mapData,
+              data: presData,
+              joinBy: "GEOID",
+              nullColor: "#FFFFFF",
+              name: "Counties",
+              borderColor: "black",
+              borderWidth: 2,
+              states: {
+                  hover: {
+                      borderColor: 'lightgreen',
+                  }
+              },
+              dataLabels: {
+                  format: "{point.properties.NAME}",
+                  style: {
+                      fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
+                  },
+                  padding: 10,
+              },
+              tooltip: {
+                  pointFormat: "{point.properties.NAME} County",
+              },
           },
-          dataLabels: {
-            // enabled: true,
-            format: "{point.properties.NAME}",
-            style: {
-              fontFamily:
-                "gelica, book antiqua, georgia, times new roman, serif",
-            },
+          {
+              // Series for cities (mappoint)
+              type: 'mappoint',
+              name: 'Cities',
+              color: '#D9D9D9', 
+              data: cityData,
+              dataLabels: {
+                  enabled: true,
+                  allowOverlap: true,  
+                  style: {
+                      fontSize: '12px', 
+                      fontWeight: 'bold',
+                      textOutline: '1px contrast',
+                      color: '#FFFFFF',
+                      fontFamily: '"gelica, book antiqua, georgia, times new roman, serif"',
+                  },
+                  formatter: function () {return this.point.name;},
+                  overflow: true,
+                  crop: false,
+              },
+              marker: {
+                  radius: 5, 
+                  lineColor: '#000000',
+                  lineWidth: 1,
+              },
+              tooltip: {
+                  pointFormat: '{point.name}',
+              }
           },
-        },
       ],
-    };
-    Highcharts.mapChart("container", mapOptions);
   };
+
+  Highcharts.mapChart("container", mapOptions);
+};
+
 
   return <div id="container" />;
 };
+
 
 export default StateMap;
