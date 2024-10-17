@@ -1,0 +1,5 @@
+Data migrated from Election-Night/data/CountyData2022.csv with changes:
+1. Median income for Loving, TX added manually in the county file 
+2. Aggregated county data into state-level data using 
+  - weighted.means(x_population, total_pop) for demographics
+  - median(rep(median_income, total_pop)) for median income

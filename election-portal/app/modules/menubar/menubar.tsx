@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useSharedState } from "../../sharedContext";
-import { RaceType, Year } from "../../../types/SharedInfoType";
+import { Demographic, RaceType, Year } from "../../../types/SharedInfoType";
 
 import "./menubar.css";
 import HomeButton from "./menu-buttons/home-button";
@@ -87,6 +87,23 @@ const yearToString = (year: Year, currentYear: Year): React.ReactNode => {
   );
 };
 
+const demographicToString = (
+  demo: Demographic,
+  currentDemographic: Demographic
+): React.ReactNode => {
+  const selected: boolean = demo === currentDemographic;
+  return (
+    <span
+      style={{
+        color: selected ? "#ffffff" : "#dddddd",
+        textShadow: selected ? "0 0 10px rgba(255,255,255,0.5)" : "none",
+      }}
+    >
+      {demo}
+    </span>
+  );
+};
+
 const Menubar: React.FC = () => {
   const state = useSharedState().state;
 
@@ -99,41 +116,64 @@ const Menubar: React.FC = () => {
             setCurrentPage={state.setCurrentPage}
           />
           <br></br>
-          <ExitButton
-            currentLevel={state.level}
-            exitLevel={state.exitLevel}
-          />
+          <ExitButton currentLevel={state.level} exitLevel={state.exitLevel} />
           <br>{/* better way to do this (.menu-buttons in css?))*/}</br>
           <DrawButton />
         </div>
 
-        <div className="divider"></div>
+        {state.availableBreakdowns.length != 0 && (
+          <>
+            <div className="divider"></div>
 
-        <div className="breakdowns">
-          {state.availableBreakdowns.map((breakdown, index) => (
-            <button
-              className="breakdown"
-              key={index}
-              onClick={() => state.breakdownSwitch(breakdown)}
-            >
-              {breakdownToString(breakdown, state.breakdown)}
-            </button>
-          ))}
-        </div>
+            <div className="breakdowns">
+              {state.availableBreakdowns.map((breakdown, index) => (
+                <button
+                  className="breakdown"
+                  key={index}
+                  onClick={() => state.breakdownSwitch(breakdown)}
+                >
+                  {breakdownToString(breakdown, state.breakdown)}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
 
-        <div className="divider"></div>
+        {state.availableYears.length != 0 && (
+          <>
+            <div className="divider"></div>
 
-        <div className="years">
-          {state.availableYears.map((year, index) => (
-            <button
-              className="year"
-              key={index}
-              onClick={() => state.yearSwitch(year)}
-            >
-              {yearToString(year, state.year)}
-            </button>
-          ))}
-        </div>
+            <div className="years">
+              {state.availableYears.map((year, index) => (
+                <button
+                  className="year"
+                  key={index}
+                  onClick={() => state.yearSwitch(year)}
+                >
+                  {yearToString(year, state.year)}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
+        {state.availableDemographics.length != 0 && (
+          <>
+            <div className="divider"></div>
+
+            <div className="demographics">
+              {state.availableDemographics.map((demo, index) => (
+                <button
+                  className="demographic"
+                  key={index}
+                  onClick={() => state.demographicSwitch(demo)}
+                >
+                  {demographicToString(demo, state.demographic)}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

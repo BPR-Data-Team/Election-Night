@@ -1,25 +1,34 @@
 .left {
-    position: absolute;
-    left: 0rem;
+  position: absolute;
+  left: 0rem;
 }
 
 .right {
-    position: absolute;
-    right: 8rem; /* Not sure how to make this work pretty */
+  position: absolute;
+  right: 8rem; /* Not sure how to make this work pretty */
 }
 
 .banner {
-    position: fixed;
-    padding-inline-start: 2rem;
-    padding-inline-end: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    
+  position: fixed;
+  padding-inline-start: 2rem;
+  padding-inline-end: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
 }
 
-h1, h2, h3, h4, h5, h6, p, em, i, .wordmark {
-    display: inline;
-    font-size: 1.5rem;
-    color: #FFFFFF;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+em,
+i,
+.wordmark {
+  display: inline;
+  font-size: 1.5rem;
+  color: #ffffff;
 }
