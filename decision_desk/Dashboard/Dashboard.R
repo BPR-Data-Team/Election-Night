@@ -14,6 +14,7 @@ source("./decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
 source("./decision_desk/Dashboard/Dashboard Utilities/DemographicTable.R")
 source("./decision_desk/Dashboard/Dashboard Utilities/BettingOdds.R")
 source("./decision_desk/Dashboard/Dashboard Utilities/Margins.R")
+source("./decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
 
 
 # ------------------------------ TODO --------------------------------------- #
@@ -98,7 +99,7 @@ graphServer <- function(input, output, session) {
     output$median_income <- renderTable({demographics()$income})
     output$education <- renderTable({demographics()$education})
 
-    output$margin_graph <- renderPlot(this_election_margin_graph)
+    output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
 
     output$state_margin_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin")})
     output$state_bubble_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin_bubble")})
@@ -219,8 +220,8 @@ graphOutputUI <- page_sidebar(
     ),
     card(
       fill = TRUE,
-      card_header("Margin over time"),
-      plotOutput("margin")
+      card_header("Margin over time in 2020"),
+      plotOutput("margin_graph_2020")
     ),
     card(
       fill = TRUE,

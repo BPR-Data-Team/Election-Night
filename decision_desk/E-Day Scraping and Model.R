@@ -281,7 +281,7 @@ conformal_prediction <- function(model, alpha = 0.05) {
   
   #Get quantiles with upweight for high-population counties
   quantiles <- Hmisc::wtd.quantile(loo_errors, probs = c(alpha / 2, 1 - alpha / 2), 
-                                   weights <- turnout_2020_finished_counties)
+                                   weights = turnout_2020_finished_counties)
   
   # Return the quantiles
   return(list(
