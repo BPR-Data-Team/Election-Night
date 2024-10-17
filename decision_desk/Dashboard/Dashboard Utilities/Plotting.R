@@ -10,31 +10,37 @@ county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.
 #This is code to get a nicely-labeled 
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                       Republican_votes_percent, Democratic_votes_percent, expected_pct_in) {
+  # Extract last names
+  Republican_last_name <- tail(strsplit(Republican_name, " ")[[1]], 1)
+  Democratic_last_name <- tail(strsplit(Democratic_name, " ")[[1]], 1)
+  
   paste0(
-    '<div style="font-family: Arial, sans-serif; padding: 10px; background-color: #f4f4f4; border-radius: 6px; max-width: 300px;">',
-    '<strong style="font-size: 16px; color: #333;">', NAME, '</strong><br>',
-    '<table style="width: 100%; font-size: 12px; margin-top: 8px; border-collapse: collapse;">',
-    '<tr style="background-color: #e2e2e2;">',
-    '<th style="text-align:left; padding: 6px;">Candidate</th>',
-    '<th style="padding: 6px;">Total</th>',
-    '<th style="padding: 6px;">Pct.</th>',
+    '<div style="font-family: Arial, sans-serif; padding: 6px; background-color: #f9f9f9; border-radius: 4px; max-width: 260px;">',
+    '<strong style="font-size: 14px; color: #333;">', NAME, '</strong>',
+    '<table style="width: 100%; font-size: 11px; margin-top: 4px;">',
+    '<tr>',
+    '<th style="text-align:left; padding: 4px;">Candidate</th>',
+    '<th style="text-align:right; padding: 4px;">Votes</th>',
+    '<th style="text-align:right; padding: 4px;">Pct.</th>',
     '</tr>',
     '<tr>',
-    '<td style="border-left: 4px solid red; padding: 6px;">', Republican_name, '</td>',
-    '<td style="text-align:right; padding: 6px;">', format(Republican_votes, big.mark = ","), '</td>',
-    '<td style="text-align:right; padding: 6px;">', sprintf("%.1f", Republican_votes_percent), '%</td>',
+    '<td style="border-left: 3px solid red; padding: 4px;">', Republican_last_name, ' (R)</td>',
+    '<td style="text-align:right; padding: 4px;">', format(Republican_votes, big.mark = ","), '</td>',
+    '<td style="text-align:right; padding: 4px;">', sprintf("%.1f", Republican_votes_percent), '%</td>',
     '</tr>',
-    '<tr style="background-color: #f9f9f9;">',
-    '<td style="border-left: 4px solid blue; padding: 6px;">', Democratic_name, '</td>',
-    '<td style="text-align:right; padding: 6px;">', format(Democratic_votes, big.mark = ","), '</td>',
-    '<td style="text-align:right; padding: 6px;">', sprintf("%.1f", Democratic_votes_percent), '%</td>',
+    '<tr>',
+    '<td style="border-left: 3px solid blue; padding: 4px;">', Democratic_last_name, ' (D)</td>',
+    '<td style="text-align:right; padding: 4px;">', format(Democratic_votes, big.mark = ","), '</td>',
+    '<td style="text-align:right; padding: 4px;">', sprintf("%.1f", Democratic_votes_percent), '%</td>',
     '</tr>',
     '</table>',
-    '<p style="margin-top: 10px; font-size: 10px; color: #666;">', expected_pct_in, '% of estimated votes reported</p>',
+    '<div style="font-size: 9px; color: #666; text-align: right; margin-top: 4px;">',
+    expected_pct_in, '% reported</div>',
     '</div>'
   )
-  
 }
+
+
 
 get_graph <- function(state_abbrev, office, map_type) {
   current_data <- county_data %>%
@@ -64,7 +70,13 @@ get_graph <- function(state_abbrev, office, map_type) {
     )
     
     graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl=FALSE, zoomControl = FALSE)) %>%
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
@@ -100,14 +112,18 @@ get_graph <- function(state_abbrev, office, map_type) {
     
     
     graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl=FALSE, zoomControl = FALSE)) %>%
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
         fillColor = ~pal(margin_pct),
         color = "black",
-        popup = ~get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                          Republican_votes_percent, Democratic_votes_percent, expected_pct_in),         # Add the custom label content
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                                  Republican_votes_percent, Democratic_votes_percent, expected_pct_in), htmltools::HTML),  # Convert HTML for the popup
         weight = 1,
@@ -141,7 +157,13 @@ get_graph <- function(state_abbrev, office, map_type) {
     max_votes <- max(abs(geo_data_centroids$margin_votes))
 
     graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl=FALSE, zoomControl = FALSE)) %>%
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
       addCircleMarkers(
@@ -160,8 +182,6 @@ get_graph <- function(state_abbrev, office, map_type) {
         fillColor = "white",
         opacity = 1,
         fillOpacity = 0,
-        popup = ~get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                           Republican_votes_percent, Democratic_votes_percent, expected_pct_in),         # Add the custom label content
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                                   Republican_votes_percent, Democratic_votes_percent, expected_pct_in), htmltools::HTML),  # Convert HTML for the popup
       ) 
