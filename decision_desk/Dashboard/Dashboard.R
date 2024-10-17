@@ -28,7 +28,7 @@ source("./decision_desk/Dashboard/Dashboard Utilities/Margins.R")
 
 # ------------------------------ DATA INPUT ------------------------------------ #
 current_data <- read.csv("cleaned_data/DDHQ_test_data_county.csv")
-historical_data <- read.csv("cleaned_data/historical_elections.csv")
+historical_data <- read.csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 county_names <- read.csv("cleaned_data/FIPS References/county_fips.csv")
 electoral_votes <- read.csv("cleaned_data/ElectoralVotes.csv")
 

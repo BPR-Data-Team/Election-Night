@@ -1,10 +1,11 @@
 library(tidyverse)
 library(leaflet)
+library(leaflet.extras)
 library(RColorBrewer)  # For color palettes
 library(sf)
 library(glue)
 
-county_data <- read_csv("cleaned_data/DDHQ_current_county_results.csv")
+county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv")
 
 #This is code to get a nicely-labeled 
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
@@ -62,8 +63,10 @@ get_graph <- function(state_abbrev, office, map_type) {
       na.color = "black"
     )
     
-    graph <- leaflet(geo_data) %>%
-      addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl=FALSE, zoomControl = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
         fillColor = ~pal(swing),
         color = "black",
@@ -96,8 +99,10 @@ get_graph <- function(state_abbrev, office, map_type) {
     
     
     
-    graph <- leaflet(geo_data) %>%
-      addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl=FALSE, zoomControl = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
         fillColor = ~pal(margin_pct),
         color = "black",
@@ -135,28 +140,40 @@ get_graph <- function(state_abbrev, office, map_type) {
     
     max_votes <- max(abs(geo_data_centroids$margin_votes))
 
-    graph <- leaflet(geo_data_centroids) %>%
-      addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl=FALSE, zoomControl = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
       addCircleMarkers(
+        data = geo_data_centroids,
         fillColor = ~pal(margin_votes), 
         color = "black",
         radius = ~ 25 * abs(margin_votes / max_votes),
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7
+      ) %>%
+      addPolygons(
+        data = geo_data,
+        weight = 1,
+        color = "grey",
+        fillColor = "white",
+        opacity = 1,
+        fillOpacity = 0,
         popup = ~get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                            Republican_votes_percent, Democratic_votes_percent, expected_pct_in),         # Add the custom label content
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                                   Republican_votes_percent, Democratic_votes_percent, expected_pct_in), htmltools::HTML),  # Convert HTML for the popup
-        weight = 1,
-        opacity = 1,
-        fillOpacity = 0.7
-      )
+      ) 
+      
   }
 
   return (graph)
   
 }
 
-state <- "GA"
+state <- "AL"
 office_type_check <- "President"
 map_version <- "margin_bubble"
 
-#get_graph(state, office_type_check, map_version)
+get_graph(state, office_type_check, map_version)
