@@ -233,7 +233,7 @@ const initializeMap = (mapData: any, cityData: any) => {
                       fontWeight: 'bold',
                       textOutline: '1px contrast',
                       color: '#FFFFFF',
-                      fontFamily: 'Gelica Arial, sans-serif',
+                      fontFamily: '"gelica, book antiqua, georgia, times new roman, serif"',
                   },
                   formatter: function () {return this.point.name;},
                   overflow: true,
