@@ -39,7 +39,8 @@ pres_county <- pres_2020 %>%
          office_type = "President", 
          district = 0, .before = everything()) %>%
   filter(!is.na(margin_pct_2)) %>% 
-  select(-c(county.x, county.y))
+  select(-c(county.x, county.y)) 
+
 
 #------ SENATE HISTORICAL -------
 senate_2012 <- read_csv("cleaned_data/Senate by Precinct/2018 Senate.csv") %>%
@@ -112,5 +113,5 @@ full_races <- historical_counties %>%
   bind_rows(house_2022)
 
 
-write_csv(historical_counties, "cleaned_data/historical_county.csv")
-write_csv(full_races, "cleaned_data/historical_elections.csv")
+write_csv(historical_counties, "cleaned_data/Locally-Hosted Data/historical_county.csv")
+write_csv(full_races, "cleaned_data/Locally-Hosted Data/historical_elections.csv")

@@ -183,7 +183,9 @@ performance_vs_president <- scraped_df %>%
 
 #----FINAL DATASETS BEFORE RUNNING THE EDAY MODEL ------
 pre_model_county <- scraped_df %>%
-  left_join(past_county, by = c("office_type", "district", "state", "fips")) %>%
+  mutate(fips = ifelse(state == "VT" & county == "Chittenden", "007", fips), 
+         fips = ifelse(state == "NH" & county == "Sullivan", "019", fips)) %>%
+  left_join(past_county_data, by = c("office_type", "district", "state", "fips")) %>%
   filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate") & state %in% c("HI", "MO", "MD", "NE"))) %>% #Some weird stuff here...
   mutate(swing = margin_pct - margin_pct_1) %>% #Calculating swing from previous election
   left_join(performance_vs_president, by = c("state", "district", "county", "office_type"))
@@ -402,3 +404,4 @@ finalized_race_results <- pre_model_race %>%
 #PUTTING IN FINAL DATA!
 write_csv(finalized_county_results, "cleaned_data/Changing Data/DDHQ_current_county_results.csv")
 write_csv(finalized_race_results, "cleaned_data/Changing Data/DDHQ_current_race_results.csv")
+
