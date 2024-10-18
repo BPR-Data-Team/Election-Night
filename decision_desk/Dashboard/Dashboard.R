@@ -100,6 +100,7 @@ graphServer <- function(input, output, session) {
     output$education <- renderTable({demographics()$education})
 
     output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
+    output$expected_pct_graph_2020 <- renderPlot(previous_time_expected_pct_graphs[[state_selection()]])
 
     output$state_margin_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin")})
     output$state_bubble_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin_bubble")})
@@ -218,10 +219,17 @@ graphOutputUI <- page_sidebar(
       tableOutput("median_income"),
       tableOutput("education")
     ),
-    card(
-      fill = TRUE,
-      card_header("Margin over time in 2020"),
-      plotOutput("margin_graph_2020")
+    layout_columns(
+      card(
+        fill = TRUE,
+        card_header("Margin over time in 2020"),
+        plotOutput("margin_graph_2020")
+      ),
+      card(
+        fill = TRUE, 
+        card_header("Pct of vote reporting in 2020"), 
+        plotOutput("expected_pct_graph_2020")
+      )
     ),
     card(
       fill = TRUE,
