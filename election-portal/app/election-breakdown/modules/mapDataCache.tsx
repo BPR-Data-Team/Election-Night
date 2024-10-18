@@ -1,17 +1,39 @@
+import React, { useRef } from 'react';
+
 let stateGeoJSONCache: Map<string, any> = new Map();
+let cityGeoJSONCache: Map<string, any> = new Map();
+
+const GeoJsonCache = () => {
 
 // Fetch a single state's GeoJSON data and store it in the cache
-export const fetchStateGeoJSON = async (stateName: string, year: string) => {
-    if (!stateGeoJSONCache.has(stateName)) { 
-      const stripped_year =  year.trim();
+const fetchStateGeoJSON = async (stateName: string, year: string) => {
+    const stripped_year =  year.trim();
+    const nameYearKey = stateName + "_" + stripped_year;
+    if (!stateGeoJSONCache.has(nameYearKey)) {
       console.log(`/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
       const response = await fetch(`/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
       const geoJSON = await response.json();
-      stateGeoJSONCache.set(stateName, geoJSON); 
+      stateGeoJSONCache.set(nameYearKey, geoJSON); 
     }
     console.log(stateGeoJSONCache);
-    return stateGeoJSONCache.get(stateName); 
+    return stateGeoJSONCache.get(nameYearKey); 
   };
+
+const fetchCityGeoJSON = async (stateName: string) => {
+    if (!cityGeoJSONCache.has(stateName)) { 
+      console.log(`/GeoJSON/City/${stateName}.json`);
+      const response = await fetch(`/GeoJSON/City/${stateName}.json`);
+      const geoJSON = await response.json();  
+      cityGeoJSONCache.set(stateName, geoJSON); 
+    }
+    console.log(cityGeoJSONCache);
+    return cityGeoJSONCache.get(stateName);
+  };
+
+  return { fetchStateGeoJSON, fetchCityGeoJSON };
+};
+
+export default GeoJsonCache;
   
 // Preload all state-level GeoJSON data and store it in the map (like the national map data one)
 // export const preloadAllStateGeoJSON = async () => {
