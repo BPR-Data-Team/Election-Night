@@ -32,6 +32,9 @@ current_data <- read.csv("cleaned_data/DDHQ_test_data_county.csv")
 historical_data <- read.csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 county_names <- read.csv("cleaned_data/FIPS References/county_fips.csv")
 electoral_votes <- read.csv("cleaned_data/ElectoralVotes.csv")
+all_races <- read_csv("cleaned_data/DDHQ_current_race_results.csv")
+election_types <- all_races %>% pull("office_type") %>% unique() %>% append(., "All", after = 0)
+
 
 # ----------------------------- APP LOGIC ----------------------------------- #
 graphServer <- function(input, output, session) {
@@ -105,160 +108,177 @@ graphServer <- function(input, output, session) {
     output$state_margin_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin")})
     output$state_bubble_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin_bubble")})
     output$state_swing_map <- renderLeaflet({get_graph(state_selection(), election_type(), "swing")})
+    
+    # Dropdown logic
+    election_type <- reactive({ input$category_select })
+    state <- reactive({ input$state_select })
+    observe({
+      filtered_states <- all_races %>%
+        pull("state") %>%
+        unique() %>%
+        append("All", after = 0)
+      
+      updateSelectInput(session, "state_select",
+                        choices = filtered_states,
+                        selected = "All"
+      )
+    })
 }
 
 # Graph Module UI
-graphOutputUI <- fluidPage(
-  # Sidebar that exists across all tabs
-  page_sidebar(
-    titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
-    sidebar = sidebar(
-      title = "Graph controls",
-      selectInput(
-        inputId = "category_select",
-        label = "Election type:",
-        choices = c("President", "Senate", "House", "Governor")
+graphOutputUI <- page_sidebar(
+  titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
+  sidebar =  sidebar(
+    title = "Graph controls",
+    selectInput(
+      inputId = "category_select",  # Updated to match server
+      label = "Election type:",
+      choices = election_types,
+      selected = "All"
+    ),
+    selectInput(
+      inputId = "state_select",
+      label = "State:",
+      choices = NULL,
+      selected = NULL
+    ),
+    selectInput(
+      inputId = "district_select",
+      label = "District:",
+      choices = NULL,
+      selected = NULL
+    ),
+    selectInput(
+      inputId = "lower_bound",
+      label = "Lower Bound (% Reporting):",
+      choices = seq(0, 100, by = 10),
+      selected = 0
+    ),
+    selectInput(
+      inputId = "upper_bound",
+      label = "Upper Bound (% Reporting):",
+      choices = seq(10, 100, by = 10),  # Initially set to the full range
+      selected = 100
+    )  ),
+  fluidPage(
+    layout_columns(
+      fill = FALSE,
+      value_box(
+        title = "Current time",
+        value = format(Sys.time(), "%H:%M"),
+        showcase = bsicons::bs_icon("clock")
       ),
-      selectInput(
-        inputId = "state_select",
-        label = "State:",
-        choices = unique(current_data["state"])
+      value_box(
+        title = "Time until next poll close",
+        value = textOutput("next_poll_close"),
+        showcase = bsicons::bs_icon("stopwatch")
+      ),
+      value_box(
+        title = "State Electoral Votes",
+        value = textOutput("state_electoral_votes"),
+        showcase = bsicons::bs_icon("pin-map")
+      ),
+    ),
+    layout_columns(
+      value_box(
+        title = "Current Margin",
+        value = htmlOutput("current_margin"),
+        showcase = bsicons::bs_icon("hdd-network")
+      ),
+      value_box(
+        title = "Percent reporting",
+        value = textOutput("percent_reporting"),
+        showcase = bsicons::bs_icon("bar-chart")
+      ),
+      value_box(
+        title = "Performance v. President",
+        value = "TODO",
+        showcase = bsicons::bs_icon("people")
+      ),
+      value_box(
+        title = uiOutput("last_election_header"),
+        value = textOutput("performance_v_last_election"),
+        showcase = bsicons::bs_icon("arrow-counterclockwise")
       )
     ),
-    
-    # Tabs come after the sidebar
-    tabsetPanel(
-      tabPanel(
-        title = "Empty Tab",
-        fluidPage(
-          h3("This tab is currently empty.")
-        )
+    layout_columns(
+      fill = FALSE,
+      card(
+        full_screen = FALSE,
+        card_header("Margin by county"),
+        leafletOutput("state_margin_map")
       ),
-      tabPanel(
-        title = "Graph Output",
-        fluidPage(
-          layout_columns(
-            fill = FALSE,
-            value_box(
-              title = "Current time",
-              value = format(Sys.time(), "%H:%M"),
-              showcase = bsicons::bs_icon("clock")
-            ),
-            value_box(
-              title = "Time until next poll close",
-              value = textOutput("next_poll_close"),
-              showcase = bsicons::bs_icon("stopwatch")
-            ),
-            value_box(
-              title = "State Electoral Votes",
-              value = textOutput("state_electoral_votes"),
-              showcase = bsicons::bs_icon("pin-map")
-            )
-          ),
-          layout_columns(
-            value_box(
-              title = "Current Margin",
-              value = htmlOutput("current_margin"),
-              showcase = bsicons::bs_icon("hdd-network")
-            ),
-            value_box(
-              title = "Percent reporting",
-              value = textOutput("percent_reporting"),
-              showcase = bsicons::bs_icon("bar-chart")
-            ),
-            value_box(
-              title = "Performance v. President",
-              value = "TODO",
-              showcase = bsicons::bs_icon("people")
-            ),
-            value_box(
-              title = uiOutput("last_election_header"),
-              value = textOutput("performance_v_last_election"),
-              showcase = bsicons::bs_icon("arrow-counterclockwise")
-            )
-          ),
-          layout_columns(
-            fill = FALSE,
-            card(
-              full_screen = FALSE,
-              card_header("Margin by county"),
-              leafletOutput("state_margin_map")
-            ),
-            card(
-              full_screen = FALSE,
-              card_header("Margin concentration by county"),
-              leafletOutput("state_bubble_map")
-            ),
-            card(
-              full_screen = FALSE,
-              card_header("Swing since last election"),
-              leafletOutput("state_swing_map")
-            )
-          ),
-          layout_columns(
-            card(
-              full_screen = FALSE, 
-              card_header("Current Turnout"),
-              textOutput("current_turnout")
-            ),
-            card(
-              full_screen = FALSE, 
-              card_header("95% CI Turnout"),
-              textOutput("predicted_turnout_CI")
-            ),
-            card(
-              full_screen = FALSE, 
-              card_header(uiOutput("last_election_turnout_header")),
-              textOutput("last_election_turnout")
-            )
-          ),
-          layout_columns(
-            card(
-              full_screen = FALSE,
-              card_header("Current Turnout Map"),
-              leafletOutput("current_turnout_map")
-            ),
-            card(
-              full_screen = FALSE,
-              card_header(uiOutput("last_election_turnout_map_header")),
-              leafletOutput("last_election_turnout_map")
-            )
-          ),
-          card(
-            full_screen = TRUE,
-            card_header("Demographics"),
-            tableOutput("population"),
-            tableOutput("demo_table"),
-            tableOutput("median_income"),
-            tableOutput("education")
-          ),
-          layout_columns(
-            card(
-              fill = TRUE,
-              card_header("Margin over time in 2020"),
-              plotOutput("margin_graph_2020")
-            ),
-            card(
-              fill = TRUE, 
-              card_header("Pct of vote reporting in 2020"), 
-              plotOutput("expected_pct_graph_2020")
-            )
-          ),
-          card(
-            fill = TRUE,
-            card_header("24Cast Prediction Over time"),
-            plotOutput("24cast_prediction")
-          ),
-          card(
-            fill = TRUE, 
-            card_header("Betting Odds"),
-            uiOutput("betting_odds")
-          )
-        )
+      card(
+        full_screen = FALSE,
+        card_header("Margin concentration by county"),
+        leafletOutput("state_bubble_map")
+      ),
+      card(
+        full_screen = FALSE,
+        card_header("Swing since last election"),
+        leafletOutput("state_swing_map")
       )
+    ),
+    layout_columns(
+      card(
+        full_screen = FALSE, 
+        card_header("Current Turnout"),
+        textOutput("current_turnout")
+      ),
+      card(
+        full_screen = FALSE, 
+        card_header("95% CI Turnout"),
+        textOutput("predicted_turnout_CI")
+      ),
+      card(
+        full_screen = FALSE, 
+        card_header(uiOutput("last_election_turnout_header")),
+        textOutput("last_election_turnout")
+      ),
+    ),
+    layout_columns(
+      card(
+        full_screen = FALSE,
+        card_header("Current Turnout Map"),
+        leafletOutput("current_turnout_map")
+      ),
+      card(
+        full_screen = FALSE,
+        card_header(uiOutput("last_election_turnout_map_header")),
+        leafletOutput("last_election_turnout_map")
+      )
+    ),
+    card(
+      full_screen = TRUE,
+      card_header("Demographics"),
+      tableOutput("population"),
+      tableOutput("demo_table"),
+      tableOutput("median_income"),
+      tableOutput("education")
+    ),
+    layout_columns(
+      card(
+        fill = TRUE,
+        card_header("Margin over time in 2020"),
+        plotOutput("margin_graph_2020")
+      ),
+      card(
+        fill = TRUE, 
+        card_header("Pct of vote reporting in 2020"), 
+        plotOutput("expected_pct_graph_2020")
+      )
+    ),
+    card(
+      fill = TRUE,
+      card_header("24Cast Prediction Over time"),
+      plotOutput("24cast_prediction")
+    ), 
+    card(
+      fill = TRUE, 
+      card_header("Betting Odds"),
+      uiOutput("betting_odds")
     )
   )
 )
-
 
 shinyApp(graphOutputUI, graphServer)
