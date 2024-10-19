@@ -19,6 +19,9 @@ election_types <- all_races %>%
 
 # Define UI for application
 ui <- fluidPage(
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "left_side.css")
+  ),
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebarLayout(
     sidebarPanel(
@@ -157,7 +160,21 @@ server <- function(input, output, session) {
   
   # Render the filtered elections table
   output$elections <- renderTable({
-    filtered_elections()  # Display the filtered elections
+    output$elections <- renderUI({
+      elections <- filtered_elections()
+      if (nrow(elections) == 0) {
+        return(div("No elections match your criteria"))
+      }
+      
+      lapply(1:nrow(elections), function(i) {
+        election <- elections[i, ]
+        div(
+          class = "election-card",
+          actionLink(inputId = paste0("election_", election$race_id), label = glue("{election$office_type} in {election$state} - District {election$district}")),
+          p(glue("{election$percent_reporting}% reporting"))
+        )
+      })
+    })
   })
   
   bettingOddsServer("betting_odds", election_type, state)
