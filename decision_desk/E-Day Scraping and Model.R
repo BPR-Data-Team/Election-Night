@@ -23,7 +23,7 @@ county_demographics <- read_csv("cleaned_data/Locally-Hosted Data/CountyDems2022
   select(state, fips, where(is.numeric)) %>%
   select(-proportion_other)
 
-this_time_2020 <- read_csv("cleaned_data/Locally-Hosted data/Same_Time_2020.csv") %>%
+this_time_2020 <- read_csv("cleaned_data/Locally-Hosted Data/Same_Time_2020.csv") %>%
   mutate(office_type = "President", 
          district = 0, 
          .before = everything()) %>%
@@ -34,6 +34,9 @@ this_time_2020 <- read_csv("cleaned_data/Locally-Hosted data/Same_Time_2020.csv"
   filter(timestamp == max(timestamp)) %>%
   ungroup() %>%
   select(office_type, district, state, margin_same_time, eevp_same_time, votes_same_time)
+
+maine_townships_counties <- read_csv("cleaned_data/Locally-Hosted Data/Maine_Townships_to_Counties.csv") %>%
+  mutate(fips = sprintf("%03d", fips))
 
 
 ###### FETCHING DATA, AT THIS POINT NOTHING LOCALLY IS NEEDED ###### 
@@ -102,19 +105,48 @@ scrape_data <- function(ddhq_id) {
       
       #pivot_wider(names_from = vote_type, values_from = votes)
       
-      county_votes_dataset <- vcus %>% 
-        left_join(candidate_dataset, by = c("candidate_id" = "cand_id")) %>%
-        group_by(party_name) %>%
-        filter(candidate_votes == max(candidate_votes)) %>%
-        ungroup() %>%
-        filter(party_name %in% c("Democratic", "Republican", "Independent", "Green")) %>%
-        pivot_wider(names_from = party_name, values_from = c(votes, name), id_cols = c(fips, county, total, reporting, vote_type), 
-                    values_fn = c(votes = sum, name = first), names_glue = "{party_name}_{.value}") %>%  #Sums up votes by party
-        mutate(ddhq_id = ddhq_id, year = year, state = state, district = district, 
-               last_updated = last_updated,
-               office_type = office_type, uncontested = uncontested, test_data = test_data) %>% 
-        select(ddhq_id, year, test_data, office_type, state, county, district, 
-               fips, contains("vote"), contains("name"), total, reporting, vote_type, uncontested) 
+      #If state is Maine, we need to fix it here instead of later!
+      #We combine townships into counties
+      if (state == "ME") {
+        county_votes_dataset <- vcus %>% 
+          rename(town = county) %>%
+          select(-fips) %>%
+          left_join(maine_townships_counties, by = "town") %>% # Joining dataset with maine county-township data!
+          select(-town) %>%
+          filter(!is.na(county)) %>%
+          group_by(county, fips, vote_type, candidate_id, candidate_votes) %>% #Summing votes over all townships by county
+          summarize(votes = sum(votes), 
+                    total = sum(total), 
+                    reporting = sum(reporting)) %>%
+          left_join(candidate_dataset, by = c("candidate_id" = "cand_id")) %>%
+          group_by(party_name) %>%
+          filter(candidate_votes == max(candidate_votes)) %>%
+          ungroup() %>%
+          filter(party_name %in% c("Democratic", "Republican", "Independent", "Green")) %>%
+          #Sums up votes by party
+          pivot_wider(names_from = party_name, values_from = c(votes, name), id_cols = c(fips, county, total, reporting, vote_type), 
+                      values_fn = c(votes = sum, name = first), names_glue = "{party_name}_{.value}") %>%
+          mutate(ddhq_id = ddhq_id, year = year, state = state, district = district, 
+                 last_updated = last_updated,
+                 office_type = office_type, uncontested = uncontested, test_data = test_data) %>% 
+          select(ddhq_id, year, test_data, office_type, state, county, district, 
+                 fips, contains("vote"), contains("name"), total, reporting, vote_type, uncontested)
+        
+      } else {
+        county_votes_dataset <- vcus %>% 
+          left_join(candidate_dataset, by = c("candidate_id" = "cand_id")) %>%
+          group_by(party_name) %>%
+          filter(candidate_votes == max(candidate_votes)) %>%
+          ungroup() %>%
+          filter(party_name %in% c("Democratic", "Republican", "Independent", "Green")) %>%
+          pivot_wider(names_from = party_name, values_from = c(votes, name), id_cols = c(fips, county, total, reporting, vote_type), 
+                      values_fn = c(votes = sum, name = first), names_glue = "{party_name}_{.value}") %>%  #Sums up votes by party
+          mutate(ddhq_id = ddhq_id, year = year, state = state, district = district, 
+                 last_updated = last_updated,
+                 office_type = office_type, uncontested = uncontested, test_data = test_data) %>% 
+          select(ddhq_id, year, test_data, office_type, state, county, district, 
+                 fips, contains("vote"), contains("name"), total, reporting, vote_type, uncontested) 
+     }
       
       return(county_votes_dataset)
     }, 
@@ -167,11 +199,10 @@ scraped_df <- scraped_df %>%
          margin_pct = replace_na(margin_pct, 0), 
          fips = str_sub(fips, -3))
 
-
 #For senate/gov elections, calculating how well they're doing relative to the president
 performance_vs_president <- scraped_df %>%
   filter(office_type != "House") %>%
-  select(office_type, state, district, county, margin_pct)  %>%
+  select(office_type, state, district, county, margin_pct) %>%
   pivot_wider(id_cols = c(state, district, county), 
               names_from = office_type, 
               values_from = margin_pct) %>%
@@ -393,6 +424,7 @@ finalized_race_results <- pre_model_race %>%
          contains("upper"), expected_pct_in) %>%
   left_join(this_time_2020, by = c("office_type", "state", "district"))
 
+#Connecticut has weird townships, so we need to combine all results into one "county", which is the entire state
 ct_results <- finalized_race_results %>%
   filter(state == "CT") %>% 
   select(-contains("same_time")) %>%
@@ -400,22 +432,25 @@ ct_results <- finalized_race_results %>%
          Democratic_votes_percent = dem_votes_pct, Republican_votes_percent = rep_votes_pct, 
          Independent_votes_percent = ind_votes_pct, Green_votes_percent = green_votes_pct) %>%
   select(-c(margin_pct_1, margin_pct_2, absentee_pct_1, absentee_margin_pct_1)) %>%
+  #Connecticut should be one state, not multiple counties
   mutate(county = "Connecticut", 
          fips = "000",
          district = as.character(district))
 
+
 finalized_county_results <- pre_model_county %>%
   left_join(estimated_county, by = c("state", "fips", "office_type")) %>%
+  mutate(fips = ifelse(state == "AK", "000", fips)) %>%
+  filter(state != "CT") %>% 
+  bind_rows(ct_results) %>%
   mutate(total_votes = Democratic_votes + Republican_votes + Independent_votes + Green_votes, 
          expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper))) %>%
   select(office_type, state, county, district, fips, contains("name"), 
          pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, total_votes,
          Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
          margin_votes, margin_pct, pct_absentee, absentee_margin, swing, performance_vs_president, contains("lower"), 
-         contains("upper"), expected_pct_in) %>%
-  mutate(fips = ifelse(state == "AK", "000", fips)) %>%
-  filter(state != "CT") %>% 
-  bind_rows(ct_results)
+         contains("upper"), expected_pct_in)
+  
 
 #PUTTING IN FINAL DATA!
 write_csv(finalized_county_results, "cleaned_data/Changing Data/DDHQ_current_county_results.csv")

@@ -1,0 +1,492 @@
+town,county,fips
+Acton,York,31
+Albion,Kennebec,11
+Alfred,York,31
+Alna,Lincoln,15
+Appleton,Knox,13
+Arrowsic,Sagadahoc,23
+Arundel,York,31
+Baldwin,Cumberland,5
+Bath,Sagadahoc,23
+Benton,Kennebec,11
+Berwick,York,31
+Biddeford,York,31
+Boothbay,Lincoln,15
+Boothbay Harbor,Lincoln,15
+Bowdoin,Sagadahoc,23
+Bowdoinham,Sagadahoc,23
+Bremen,Lincoln,15
+Bridgton,Cumberland,5
+Bristol,Lincoln,15
+Brunswick,Cumberland,5
+Buxton,York,31
+Camden,Knox,13
+Cape Elizabeth,Cumberland,5
+Casco,Cumberland,5
+Chebeague Island,Cumberland,5
+China,Kennebec,11
+Clinton,Kennebec,11
+Cornish,York,31
+Cumberland,Cumberland,5
+Cushing,Knox,13
+Damariscotta,Lincoln,15
+Dayton,York,31
+Dresden,Lincoln,15
+Edgecomb,Lincoln,15
+Eliot,York,31
+Falmouth,Cumberland,5
+Freeport,Cumberland,5
+Friendship,Knox,13
+Frye Island,Cumberland,5
+Georgetown,Sagadahoc,23
+Gorham,Cumberland,5
+Gray,Cumberland,5
+Harpswell,Cumberland,5
+Harrison,Cumberland,5
+Hollis,York,31
+Hope,Knox,13
+Isle au Haut,Knox,13
+Jefferson,Lincoln,15
+Kennebunk,York,31
+Kennebunkport,York,31
+Kittery,York,31
+Lebanon,York,31
+Limerick,York,31
+Limington,York,31
+Litchfield,Kennebec,11
+Long Island,Cumberland,5
+Lyman,York,31
+Matinicus Isle Plt,Knox,13
+Monhegan Plt,Lincoln,15
+Naples,Cumberland,5
+New Gloucester,Cumberland,5
+Newcastle,Lincoln,15
+Newfield,York,31
+Nobleboro,Lincoln,15
+North Berwick,York,31
+North Haven,Knox,13
+North Yarmouth,Cumberland,5
+Ogunquit,York,31
+Old Orchard Beach,York,31
+Owls Head,Knox,13
+Parsonsfield,York,31
+Phippsburg,Sagadahoc,23
+Pittston,Kennebec,11
+Portland,Cumberland,5
+Pownal,Cumberland,5
+Raymond,Cumberland,5
+Richmond,Sagadahoc,23
+Rockland,Knox,13
+Rockport,Knox,13
+Saco,York,31
+Saint George,Knox,13
+Sanford,York,31
+Scarborough,Cumberland,5
+Sebago,Cumberland,5
+Shapleigh,York,31
+Somerville,Lincoln,15
+South Berwick,York,31
+South Bristol,Lincoln,15
+South Portland,Cumberland,5
+South Thomaston,Knox,13
+Southport,Lincoln,15
+Standish,Cumberland,5
+Thomaston,Knox,13
+Topsham,Sagadahoc,23
+Union,Knox,13
+Vassalboro,Kennebec,11
+Vinalhaven,Knox,13
+Waldoboro,Lincoln,15
+Warren,Knox,13
+Washington,Knox,13
+Waterboro,York,31
+Waterville,Kennebec,11
+Wells,York,31
+West Bath,Sagadahoc,23
+West Gardiner,Kennebec,11
+Westbrook,Cumberland,5
+Westport Island,Lincoln,15
+Whitefield,Lincoln,15
+Windham,Cumberland,5
+Windsor,Kennebec,11
+Winslow,Kennebec,11
+Wiscasset,Lincoln,15
+Woolwich,Sagadahoc,23
+Yarmouth,Cumberland,5
+York,York,31
+Abbot,Piscataquis,21
+Addison,Washington,29
+Albany Twp,Oxford,17
+Alexander,Washington,29
+Allagash,Aroostook,3
+Alton,Penobscot,19
+Amherst,Hancock,9
+Amity,Aroostook,3
+Andover,Oxford,17
+Anson,Somerset,25
+Ashland,Aroostook,3
+Athens,Somerset,25
+Atkinson,Piscataquis,21
+Auburn,Androscoggin,1
+Augusta,Kennebec,11
+Aurora,Hancock,9
+Avon,Franklin,7
+Baileyville,Washington,29
+Bangor,Penobscot,19
+Bar Harbor,Hancock,9
+Baring Plt,Washington,29
+Beals,Washington,29
+Beaver Cove,Piscataquis,21
+Beddington,Washington,29
+Belfast,Waldo,27
+Belgrade,Kennebec,11
+Belmont,Waldo,27
+Bethel,Oxford,17
+Bingham,Somerset,25
+Blaine,Aroostook,3
+Blue Hill,Hancock,9
+Bowerbank,Piscataquis,21
+Bradford,Penobscot,19
+Bradley,Penobscot,19
+Brewer,Penobscot,19
+Bridgewater,Aroostook,3
+Brighton Plt,Somerset,25
+Brooklin,Hancock,9
+Brooks,Waldo,27
+Brooksville,Hancock,9
+Brownfield,Oxford,17
+Brownville,Piscataquis,21
+Buckfield,Oxford,17
+Bucksport,Hancock,9
+Burlington,Penobscot,19
+Burnham,Waldo,27
+Byron,Oxford,17
+Calais,Washington,29
+Cambridge,Somerset,25
+Canaan,Somerset,25
+Canton,Oxford,17
+Caratunk,Somerset,25
+Caribou,Aroostook,3
+Carmel,Penobscot,19
+Carrabassett Valley,Franklin,7
+Carroll Plt,Penobscot,19
+Carthage,Franklin,7
+Castine,Hancock,9
+Castle Hill,Aroostook,3
+Caswell,Aroostook,3
+Chapman,Aroostook,3
+Charleston,Penobscot,19
+Charlotte,Washington,29
+Chelsea,Kennebec,11
+Cherryfield,Washington,29
+Chester,Penobscot,19
+Chesterville,Franklin,7
+Clifton,Penobscot,19
+Columbia,Washington,29
+Columbia Falls,Washington,29
+Cooper,Washington,29
+Coplin Plt,Franklin,7
+Corinna,Penobscot,19
+Corinth,Penobscot,19
+Cornville,Somerset,25
+Cranberry Isles,Hancock,9
+Crawford,Washington,29
+Crystal,Aroostook,3
+Cutler,Washington,29
+Cyr Plt,Aroostook,3
+Dallas Plt,Franklin,7
+Danforth,Washington,29
+Deblois,Washington,29
+Dedham,Hancock,9
+Deer Isle,Hancock,9
+Denmark,Oxford,17
+Dennistown Plt,Somerset,25
+Dennysville,Washington,29
+Detroit,Somerset,25
+Dexter,Penobscot,19
+Dixfield,Oxford,17
+Dixmont,Penobscot,19
+Dover-Foxcroft,Piscataquis,21
+Drew Plt,Penobscot,19
+Durham,Androscoggin,1
+Dyer Brook,Aroostook,3
+Eagle Lake,Aroostook,3
+East Machias,Washington,29
+East Millinocket,Penobscot,19
+Eastbrook,Hancock,9
+Easton,Aroostook,3
+Eastport,Washington,29
+Eddington,Penobscot,19
+Edinburg,Penobscot,19
+Ellsworth,Hancock,9
+Embden,Somerset,25
+Enfield,Penobscot,19
+Etna,Penobscot,19
+Eustis,Franklin,7
+Exeter,Penobscot,19
+Fairfield,Somerset,25
+Farmingdale,Kennebec,11
+Farmington,Franklin,7
+Fayette,Kennebec,11
+Fort Fairfield,Aroostook,3
+Fort Kent,Aroostook,3
+Frankfort,Waldo,27
+Franklin,Hancock,9
+Freedom,Waldo,27
+Frenchboro,Hancock,9
+Frenchville,Aroostook,3
+Fryeburg,Oxford,17
+Gardiner,Kennebec,11
+Garfield Plt,Aroostook,3
+Garland,Penobscot,19
+Gilead,Oxford,17
+Glenburn,Penobscot,19
+Glenwood Plt,Aroostook,3
+Gouldsboro,Hancock,9
+Grand Isle,Aroostook,3
+Grand Lake Stream Plt,Washington,29
+Great Pond,Hancock,9
+Greenbush,Penobscot,19
+Greene,Androscoggin,1
+Greenville,Piscataquis,21
+Greenwood,Oxford,17
+Guilford,Piscataquis,21
+Hallowell,Kennebec,11
+Hamlin,Aroostook,3
+Hammond,Aroostook,3
+Hampden,Penobscot,19
+Hancock,Hancock,9
+Hanover,Oxford,17
+Harmony,Somerset,25
+Harrington,Washington,29
+Hartford,Oxford,17
+Hartland,Somerset,25
+Haynesville,Aroostook,3
+Hebron,Oxford,17
+Hermon,Penobscot,19
+Hersey,Aroostook,3
+Highland Plt,Somerset,25
+Hiram,Oxford,17
+Hodgdon,Aroostook,3
+Holden,Penobscot,19
+Houlton,Aroostook,3
+Howland,Penobscot,19
+Hudson,Penobscot,19
+Indian Township,Washington,29
+Industry,Franklin,7
+Island Falls,Aroostook,3
+Islesboro,Waldo,27
+Jackman,Somerset,25
+Jackson,Waldo,27
+Jay,Franklin,7
+Jonesboro,Washington,29
+Jonesport,Washington,29
+Kenduskeag,Penobscot,19
+Kingfield,Franklin,7
+Kingsbury Plt,Piscataquis,21
+Knox,Waldo,27
+Lagrange,Penobscot,19
+Lake View Plt,Piscataquis,21
+Lakeville,Penobscot,19
+Lamoine,Hancock,9
+Lee,Penobscot,19
+Leeds,Androscoggin,1
+Levant,Penobscot,19
+Lewiston,Androscoggin,1
+Liberty,Waldo,27
+Limestone,Aroostook,3
+Lincoln,Penobscot,19
+Lincoln Plt,Oxford,17
+Lincolnville,Waldo,27
+Linneus,Aroostook,3
+Lisbon,Androscoggin,1
+Littleton,Aroostook,3
+Livermore,Androscoggin,1
+Livermore Falls,Androscoggin,1
+Lovell,Oxford,17
+Lowell,Penobscot,19
+Lubec,Washington,29
+Ludlow,Aroostook,3
+Machias,Washington,29
+Machiasport,Washington,29
+Macwahoc Plt,Aroostook,3
+Madawaska,Aroostook,3
+Madison,Somerset,25
+Magalloway Plt,Oxford,17
+Manchester,Kennebec,11
+Mapleton,Aroostook,3
+Mariaville,Hancock,9
+Mars Hill,Aroostook,3
+Marshfield,Washington,29
+Masardis,Aroostook,3
+Mattawamkeag,Penobscot,19
+Maxfield,Penobscot,19
+Mechanic Falls,Androscoggin,1
+Meddybemps,Washington,29
+Medford,Piscataquis,21
+Medway,Penobscot,19
+Mercer,Somerset,25
+Merrill,Aroostook,3
+Mexico,Oxford,17
+Milbridge,Washington,29
+Milford,Penobscot,19
+Millinocket,Penobscot,19
+Milo,Piscataquis,21
+Minot,Androscoggin,1
+Monmouth,Kennebec,11
+Monroe,Waldo,27
+Monson,Piscataquis,21
+Monticello,Aroostook,3
+Montville,Waldo,27
+Moose River,Somerset,25
+Moro Plt,Aroostook,3
+Morrill,Waldo,27
+Moscow,Somerset,25
+Mount Chase,Penobscot,19
+Mount Desert,Hancock,9
+Mount Vernon,Kennebec,11
+Nashville Plt,Aroostook,3
+New Canada,Aroostook,3
+New Limerick,Aroostook,3
+New Portland,Somerset,25
+New Sharon,Franklin,7
+New Sweden,Aroostook,3
+New Vineyard,Franklin,7
+Newburgh,Penobscot,19
+Newport,Penobscot,19
+Newry,Oxford,17
+Norridgewock,Somerset,25
+Northfield,Washington,29
+Northport,Waldo,27
+Norway,Oxford,17
+Oakfield,Aroostook,3
+Oakland,Kennebec,11
+Old Town,Penobscot,19
+Orient,Aroostook,3
+Orland,Hancock,9
+Orono,Penobscot,19
+Orrington,Penobscot,19
+Osborn,Hancock,9
+Otis,Hancock,9
+Otisfield,Oxford,17
+Oxbow Plt,Aroostook,3
+Oxford,Oxford,17
+Palermo,Waldo,27
+Palmyra,Somerset,25
+Paris,Oxford,17
+Parkman,Piscataquis,21
+Passadumkeag,Penobscot,19
+Patten,Penobscot,19
+Pembroke,Washington,29
+Penobscot,Hancock,9
+Penobscot Nation Voting District,Penobscot,19
+Perham,Aroostook,3
+Perry,Washington,29
+Peru,Oxford,17
+Phillips,Franklin,7
+Pittsfield,Somerset,25
+Pleasant Point Voting District,Washington,29
+Pleasant Ridge Plt,Somerset,25
+Plymouth,Penobscot,19
+Poland,Androscoggin,1
+Portage Lake,Aroostook,3
+Porter,Oxford,17
+Presque Isle,Aroostook,3
+Princeton,Washington,29
+Prospect,Waldo,27
+Randolph,Kennebec,11
+Rangeley,Franklin,7
+Rangeley Plt,Franklin,7
+Readfield,Kennebec,11
+Reed Plt,Aroostook,3
+Ripley,Somerset,25
+Robbinston,Washington,29
+Rockwood Strip Twp,Somerset,25
+Rome,Kennebec,11
+Roque Bluffs,Washington,29
+Roxbury,Oxford,17
+Rumford,Oxford,17
+Sabattus,Androscoggin,1
+Saint Agatha,Aroostook,3
+Saint Albans,Somerset,25
+Saint Francis,Aroostook,3
+Saint John Plt,Aroostook,3
+Sandy River Plt,Franklin,7
+Sangerville,Piscataquis,21
+Searsmont,Waldo,27
+Searsport,Waldo,27
+Sebec,Piscataquis,21
+Seboeis Plt,Penobscot,19
+Sedgwick,Hancock,9
+Sherman,Aroostook,3
+Shirley,Piscataquis,21
+Sidney,Kennebec,11
+Skowhegan,Somerset,25
+Smithfield,Somerset,25
+Smyrna,Aroostook,3
+Solon,Somerset,25
+Sorrento,Hancock,9
+Southwest Harbor,Hancock,9
+Springfield,Penobscot,19
+Stacyville,Penobscot,19
+Starks,Somerset,25
+Stetson,Penobscot,19
+Steuben,Washington,29
+Stockholm,Aroostook,3
+Stockton Springs,Waldo,27
+Stoneham,Oxford,17
+Stonington,Hancock,9
+Stow,Oxford,17
+Strong,Franklin,7
+Sullivan,Hancock,9
+Sumner,Oxford,17
+Surry,Hancock,9
+Swans Island,Hancock,9
+Swanville,Waldo,27
+Sweden,Oxford,17
+Talmadge,Washington,29
+Temple,Franklin,7
+The Forks Plt,Somerset,25
+Thorndike,Waldo,27
+Topsfield,Washington,29
+Tremont,Hancock,9
+Trenton,Hancock,9
+Troy,Waldo,27
+Turner,Androscoggin,1
+Unity,Waldo,27
+Upton,Oxford,17
+Van Buren,Aroostook,3
+Vanceboro,Washington,29
+Veazie,Penobscot,19
+Verona,Hancock,9
+Vienna,Kennebec,11
+Wade,Aroostook,3
+Waite,Washington,29
+Waldo,Waldo,27
+Wales,Androscoggin,1
+Wallagrass,Aroostook,3
+Waltham,Hancock,9
+Washburn,Aroostook,3
+Waterford,Oxford,17
+Wayne,Kennebec,11
+Webster Plt,Penobscot,19
+Weld,Franklin,7
+Wellington,Piscataquis,21
+Wesley,Washington,29
+West Forks Plt,Somerset,25
+West Paris,Oxford,17
+Westfield,Aroostook,3
+Westmanland,Aroostook,3
+Weston,Aroostook,3
+Whiting,Washington,29
+Whitneyville,Washington,29
+Willimantic,Piscataquis,21
+Wilton,Franklin,7
+Winn,Penobscot,19
+Winter Harbor,Hancock,9
+Winterport,Waldo,27
+Winterville Plt,Aroostook,3
+Winthrop,Kennebec,11
+Woodland,Aroostook,3
+Woodstock,Oxford,17
+Woodville,Penobscot,19
