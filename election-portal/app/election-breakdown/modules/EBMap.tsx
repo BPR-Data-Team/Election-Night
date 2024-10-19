@@ -637,7 +637,39 @@ const EBMap: React.FC = () => {
   const raceType = sharedState.breakdown;
   const year = sharedState.year;
 
+  const [chart, setChart] = useState<any>(null);
   const [geoData, setGeoData] = useState<any>(null);
+
+  const [wasPanned, setWasPanned] = useState(false);
+
+  const startPos = useRef<{ x: number; y: number } | null>(null);
+
+  const handleMouseDown = (event: MouseEvent) => {
+    startPos.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const handleMouseUp = (event: MouseEvent) => {
+    if (startPos.current) {
+      const deltaX = Math.abs(event.clientX - startPos.current.x);
+      const deltaY = Math.abs(event.clientY - startPos.current.y);
+      if (deltaX > 10 || deltaY > 10) {
+        setWasPanned(true);
+      } else {
+        setWasPanned(false);
+      }
+      startPos.current = null;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
 
   const fetchMapDataAndInitializeMap = async () => {
     console.log("Map data has begun to load")
@@ -650,24 +682,25 @@ const EBMap: React.FC = () => {
     initializeMap(geoData);
   };
 
-  const onlyInitializeMap = () => {
-    initializeMap(geoData);
-  }
-
   const handleStateClick = async (stateName: string) => {
-    const stateEnum = getStateFromString(stateName);
-
-    console.log("view: " + sharedState.view + " level: " + sharedState.level);
-
-    if (sharedState.view != stateEnum) {
-      sharedState.setView(stateEnum as State);
-    } else if (sharedState.view == stateEnum) {
-      sharedState.setLevel("state");
+    console.log(wasPanned);
+    if (wasPanned) {
+      return;
     }
+    const stateEnum = getStateFromString(stateName);
+    console.log("view: " + sharedState.view + " level: " + sharedState.level);
+      if (sharedState.view != stateEnum) {
+        sharedState.setView(stateEnum as State);
+      } else if (sharedState.view == stateEnum) {
+        sharedState.setLevel("state");
+      }
   };
 
   // Exists because page.tsx doesn't work if inside container div but outside USA boundaries
   const handleOOBClick = () => {
+    if (wasPanned) {
+      return;
+    }
     sharedState.setView(State.National);
   };
 
@@ -676,8 +709,32 @@ const EBMap: React.FC = () => {
   }, [raceType]);
 
   useEffect(() => {
-    onlyInitializeMap();
-  }, [sharedState.view])
+    if (chart) {
+      chart.update(
+        {
+          chart: {
+            events: {
+              click: function (event: any) {
+                if (!event.point) {
+                  handleOOBClick();
+                }
+              },
+            },
+          },
+          series: [
+            {
+              events: {
+                click: function (event: any) {
+                  const stateName = event.point["name"];
+                  handleStateClick(stateName);
+                },
+              },
+            },
+          ],
+        }
+      )
+    }
+  }, [sharedState.view, wasPanned])
 
   function getMaxState(stateData: FakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -691,12 +748,6 @@ const EBMap: React.FC = () => {
       Math.abs(getMinState(presData)),
       Math.abs(getMaxState(presData))
     );
-    const colorAxis: Highcharts.ColorAxisOptions = {
-      min: -axisMax,
-      max: axisMax,
-      stops: colorAxisStops,
-      visible: false,
-    };
     const mapOptions: Highcharts.Options = {
       chart: {
         type: "map",
@@ -707,9 +758,14 @@ const EBMap: React.FC = () => {
             if (!event.point) {
               handleOOBClick();
             }
-          }
-        }
-      },
+          },
+        },
+        panning: {
+          enabled: true,
+          type: 'xy',
+        },
+        reflow: false,
+        },
       credits: {
         enabled: false,
       },
@@ -729,7 +785,12 @@ const EBMap: React.FC = () => {
         enableMouseWheelZoom: true,
         enableButtons: false,
       },
-      colorAxis: colorAxis,
+      colorAxis: {
+        min: -axisMax,
+        max: axisMax,
+        stops: colorAxisStops,
+        visible: false,
+      },
       tooltip: {
         formatter: function (this: any) {
           let prefix = this.point["Called for Dems"] == "TRUE" ? "D" : "R";
@@ -787,7 +848,8 @@ const EBMap: React.FC = () => {
         },
       ],
     };
-    Highcharts.mapChart("container", mapOptions);
+    const ch = Highcharts.mapChart("container", mapOptions);
+    setChart(ch);
   };
 
   return <div id="container" />;
