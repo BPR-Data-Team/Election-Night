@@ -1,4 +1,5 @@
 library(shiny)
+library(shinyWidgets)
 library(bslib)
 library(ggplot2)
 library(leaflet)
@@ -32,6 +33,12 @@ current_data <- read.csv("cleaned_data/DDHQ_test_data_county.csv")
 historical_data <- read.csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 county_names <- read.csv("cleaned_data/FIPS References/county_fips.csv")
 electoral_votes <- read.csv("cleaned_data/ElectoralVotes.csv")
+all_races <- read_csv("cleaned_data/DDHQ_current_race_results.csv")
+election_types <- all_races %>% pull("office_type") %>% unique() %>% append(., "All", after = 0)
+poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
+print(names(poll_closing))
+closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
+print(closing_times)
 
 # ----------------------------- APP LOGIC ----------------------------------- #
 graphServer <- function(input, output, session) {
@@ -105,6 +112,45 @@ graphServer <- function(input, output, session) {
     output$state_margin_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin")})
     output$state_bubble_map <- renderLeaflet({get_graph(state_selection(), election_type(), "margin_bubble")})
     output$state_swing_map <- renderLeaflet({get_graph(state_selection(), election_type(), "swing")})
+    
+    # Dropdown logic
+    election_type <- reactive({ input$category_select })
+    state <- reactive({ input$state_select })
+    observe({
+      filtered_states <- all_races %>%
+        pull("state") %>%
+        unique() %>%
+        append("All", after = 0)
+      
+      updateSelectInput(session, "state_select",
+                        choices = filtered_states,
+                        selected = "All"
+      )
+    })
+    # Update state dropdown based on the election type
+    observeEvent(input$category_select, {
+      # Filter states based on the selected election type
+      filtered_states <- all_races %>%
+        filter(office_type == input$category_select | input$category_select == "All") %>%
+        pull("state") %>%
+        unique() %>%
+        append("All", after = 0)
+      
+      # Check if the current state is in the filtered states
+      current_state <- input$state_select
+      if (current_state %in% filtered_states) {
+        selected_state <- current_state  # Keep the current state if it exists in the dropdown
+      } else {
+        selected_state <- "All"  # Fallback to "All" if the current state is not in the filtered states
+      }
+      # Update the state dropdown with the filtered states and maintain or reset the selection
+      updateSelectInput(session, "state_select",
+                        choices = filtered_states,
+                        selected = selected_state
+      )
+    })
+    output$selected_time <- renderText({closing_times[input$time_slider]})
+    
 }
 
 # Graph Module UI
@@ -113,14 +159,36 @@ graphOutputUI <- page_sidebar(
   sidebar =  sidebar(
     title = "Graph controls",
     selectInput(
-      inputId = "category_select",
+      inputId = "category_select",  # Updated to match server
       label = "Election type:",
-      choices = c("President", "Senate", "House", "Governor")
+      choices = election_types,
+      selected = "All"
     ),
     selectInput(
       inputId = "state_select",
       label = "State:",
-      choices = unique(current_data["state"])
+      choices = NULL,
+      selected = NULL
+    ),
+    sliderInput( 
+      inputId = "percent_reporting_bounds", 
+      label = "% Reporting:", 
+      min = 0, max = 100, 
+      value = c(30, 70),
+      step = 10
+    ),
+    sliderTextInput(
+      inputId = "poll_closing_bounds",
+      label = "Poll Closing Times:",
+      choices = closing_times,
+      selected = c(closing_times[1], closing_times[length(closing_times)]),
+      grid = TRUE,
+      force_edges = TRUE
+    ),
+    checkboxInput(
+      inputId = "key_races",
+      label = "Key Races Only",
+      value = FALSE
     )
   ),
   fluidPage(
