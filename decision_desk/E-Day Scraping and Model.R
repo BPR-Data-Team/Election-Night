@@ -167,6 +167,7 @@ scraped_df <- scraped_df %>%
          margin_pct = replace_na(margin_pct, 0), 
          fips = str_sub(fips, -3))
 
+
 #For senate/gov elections, calculating how well they're doing relative to the president
 performance_vs_president <- scraped_df %>%
   filter(office_type != "House") %>%
@@ -378,16 +379,6 @@ estimated_race <- estimated_county %>%
 
 #----- FINALIZING DATASETS AND WRITING THEM TO CSV! -----
 #We now need to combine these values with the original datasets, and put them back!
-finalized_county_results <- pre_model_county %>%
-  left_join(estimated_county, by = c("state", "fips", "office_type")) %>%
-  mutate(total_votes = Democratic_votes + Republican_votes + Independent_votes + Green_votes, 
-         expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper))) %>%
-  select(office_type, state, county, district, fips, contains("name"), 
-         pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, total_votes,
-         Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, performance_vs_president, contains("lower"), 
-         contains("upper"), expected_pct_in)
-
 finalized_race_results <- pre_model_race %>%
   left_join(estimated_race, by = c('state', 'office_type')) %>%
   mutate(expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper)), 
@@ -401,6 +392,30 @@ finalized_race_results <- pre_model_race %>%
          margin_votes, margin_pct, pct_absentee, absentee_margin, swing, contains("lower"), 
          contains("upper"), expected_pct_in) %>%
   left_join(this_time_2020, by = c("office_type", "state", "district"))
+
+ct_results <- finalized_race_results %>%
+  filter(state == "CT") %>% 
+  select(-contains("same_time")) %>%
+  rename(Democratic_votes = dem_votes, Republican_votes = rep_votes, Independent_votes = ind_votes, Green_votes = green_votes, 
+         Democratic_votes_percent = dem_votes_pct, Republican_votes_percent = rep_votes_pct, 
+         Independent_votes_percent = ind_votes_pct, Green_votes_percent = green_votes_pct) %>%
+  select(-c(margin_pct_1, margin_pct_2, absentee_pct_1, absentee_margin_pct_1)) %>%
+  mutate(county = "Connecticut", 
+         fips = "000",
+         district = as.character(district))
+
+finalized_county_results <- pre_model_county %>%
+  left_join(estimated_county, by = c("state", "fips", "office_type")) %>%
+  mutate(total_votes = Democratic_votes + Republican_votes + Independent_votes + Green_votes, 
+         expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper))) %>%
+  select(office_type, state, county, district, fips, contains("name"), 
+         pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, total_votes,
+         Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, performance_vs_president, contains("lower"), 
+         contains("upper"), expected_pct_in) %>%
+  mutate(fips = ifelse(state == "AK", "000", fips)) %>%
+  filter(state != "CT") %>% 
+  bind_rows(ct_results)
 
 #PUTTING IN FINAL DATA!
 write_csv(finalized_county_results, "cleaned_data/Changing Data/DDHQ_current_county_results.csv")
