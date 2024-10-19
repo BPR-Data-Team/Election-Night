@@ -4,6 +4,7 @@ library(lubridate)
 library(glue)
 library(httr)
 library(furrr)
+library(Hmisc, exclude = c("units", "format.pval", "src", "summarize"))
 
 #----- PART 1: SCRAPING AND CLEANING DATA ------
 # Reading in Locally-Hosted Datasets ######
@@ -280,7 +281,7 @@ conformal_prediction <- function(model, alpha = 0.05) {
   print(length(loo_errors))
   
   #Get quantiles with upweight for high-population counties
-  quantiles <- Hmisc::wtd.quantile(loo_errors, probs = c(alpha / 2, 1 - alpha / 2), 
+  quantiles <- wtd.quantile(loo_errors, probs = c(alpha / 2, 1 - alpha / 2), 
                                    weights = turnout_2020_finished_counties)
   
   # Return the quantiles
