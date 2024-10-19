@@ -7,7 +7,7 @@ library(leaflet)
 BASEPATH <- ifelse(Sys.getenv("ElectionNightPath") == "", 
                    "~/GitHub/Election-Night", 
                    Sys.getenv("ElectionNightPath"))
-BASEPATH <- "/Users/chaiharsha/Documents/Atom/Election-Night"
+
 setwd(BASEPATH)
 
 source("./decision_desk/Dashboard/Dashboard Utilities/Plotting.R", local = TRUE)
