@@ -678,11 +678,12 @@ const EBMap: React.FC = () => {
     );
     let geoData = await geoResponse.json();
     console.log("Map data loaded")
+    console.log(geoData);
     setGeoData(geoData);
     initializeMap(geoData);
   };
 
-  const handleStateClick = async (stateName: string) => {
+  const handleStateClick = async (stateName: string, eventPoint: any) => {
     console.log(wasPanned);
     if (wasPanned) {
       return;
@@ -691,6 +692,17 @@ const EBMap: React.FC = () => {
     console.log("view: " + sharedState.view + " level: " + sharedState.level);
       if (sharedState.view != stateEnum) {
         sharedState.setView(stateEnum as State);
+        if (chart) {
+            if (eventPoint) {
+              chart.mapZoom(); // reset zoom
+              chart.mapZoom(0.45); // do default zoom we want
+
+              // I genuinely have no idea how this is formulated.
+              // I just guess-and-checked until it looked right -- I assume that it has to
+              // do with the zoomGeometry offsets.
+              chart.mapZoom(0.8, eventPoint.plotX*7 - 3000, eventPoint.plotY*(-8)+10000);
+            }
+        }
       } else if (sharedState.view == stateEnum) {
         sharedState.setLevel("state");
       }
@@ -702,6 +714,8 @@ const EBMap: React.FC = () => {
       return;
     }
     sharedState.setView(State.National);
+    chart.mapZoom(); // resets to default
+    chart.mapZoom(0.45);
   };
 
   useEffect(() => {
@@ -726,7 +740,7 @@ const EBMap: React.FC = () => {
               events: {
                 click: function (event: any) {
                   const stateName = event.point["name"];
-                  handleStateClick(stateName);
+                  handleStateClick(stateName, event.point);
                 },
               },
             },
@@ -734,7 +748,7 @@ const EBMap: React.FC = () => {
         }
       )
     }
-  }, [sharedState.view, wasPanned])
+  }, [sharedState.view, wasPanned, chart])
 
   function getMaxState(stateData: FakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -743,6 +757,18 @@ const EBMap: React.FC = () => {
   function getMinState(stateData: FakeData[]): number {
     return Math.min(...stateData.map((state) => state.value));
   }
+
+  // Because highcharts sucks
+  const zoomGeometry = {
+    type: 'MultiPoint',
+    coordinates: [
+        [29000, 15000],
+        [-20000, 15000],
+        [29000, -2000],
+        [-20000, -2000]
+    ]
+};
+
   const initializeMap = (mapData: any) => {
     const axisMax: number = Math.max(
       Math.abs(getMinState(presData)),
@@ -759,13 +785,16 @@ const EBMap: React.FC = () => {
               handleOOBClick();
             }
           },
-        },
-        panning: {
-          enabled: true,
-          type: 'xy',
-        },
-        reflow: false,
-        },
+          load: function () {
+            this.mapZoom(0.45);
+          }
+      },
+      panning: {
+        enabled: true,
+        type: 'xy',
+      },
+      reflow: false,
+      },
       credits: {
         enabled: false,
       },
@@ -842,11 +871,14 @@ const EBMap: React.FC = () => {
           events: {
             click: function (event: any) {
                 const stateName = event.point["name"];
-                handleStateClick(stateName);
+                handleStateClick(stateName, event.point);
             },
           }          
         },
       ],
+      mapView: {
+        fitToGeometry: zoomGeometry,
+      }
     };
     const ch = Highcharts.mapChart("container", mapOptions);
     setChart(ch);
