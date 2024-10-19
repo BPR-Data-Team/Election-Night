@@ -695,12 +695,12 @@ const EBMap: React.FC = () => {
         if (chart) {
             if (eventPoint) {
               chart.mapZoom(); // reset zoom
-              chart.mapZoom(0.45); // do default zoom we want
+              chart.mapZoom(0.3); // do default zoom we want
 
               // I genuinely have no idea how this is formulated.
               // I just guess-and-checked until it looked right -- I assume that it has to
               // do with the zoomGeometry offsets.
-              chart.mapZoom(0.8, eventPoint.plotX*7 - 3000, eventPoint.plotY*(-8)+10000);
+              chart.mapZoom(0.8, eventPoint.plotX*7 - 1000, eventPoint.plotY*(-8)+10000);
             }
         }
       } else if (sharedState.view == stateEnum) {
@@ -715,7 +715,7 @@ const EBMap: React.FC = () => {
     }
     sharedState.setView(State.National);
     chart.mapZoom(); // resets to default
-    chart.mapZoom(0.45);
+    chart.mapZoom(0.3);
   };
 
   useEffect(() => {
@@ -786,7 +786,7 @@ const EBMap: React.FC = () => {
             }
           },
           load: function () {
-            this.mapZoom(0.45);
+            this.mapZoom(0.3);
           }
       },
       panning: {

@@ -184,7 +184,6 @@ export default function Election_Breakdown_Page() {
                 className={styles.EBMapContainer}
                 id="EBContainer"
                 style={{
-                  ...(SMWN ? { left: "-20vw" } : {}),
                   ...(sharedState.level == "national"
                     ? { opacity: 1 }
                     : { opacity: 0 }),
