@@ -727,6 +727,9 @@ const EBMap: React.FC = () => {
       chart.update(
         {
           chart: {
+            animation: {
+              duration: 350,
+            },
             events: {
               click: function (event: any) {
                 if (!event.point) {
@@ -788,7 +791,10 @@ const EBMap: React.FC = () => {
           load: function () {
             this.mapZoom(0.3);
           }
-      },
+        },
+        animation: {
+          duration: 0,
+        },
       panning: {
         enabled: true,
         type: 'xy',
