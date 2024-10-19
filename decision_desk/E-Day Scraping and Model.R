@@ -356,27 +356,36 @@ model_estimates <- county_and_dems %>%
     # Calculate total vote estimates
     total_votes_lower = exp(vote_lower) * total_votes_2020,
     total_votes_upper = exp(vote_upper) * total_votes_2020,
+    total_votes_estimate = exp(vote_pred) * total_votes_2020,
     dem_votes_lower = exp(dem_votes_lower_estimate) * dem_votes_2020, 
     dem_votes_upper = exp(dem_votes_upper_estimate) * dem_votes_2020, 
+    dem_votes_estimate = exp(dem_votes_pred) * dem_votes_2020,
     rep_votes_lower = exp(rep_votes_lower_estimate) * rep_votes_2020, 
-    rep_votes_upper = exp(rep_votes_upper_estimate) * rep_votes_2020
+    rep_votes_upper = exp(rep_votes_upper_estimate) * rep_votes_2020,
+    rep_votes_estimate = exp(rep_votes_pred) * rep_votes_2020
   ) %>%
   #Sometimes, the sum of dems and reps exceed total votes -- we adjust the intervals here!
   mutate(
     # Sum of predicted votes
+    votes_sum_estimate = dem_votes_estimate + rep_votes_estimate,
     votes_sum_lower = dem_votes_lower + rep_votes_lower,
     votes_sum_upper = dem_votes_upper + rep_votes_upper,
     
     # Adjustment factors
+    adjustment_estimate = ifelse(votes_sum_estimate > total_votes_estimate, total_votes_estimate / votes_sum_estimate, 1),
     adjustment_lower = ifelse(votes_sum_lower > total_votes_lower, total_votes_lower / votes_sum_lower, 1),
     adjustment_upper = ifelse(votes_sum_upper > total_votes_upper, total_votes_upper / votes_sum_upper, 1),
     
     # Adjusted vote votes
+    dem_votes_estimate = dem_votes_estimate * adjustment_estimate,
+    rep_votes_estimate = rep_votes_estimate * adjustment_estimate,
     dem_votes_lower = dem_votes_lower * adjustment_lower,
     rep_votes_lower = rep_votes_lower * adjustment_lower,
     dem_votes_upper = dem_votes_upper * adjustment_upper,
     rep_votes_upper = rep_votes_upper * adjustment_upper) %>%
-  select(fips, state, total_votes_lower, total_votes_upper, dem_votes_lower, dem_votes_upper, rep_votes_lower, rep_votes_upper)
+  select(fips, state, total_votes_estimate, total_votes_lower, total_votes_upper, 
+         dem_votes_estimate, dem_votes_lower, dem_votes_upper, 
+         rep_votes_estimate, rep_votes_lower, rep_votes_upper)
 
 
 # Get finalized county results for everything!
@@ -384,35 +393,46 @@ estimated_county <- county_and_dems %>%
   left_join(model_estimates, by = c("fips", "state")) %>%
   mutate(
     # For finished counties, use actual votes
+    total_votes_estimate = ifelse(pct_reporting == 100, total_votes, total_votes_estimate),
     total_votes_lower = ifelse(pct_reporting == 100, total_votes, total_votes_lower), 
     total_votes_upper = ifelse(pct_reporting == 100, total_votes, total_votes_upper),
+    
+    dem_votes_estimate = ifelse(pct_reporting == 100, dem_votes, dem_votes_estimate),
     dem_votes_lower = ifelse(pct_reporting == 100, dem_votes, dem_votes_lower),
     dem_votes_upper = ifelse(pct_reporting == 100, dem_votes, dem_votes_upper),
+    
+    rep_votes_estimate = ifelse(pct_reporting == 100, rep_votes, rep_votes_estimate),
     rep_votes_lower = ifelse(pct_reporting == 100, rep_votes, rep_votes_lower),
     rep_votes_upper = ifelse(pct_reporting == 100, rep_votes, rep_votes_upper)
   ) %>%
-  mutate(across(contains("lower"), ~replace_na(., 0)), 
-         across(contains("upper"), ~replace_na(., 0)), 
-         office_type = "President") %>%
-  select(fips, state, office_type, total_votes_lower:rep_votes_upper)
+  mutate(across(contains("estimate"), ~replace_na(., 0)),
+         across(contains("lower"), ~replace_na(., 0)), 
+         across(contains("upper"), ~replace_na(., 0))) %>%
+  mutate(district = "0") %>% #This allows our predictions to work for Pres/Sen/Gov (at least, for total)
+  select(fips, state, district, total_votes_estimate:rep_votes_upper)
 
 
 estimated_race <- estimated_county %>%
   #This will be the absolute BEST result for Democrats and the BEST result for Republicans!
-  group_by(state) %>%
-  summarize(total_votes_lower = sum(total_votes_lower), 
+  group_by(state, district) %>%
+  summarize(total_votes_estimate = sum(total_votes_estimate),
+            total_votes_lower = sum(total_votes_lower), 
             total_votes_upper = sum(total_votes_upper), 
-            dem_votes_lower = sum(dem_votes_lower), 
-            rep_votes_lower = sum(rep_votes_lower), 
-            dem_votes_upper = sum(dem_votes_upper), 
+            
+            dem_votes_estimate = sum(dem_votes_estimate),
+            dem_votes_lower = sum(dem_votes_lower),
+            dem_votes_upper = sum(dem_votes_upper),
+            
+            rep_votes_estimate = sum(rep_votes_estimate),
+            rep_votes_lower = sum(rep_votes_lower),
             rep_votes_upper = sum(rep_votes_upper)) %>%
-  mutate(office_type = "President")
+  mutate(district = as.numeric(district))
 
 #----- FINALIZING DATASETS AND WRITING THEM TO CSV! -----
 #We now need to combine these values with the original datasets, and put them back!
 finalized_race_results <- pre_model_race %>%
-  left_join(estimated_race, by = c('state', 'office_type')) %>%
-  mutate(expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper)), 
+  left_join(estimated_race, by = c('state', 'district')) %>%
+  mutate(expected_pct_in = pmin(100, 100 * total_votes / total_votes_estimate), 
          dem_votes_pct = 100 * dem_votes / total_votes, 
          rep_votes_pct = 100 * rep_votes / total_votes, 
          ind_votes_pct = 100 * ind_votes / total_votes, 
@@ -420,9 +440,11 @@ finalized_race_results <- pre_model_race %>%
          swing = margin_pct - margin_pct_1) %>%
   select(office_type, state, district, contains("name"), 
          pct_reporting, dem_votes, rep_votes, ind_votes, green_votes, total_votes, contains("pct"),
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, contains("lower"), 
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, contains("estimate"), contains("lower"), 
          contains("upper"), expected_pct_in) %>%
-  left_join(this_time_2020, by = c("office_type", "state", "district"))
+  left_join(this_time_2020, by = c("office_type", "state", "district")) %>%
+  #Rep-Dem predictions don't work for non-pres races
+  mutate(across(contains("dem_votes_") | contains("rep_votes_"), ~ ifelse(office_type == "President", ., NA)))
 
 #Connecticut has weird townships, so we need to combine all results into one "county", which is the entire state
 ct_results <- finalized_race_results %>%
@@ -439,7 +461,7 @@ ct_results <- finalized_race_results %>%
 
 
 finalized_county_results <- pre_model_county %>%
-  left_join(estimated_county, by = c("state", "fips", "office_type")) %>%
+  left_join(estimated_county, by = c("state", "fips", "district")) %>%
   mutate(fips = ifelse(state == "AK", "000", fips)) %>%
   filter(state != "CT") %>% 
   bind_rows(ct_results) %>%
@@ -449,8 +471,11 @@ finalized_county_results <- pre_model_county %>%
          pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, total_votes,
          Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
          margin_votes, margin_pct, pct_absentee, absentee_margin, swing, performance_vs_president, contains("lower"), 
-         contains("upper"), expected_pct_in)
-  
+         contains("upper"), expected_pct_in) %>%
+  #Rep-Dem predictions don't work for non-pres races
+  mutate(across(contains("dem_votes_") | contains("rep_votes_"), ~ ifelse(office_type == "President", ., NA)))
+
+
 
 #PUTTING IN FINAL DATA!
 write_csv(finalized_county_results, "cleaned_data/Changing Data/DDHQ_current_county_results.csv")
