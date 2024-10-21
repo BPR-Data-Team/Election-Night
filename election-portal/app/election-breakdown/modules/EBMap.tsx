@@ -637,7 +637,39 @@ const EBMap: React.FC = () => {
   const raceType = sharedState.breakdown;
   const year = sharedState.year;
 
+  const [chart, setChart] = useState<any>(null);
   const [geoData, setGeoData] = useState<any>(null);
+
+  const [wasPanned, setWasPanned] = useState(false);
+
+  const startPos = useRef<{ x: number; y: number } | null>(null);
+
+  const handleMouseDown = (event: MouseEvent) => {
+    startPos.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const handleMouseUp = (event: MouseEvent) => {
+    if (startPos.current) {
+      const deltaX = Math.abs(event.clientX - startPos.current.x);
+      const deltaY = Math.abs(event.clientY - startPos.current.y);
+      if (deltaX > 10 || deltaY > 10) {
+        setWasPanned(true);
+      } else {
+        setWasPanned(false);
+      }
+      startPos.current = null;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
 
   const fetchMapDataAndInitializeMap = async () => {
     console.log("Map data has begun to load")
@@ -646,29 +678,44 @@ const EBMap: React.FC = () => {
     );
     let geoData = await geoResponse.json();
     console.log("Map data loaded")
+    console.log(geoData);
     setGeoData(geoData);
     initializeMap(geoData);
   };
 
-  const onlyInitializeMap = () => {
-    initializeMap(geoData);
-  }
-
-  const handleStateClick = async (stateName: string) => {
-    const stateEnum = getStateFromString(stateName);
-
-    console.log("view: " + sharedState.view + " level: " + sharedState.level);
-
-    if (sharedState.view != stateEnum) {
-      sharedState.setView(stateEnum as State);
-    } else if (sharedState.view == stateEnum) {
-      sharedState.setLevel("state");
+  const handleStateClick = async (stateName: string, eventPoint: any) => {
+    console.log(wasPanned);
+    if (wasPanned) {
+      return;
     }
+    const stateEnum = getStateFromString(stateName);
+    console.log("view: " + sharedState.view + " level: " + sharedState.level);
+      if (sharedState.view != stateEnum) {
+        sharedState.setView(stateEnum as State);
+        if (chart) {
+            if (eventPoint) {
+              chart.mapZoom(); // reset zoom
+              chart.mapZoom(0.3); // do default zoom we want
+
+              // I genuinely have no idea how this is formulated.
+              // I just guess-and-checked until it looked right -- I assume that it has to
+              // do with the zoomGeometry offsets.
+              chart.mapZoom(0.8, eventPoint.plotX*7 - 1000, eventPoint.plotY*(-8)+10000);
+            }
+        }
+      } else if (sharedState.view == stateEnum) {
+        sharedState.setLevel("state");
+      }
   };
 
   // Exists because page.tsx doesn't work if inside container div but outside USA boundaries
   const handleOOBClick = () => {
+    if (wasPanned) {
+      return;
+    }
     sharedState.setView(State.National);
+    chart.mapZoom(); // resets to default
+    chart.mapZoom(0.3);
   };
 
   useEffect(() => {
@@ -676,8 +723,35 @@ const EBMap: React.FC = () => {
   }, [raceType]);
 
   useEffect(() => {
-    onlyInitializeMap();
-  }, [sharedState.view])
+    if (chart) {
+      chart.update(
+        {
+          chart: {
+            animation: {
+              duration: 350,
+            },
+            events: {
+              click: function (event: any) {
+                if (!event.point) {
+                  handleOOBClick();
+                }
+              },
+            },
+          },
+          series: [
+            {
+              events: {
+                click: function (event: any) {
+                  const stateName = event.point["name"];
+                  handleStateClick(stateName, event.point);
+                },
+              },
+            },
+          ],
+        }
+      )
+    }
+  }, [sharedState.view, wasPanned, chart])
 
   function getMaxState(stateData: FakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -686,17 +760,23 @@ const EBMap: React.FC = () => {
   function getMinState(stateData: FakeData[]): number {
     return Math.min(...stateData.map((state) => state.value));
   }
+
+  // Because highcharts sucks
+  const zoomGeometry = {
+    type: 'MultiPoint',
+    coordinates: [
+        [29000, 15000],
+        [-20000, 15000],
+        [29000, -2000],
+        [-20000, -2000]
+    ]
+};
+
   const initializeMap = (mapData: any) => {
     const axisMax: number = Math.max(
       Math.abs(getMinState(presData)),
       Math.abs(getMaxState(presData))
     );
-    const colorAxis: Highcharts.ColorAxisOptions = {
-      min: -axisMax,
-      max: axisMax,
-      stops: colorAxisStops,
-      visible: false,
-    };
     const mapOptions: Highcharts.Options = {
       chart: {
         type: "map",
@@ -707,8 +787,19 @@ const EBMap: React.FC = () => {
             if (!event.point) {
               handleOOBClick();
             }
+          },
+          load: function () {
+            this.mapZoom(0.3);
           }
-        }
+        },
+        animation: {
+          duration: 0,
+        },
+      panning: {
+        enabled: true,
+        type: 'xy',
+      },
+      reflow: false,
       },
       credits: {
         enabled: false,
@@ -729,7 +820,12 @@ const EBMap: React.FC = () => {
         enableMouseWheelZoom: true,
         enableButtons: false,
       },
-      colorAxis: colorAxis,
+      colorAxis: {
+        min: -axisMax,
+        max: axisMax,
+        stops: colorAxisStops,
+        visible: false,
+      },
       tooltip: {
         formatter: function (this: any) {
           let prefix = this.point["Called for Dems"] == "TRUE" ? "D" : "R";
@@ -781,13 +877,17 @@ const EBMap: React.FC = () => {
           events: {
             click: function (event: any) {
                 const stateName = event.point["name"];
-                handleStateClick(stateName);
+                handleStateClick(stateName, event.point);
             },
           }          
         },
       ],
+      mapView: {
+        fitToGeometry: zoomGeometry,
+      }
     };
-    Highcharts.mapChart("container", mapOptions);
+    const ch = Highcharts.mapChart("container", mapOptions);
+    setChart(ch);
   };
 
   return <div id="container" />;
