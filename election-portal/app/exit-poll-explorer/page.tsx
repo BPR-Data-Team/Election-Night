@@ -15,6 +15,7 @@ import StatsTable from "./modules/statistics-table";
 
 export default function Exit_Poll_Explorer_Page() {
   const [exitPollData, setExitPollData] = useState<ExitPollData[] | null>(null);
+  const [tableData, setTableData] = useState<any>();
   const state = useSharedState().state;
 
   useEffect(() => {
@@ -39,14 +40,16 @@ export default function Exit_Poll_Explorer_Page() {
       setExitPollData(JSON.parse(storedExitPollData) as ExitPollData[]);
     } else {
       // Fetch the CSV data and log the response
-      fetch("/cleaned_data/CNN_exit_polls_2020.csv")
+      fetch("/cleaned_data/Locally-Hosted%20Data/CNN_exit_polls_2020.csv")
         .then((response) => {
           return response.text();
         })
         .then((csvText) => {
+          console.log(csvText);
           Papa.parse(csvText, {
             header: true,
             complete: (results) => {
+              console.log("results", results);
               const parsedData: ExitPollData[] = results.data.map(
                 (row: any, index: number) => {
                   return {
@@ -75,6 +78,20 @@ export default function Exit_Poll_Explorer_Page() {
         );
     }
   }, []);
+
+  useEffect(() => {
+    switch (true) {
+      case state.demographic == Demographic.Age && state.year == Year.Twenty:
+        exitPollData?.forEach((datum) => {
+          if (
+            datum.question == Demographic.Age &&
+            datum.office_type == "President"
+          ) {
+          }
+        });
+        break;
+    }
+  }, [state.demographic]);
 
   if (!exitPollData) return <p>Loading Exit Poll Data...</p>;
 
@@ -146,7 +163,7 @@ export default function Exit_Poll_Explorer_Page() {
       ],
     },
   };
-
+  console.log(exitPollData);
   return (
     <div className={styles.page}>
       <Menubar />
