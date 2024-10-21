@@ -29,7 +29,7 @@ get_exit_polls <- function(abbrev, election_type) {
 
   questions <- flatten(json_data$questions) %>%
     select(question, answers) %>%
-    mutate(state = state, office_type = office_type) %>%
+    mutate(state = state, office_type = office_type, year = 2024) %>%
     unnest(answers) %>%
     unnest(candidateAnswers) %>%
     group_by(mxId) %>%
@@ -39,7 +39,7 @@ get_exit_polls <- function(abbrev, election_type) {
     group_by(question) %>%
     filter(num_options == max(num_options)) %>%
     ungroup() %>%
-    select(state, office_type, question, answer, totalPercentage, percentage, lastName) %>%
+    select(year, state, office_type, question, answer, totalPercentage, percentage, lastName) %>%
     #We want two values: what percent of the demographic is this in the poll, 
     #And how does that demographic vote?
     rename(demographic_pct = totalPercentage, answer_pct = percentage) %>%
