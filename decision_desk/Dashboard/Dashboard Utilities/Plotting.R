@@ -42,7 +42,7 @@ get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, 
 
 
 
-get_graph <- function(state_abbrev, office, map_type) {
+get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
 
@@ -196,4 +196,4 @@ state <- "AL"
 office_type_check <- "President"
 map_version <- "margin_bubble"
 
-get_graph(state, office_type_check, map_version)
+get_graph(state, office_type_check, map_version, "~/GitHub/Election-Night")
