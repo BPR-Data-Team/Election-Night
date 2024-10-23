@@ -30,13 +30,9 @@ closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
 # change margin_95_ci from votes to percent 
 #last_election_turnout
 #election_night_shift
-#races_to_call
-#return_times
-#races_to_watch
 #margin_graph_2020
 #expected_pct_graph_2020
 #24cast_prediction
-#map selector
 
 # ----------------------------- SERVER 000----------------------------------- #
 graphServer <- function(input, output, session) {
@@ -59,12 +55,15 @@ graphServer <- function(input, output, session) {
                               office_type == election_type()) 
                               #district == district_select()) 
     })
-                              
+                          
+       
     state_electoral_votes <- reactive({
       min(unlist(electoral_votes %>% 
-                   filter(state == state.name[match(state_selection(), state.abb)]) %>% 
-                   select("votes")))
+        filter(state == state.name[match(state_selection(), state.abb)]) %>% 
+        select("votes")))
     })
+    
+    output$state_electoral_votes <- renderText({state_electoral_votes})
     
     output$performance_or_ev_header <- renderText({
       ifelse(election_type() == "President", 
@@ -83,10 +82,6 @@ graphServer <- function(input, output, session) {
     output$last_election_turnout_map_header <- renderUI({glue("{last_election_year()} Turnout Map")})
     output$last_election_margin_header <- renderUI({glue("{last_election_year()} Margin")})
 
-    output$state_electoral_votes <- renderText({
-      
-    })
-    
     output$current_margin <- renderText({
       val <- selected_race_data()$margin_pct[1]
       if (val < 0) {
@@ -110,6 +105,8 @@ graphServer <- function(input, output, session) {
     output$percent_reporting <- renderText({
       glue(round(selected_race_data()$pct_reporting[1], 1), "%")
     })
+    
+    output$election_night_shift <- renderText({"TODO"})
     
     output$performance_v_president <- renderText({
       presidential_margin <- current_data %>% 
@@ -159,11 +156,80 @@ graphServer <- function(input, output, session) {
     
     output$betting_odds <- renderUI({get_betting_odds(election_type(), state_selection())})
     
-    # Maps 
-    output$margin_map <- renderPlot({get_graph(state_selection(), election_type(), "margin", BASEPATH)})
-    output$margin_bubble_map <- renderPlot({get_graph(state_selection(), election_type(), "margin_bubble", BASEPATH)})
-    output$swing_map <- renderPlot({get_graph(state_selection(), election_type(), "swing", BASEPATH)})
+    output$races_to_call <- renderTable({
+      race_list <- poll_closing %>%
+        filter(State == state_selection()) %>%
+        select("Total.elections.to.call", 
+               "Call.at.poll.closing",
+               "Call.50.", 
+               "Call.80." ,
+               "Call.95.",
+               "No.Call.Election.Night") %>%
+        rename("Total races" = "Total.elections.to.call",
+               "To call at poll closing" = "Call.at.poll.closing",
+               "To call at 50%" = "Call.50.",
+               "To call at 80%" = "Call.80.",
+               "To call at 95%" = "Call.95.",
+               "Not called elction night" = "No.Call.Election.Night") %>%
+        t() %>%
+        as.data.frame() %>%
+        rename("Number" = "V1")
+      
+      race_list$Category <- rownames(race_list)
+      rownames(race_list) <- NULL
+      race_list <- race_list[, c(ncol(race_list), 1:(ncol(race_list)-1))]
+    })
     
+    output$return_times <- renderTable({
+      race_list <- poll_closing %>%
+        filter(State == state_selection()) %>%
+        select("Poll.Closing", "X2nd.Closing", "First.Results","X50.", "X80.", "X95.") %>%
+        rename("1st poll closing" = "Poll.Closing",
+               "2nd Poll closing" = "X2nd.Closing",
+               "First results" = "First.Results",
+               "50% results" = "X50.",
+               "80% results" = "X80.",
+               "95% results" = "X95.") %>%
+        t() %>%
+        as.data.frame() %>%
+        rename("Times" = "V1")
+      
+      race_list$Category <- rownames(race_list)
+      rownames(race_list) <- NULL
+      race_list <- race_list[, c(ncol(race_list), 1:(ncol(race_list)-1))]
+    })
+    
+    output$races_to_watch <- renderTable({
+      race_list <- poll_closing %>%
+        filter(State == state_selection()) %>%
+        pull("Races.to.Watch")
+      
+      transposed_df <- t(do.call(rbind.data.frame, as.list(strsplit(race_list, ",")))) %>%
+        as.data.frame() %>%
+        rename(" " = "V1")
+    })
+    
+    # Maps 
+    output$map_menu_header <- renderText({input$selected_map})
+    output$margin_map_2024 <- renderLeaflet({get_graph(state_selection(), election_type(), "margin", BASEPATH)})
+    output$margin_bubble_map_2024 <- renderLeaflet({get_graph(state_selection(), election_type(), "margin_bubble", BASEPATH)})
+    output$swing_map_2024 <- renderLeaflet({get_graph(state_selection(), election_type(), "swing", BASEPATH)})
+    
+    observeEvent(input$margin_year, {
+      updateTabsetPanel(session, "margin_year",
+                        selected = paste("margin_map_{input$margin_year}")
+      )
+    })
+    observeEvent(input$bubble_year, {
+      updateTabsetPanel(session, "bubble_year",
+                        selected = paste("margin_bubble_map_{input$bubble_year}")
+      )
+    })
+    observeEvent(input$swing_year, {
+      updateTabsetPanel(session, "swing_year",
+                        selected = paste("swing_map_{input$swing_year}")
+      )
+    })
     # Graphs 
     output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
     output$expected_pct_graph_2020 <- renderPlot(previous_time_expected_pct_graphs[[state_selection()]])
@@ -218,6 +284,18 @@ graphOutputUI <- page_sidebar(
       label = "State:",
       choices = NULL,
       selected = NULL
+    ), 
+    layout_columns(
+      col_widths = c(9),
+      div(style = "height:90px;"),
+      card(
+        card_header("Current Electoral Vote Tally"),
+        "TODO"
+      ),
+      card(
+        card_header("Time to next poll close"),
+        textOutput("next_poll_close")
+      )
     )
   ),
   fluidPage(
@@ -299,15 +377,40 @@ graphOutputUI <- page_sidebar(
       ),
       card(
         full_screen = FALSE, 
-        card_header("Return times"),
-        textOutput("races_to_watch")
+        card_header("Races to Watch"),
+        tableOutput("races_to_watch")
       )
     ),
     layout_columns(
-      tabsetPanel(
-        tabPanel("Margin Map", plotOutput("margin_map")),
-        tabPanel("Margin Bubble Map", plotOutput("margin_bubble_map")),
-        tabPanel("Swing Map", plotOutput("swing_map"))
+      navset_card_underline(
+        navbarMenu(
+          textOutput("map_menu_header"), 
+          tabPanel("Margin Map",
+            tabsetPanel(id = "margin_year",
+              type = "tabs", 
+              selected = "2024",
+              tabPanel("2024", leafletOutput("margin_map_2024")),
+              tabPanel("2020", "TODO"),
+              tabPanel("2016", "TODO")
+            )
+          ),
+          tabPanel("Margin Bubble Map",
+             tabsetPanel(id = "margin_bubble_year",
+               type = "tabs", 
+               selected = "2024",
+               tabPanel("2024", leafletOutput("margin_bubble_map_2024")),
+             )
+          ),
+          tabPanel("Swing Map",
+             tabsetPanel(id = "swing_year",
+               type = "tabs", 
+               selected = "2024",
+               tabPanel("2024", leafletOutput("swing_map_2024")),
+               tabPanel("2020", "TODO"),
+             )
+          )
+        ), 
+        id = "selected_map"
       )
     ),
     layout_columns(
