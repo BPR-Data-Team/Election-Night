@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { RaceType } from "@/types/RaceType";
 import { Year } from "@/types/Year";
 import Highcharts from "highcharts";
 import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 import "./rtcmap.css";
+import { stateCodeToName } from "./utils/stateMap"; // Adjust the path if needed
+
 
 const presData = [
   { "hc-key": "us-al", Called: "R" },
@@ -110,6 +112,10 @@ interface RTCMapProps {
 }
 
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
+  const [modalOpen, setModalOpen] = useState(false); // Modal visibility state
+  const [selectedState, setSelectedState] = useState<string | null>(null); // Store clicked state
+  const chartRef = useRef<Highcharts.Chart | null>(null);
+  const originalMap = useRef<any[]>([]);
   const fetchMapDataAndInitializeMap = async () => {
     const geoResponse = await fetch(
       "https://code.highcharts.com/mapdata/countries/us/us-all.geo.json"
@@ -121,26 +127,23 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType]);
+  }, [raceType, year]);
 
   const initializeMap = (mapData: any) => {
-    const processData = (data: any[]) => {
-      return data.map((item) => {
-        let value: number;
-        if (item.Called === "D") {
-          value = 1; // Democrat
-        } else if (item.Called === "R") {
-          value = 2; // Republican
-        } else {
-          value = 0; // Uncalled
-        }
-        return {
-          "hc-key": item["hc-key"],
-          value: value,
-        };
-      });
-    };
+    const currentData = raceType === RaceType.Presidential ? [...presData] : [...senData];
+    originalMap.current = currentData.map((item) => ({...item}));
+    const processData = (data: any[]) =>
+      data.map((item) => ({
+        "hc-key": item["hc-key"],
+        value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
+      }));
 
+    const handleStateClick = function (this: any) {
+      const stateKey = this["hc-key"] as string;
+      setSelectedState(stateKey); // Store clicked state
+      setModalOpen(true); // Open modal for selection
+    };
+   
     const mapOptions: Highcharts.Options = {
       chart: {
         type: "map",
@@ -158,12 +161,12 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       },
       plotOptions: {
         map: {
-          cursor: "default",
+          point: {
+            events: {
+              click: handleStateClick
+            }
+          }
         },
-      },
-      mapNavigation: {
-        enabled: false,
-        enableButtons: false,
       },
       colorAxis: {
         dataClasses: [
@@ -189,35 +192,133 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
         dataClassColor: "category",
       },
       legend: {
-        itemStyle: {
-          fontFamily:
-            "gelica, book antiqua, georgia, times new roman, serif",
-        },
         enabled: false,
+      },
+      mapNavigation: {
+        enabled: true,
+        enableMouseWheelZoom: true,
+        enableButtons: false,
+      },
+      tooltip: {
+        formatter: function (this: any) {
+
+          return (
+            "<b>" +
+            this.point.name )
+        },
+        style: {
+          fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
+        },
       },
       series: [
         {
-          showInLegend: false,
           type: "map",
-          data: processData(
-            raceType === RaceType.Presidential ? presData : senData
-          ),
+          data: processData(currentData),
           mapData: mapData,
           joinBy: "hc-key",
           nullColor: "#EAEAEA",
+          borderColor: "black",
+          borderWidth: 2,
           name: "Call Status",
-          states: {},
-          dataLabels: {
-            enabled: false,
+          enableMouseTracking: true,  
+          states: {
+            hover: {
+              enabled: false,
+            },
           },
-          enableMouseTracking: false,
+          // tooltip: {
+          //   pointFormat: "{point.name}",
+          // },
         },
       ],
+      
     };
-    Highcharts.mapChart("container", mapOptions);
+    const chart = Highcharts.mapChart("container", mapOptions);
+    
+    chartRef.current = chart;
   };
 
-  return <div id="container" />;
+  const handleOutcomeSelect = (outcome: string) => {
+    console.log(`Selected state: ${selectedState}`);
+    if (selectedState && chartRef.current) {
+      const series = chartRef.current.series[0]; // Access the first series
+      const point = series.data.find(
+        (p) => (p.options as any)["hc-key"] === selectedState
+      );
+      if (point) {
+        console.log("point is not undefined. Yay!")
+        point.update({ value: outcome === "D" ? 1 : outcome === "R" ? 2 : 0 });
+      }
+    }
+    setModalOpen(false);
+  };
+
+  const handleReset = () => {
+    if (chartRef.current) {
+      const originalData = originalMap.current;
+      if (originalData) {
+        const processedData = originalData.map((item: any) => ({
+          id: item["hc-key"],
+          "hc-key": item["hc-key"],
+          value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
+        }));
+
+        // Reset the series data
+        chartRef.current.series[0].setData(processedData);
+      }
+    }
+  };
+
+  return (
+    <>
+      <div id="container" />
+        <div className="reset-button-container">
+          <button onClick={handleReset} className="reset-button">
+            Reset Map
+          </button>
+        </div>
+      {modalOpen && selectedState && (
+        <OutcomeModal
+          stateName={selectedState}
+          onClose={() => setModalOpen(false)}
+          onSelect={handleOutcomeSelect}
+        />
+      )}
+    </>
+  );
 };
+const OutcomeModal = ({
+  stateName,
+  onClose,
+  onSelect,
+}: {
+  stateName: string;
+  onClose: () => void;
+  onSelect: (outcome: string) => void;
+}) => {
+  const fullStateName = stateCodeToName.get(stateName) || stateName;
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation(); // Ensure the click doesn't bubble up
+    onClose(); // Close the modal when clicking outside the content
+  };
+
+  const handleContentClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation(); // Prevent click inside content from closing the modal
+  };
+
+  return (
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal-content" onClick={handleContentClick}>
+        <h3>Select Outcome for {fullStateName}</h3>
+        <button onClick={() => onSelect("D")} className="modal-button">Democrat</button>
+        <button onClick={() => onSelect("R")} className="modal-button">Republican</button>
+        <button onClick={() => onSelect("N")} className="modal-button">Uncalled</button>
+        <button onClick={onClose} className="modal-button">Cancel</button>
+      </div>
+    </div>
+  );
+};
+
 
 export default RTCMap;
