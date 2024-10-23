@@ -7,7 +7,7 @@ library(leaflet)
 BASEPATH <- ifelse(Sys.getenv("ElectionNightPath") == "", 
                    "~/GitHub/Election-Night", 
                    Sys.getenv("ElectionNightPath"))
-
+BASEPATH <- "~/Documents/Atom/Election-Night"
 setwd(BASEPATH)
 
 source("./decision_desk/Dashboard/Dashboard Utilities/Plotting.R", local = TRUE)
@@ -151,6 +151,30 @@ graphServer <- function(input, output, session) {
     })
     output$selected_time <- renderText({closing_times[input$time_slider]})
     
+    
+    # Render the filtered elections table
+    output$elections <- renderTable({
+      output$elections <- renderUI({
+        elections <- all_races %>%
+          filter(
+            (input$category_select == "All" | office_type == input$category_select),  # Skip filter if "All"
+            (input$state_select == "All" | state == input$state_select)  # Skip filter if "All"
+          ) %>% mutate(district = suppressWarnings((as.integer(district))))
+        
+        print(elections)
+        if (nrow(elections) == 0) {
+          return(div("No elections match your criteria"))
+        }
+        
+        lapply(1:nrow(elections), function(i) {
+          election <- elections[i, ]
+          div(
+            class = "election-card",
+            actionLink(inputId = paste0("election_", election$race_id), label = glue("{election$office_type} in {election$state}"))          )
+        })
+      })
+    })
+    
 }
 
 # Graph Module UI
@@ -189,7 +213,8 @@ graphOutputUI <- page_sidebar(
       inputId = "key_races",
       label = "Key Races Only",
       value = FALSE
-    )
+    ),
+    tableOutput("elections")
   ),
   fluidPage(
     layout_columns(
@@ -310,6 +335,8 @@ graphOutputUI <- page_sidebar(
       uiOutput("betting_odds")
     )
   )
+  
+  
 )
 
 shinyApp(graphOutputUI, graphServer)
