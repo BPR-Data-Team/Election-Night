@@ -1,16 +1,33 @@
+.page {
+  height: 100vh;
+  width: 100vw;
+}
 .statusBar {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3%;
 }
-.main {
-  padding: 2rem;
-  width: 100%;
+
+.mapWrapper {
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  position: fixed;
+  top:20%
 }
-.rtcdiv {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+
+.StateMapContainer {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
 }
-.page {
-  display: flex;
-}
+
+/* .overflowCatch {
+position: absolute;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100vw;
+height: 100vh;
+} */

@@ -10,35 +10,39 @@ import { RaceType } from "@/types/RaceType";
 import { Year } from "@/types/Year";
 
 export default function Road_To_Control_Page() {
-  const state = useSharedState().state;
+  const sharedState = useSharedState().state;
 
   useEffect(() => {
     // set menubar options
-    state.setAvailableBreakdowns([
+    sharedState.setAvailableBreakdowns([
       RaceType.Presidential,
       RaceType.Senate,
       RaceType.Gubernatorial,
     ]);
-    state.setAvailableYears([
+    sharedState.setAvailableYears([
       Year.TwentyTwo,
       Year.Twenty,
       Year.Eighteen,
       Year.Sixteen,
     ]);
-    state.setAvailibleDemographics([]);
+    sharedState.setAvailibleDemographics([]);
   }, []);
   return (
-    <div className={styles.page}>
-      <Menubar />
-      <div className={styles.main}>
-        <div className={styles.statusBar}>
-          <StatusBar /> {/* This should render the StatusBar */}
-        </div>
-        {state.drawMode ? <Canvas /> : null}
-        <div className={styles.rtcdiv}>
-          <RTCMap year={state.year} raceType={state.breakdown} />
+      <div className={styles.page}>
+        <div className={styles.overflowCatch}>
+          {sharedState.drawMode ? <Canvas /> : null}
+          <div className={styles.statusBar}>
+            <StatusBar />
+          </div>
+          <div className={styles.mapWrapper} id="mapWrapper">
+            <div
+              className={styles.StateMapContainer}
+            >
+              <RTCMap year={sharedState.year} raceType={sharedState.breakdown}/>
+            </div>
+          </div>
+          <Menubar />
         </div>
       </div>
-    </div>
   );
 }
