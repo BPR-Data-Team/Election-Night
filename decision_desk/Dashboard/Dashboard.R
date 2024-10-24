@@ -7,6 +7,7 @@ library(leaflet)
 BASEPATH <- ifelse(Sys.getenv("ElectionNightPath") == "", 
                    "~/GitHub/Election-Night", 
                    Sys.getenv("ElectionNightPath"))
+#BASEPATH <- "~/Documents/Atom/Election-Night"
 setwd(BASEPATH)
 
 source("decision_desk/Dashboard/Dashboard Utilities/Plotting.R")
@@ -286,13 +287,18 @@ graphServer <- function(input, output, session) {
     # Render the filtered elections table
     output$elections <- renderTable({
       output$elections <- renderUI({
+        #print(time_str_to_num(input$poll_closing_bounds[1]))
+        #print(time_str_to_num(current_data %>% left_join(poll_closing, by = c("state" = "State")) %>% filter(state == "MA", office_type == "President") %>% pull(Poll.Closing)))
+        #print(time_str_to_num(input$poll_closing_bounds[2]))
         elections <- current_data %>%
+          left_join(poll_closing, by = c("state" = "State")) %>%
           filter(
             (input$category_select == "All" | office_type == input$category_select),  # Skip filter if "All"
-            (input$state_select == "All" | state == input$state_select)  # Skip filter if "All"
+            (input$state_select == "All" | state == input$state_select),  # Skip filter if "All"
+            (is.na(pct_reporting) | (input$percent_reporting_bounds[1] <= pct_reporting & input$percent_reporting_bounds[2] >= pct_reporting)),
+            (time_str_to_num(input$poll_closing_bounds[1]) <= time_str_to_num(Poll.Closing) & time_str_to_num(input$poll_closing_bounds[2]) >= time_str_to_num(Poll.Closing))
           ) %>% mutate(district = suppressWarnings((as.integer(district))))
         
-        print(elections)
         if (nrow(elections) == 0) {
           return(div("No elections match your criteria"))
         }
@@ -311,7 +317,6 @@ graphServer <- function(input, output, session) {
 graphOutputUI <- page_sidebar(
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebar =  sidebar(
-    title = "Graph controls",
     selectInput(
       inputId = "category_select",  # Updated to match server
       label = "Election type:",
