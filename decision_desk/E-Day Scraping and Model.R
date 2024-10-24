@@ -277,28 +277,25 @@ county_and_dems <- live_data %>%
 ###### WE RUN THREE DIFFERENT MODELS -- ONE FOR TOTAL TURNOUT, ONE FOR DEMS/REP #####
 # Predicting vote shares
 finished_counties <- county_and_dems %>%
-  filter(pct_reporting == 100) %>%
+  filter(pct_reporting == 100 & !(state %in% c("NH", "VT", "MA", "ME", "DC"))) %>%
   mutate(
     total_votes = ifelse(is.na(total_votes), dem_votes + rep_votes, total_votes), #Some states have weird stuff?
-    dem_differential = log(dem_votes / dem_votes_2020),
-    rep_differential = log(rep_votes / rep_votes_2020),
-    vote_differential = log(total_votes / total_votes_2020)
+    vote_differential = log(total_votes / total_votes_2020), 
+    margin_differential = 100 * (((dem_votes - rep_votes) / total_votes) - ((dem_votes_2020 - rep_votes_2020) / total_votes_2020))
   ) %>%
-  select(vote_differential, dem_differential, rep_differential, total_pop:proportion_bachelors_degree_over_25)
+  select(vote_differential, margin_differential, total_pop:proportion_bachelors_degree_over_25)
 
 
 #Usual conformal prediction guarantees that 95% of COUNTIES are within the prediction, 
 #We want to make sure that 95% of PEOPLE are within the prediction, so we need to upweight on 
 #Total turnout from 2020
 turnout_2020_finished_counties <- county_and_dems %>%
-  filter(pct_reporting == 100) %>%
+  filter(pct_reporting == 100 & !(state %in% c("NH", "VT", "MA", "ME", "DC"))) %>%
   pull(total_votes_2020)
 
 # Creating vote models
-vote_model <- lm(vote_differential ~ ., data = finished_counties %>% select(-dem_differential, -rep_differential))
-dem_model <- lm(dem_differential ~ ., data = finished_counties %>% select(-vote_differential, -rep_differential))
-rep_model <- lm(rep_differential ~ ., data = finished_counties %>% select(-vote_differential, -dem_differential))
-
+vote_model <- lm(vote_differential ~ ., data = finished_counties %>% select(-margin_differential))
+margin_model <- lm(margin_differential ~ ., data = finished_counties %>% select(-vote_differential,))
 
 # Use conformal prediction to get bounds for each model
 conformal_prediction <- function(model, alpha = 0.05) {
@@ -328,11 +325,8 @@ conformal_prediction <- function(model, alpha = 0.05) {
 # For total vote differential
 vote_quantiles <- conformal_prediction(vote_model)
 
-# For Democratic vote share
-dem_quantiles <- conformal_prediction(dem_model)
-
-# For Republican vote share
-rep_quantiles <- conformal_prediction(rep_model)
+# For Margins
+margin_quantiles <- conformal_prediction(margin_model)
 
 #Getting results for all unfinished counties
 model_estimates <- county_and_dems %>%
@@ -340,43 +334,24 @@ model_estimates <- county_and_dems %>%
   mutate(
     # Predictions
     vote_pred = predict(vote_model, newdata = select(., total_pop:proportion_bachelors_degree_over_25)),
-    dem_votes_pred = predict(dem_model, newdata = select(., total_pop:proportion_bachelors_degree_over_25)),
-    rep_votes_pred = predict(rep_model, newdata = select(., total_pop:proportion_bachelors_degree_over_25)),
+    margin_pred = predict(margin_model, newdata = select(., total_pop:proportion_bachelors_degree_over_25)),
+    
+    # Conformal prediction intervals for margins
+    margin_estimate = margin_pred + 100 * (dem_votes_2020 - rep_votes_2020) / total_votes_2020, 
+    margin_lower = margin_estimate + margin_quantiles$lower_quantile, 
+    margin_upper = margin_estimate + margin_quantiles$upper_quantile,
     
     # Conformal prediction intervals for total votes
     vote_lower = vote_pred + vote_quantiles$lower_quantile,
     vote_upper = vote_pred + vote_quantiles$upper_quantile,
-    
-    # Conformal prediction intervals for vote shares
-    dem_votes_lower_estimate = dem_votes_pred + dem_quantiles$lower_quantile,
-    dem_votes_upper_estimate = dem_votes_pred + dem_quantiles$upper_quantile,
-    rep_votes_lower_estimate = rep_votes_pred + rep_quantiles$lower_quantile,
-    rep_votes_upper_estimate = rep_votes_pred + rep_quantiles$upper_quantile,
-    
+
     # Calculate total vote estimates
+    total_votes_estimate = exp(vote_pred) * total_votes_2020,
     total_votes_lower = exp(vote_lower) * total_votes_2020,
     total_votes_upper = exp(vote_upper) * total_votes_2020,
-    dem_votes_lower = exp(dem_votes_lower_estimate) * dem_votes_2020, 
-    dem_votes_upper = exp(dem_votes_upper_estimate) * dem_votes_2020, 
-    rep_votes_lower = exp(rep_votes_lower_estimate) * rep_votes_2020, 
-    rep_votes_upper = exp(rep_votes_upper_estimate) * rep_votes_2020
   ) %>%
-  #Sometimes, the sum of dems and reps exceed total votes -- we adjust the intervals here!
-  mutate(
-    # Sum of predicted votes
-    votes_sum_lower = dem_votes_lower + rep_votes_lower,
-    votes_sum_upper = dem_votes_upper + rep_votes_upper,
-    
-    # Adjustment factors
-    adjustment_lower = ifelse(votes_sum_lower > total_votes_lower, total_votes_lower / votes_sum_lower, 1),
-    adjustment_upper = ifelse(votes_sum_upper > total_votes_upper, total_votes_upper / votes_sum_upper, 1),
-    
-    # Adjusted vote votes
-    dem_votes_lower = dem_votes_lower * adjustment_lower,
-    rep_votes_lower = rep_votes_lower * adjustment_lower,
-    dem_votes_upper = dem_votes_upper * adjustment_upper,
-    rep_votes_upper = rep_votes_upper * adjustment_upper) %>%
-  select(fips, state, total_votes_lower, total_votes_upper, dem_votes_lower, dem_votes_upper, rep_votes_lower, rep_votes_upper)
+  select(fips, state, total_votes_estimate, total_votes_lower, total_votes_upper, 
+         margin_estimate, margin_lower, margin_upper)
 
 
 # Get finalized county results for everything!
@@ -384,45 +359,47 @@ estimated_county <- county_and_dems %>%
   left_join(model_estimates, by = c("fips", "state")) %>%
   mutate(
     # For finished counties, use actual votes
+    total_votes_estimate = ifelse(pct_reporting == 100, total_votes, total_votes_estimate),
     total_votes_lower = ifelse(pct_reporting == 100, total_votes, total_votes_lower), 
     total_votes_upper = ifelse(pct_reporting == 100, total_votes, total_votes_upper),
-    dem_votes_lower = ifelse(pct_reporting == 100, dem_votes, dem_votes_lower),
-    dem_votes_upper = ifelse(pct_reporting == 100, dem_votes, dem_votes_upper),
-    rep_votes_lower = ifelse(pct_reporting == 100, rep_votes, rep_votes_lower),
-    rep_votes_upper = ifelse(pct_reporting == 100, rep_votes, rep_votes_upper)
+    
+    margin_estimate = ifelse(pct_reporting == 100, 100 * (dem_votes - rep_votes) / total_votes_2020, margin_estimate),
+    margin_lower = ifelse(pct_reporting == 100, 100 * (dem_votes - rep_votes) / total_votes_2020, margin_lower), 
+    margin_upper = ifelse(pct_reporting == 100, 100 * (dem_votes - rep_votes) / total_votes_2020, margin_upper),
   ) %>%
-  mutate(across(contains("lower"), ~replace_na(., 0)), 
+  mutate(across(contains("estimate"), ~replace_na(., 0)),
+         across(contains("lower"), ~replace_na(., 0)), 
          across(contains("upper"), ~replace_na(., 0)), 
          office_type = "President") %>%
-  select(fips, state, office_type, total_votes_lower:rep_votes_upper)
+  select(fips, state, office_type, total_votes_estimate:margin_upper, pct_reporting)
 
 
 estimated_race <- estimated_county %>%
   #This will be the absolute BEST result for Democrats and the BEST result for Republicans!
   group_by(state) %>%
-  summarize(total_votes_lower = sum(total_votes_lower), 
-            total_votes_upper = sum(total_votes_upper), 
-            dem_votes_lower = sum(dem_votes_lower), 
-            rep_votes_lower = sum(rep_votes_lower), 
-            dem_votes_upper = sum(dem_votes_upper), 
-            rep_votes_upper = sum(rep_votes_upper)) %>%
+  summarize(total_votes_estimate = sum(total_votes_estimate),
+    total_votes_lower = sum(total_votes_lower), 
+    total_votes_upper = sum(total_votes_upper)) %>%
   mutate(office_type = "President")
 
 #----- FINALIZING DATASETS AND WRITING THEM TO CSV! -----
 #We now need to combine these values with the original datasets, and put them back!
 finalized_race_results <- pre_model_race %>%
   left_join(estimated_race, by = c('state', 'office_type')) %>%
-  mutate(expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper)), 
+  mutate(expected_pct_in = 100 * pmin(1, total_votes / total_votes_estimate), 
          dem_votes_pct = 100 * dem_votes / total_votes, 
          rep_votes_pct = 100 * rep_votes / total_votes, 
          ind_votes_pct = 100 * ind_votes / total_votes, 
          green_votes_pct = 100 * green_votes / total_votes, 
-         swing = margin_pct - margin_pct_1) %>%
+         swing = margin_pct - margin_pct_1, 
+         votes_remaining = total_votes_estimate - total_votes) %>%
   select(office_type, state, district, contains("name"), 
          pct_reporting, dem_votes, rep_votes, ind_votes, green_votes, total_votes, contains("pct"),
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, contains("lower"), 
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, votes_remaining, contains("estimate"), contains("lower"), 
          contains("upper"), expected_pct_in) %>%
-  left_join(this_time_2020, by = c("office_type", "state", "district"))
+  left_join(this_time_2020, by = c("office_type", "state", "district")) %>%
+  mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
+
 
 #Connecticut has weird townships, so we need to combine all results into one "county", which is the entire state
 ct_results <- finalized_race_results %>%
@@ -444,12 +421,14 @@ finalized_county_results <- pre_model_county %>%
   filter(state != "CT") %>% 
   bind_rows(ct_results) %>%
   mutate(total_votes = Democratic_votes + Republican_votes + Independent_votes + Green_votes, 
-         expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper))) %>%
+         expected_pct_in = pmin(100, 200 * total_votes / (total_votes_lower + total_votes_upper)), 
+         votes_remaining = total_votes_estimate - total_votes) %>%
   select(office_type, state, county, district, fips, contains("name"), 
          pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, total_votes,
          Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, performance_vs_president, contains("lower"), 
-         contains("upper"), expected_pct_in)
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, performance_vs_president, votes_remaining, contains("estimate"), 
+         contains("lower"), contains("upper"), expected_pct_in) %>%
+  mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
   
 
 #PUTTING IN FINAL DATA!
