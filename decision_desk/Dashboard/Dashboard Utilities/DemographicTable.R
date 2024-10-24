@@ -8,8 +8,8 @@
 
 library(dplyr)
 
-county_demographic_data <- read.csv("cleaned_data/Demographics/CountyDemographics2022.csv")
-state_demographic_data <- read.csv("cleaned_data/Demographics/StateDemographics2022.csv")
+county_demographic_data <- read.csv("cleaned_data/Preparatory Data/Demographics/CountyDemographics2022.csv")
+state_demographic_data <- read.csv("cleaned_data/Preparatory Data/Demographics/StateDemographics2022.csv")
 
 get_demographics <- function(state_select, county_select="ALL") {
   table <- if (county_select == "ALL") {
