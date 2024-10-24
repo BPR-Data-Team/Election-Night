@@ -33,7 +33,8 @@ this_time_2020 <- read_csv("cleaned_data/Locally-Hosted Data/Same_Time_2020.csv"
   group_by(office_type, state, district) %>%
   filter(timestamp == max(timestamp)) %>%
   ungroup() %>%
-  select(office_type, district, state, margin_same_time, eevp_same_time, votes_same_time)
+  select(office_type, district, state, margin_same_time, eevp_same_time, votes_same_time) %>%
+  unique()
 
 maine_townships_counties <- read_csv("cleaned_data/Locally-Hosted Data/Maine_Townships_to_Counties.csv") %>%
   mutate(fips = sprintf("%03d", fips))
