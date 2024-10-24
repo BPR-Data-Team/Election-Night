@@ -40,6 +40,7 @@ get_time_graph <- function(state_abbrev, graph_type = "vote_share") {
       geom_line(size = 1) +
       xlab("Time") +
       ylab("% of vote in") +
+      scale_y_continuous(limits = c(0, 100)) + 
       scale_x_datetime(date_labels = "%l %p", date_breaks = "1 hour", expand = expansion(mult = c(0, 0))) +
       theme_minimal(base_size = 12) +
       theme(panel.grid.major = element_line(color = "gray90"),

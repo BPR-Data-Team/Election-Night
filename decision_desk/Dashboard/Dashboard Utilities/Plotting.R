@@ -9,7 +9,7 @@ county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.
 
 #This is code to get a nicely-labeled 
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                      Republican_votes_percent, Democratic_votes_percent, expected_pct_in) {
+                      Republican_votes_percent, Democratic_votes_percent, pct_reporting) {
   # Extract last names
   Republican_last_name <- tail(strsplit(Republican_name, " ")[[1]], 1)
   Democratic_last_name <- tail(strsplit(Democratic_name, " ")[[1]], 1)
@@ -35,7 +35,40 @@ get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, 
     '</tr>',
     '</table>',
     '<div style="font-size: 9px; color: #666; text-align: right; margin-top: 4px;">',
-    expected_pct_in, '% reported</div>',
+    pct_reporting, '% reported</div>',
+    '</div>'
+  )
+}
+
+get_label_votes_remaining <- function(NAME, total_votes_estimate, total_votes_lower, total_votes_upper, 
+                                      margin_pct, margin_lower, margin_upper) {
+  paste0(
+    '<div style="font-family: Arial, sans-serif; padding: 6px; background-color: #f9f9f9; border-radius: 4px; max-width: 260px;">',
+    '<strong style="font-size: 14px; color: #333;">', NAME, '</strong>',
+    '<table style="width: 100%; font-size: 11px; margin-top: 4px;">',
+    '<tr>',
+    '<th style="text-align:left; padding: 4px;">Metric</th>',
+    '<th style="text-align:right; padding: 4px;">Current</th>',
+    '<th style="text-align:right; padding: 4px;">Predicted Interval</th>',
+    '</tr>',
+    '<tr>',
+    '<td style="padding: 4px;">Turnout</td>',
+    '<td style="text-align:right; padding: 4px;">', format(total_votes_estimate, big.mark = ","), '</td>',
+    '<td style="text-align:right; padding: 4px;">', 
+    format(total_votes_lower, big.mark = ","), ' - ', format(total_votes_upper, big.mark = ","), 
+    '</td>',
+    '</tr>',
+    '<tr>',
+    '<td style="padding: 4px;">Margin</td>',
+    '<td style="text-align:right; padding: 4px;">', ifelse(margin_pct < 0, glue("R+{round(margin_pct, 1)}"), 
+                                                           glue("D+{round(margin_pct, 1)}")), '</td>',
+    '<td style="text-align:right; padding: 4px;">', 
+    ifelse(margin_lower < 0, glue("R+{margin_lower}"), 
+           glue("D+{margin_lower}")), ' - ', ifelse(margin_upper < 0, glue("R+{margin_upper}"), 
+                                                    glue("D+{margin_upper}")), 
+    '</td>',
+    '</tr>',
+    '</table>',
     '</div>'
   )
 }
@@ -51,7 +84,7 @@ get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
-  if (!(map_type %in% c("swing", "margin", "margin_bubble"))) {
+  if (!(map_type %in% c("swing", "margin", "margin_bubble", "votes_left"))) {
     stop("Cannot create map of given type")
   }
   
@@ -125,7 +158,7 @@ get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
         fillColor = ~pal(margin_pct),
         color = "black",
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                                 Republican_votes_percent, Democratic_votes_percent, expected_pct_in), htmltools::HTML),  # Convert HTML for the popup
+                                 Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
         weight = 1,
         opacity = 1,
         fillOpacity = 0.7,
@@ -183,17 +216,62 @@ get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
         opacity = 1,
         fillOpacity = 0,
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                                  Republican_votes_percent, Democratic_votes_percent, expected_pct_in), htmltools::HTML),  # Convert HTML for the popup
+                                  Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
       ) 
       
+  }
+  
+  if (map_type == "votes_left") {
+    geo_data_centroids <- st_centroid(geo_data)
+    # Define custom bins for swing values
+    bins <- c(-Inf, -15, 0, 15, Inf)
+    
+    # Define corresponding colors
+    colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+    pal <- colorBin(
+      palette = colors,
+      bins = bins,
+      domain = geo_data$margin_pct,
+      na.color = "black"
+    )
+
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
+      addCircleMarkers(
+        data = geo_data_centroids,
+        fillColor = ~pal(margin_votes),
+        color = "black",
+        radius = ~ ifelse(votes_remaining <= 0, 0, sqrt(votes_remaining) / 10),
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7
+      ) %>%
+      addPolygons(
+        data = geo_data,
+        weight = 1,
+        color = "grey",
+        fillColor = "white",
+        opacity = 1,
+        fillOpacity = 0,
+        label = ~lapply(get_label_votes_remaining(NAME, total_votes, total_votes_lower, total_votes_upper, 
+                                                  margin_pct, margin_lower, margin_upper), htmltools::HTML),  # Convert HTML for the popup
+      )
   }
 
   return (graph)
   
 }
 
-state <- "AL"
+state <- "OR"
 office_type_check <- "President"
-map_version <- "margin_bubble"
+map_version <- "votes_left"
 
-get_graph(state, office_type_check, map_version, "~/GitHub/Election-Night")
+get_graph(state, office_type_check, map_version, getwd())

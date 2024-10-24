@@ -106,7 +106,12 @@ graphServer <- function(input, output, session) {
       glue(round(selected_race_data()$pct_reporting[1], 1), "%")
     })
     
-    output$election_night_shift <- renderText({"TODO"})
+    output$election_night_shift <- renderText({
+      poll_closing %>%
+        filter(State == state_selection()) %>%
+        pull("Shift.in.results")
+        
+    })
     
     output$performance_v_president <- renderText({
       presidential_margin <- current_data %>% 
@@ -143,15 +148,16 @@ graphServer <- function(input, output, session) {
       dem_upper <- selected_race_data()$dem_votes_upper[1]
       rep_lower <- selected_race_data()$rep_votes_lower[1]
       rep_upper <- selected_race_data()$rep_votes_upper[1]
+      print(glue("{dem_lower}, {dem_upper}, {rep_lower}, {rep_upper}"))
       
-      dem_interval <- ifelse(round(dem_upper - dem_lower, 1) < 0,
-                             glue("<font color=\"#0000FF\">+{round(dem_upper - dem_lower, 1)}</font>"),
-                             glue("<font color=\"#0000FF\">{round(dem_upper - dem_lower, 1)}</font>"))
-      rep_interval <- ifelse(round(rep_upper - rep_lower, 1) < 0,
-                              glue("<font color=\"#FF0000\">+{round(rep_upper - rep_lower, 1)}</font>"),
-                              glue("<font color=\"#FF0000\">{round(rep_upper - rep_lower, 1)}</font>"))
+      best_dem <- ifelse(dem_upper - rep_lower < 0,
+                             glue("R+{-round(100 * (dem_upper - rep_lower) / (dem_upper + rep_lower), 1)}"),
+                             glue("D+{round(100 * (dem_upper - rep_lower) / (dem_upper + rep_lower), 1)}"))
+      best_rep <- ifelse(rep_upper - dem_lower < 0,
+                              glue("D+{round(-100 * (rep_upper - dem_lower) / (rep_upper + dem_lower), 1)}"),
+                              glue("R+{round(100 * (rep_upper - dem_lower) / (rep_upper + dem_lower), 1)}"))
       
-      glue("{dem_interval} - {rep_interval}")
+      glue("{best_rep} - {best_dem}")
     })
     
     output$betting_odds <- renderUI({get_betting_odds(election_type(), state_selection())})
