@@ -15,12 +15,13 @@ source("decision_desk/Dashboard/Dashboard Utilities/DemographicTable.R")
 source("decision_desk/Dashboard/Dashboard Utilities/BettingOdds.R")
 source("decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
 # ------------------------------ DATA INPUT ------------------------------------ #
+
 current_data <- read.csv("cleaned_data/Changing Data/DDHQ_current_race_results.csv")
 historical_data <- read.csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 
 county_names <- read.csv("cleaned_data/FIPS References/county_fips.csv")
 electoral_votes <- read.csv("cleaned_data/ElectoralVotes.csv")
-election_types <- current_data %>% pull("office_type") %>% unique()
+election_types <- current_data %>% pull("office_type") %>% unique() %>% append(., "All", after = 0)
 
 poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
 closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
@@ -33,6 +34,7 @@ closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
 #margin_graph_2020
 #expected_pct_graph_2020
 #24cast_prediction
+# If race type all, change dashboard to race agnostic
 
 # ----------------------------- SERVER 000----------------------------------- #
 graphServer <- function(input, output, session) {
@@ -234,30 +236,37 @@ graphServer <- function(input, output, session) {
     output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
     output$expected_pct_graph_2020 <- renderPlot(previous_time_expected_pct_graphs[[state_selection()]])
     
+    
     # Dropdown logic
+    election_type <- reactive({ input$category_select })
+    state <- reactive({ input$state_select })
     observe({
       filtered_states <- current_data %>%
         pull("state") %>%
-        unique()
-
+        unique() %>%
+        append("All", after = 0)
+      
       updateSelectInput(session, "state_select",
-                        choices = filtered_states)
+                        choices = filtered_states,
+                        selected = "All"
+      )
     })
     
     # Update state dropdown based on the election type
     observeEvent(input$category_select, {
       # Filter states based on the selected election type
       filtered_states <- current_data %>%
-        filter(office_type == input$category_select) %>%
+        filter(office_type == input$category_select | input$category_select == "All") %>%
         pull("state") %>%
-        unique()
+        unique() %>%
+        append("All", after = 0)
       
       # Check if the current state is in the filtered states
       current_state <- input$state_select
       if (current_state %in% filtered_states) {
         selected_state <- current_state  # Keep the current state if it exists in the dropdown
       } else {
-        selected_state <- filtered_states[1]  # Fallback to first available state
+        selected_state <- "All"  # Fallback to "All" if the current state is not in the filtered states
       }
       # Update the state dropdown with the filtered states and maintain or reset the selection
       updateSelectInput(session, "state_select",
@@ -265,7 +274,31 @@ graphServer <- function(input, output, session) {
                         selected = selected_state
       )
     })
-
+    output$selected_time <- renderText({closing_times[input$time_slider]})
+    
+    
+    # Render the filtered elections table
+    output$elections <- renderTable({
+      output$elections <- renderUI({
+        elections <- current_data %>%
+          filter(
+            (input$category_select == "All" | office_type == input$category_select),  # Skip filter if "All"
+            (input$state_select == "All" | state == input$state_select)  # Skip filter if "All"
+          ) %>% mutate(district = suppressWarnings((as.integer(district))))
+        
+        print(elections)
+        if (nrow(elections) == 0) {
+          return(div("No elections match your criteria"))
+        }
+        
+        lapply(1:nrow(elections), function(i) {
+          election <- elections[i, ]
+          div(
+            class = "election-card",
+            actionLink(inputId = paste0("election_", election$race_id), label = glue("{election$office_type} {election$state} - {trunc(election$pct_reporting)}% rep."))          )
+        })
+      })
+    })
 }
 
 # ------------------------------ UI ------------------------------------------ #
@@ -277,26 +310,35 @@ graphOutputUI <- page_sidebar(
       inputId = "category_select",  # Updated to match server
       label = "Election type:",
       choices = election_types,
-      selected = "President"
+      selected = "All"
     ),
     selectInput(
       inputId = "state_select",
       label = "State:",
       choices = NULL,
       selected = NULL
-    ), 
-    layout_columns(
-      col_widths = c(9),
-      div(style = "height:90px;"),
-      card(
-        card_header("Current Electoral Vote Tally"),
-        "TODO"
-      ),
-      card(
-        card_header("Time to next poll close"),
-        textOutput("next_poll_close")
-      )
-    )
+    ),
+    sliderInput( 
+      inputId = "percent_reporting_bounds", 
+      label = "% Reporting:", 
+      min = 0, max = 100, 
+      value = c(30, 70),
+      step = 10
+    ),
+    sliderTextInput(
+      inputId = "poll_closing_bounds",
+      label = "Poll Closing Times:",
+      choices = closing_times,
+      selected = c(closing_times[1], closing_times[length(closing_times)]),
+      grid = TRUE,
+      force_edges = TRUE
+    ),
+    checkboxInput(
+      inputId = "key_races",
+      label = "Key Races Only",
+      value = FALSE
+    ),
+    tableOutput("elections")
   ),
   fluidPage(
     layout_columns(
@@ -363,6 +405,18 @@ graphOutputUI <- page_sidebar(
         uiOutput("election_night_shift")
       ), 
       uiOutput("betting_odds")
+    ),
+    layout_columns(
+      col_widths = c(9),
+      div(style = "height:90px;"),
+      card(
+        card_header("Current Electoral Vote Tally"),
+        "TODO"
+      ),
+      card(
+        card_header("Time to next poll close"),
+        textOutput("next_poll_close")
+      )
     ),
     layout_columns(
       card(
