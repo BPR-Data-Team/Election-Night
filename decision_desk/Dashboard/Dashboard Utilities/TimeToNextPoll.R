@@ -1,7 +1,7 @@
 # THIS FILE CONTAINS HELPER FUNCTIONs FOR DASHBOARD SERVER
 # time_to_next_poll() returns a reactive string %H:%M:%S with time until next poll closure nationally
 
-poll_closures <- read.csv("cleaned_data/PollClosures.csv")
+poll_closures <- read.csv("cleaned_data/Preparatory Data/PollClosures.csv")
 
 time_str_to_num <- function(strin) {
   return(as.numeric(substr(strin, 1, regexpr(":", strin) - 1)) + as.numeric(substr(strin, regexpr(":", strin) + 1, regexpr(":", strin) + 2)) / 60)

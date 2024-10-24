@@ -20,8 +20,8 @@ source("decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
 current_data <- read.csv("cleaned_data/Changing Data/DDHQ_current_race_results.csv")
 historical_data <- read.csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 
-county_names <- read.csv("cleaned_data/FIPS References/county_fips.csv")
-electoral_votes <- read.csv("cleaned_data/ElectoralVotes.csv")
+county_names <- read.csv("cleaned_data/Locally-Hosted Data/FIPS References/county_fips.csv")
+electoral_votes <- read.csv("cleaned_data/Locally-Hosted Data/ElectoralVotes.csv")
 election_types <- current_data %>% pull("office_type") %>% unique() %>% append(., "All", after = 0)
 
 poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
