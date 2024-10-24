@@ -393,10 +393,11 @@ finalized_race_results <- pre_model_race %>%
          ind_votes_pct = 100 * ind_votes / total_votes, 
          green_votes_pct = 100 * green_votes / total_votes, 
          swing = margin_pct - margin_pct_1, 
-         votes_remaining = total_votes_estimate - total_votes) %>%
+         votes_remaining = total_votes_estimate - total_votes) %>% 
   select(office_type, state, district, contains("name"), 
          pct_reporting, dem_votes, rep_votes, ind_votes, green_votes, total_votes, contains("pct"),
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, votes_remaining, contains("estimate"), contains("lower"), 
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, margin_pct_1, margin_votes_1, 
+         margin_pct_2, votes_remaining, contains("estimate"), contains("lower"), 
          contains("upper"), expected_pct_in) %>%
   left_join(this_time_2020, by = c("office_type", "state", "district")) %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
@@ -427,7 +428,8 @@ finalized_county_results <- pre_model_county %>%
   select(office_type, state, county, district, fips, contains("name"), 
          pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, total_votes,
          Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, performance_vs_president, votes_remaining, contains("estimate"), 
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, margin_pct_1, margin_votes_1, 
+         margin_pct_2, margin_votes_2, performance_vs_president, votes_remaining, contains("estimate"), 
          contains("lower"), contains("upper"), expected_pct_in) %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
   
