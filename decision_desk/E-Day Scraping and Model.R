@@ -398,7 +398,7 @@ finalized_race_results <- pre_model_race %>%
          pct_reporting, dem_votes, rep_votes, ind_votes, green_votes, total_votes, contains("pct"),
          margin_votes, margin_pct, pct_absentee, absentee_margin, swing, votes_remaining, contains("estimate"), contains("lower"), 
          contains("upper"), expected_pct_in) %>%
-  left_join(this_time_2020, by = c("office_type", "state", "district"))
+  left_join(this_time_2020, by = c("office_type", "state", "district")) %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
 
 
