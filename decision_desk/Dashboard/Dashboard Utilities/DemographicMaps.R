@@ -96,10 +96,10 @@ get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
   return (graph)
 }
 
-state_abbrev <- "AL"
-demographic_type <- "White"
+#state_abbrev <- "AL"
+#demographic_type <- "White"
 
-get_demographic_graph("~/GitHub/Election-Night", state_abbrev, demographic_type)
+#get_demographic_graph("~/GitHub/Election-Night", state_abbrev, demographic_type)
 
 
 
