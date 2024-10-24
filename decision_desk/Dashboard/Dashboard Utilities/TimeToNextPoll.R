@@ -3,6 +3,10 @@
 
 poll_closures <- read.csv("cleaned_data/PollClosures.csv")
 
+time_str_to_num <- function(strin) {
+  return(as.numeric(substr(strin, 1, regexpr(":", strin) - 1)) + as.numeric(substr(strin, regexpr(":", strin) + 1, regexpr(":", strin) + 2)) / 60)
+}
+
 time_to_next_poll <- function() {
   current_time <- reactive({
     invalidateLater(1000)  # Update every 1 second (1000 milliseconds)
