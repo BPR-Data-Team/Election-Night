@@ -7,7 +7,7 @@ library(glue)
 
 county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv")
 
-#This is code to get a nicely-labeled 
+# This is code to get a nicely-labeled hover box
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                       Republican_votes_percent, Democratic_votes_percent, pct_reporting) {
   # Extract last names
@@ -73,28 +73,231 @@ get_label_votes_remaining <- function(NAME, total_votes_estimate, total_votes_lo
   )
 }
 
-
-
-get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
+# Map makers 
+get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
-
+  
   geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  
+  #---- COLOR BINS ------
+  # Define custom bins for swing values
+  bins <- c(-Inf, -15, 0, 15, Inf)
+  
+  # Define corresponding colors
+  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+  
+  geo_data <- st_read(geojson_link) %>% 
+    left_join(current_data, by = c("COUNTYFP" = "fips"))
+  
+  if (year == 2024) {
+    pal <- colorBin(
+      palette = colors,
+      bins = bins,
+      domain = geo_data$margin_pct,
+      na.color = "black"
+    )
+    
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
+      addPolygons(
+        fillColor = ~pal(margin_pct),
+        color = "black",
+        label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
+                                  Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7,
+        highlightOptions = highlightOptions(
+          weight = 2,
+          color = "#666",
+          fillOpacity = 0.7,
+          bringToFront = TRUE
+        )
+      )
+        
+  } else if (year == 2020) {
+    pal <- colorBin(
+      palette = colors,
+      bins = bins,
+      domain = geo_data$margin_pct_1,
+      na.color = "black"
+    )
+    
+    prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
+    prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
+    prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
+    prev_dem_pct <- prev_dem_votes / prev_total_votes
+    prev_rep_pct <- prev_rep_votes / prev_total_votes
+    
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
+      addPolygons(
+        fillColor = ~pal(margin_pct),
+        color = "black",
+        label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
+                                  prev_rep_pct, prev_dem_pct, "100%"), htmltools::HTML),  # Convert HTML for the popup
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7,
+        highlightOptions = highlightOptions(
+          weight = 2,
+          color = "#666",
+          fillOpacity = 0.7,
+          bringToFront = TRUE
+        )
+      )
+    
+  } else {
+    stop("Invalid year for get_margin_map")
+  }
+  
+  return(graph)
+}
 
+get_margin_bubble_map <- function(BASEPATH, year, state_abbrev, office) {
+  current_data <- county_data %>%
+    filter(state == state_abbrev & office_type == office)
+  
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
-  if (!(map_type %in% c("swing", "margin", "margin_bubble", "votes_left"))) {
-    stop("Cannot create map of given type")
+  geo_data_centroids <- st_centroid(geo_data)
+
+  # Define custom bins for swing values
+  bins <- c(-Inf, -15, 0, 15, Inf)
+  
+  # Define corresponding colors
+  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+  
+  if (year == 2024) {
+    pal <- colorBin(
+      palette = colors,
+      bins = bins,
+      domain = geo_data$margin_pct,
+      na.color = "black"
+    )
+    
+    max_votes <- max(abs(geo_data_centroids$margin_votes))
+    
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
+      addCircleMarkers(
+        data = geo_data_centroids,
+        fillColor = ~pal(margin_votes), 
+        color = "black",
+        radius = ~ 25 * abs(margin_votes / max_votes),
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7
+      ) %>%
+      addPolygons(
+        data = geo_data,
+        weight = 1,
+        color = "grey",
+        fillColor = "white",
+        opacity = 1,
+        fillOpacity = 0,
+        label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
+                                  Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
+      )
+    
+  } else if (year == 2020) {
+    pal <- colorBin(
+      palette = colors,
+      bins = bins,
+      domain = geo_data$margin_pct_1,
+      na.color = "black"
+    )
+    
+    max_votes <- max(abs(geo_data_centroids$margin_votes_1))
+    
+    prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
+    prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
+    prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
+    prev_dem_pct <- prev_dem_votes / prev_total_votes
+    prev_rep_pct <- prev_rep_votes / prev_total_votes
+    
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
+      addCircleMarkers(
+        data = geo_data_centroids,
+        fillColor = ~pal(margin_votes_1), 
+        color = "black",
+        radius = ~ 25 * abs(margin_votes_1 / max_votes),
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7
+      ) %>%
+      addPolygons(
+        data = geo_data,
+        weight = 1,
+        color = "grey",
+        fillColor = "white",
+        opacity = 1,
+        fillOpacity = 0,
+        label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
+                                  prev_rep_pct, prev_dem_pct, "100%"), htmltools::HTML),  # Convert HTML for the popup
+      )
+    
+  } else {
+    stop("Invalid year for get_margin_bubble_map")
+  }
+    
+  return(graph)
   }
   
-  if (map_type == "swing") {
-    #---- COLOR BINS ------
-    # Define custom bins for swing values
-    bins <- c(-Inf, -15, 0, 15, Inf)
-    
-    # Define corresponding colors
-    colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+get_presidential_swing_map <- function(BASEPATH, year, state_abbrev, office) {
+  current_data <- county_data %>%
+    filter(state == state_abbrev & office_type == office)
+  
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  
+  geo_data <- st_read(geojson_link) %>%
+    left_join(current_data, by = c("COUNTYFP" = "fips"))
+  
+  #---- COLOR BINS ------
+  # Define custom bins for swing values
+  bins <- c(-Inf, -15, 0, 15, Inf)
+  
+  # Define corresponding colors
+  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+  
+  if (year == 2024) {
     pal <- colorBin(
       palette = colors,
       bins = bins,
@@ -126,23 +329,16 @@ get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
         ),
         label = ~glue("{NAME} swing: {ifelse(swing > 0, 'D+', 'R+')}{abs(round(swing, 1))}")
       ) 
-  }
-  
-  if (map_type == "margin") {
-    #---- COLOR BINS ------
-    # Define custom bins for swing values
-    bins <- c(-Inf, -15, 0, 15, Inf)
     
-    # Define corresponding colors
-    colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+  } else if (year == 2020) {
+    prev_swing <- geo_data$margin_pct_1 - geo_data$margin_pct_2
+    
     pal <- colorBin(
       palette = colors,
       bins = bins,
-      domain = geo_data$margin_pct,
+      domain = prev_swing,
       na.color = "black"
     )
-    
-    
     
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
@@ -155,10 +351,8 @@ get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
-        fillColor = ~pal(margin_pct),
+        fillColor = ~pal(prev_swing),
         color = "black",
-        label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                                 Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
         weight = 1,
         opacity = 1,
         fillOpacity = 0.7,
@@ -167,111 +361,67 @@ get_graph <- function(state_abbrev, office, map_type, BASEPATH) {
           color = "#666",
           fillOpacity = 0.7,
           bringToFront = TRUE
-        )
+        ),
+        label = ~glue("{NAME} swing: {ifelse(prev_swing > 0, 'D+', 'R+')}{abs(round(prev_swing, 1))}")
       ) 
     
+  } else {
+    stop("Invalid year for presidential_swing_map")
   }
-  
-  if (map_type == "margin_bubble") {
-    geo_data_centroids <- st_centroid(geo_data)
-
-    # Define custom bins for swing values
-    bins <- c(-Inf, -15, 0, 15, Inf)
-    
-    # Define corresponding colors
-    colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = geo_data$margin_pct,
-      na.color = "black"
-    )
-    
-    max_votes <- max(abs(geo_data_centroids$margin_votes))
-
-    graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
-      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
-      setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
-      addCircleMarkers(
-        data = geo_data_centroids,
-        fillColor = ~pal(margin_votes), 
-        color = "black",
-        radius = ~ 25 * abs(margin_votes / max_votes),
-        weight = 1,
-        opacity = 1,
-        fillOpacity = 0.7
-      ) %>%
-      addPolygons(
-        data = geo_data,
-        weight = 1,
-        color = "grey",
-        fillColor = "white",
-        opacity = 1,
-        fillOpacity = 0,
-        label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                                  Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
-      ) 
-      
-  }
-  
-  if (map_type == "votes_left") {
-    geo_data_centroids <- st_centroid(geo_data)
-    # Define custom bins for swing values
-    bins <- c(-Inf, -15, 0, 15, Inf)
-    
-    # Define corresponding colors
-    colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = geo_data$margin_pct,
-      na.color = "black"
-    )
-
-    graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
-      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
-      setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
-      addCircleMarkers(
-        data = geo_data_centroids,
-        fillColor = ~pal(margin_votes),
-        color = "black",
-        radius = ~ ifelse(votes_remaining <= 0, 0, sqrt(votes_remaining) / 10),
-        weight = 1,
-        opacity = 1,
-        fillOpacity = 0.7
-      ) %>%
-      addPolygons(
-        data = geo_data,
-        weight = 1,
-        color = "grey",
-        fillColor = "white",
-        opacity = 1,
-        fillOpacity = 0,
-        label = ~lapply(get_label_votes_remaining(NAME, total_votes, total_votes_lower, total_votes_upper, 
-                                                  margin_pct, margin_lower, margin_upper), htmltools::HTML),  # Convert HTML for the popup
-      )
-  }
-
-  return (graph)
-  
 }
-
-state <- "OR"
-office_type_check <- "President"
-map_version <- "votes_left"
-
-get_graph(state, office_type_check, map_version, getwd())
+  
+get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
+  current_data <- county_data %>%
+    filter(state == state_abbrev & office_type == office)
+  
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  
+  geo_data <- st_read(geojson_link) %>%
+    left_join(current_data, by = c("COUNTYFP" = "fips"))
+  
+  geo_data_centroids <- st_centroid(geo_data)
+  # Define custom bins for swing values
+  bins <- c(-Inf, -15, 0, 15, Inf)
+  
+  # Define corresponding colors
+  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+  
+  pal <- colorBin(
+    palette = colors,
+    bins = bins,
+    domain = geo_data$margin_pct,
+    na.color = "black"
+  )
+  
+  graph <- leaflet(geo_data, options = leafletOptions(
+    attributionControl = FALSE, 
+    zoomControl = FALSE,
+    dragging = FALSE,
+    scrollWheelZoom = FALSE,
+    doubleClickZoom = FALSE,
+    boxZoom = FALSE,
+    touchZoom = FALSE)) %>%
+    #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+    setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
+    addCircleMarkers(
+      data = geo_data_centroids,
+      fillColor = ~pal(margin_votes),
+      color = "black",
+      radius = ~ ifelse(votes_remaining <= 0, 0, sqrt(votes_remaining) / 10),
+      weight = 1,
+      opacity = 1,
+      fillOpacity = 0.7
+    ) %>%
+    addPolygons(
+      data = geo_data,
+      weight = 1,
+      color = "grey",
+      fillColor = "white",
+      opacity = 1,
+      fillOpacity = 0,
+      label = ~lapply(get_label_votes_remaining(NAME, total_votes, total_votes_lower, total_votes_upper, 
+                                                margin_pct, margin_lower, margin_upper), htmltools::HTML),  # Convert HTML for the popup
+    )
+  
+  return (graph)
+}

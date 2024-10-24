@@ -12,7 +12,7 @@ transfer_names <- read_csv("cleaned_data/Locally-Hosted Data/Demographic_Name_Tr
 demographic_data <- read_csv("cleaned_data/Locally-Hosted Data/CountyDems2022.csv") %>%
   mutate(fips = str_sub(Geography, start = -3))
 
-get_demographic_graph <- function(state_abbrev, demographic_type) {
+get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
   county_dems_data <- demographic_data %>%
     filter(state == state_abbrev)
   
@@ -96,10 +96,10 @@ get_demographic_graph <- function(state_abbrev, demographic_type) {
   return (graph)
 }
 
-state_abbrev <- "AL"
-demographic_type <- "Income"
+#state_abbrev <- "AL"
+#demographic_type <- "White"
 
-get_demographic_graph(state_abbrev, demographic_type)
+#get_demographic_graph("~/GitHub/Election-Night", state_abbrev, demographic_type)
 
 
 
