@@ -7,7 +7,7 @@ library(leaflet)
 BASEPATH <- ifelse(Sys.getenv("ElectionNightPath") == "", 
                    "~/GitHub/Election-Night", 
                    Sys.getenv("ElectionNightPath"))
-
+#BASEPATH <- "~/Documents/Atom/Election-Night"
 setwd(BASEPATH)
 
 source("decision_desk/Dashboard/Dashboard Utilities/Plotting.R")
@@ -311,7 +311,6 @@ graphServer <- function(input, output, session) {
 graphOutputUI <- page_sidebar(
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebar =  sidebar(
-    title = "Graph controls",
     selectInput(
       inputId = "category_select",  # Updated to match server
       label = "Election type:",
