@@ -5,9 +5,6 @@ library(glue)
 library(httr)
 library(furrr)
 
-past_exit_polls <- read_csv("cleaned_data/Locally-Hosted Data/CNN_exit_polls_2020.csv") %>%
-  mutate(year = 2020)
-
 #Originally, we replaced this with 2020 and had all 2020 exit polls -- but now we'll be using this with 2024 data as well!
 get_exit_polls <- function(abbrev, election_type) {
   url <- glue("https://politics.data.api.cnn.io/results/exit-poll/2024-{election_type}G-XPOLLS-{abbrev}.json")
@@ -56,7 +53,6 @@ exit_poll_list <- expand_grid(!!!factors_to_fetch) %>%
   rowwise() %>%
   pmap(~get_exit_polls(..1, ..2), .progress = TRUE)
 
-exit_polls_df <- bind_rows(exit_poll_list) %>%
-  bind_rows(past_exit_polls)
+exit_polls_df <- bind_rows(exit_poll_list)
 
-write.csv(exit_polls_df, "cleaned_data/Changing Data/CNN_exit_polls_all.csv")
+write.csv(exit_polls_df, "cleaned_data/Changing Data/CNN_exit_polls_2024.csv")
