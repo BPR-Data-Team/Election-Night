@@ -15,6 +15,16 @@ past_county_data <- read_csv("cleaned_data/Locally-Hosted Data/historical_county
          district = as.character(district)) %>% 
   select(-county)
 
+when_to_expect_results <- read_csv("cleaned_data/Locally-Hosted Data/When_to_expect_results.csv") %>%
+  select(Abbreviate, District, Office_type, `When to call`, `Race to watch`, `Last Poll Close`) %>%
+  rename(state = Abbreviate, 
+         district = District, 
+         office_type = Office_type, 
+         when_to_call = `When to call`, 
+         poll_close = `Last Poll Close`,
+         race_to_watch = `Race to watch`) %>%
+  mutate(race_to_watch = replace_na(race_to_watch, FALSE))
+
 past_race_data <- read_csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 
 county_demographics <- read_csv("cleaned_data/Locally-Hosted Data/CountyDems2022.csv") %>%
@@ -400,7 +410,8 @@ finalized_race_results <- pre_model_race %>%
          margin_pct_2, votes_remaining, contains("estimate"), contains("lower"), 
          contains("upper"), expected_pct_in) %>%
   left_join(this_time_2020, by = c("office_type", "state", "district")) %>%
-  mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
+  mutate(across(votes_remaining:expected_pct_in, ~ round(., 0))) %>%
+  left_join(when_to_expect_results, by = c("office_type", "state", "district"))
 
 
 #Connecticut has weird townships, so we need to combine all results into one "county", which is the entire state
