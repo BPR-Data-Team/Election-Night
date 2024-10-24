@@ -1,0 +1,13 @@
+# ----------------------------- TODO ---------------------------------------- #
+(MILAN)
+- If race type all, change dashboard to race agnostic
+- electoral vote tally
+- scrape NYT needle
+- president_senate_swing_map_24to24
+- president_senate_swing_map_16to18
+- president_governor_swing_map_24to24
+- president_governor_swing_map_20to20
+
+(ASHER)
+- Early voting partisanship map
+- fix age and college demographic maps
