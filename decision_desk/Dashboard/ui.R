@@ -4,11 +4,6 @@ library(bslib)
 library(ggplot2)
 library(leaflet)
 
-BASEPATH <- ifelse(Sys.getenv("ElectionNightPath") == "", 
-                   "~/GitHub/Election-Night", 
-                   Sys.getenv("ElectionNightPath"))
-setwd(BASEPATH)
-
 source("decision_desk/Dashboard/Dashboard Utilities/Plotting.R")
 source("decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
 source("decision_desk/Dashboard/Dashboard Utilities/DemographicTable.R")
@@ -19,8 +14,8 @@ source("decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
 current_data <- read.csv("cleaned_data/Changing Data/DDHQ_current_race_results.csv")
 historical_data <- read.csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 
-county_names <- read.csv("cleaned_data/FIPS References/county_fips.csv")
-electoral_votes <- read.csv("cleaned_data/ElectoralVotes.csv")
+county_names <- read.csv("cleaned_data/Locally-Hosted Data/FIPS References/county_fips.csv")
+electoral_votes <- read.csv("cleaned_data/Locally-Hosted Data/ElectoralVotes.csv")
 election_types <- current_data %>% pull("office_type") %>% unique() %>% append(., "All", after = 0)
 
 poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
@@ -38,7 +33,7 @@ closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
 
 
 # ------------------------------ UI ------------------------------------------ #
-graphOutputUI <- page_sidebar(
+ui <- page_sidebar(
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebar =  sidebar(
     title = "Graph controls",

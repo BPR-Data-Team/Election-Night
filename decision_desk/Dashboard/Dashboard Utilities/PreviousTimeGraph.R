@@ -2,7 +2,7 @@ library(tidyverse)
 library(ggplot2)
 library(plotly)
  
-time_2020 <- read_csv("cleaned_data/Locally-Hosted Data/Same_Time_2020.csv") %>%
+time_2020 <- read_csv("cleaned_data/Locally-Hosted Data/Same_Time_2020.csv", show_col_types = FALSE) %>%
   mutate(timestamp = with_tz(timestamp, tzone = "EST"))
 
 

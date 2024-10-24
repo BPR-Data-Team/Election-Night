@@ -5,11 +5,11 @@ library(RColorBrewer)  # For color palettes
 library(sf)
 library(glue)
 
-county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv")
+county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
 
-transfer_names <- read_csv("cleaned_data/Locally-Hosted Data/Demographic_Name_Transfers.csv") 
+transfer_names <- read_csv("cleaned_data/Locally-Hosted Data/Demographic_Name_Transfers.csv", show_col_types = FALSE) 
 
-demographic_data <- read_csv("cleaned_data/Locally-Hosted Data/CountyDems2022.csv") %>%
+demographic_data <- read_csv("cleaned_data/Locally-Hosted Data/CountyDems2022.csv", show_col_types = FALSE) %>%
   mutate(fips = str_sub(Geography, start = -3))
 
 get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {

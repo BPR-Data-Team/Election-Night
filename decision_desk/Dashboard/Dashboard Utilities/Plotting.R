@@ -5,7 +5,7 @@ library(RColorBrewer)  # For color palettes
 library(sf)
 library(glue)
 
-county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv")
+county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
 
 # This is code to get a nicely-labeled hover box
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
