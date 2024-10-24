@@ -33,7 +33,8 @@ this_time_2020 <- read_csv("cleaned_data/Locally-Hosted Data/Same_Time_2020.csv"
   group_by(office_type, state, district) %>%
   filter(timestamp == max(timestamp)) %>%
   ungroup() %>%
-  select(office_type, district, state, margin_same_time, eevp_same_time, votes_same_time)
+  select(office_type, district, state, margin_same_time, eevp_same_time, votes_same_time) %>%
+  unique()
 
 maine_townships_counties <- read_csv("cleaned_data/Locally-Hosted Data/Maine_Townships_to_Counties.csv") %>%
   mutate(fips = sprintf("%03d", fips))
@@ -397,7 +398,7 @@ finalized_race_results <- pre_model_race %>%
          pct_reporting, dem_votes, rep_votes, ind_votes, green_votes, total_votes, contains("pct"),
          margin_votes, margin_pct, pct_absentee, absentee_margin, swing, votes_remaining, contains("estimate"), contains("lower"), 
          contains("upper"), expected_pct_in) %>%
-  left_join(this_time_2020, by = c("office_type", "state", "district")) %>%
+  left_join(this_time_2020, by = c("office_type", "state", "district"))
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
 
 
