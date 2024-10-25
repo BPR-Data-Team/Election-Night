@@ -34,6 +34,7 @@ closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
 
 # ------------------------------ UI ------------------------------------------ #
 ui <- page_sidebar(
+  window_title = "24cast.org Election Day Dashboard",
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebar =  sidebar(
     title = "Graph controls",
