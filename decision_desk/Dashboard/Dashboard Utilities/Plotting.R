@@ -135,8 +135,8 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
     prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
     prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
     prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
-    prev_dem_pct <- prev_dem_votes / prev_total_votes
-    prev_rep_pct <- prev_rep_votes / prev_total_votes
+    prev_dem_pct <- 100 * prev_dem_votes / prev_total_votes
+    prev_rep_pct <- 100 * prev_rep_votes / prev_total_votes
     
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
@@ -149,7 +149,7 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
-        fillColor = ~pal(margin_pct),
+        fillColor = ~pal(margin_pct_1),
         color = "black",
         label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
                                   prev_rep_pct, prev_dem_pct, "100%"), htmltools::HTML),  # Convert HTML for the popup
