@@ -27,11 +27,7 @@ when_to_expect_results <- read_csv("cleaned_data/Locally-Hosted Data/When_to_exp
 
 past_race_data <- read_csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 
-county_demographics <- read_csv("cleaned_data/Locally-Hosted Data/CountyDems2022.csv") %>%
-  mutate(fips = str_sub(Geography, -3), 
-         across(where(is.numeric), ~ as.vector(scale(.)))) %>%
-  select(state, fips, where(is.numeric)) %>%
-  select(-proportion_other)
+county_demographics <- read_csv("cleaned_data/Locally-Hosted Data/County_Demographics.csv")
 
 this_time_2020 <- read_csv("cleaned_data/Locally-Hosted Data/Same_Time_2020.csv") %>%
   mutate(office_type = "President", 
@@ -283,7 +279,7 @@ live_data <- pre_model_county %>%
 
 county_and_dems <- live_data %>%
   left_join(county_demographics, by = c("fips", "state")) %>%
-  filter(!is.na(median_income) & !is.na(total_pop))
+  filter(!is.na(total_population))
 
 ###### WE RUN THREE DIFFERENT MODELS -- ONE FOR TOTAL TURNOUT, ONE FOR DEMS/REP #####
 # Predicting vote shares
@@ -294,7 +290,7 @@ finished_counties <- county_and_dems %>%
     vote_differential = log(total_votes / total_votes_2020), 
     margin_differential = 100 * (((dem_votes - rep_votes) / total_votes) - ((dem_votes_2020 - rep_votes_2020) / total_votes_2020))
   ) %>%
-  select(vote_differential, margin_differential, total_pop:proportion_bachelors_degree_over_25)
+  select(vote_differential, margin_differential, total_population:proportion_less_than_hs_asian)
 
 
 #Usual conformal prediction guarantees that 95% of COUNTIES are within the prediction, 
@@ -344,8 +340,8 @@ model_estimates <- county_and_dems %>%
   filter(pct_reporting != 100) %>%
   mutate(
     # Predictions
-    vote_pred = predict(vote_model, newdata = select(., total_pop:proportion_bachelors_degree_over_25)),
-    margin_pred = predict(margin_model, newdata = select(., total_pop:proportion_bachelors_degree_over_25)),
+    vote_pred = predict(vote_model, newdata = select(., total_population:proportion_less_than_hs_asian)),
+    margin_pred = predict(margin_model, newdata = select(., total_population:proportion_less_than_hs_asian)),
     
     # Conformal prediction intervals for margins
     margin_estimate = margin_pred + 100 * (dem_votes_2020 - rep_votes_2020) / total_votes_2020, 

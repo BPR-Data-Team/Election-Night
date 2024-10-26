@@ -9,8 +9,7 @@ county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.
 
 transfer_names <- read_csv("cleaned_data/Locally-Hosted Data/Demographic_Name_Transfers.csv", show_col_types = FALSE) 
 
-demographic_data <- read_csv("cleaned_data/Locally-Hosted Data/CountyDems2022.csv", show_col_types = FALSE) %>%
-  mutate(fips = str_sub(Geography, start = -3))
+demographic_data <- read_csv("cleaned_data/Locally-Hosted Data/County_Demographics.csv", show_col_types = FALSE) 
 
 get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
   county_dems_data <- demographic_data %>%
@@ -96,10 +95,10 @@ get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
   return (graph)
 }
 
-#state_abbrev <- "AL"
-#demographic_type <- "White"
+state_abbrev <- "AL"
+demographic_type <- "Income"
 
-#get_demographic_graph("~/GitHub/Election-Night", state_abbrev, demographic_type)
+get_demographic_graph(getwd(), state_abbrev, demographic_type)
 
 
 

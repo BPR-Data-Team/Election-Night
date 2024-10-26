@@ -228,11 +228,8 @@ server <- function(input, output, session) {
     output$white_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White")})
     output$black_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Black")})
     output$hispanic_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Hispanic")})
-    output$college_educated_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "College")})
     output$median_income_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Income")})
-    output$median_age_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Age")})
     output$white_college_educated_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White College")})
-    output$white_non_college_educated_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White Non-College")})
   })
   
   

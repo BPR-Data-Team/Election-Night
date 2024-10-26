@@ -7,7 +7,7 @@ library(furrr)
 
 #----- PRESIDENTIAL HISTORICAL ------
 #Presidential 2020 comes from NYT Data
-pres_2020 <- read_csv("cleaned_data/President by Precinct/NYT_2020_Pres.csv")
+pres_2020 <- read_csv("cleaned_data/Preparatory Data/President by Precinct/NYT_2020_Pres.csv")
 
 #Treating all of alaska as one county, I guess?
 alaska_2020 <- pres_2020 %>% 
@@ -23,7 +23,7 @@ pres_2020 <- pres_2020 %>%
   filter(state != "AK") %>% 
   bind_rows(alaska_2020)
 
-pres_2016 <- read_csv("cleaned_data/President by Precinct/2016 git data.csv") %>%
+pres_2016 <- read_csv("cleaned_data/Preparatory Data/President by Precinct/2016 git data.csv") %>%
   mutate(margin_votes_2 = democrat_votes - republican_votes , 
          margin_pct_2 = 100*(democrat_votes - republican_votes)/total_votes, 
          fips = str_sub(as.character(fips), -3), 
@@ -43,7 +43,7 @@ pres_county <- pres_2020 %>%
 
 
 #------ SENATE HISTORICAL -------
-senate_2012 <- read_csv("cleaned_data/Senate by Precinct/2018 Senate.csv") %>%
+senate_2012 <- read_csv("cleaned_data/Preparatory Data/Senate by Precinct/2018 Senate.csv") %>%
   select(office_type, state, county, district, fips, margin_votes, margin_percent) %>% 
   rename(margin_votes_2 = margin_votes, margin_pct_2 = margin_percent) %>% 
   rowwise() %>%
@@ -58,7 +58,7 @@ senate_2012 <- read_csv("cleaned_data/Senate by Precinct/2018 Senate.csv") %>%
     margin_pct_2 = c(-8.9, 30.4, 25.5, 43.5)
   ))
 
-senate_2018 <- read_csv("cleaned_data/Senate by Precinct/2012 Senate.csv") %>%
+senate_2018 <- read_csv("cleaned_data/Preparatory Data/Senate by Precinct/2012 Senate.csv") %>%
   select(office_type, state, county, district, fips, margin_votes, margin_percent) %>% 
   rename(margin_votes_1 = margin_votes, margin_pct_1 = margin_percent) %>%
   rowwise() %>%
@@ -73,7 +73,21 @@ senate_county <- senate_2018 %>%
 
 
 #----- GOVERNOR HISTORICAL ------
+gov_2020 <- read_csv("cleaned_data/Preparatory Data/Gubernatorial by Precinct/2020 Gubernatorial.csv") %>%
+  mutate(fips = str_sub(fips, -3)) %>% 
+  select(office_type, state, county, district, fips, margin_votes, margin_percent) %>%
+  rename(margin_votes_1 = margin_votes, 
+         margin_pct_1 = margin_percent)
 
+gov_2016 <- read_csv("cleaned_data/Preparatory Data/Gubernatorial by Precinct/2016 Gubernatorial.csv") %>%
+  mutate(fips = str_sub(fips, -3)) %>% 
+  select(office_type, state, district, fips, margin_votes, margin_percent) %>%
+  rename(margin_votes_2 = margin_votes, 
+         margin_pct_2 = margin_percent)
+
+gov_county <- gov_2020 %>%
+  full_join(gov_2016, by = c("office_type", "district", "state", "fips")) %>%
+  filter(state != "OR") #Oregon had special election in 2016, none this year
 
 #----- HOUSE HISTORICAL -----
 house_2022 <- read_csv("data/HouseHistory.csv") %>%
@@ -89,10 +103,10 @@ house_2022 <- read_csv("data/HouseHistory.csv") %>%
     select(state, office_type, district, margin_pct_1, margin_votes_1) 
 
 
-
 #Finishing up past county values
 historical_counties <- pres_county %>% 
   bind_rows(senate_county) %>%
+  bind_rows(gov_county) %>%
   mutate(county = str_remove(county, " County")) %>%
   filter(!str_detect(county, "[c|C]ity"))
 

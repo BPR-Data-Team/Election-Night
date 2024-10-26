@@ -1,7 +1,6 @@
 name_nice,variable_name
-White,proportion_white
+White,proportion_white_notHispanic
 Black,proportion_black
-Hispanic,proportion_hispanic_latino
-Income,median_income
-White College,proportion_white_college
-White Non-College,proportion_white_noncollege
+Hispanic,proportion_hispanicOrLatino
+Income,median_household_income
+White College,proportion_bachelorsDegreeOrHigher_white_notHispanic
