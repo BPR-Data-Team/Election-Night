@@ -135,7 +135,7 @@ ui <- page_sidebar(
         card_header("Expected election night shift"),
         uiOutput("election_night_shift")
       ), 
-      uiOutput("betting_odds")
+      card(uiOutput("betting_odds"), full_screen = FALSE)
     ),
     layout_columns(
       card(
