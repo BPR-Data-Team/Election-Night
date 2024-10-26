@@ -242,11 +242,8 @@ ui <- page_sidebar(
                     choices = list("White %" = "white", 
                                    "Black %" = "black", 
                                    "Hispanic %" = "hispanic",
-                                   "College educated %" = "college",
                                    "Median income" = "income",
-                                   "Median age" = "age",
-                                   "White college %" = "white_college",
-                                   "White non-college %" = "white_non_college"),
+                                   "White college %" = "white_college"),
                     selected = "white"),
         conditionalPanel(
           condition = "input.BR_map_select == 'white'",
@@ -261,24 +258,12 @@ ui <- page_sidebar(
           leafletOutput("hispanic_demographics_map")
         ),
         conditionalPanel(
-          condition = "input.BR_map_select == 'college'",
-          leafletOutput("college_educated_demographics_map")
-        ),
-        conditionalPanel(
           condition = "input.BR_map_select == 'income'",
           leafletOutput("median_income_demographics_map")
         ),
         conditionalPanel(
-          condition = "input.BR_map_select == 'age'",
-          leafletOutput("median_age_demographics_map")
-        ),
-        conditionalPanel(
           condition = "input.BR_map_select == 'white_college'",
           leafletOutput("white_college_educated_demographics_map")
-        ),
-        conditionalPanel(
-          condition = "input.BR_map_select == 'white_non_college'",
-          leafletOutput("white_non_college_educated_demographics_map")
         )
       )
     ),
