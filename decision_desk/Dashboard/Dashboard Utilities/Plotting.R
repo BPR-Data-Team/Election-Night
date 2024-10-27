@@ -92,9 +92,7 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
   
-  geojson_link <- if (is.na(state_abbrev)) {
-    glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  }
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
   
   geo_data <- st_read(geojson_link) %>% 
     left_join(current_data, by = c("COUNTYFP" = "fips"))
@@ -172,9 +170,7 @@ get_margin_bubble_map <- function(BASEPATH, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
   
-  geojson_link <- if (is.na(state_abbrev)) {
-    glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  }
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
   
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
@@ -266,9 +262,7 @@ get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
   
-  geojson_link <- if (is.na(state_abbrev)) {
-    glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  }
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
   
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
@@ -343,9 +337,7 @@ get_swing_map <- function(BASEPATH, state_abbrev, office_1, office_2, year_1, ye
   full_data <- full_join(data_1, data_2, by = 'fips') %>%
     mutate(swing = margin_1 - margin_2)
 
-  geojson_link <- if (!is.na(state_abbrev)) {
-    glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  } 
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
   
   geo_data <- st_read(geojson_link) %>%
     left_join(full_data, by = c("COUNTYFP" = "fips"))

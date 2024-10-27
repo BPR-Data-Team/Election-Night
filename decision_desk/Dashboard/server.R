@@ -26,6 +26,8 @@ election_types <- current_data %>% pull("office_type") %>% unique() %>% append(.
 poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
 closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
 
+exit_poll_data <- read.csv("cleaned_data/Changing Data/CNN_exit_polls_all.csv")
+
 # ------------------------------ SERVER ------------------------------------- #
 
 server <- function(input, output, session) {
@@ -208,6 +210,25 @@ server <- function(input, output, session) {
       rename(" " = "V1")
   })
   
+  # Exit Polls
+  observeEvent(input$exit_poll_selector, {
+    output$exit_poll_table <- renderTable({
+      get_exit_poll_table(exit_poll_data, 
+                          input$exit_poll_year, 
+                          state_selection(), 
+                          election_type(), 
+                          input$exit_poll_selector) 
+    })
+    
+    output$exit_poll_expectation <- renderTable({
+      get_exit_poll_expectation(exit_poll_data, 
+                                input$exit_poll_year, 
+                                state_selection(), 
+                                election_type(), 
+                                input$exit_poll_selector) 
+    })
+  })
+  
   # Maps 
   output$map_menu_header <- renderText({input$selected_map})
   
@@ -256,20 +277,6 @@ server <- function(input, output, session) {
   #                     selected = paste("swing_map_{input$swing_year}")
   #   )
   # })
-  
-  
-  # Polls 
-  observeEvent(input$exit_poll_selector, {
-    exit_poll_year_choices <- get_exit_poll_year_choices(exit_poll_data, state_selection(), election_type(), input$exit_poll_selector)
-    
-    updateSelectInput(session, "exit_poll_year",
-                      choices = exit_poll_year_choices,
-                      selected = exit_poll_year_choices)
-                      
-    output$exit_poll_table <- renderTable({
-      get_exit_poll_table(exit_poll_data, input$exit_poll_year, state_selection(), election_type(), input$exit_poll_selector)
-    })
-  })
   
   # Graphs 
   output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])

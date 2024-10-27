@@ -12,8 +12,8 @@ get_betting_odds <- function(election_type, selected_state) {
   return(tags$iframe(
     src = base_url,
     width = "400",
-    height = "120",
-    frameBorder = "1"
+    height = "100",
+    frameBorder = "0"
   ))
 }
 

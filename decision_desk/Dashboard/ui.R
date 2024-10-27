@@ -267,21 +267,25 @@ ui <- page_sidebar(
       )
     ),
     card(
-      full_screen = FALSE, 
+      fill = TRUE,
       card_header("Exit Poll Explorer"),
-      selectInput("exit_poll_selector", label = NULL,
-                  choices = list("Age" = "age",
-                                 "Area Type" = "area",
-                                 "Education" = "education",
-                                 "Gender" = "gender", 
-                                 "Income" = "income",
-                                 "Race" = "race",
-                                 "Region" = "region"), 
-                  selected = "age"),
-      selectInput("exit_poll_year", label = NULL,
-                  choices = NULL, 
-                  selected = NULL),
-      tableOutput("exit_poll_table")
+      selectInput("exit_poll_selector", label = "Poll question",
+                  choices = list("Age" = "Age",
+                                 "Area Type" = "Area type",
+                                 "Education" = "Education",
+                                 "Gender" = "Gender",
+                                 "Income" = "Income",
+                                 "Race" = "Race",
+                                 "Region" = "Region"),
+                  selected = "Age"),
+      
+      selectInput("exit_poll_year", label = "Year",
+                  choices = c("2020", "2024"),
+                  selected = "2020"),
+
+      
+      tableOutput("exit_poll_table"),
+      tableOutput("exit_poll_expectation")
     ),
     layout_columns(
       card(
