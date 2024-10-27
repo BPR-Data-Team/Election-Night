@@ -4,10 +4,10 @@ library(leaflet.extras)
 library(RColorBrewer)  # For color palettes
 library(sf)
 library(glue)
+library(shinyWidgets)
+library(bslib)
 
 county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
-
-#--- CREATING PALETTE FOR MARGINS, USED THROUGHOUT THIS FILE!
 
 #---- COLOR BINS ------
 # Define custom bins for swing values
@@ -19,6 +19,7 @@ pal <- colorBin(palette = colors,
                 bins = bins,
                 domain = c(-100, 0, 100),
                 na.color = "black")
+
 
 # This is code to get a nicely-labeled hover box
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
@@ -158,6 +159,7 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
       
         
   } else if (year == 2020) {
+    
     prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
     prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
     prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
@@ -270,6 +272,7 @@ get_margin_bubble_map <- function(BASEPATH, year, state_abbrev, office) {
       )
     
   } else if (year == 2020) {
+    
     max_votes <- max(abs(geo_data_centroids$margin_votes_1))
     
     prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
@@ -309,81 +312,12 @@ get_margin_bubble_map <- function(BASEPATH, year, state_abbrev, office) {
       )
     
   } else {
-    stop("Invalid year for get_margin_bubble_map")
+    warning("Invalid year for get_margin_bubble_map")
   }
     
   return(graph)
   }
-  
-get_presidential_swing_map <- function(BASEPATH, year, state_abbrev, office) {
-  current_data <- county_data %>%
-    filter(state == state_abbrev & office_type == office)
-  
-  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  
-  geo_data <- st_read(geojson_link) %>%
-    left_join(current_data, by = c("COUNTYFP" = "fips"))
-  
-  if (year == 2024) {
-    
-    graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
-      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
-      setMapWidgetStyle(list(background= "white")) %>%
-      addPolygons(
-        fillColor = ~pal(swing),
-        color = "black",
-        weight = 1,
-        opacity = 1,
-        fillOpacity = 0.7,
-        highlightOptions = highlightOptions(
-          weight = 2,
-          color = "#666",
-          fillOpacity = 0.7,
-          bringToFront = TRUE
-        ),
-        label = ~glue("{NAME} swing: {ifelse(swing > 0, 'D+', 'R+')}{abs(round(swing, 1))}")
-      ) 
-    
-  } else if (year == 2020) {
-    prev_swing <- geo_data$margin_pct_1 - geo_data$margin_pct_2
-    
-    graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
-      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
-      setMapWidgetStyle(list(background= "white")) %>%
-      addPolygons(
-        fillColor = ~pal(prev_swing),
-        color = "black",
-        weight = 1,
-        opacity = 1,
-        fillOpacity = 0.7,
-        highlightOptions = highlightOptions(
-          weight = 2,
-          color = "#666",
-          fillOpacity = 0.7,
-          bringToFront = TRUE
-        ),
-        label = ~glue("{NAME} swing: {ifelse(prev_swing > 0, 'D+', 'R+')}{abs(round(prev_swing, 1))}")
-      ) 
-    
-  } else {
-    stop("Invalid year for presidential_swing_map")
-  }
-}
-  
+ 
 get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
@@ -394,7 +328,7 @@ get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
   geo_data_centroids <- st_centroid(geo_data)
-  
+
   graph <- leaflet(geo_data, options = leafletOptions(
     attributionControl = FALSE, 
     zoomControl = FALSE,
@@ -428,5 +362,70 @@ get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
   return (graph)
 }
 
-graph <- get_margin_map(getwd(), 2024, "GA", "President")
-graph
+get_swing_map <- function(BASEPATH, state_abbrev, office_1, office_2, year_1, year_2) {
+  
+  state_county_data <- county_data %>% filter(state == state_abbrev)
+  
+  #Data from the first (reference map)
+  data_1 <- state_county_data %>% 
+    filter(office_type == office_1) %>%
+    mutate(margin_1 = case_when(
+      year_1 == 2024 ~ margin_pct, 
+      year_1 %in% c(2020, 2018) ~ margin_pct_1, 
+      year_1 %in% c(2016, 2012) ~ margin_pct_2
+    )) %>%
+    select(fips, margin_1)
+  
+  #Data from the first (comparison map)
+  data_2 <- state_county_data %>% 
+    filter(office_type == office_2) %>%
+    mutate(margin_2 = case_when(
+      year_2 == 2024 ~ margin_pct, 
+      year_2 %in% c(2020, 2018) ~ margin_pct_1, 
+      year_2 %in% c(2016, 2012) ~ margin_pct_2
+    )) %>%
+    select(fips, margin_2)
+  
+  if (nrow(data_1) == 0) {
+    stop("Office and Year For #1 not found")
+  }
+  
+  if (nrow(data_2) == 0) {
+    stop("Office and Year For #2 not found")
+  }
+  
+  full_data <- full_join(data_1, data_2, by = 'fips') %>%
+    mutate(swing = margin_1 - margin_2)
+
+  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  
+  geo_data <- st_read(geojson_link) %>%
+    left_join(full_data, by = c("COUNTYFP" = "fips"))
+  
+  graph <- leaflet(geo_data, options = leafletOptions(
+    attributionControl = FALSE, 
+    zoomControl = FALSE,
+    dragging = FALSE,
+    scrollWheelZoom = FALSE,
+    doubleClickZoom = FALSE,
+    boxZoom = FALSE,
+    touchZoom = FALSE)) %>%
+    #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+    setMapWidgetStyle(list(background= "white")) %>%
+    addPolygons(
+      fillColor = ~pal(swing),
+      color = "black",
+      weight = 1,
+      opacity = 1,
+      fillOpacity = 0.7,
+      highlightOptions = highlightOptions(
+        weight = 2,
+        color = "#666",
+        fillOpacity = 0.7,
+        bringToFront = TRUE
+      ),
+      label = ~glue("{NAME} swing: {ifelse(swing > 0, 'D+', 'R+')}{abs(round(swing, 1))}")
+    ) 
+  return(graph)
+}
+
