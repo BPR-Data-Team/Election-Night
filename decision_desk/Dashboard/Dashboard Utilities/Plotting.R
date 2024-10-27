@@ -7,6 +7,19 @@ library(glue)
 
 county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
 
+#--- CREATING PALETTE FOR MARGINS, USED THROUGHOUT THIS FILE!
+
+#---- COLOR BINS ------
+# Define custom bins for swing values
+bins <- c(-100, -30, -15, -10, -5, 0, 5, 10, 15, 30, 100)
+
+# Define corresponding colors
+colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
+pal <- colorBin(palette = colors, 
+                bins = bins,
+                domain = c(-100, 0, 100),
+                na.color = "black")
+
 # This is code to get a nicely-labeled hover box
 get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                       Republican_votes_percent, Democratic_votes_percent, pct_reporting) {
@@ -80,23 +93,10 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
   
   geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
   
-  #---- COLOR BINS ------
-  # Define custom bins for swing values
-  bins <- c(-Inf, -15, 0, 15, Inf)
-  
-  # Define corresponding colors
-  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
-  
   geo_data <- st_read(geojson_link) %>% 
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
   if (year == 2024) {
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = geo_data$margin_pct,
-      na.color = "black"
-    )
     
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
@@ -125,13 +125,6 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
       )
         
   } else if (year == 2020) {
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = geo_data$margin_pct_1,
-      na.color = "black"
-    )
-    
     prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
     prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
     prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
@@ -182,19 +175,7 @@ get_margin_bubble_map <- function(BASEPATH, year, state_abbrev, office) {
   
   geo_data_centroids <- st_centroid(geo_data)
 
-  # Define custom bins for swing values
-  bins <- c(-Inf, -15, 0, 15, Inf)
-  
-  # Define corresponding colors
-  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
-  
   if (year == 2024) {
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = geo_data$margin_pct,
-      na.color = "black"
-    )
     
     max_votes <- max(abs(geo_data_centroids$margin_votes))
     
@@ -229,13 +210,6 @@ get_margin_bubble_map <- function(BASEPATH, year, state_abbrev, office) {
       )
     
   } else if (year == 2020) {
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = geo_data$margin_pct_1,
-      na.color = "black"
-    )
-    
     max_votes <- max(abs(geo_data_centroids$margin_votes_1))
     
     prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
@@ -290,20 +264,7 @@ get_presidential_swing_map <- function(BASEPATH, year, state_abbrev, office) {
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
-  #---- COLOR BINS ------
-  # Define custom bins for swing values
-  bins <- c(-Inf, -15, 0, 15, Inf)
-  
-  # Define corresponding colors
-  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
-  
   if (year == 2024) {
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = geo_data$swing,
-      na.color = "black"
-    )
     
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
@@ -332,13 +293,6 @@ get_presidential_swing_map <- function(BASEPATH, year, state_abbrev, office) {
     
   } else if (year == 2020) {
     prev_swing <- geo_data$margin_pct_1 - geo_data$margin_pct_2
-    
-    pal <- colorBin(
-      palette = colors,
-      bins = bins,
-      domain = prev_swing,
-      na.color = "black"
-    )
     
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
@@ -380,18 +334,6 @@ get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
   geo_data_centroids <- st_centroid(geo_data)
-  # Define custom bins for swing values
-  bins <- c(-Inf, -15, 0, 15, Inf)
-  
-  # Define corresponding colors
-  colors <- colorRampPalette(c( "#B83C2B", "#ffffff", "#595D9A"))(length(bins) - 1)
-  
-  pal <- colorBin(
-    palette = colors,
-    bins = bins,
-    domain = geo_data$margin_pct,
-    na.color = "black"
-  )
   
   graph <- leaflet(geo_data, options = leafletOptions(
     attributionControl = FALSE, 
