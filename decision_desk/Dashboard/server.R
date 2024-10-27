@@ -11,7 +11,7 @@ source("decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
 source("decision_desk/Dashboard/Dashboard Utilities/DemographicMaps.R")
 source("decision_desk/Dashboard/Dashboard Utilities/BettingOdds.R")
 source("decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
-source("decision_desk/Dashboard/Dashboard Utilities/ExitPollExplorer.R")
+#source("decision_desk/Dashboard/Dashboard Utilities/ExitPollExplorer.R")
 
 
 # ------------------------------ DATA INPUT ------------------------------------ #
