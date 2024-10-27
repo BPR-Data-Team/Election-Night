@@ -129,7 +129,6 @@ ui <- page_sidebar(
       )
     ),
     layout_columns(
-      
       card(
         full_screen = FALSE,
         card_header("Expected election night shift"),
@@ -266,6 +265,27 @@ ui <- page_sidebar(
           leafletOutput("white_college_educated_demographics_map")
         )
       )
+    ),
+    card(
+      fill = TRUE,
+      card_header("Exit Poll Explorer"),
+      selectInput("exit_poll_selector", label = "Poll question",
+                  choices = list("Age" = "Age",
+                                 "Area Type" = "Area type",
+                                 "Education" = "Education",
+                                 "Gender" = "Gender",
+                                 "Income" = "Income",
+                                 "Race" = "Race",
+                                 "Region" = "Region"),
+                  selected = "Age"),
+      
+      selectInput("exit_poll_year", label = "Year",
+                  choices = c("2020", "2024"),
+                  selected = "2020"),
+
+      
+      tableOutput("exit_poll_table"),
+      tableOutput("exit_poll_expectation")
     ),
     layout_columns(
       card(

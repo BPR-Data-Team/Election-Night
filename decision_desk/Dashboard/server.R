@@ -11,6 +11,9 @@ source("decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
 source("decision_desk/Dashboard/Dashboard Utilities/DemographicMaps.R")
 source("decision_desk/Dashboard/Dashboard Utilities/BettingOdds.R")
 source("decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
+#source("decision_desk/Dashboard/Dashboard Utilities/ExitPollExplorer.R")
+
+
 # ------------------------------ DATA INPUT ------------------------------------ #
 
 current_data <- read.csv("cleaned_data/Changing Data/DDHQ_current_race_results.csv")
@@ -22,6 +25,8 @@ election_types <- current_data %>% pull("office_type") %>% unique() %>% append(.
 
 poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
 closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
+
+exit_poll_data <- read.csv("cleaned_data/Changing Data/CNN_exit_polls_all.csv")
 
 # ------------------------------ SERVER ------------------------------------- #
 
@@ -205,23 +210,47 @@ server <- function(input, output, session) {
       rename(" " = "V1")
   })
   
+  # Exit Polls
+  observeEvent(input$exit_poll_selector, {
+    output$exit_poll_table <- renderTable({
+      get_exit_poll_table(exit_poll_data, 
+                          input$exit_poll_year, 
+                          state_selection(), 
+                          election_type(), 
+                          input$exit_poll_selector) 
+    })
+    
+    output$exit_poll_expectation <- renderTable({
+      get_exit_poll_expectation(exit_poll_data, 
+                                input$exit_poll_year, 
+                                state_selection(), 
+                                election_type(), 
+                                input$exit_poll_selector) 
+    })
+  })
+  
   # Maps 
   output$map_menu_header <- renderText({input$selected_map})
   
   observeEvent(input$TL_map_select, {
     output$margin_map_2024 <- renderLeaflet({get_margin_map(BASEPATH, 2024, state_selection(), election_type())})
     output$margin_bubble_map_2024 <- renderLeaflet({get_margin_bubble_map(BASEPATH, 2024, state_selection(), election_type())})
-    output$president_swing_map_20to24 <- renderLeaflet({get_presidential_swing_map(BASEPATH, 2024, state_selection(), election_type())})
+    output$president_swing_map_20to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "President", 2020, 2024)})
   })
   
   observeEvent(input$TR_map_select, {
     output$margin_map_2020 <- renderLeaflet({get_margin_map(BASEPATH, 2020, state_selection(), election_type())})
     output$margin_bubble_map_2020 <- renderLeaflet({get_margin_bubble_map(BASEPATH, 2020, state_selection(), election_type())})
-    output$president_swing_map_16to20 <- renderLeaflet({get_presidential_swing_map(BASEPATH, 2020, state_selection(), election_type())})
+    output$president_swing_map_16to20 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "President", 2016, 2020)})
+    output$president_senate_swing_map_24to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2024, 2024)})
+    output$president_senate_swing_map_16to18 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2016, 2018)})
+    output$president_governor_swing_map_24to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2024, 2024)})
+    output$president_governor_swing_map_20to20 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2020, 2020)})
   })
   
   observeEvent(input$BL_map_select, {
     output$remaining_votes_map <- renderLeaflet({get_votes_left_map(BASEPATH, state_selection(), election_type())})
+    
   })
   
   observeEvent(input$BR_map_select, {
@@ -233,21 +262,22 @@ server <- function(input, output, session) {
   })
   
   
-  observeEvent(input$margin_year, {
-    updateTabsetPanel(session, "margin_year",
-                      selected = paste("margin_map_{input$margin_year}")
-    )
-  })
-  observeEvent(input$bubble_year, {
-    updateTabsetPanel(session, "bubble_year",
-                      selected = paste("margin_bubble_map_{input$bubble_year}")
-    )
-  })
-  observeEvent(input$swing_year, {
-    updateTabsetPanel(session, "swing_year",
-                      selected = paste("swing_map_{input$swing_year}")
-    )
-  })
+  # observeEvent(input$margin_year, {
+  #   updateTabsetPanel(session, "margin_year",
+  #                     selected = paste("margin_map_{input$margin_year}")
+  #   )
+  # })
+  # observeEvent(input$bubble_year, {
+  #   updateTabsetPanel(session, "bubble_year",
+  #                     selected = paste("margin_bubble_map_{input$bubble_year}")
+  #   )
+  # })
+  # observeEvent(input$swing_year, {
+  #   updateTabsetPanel(session, "swing_year",
+  #                     selected = paste("swing_map_{input$swing_year}")
+  #   )
+  # })
+  
   # Graphs 
   output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
   output$expected_pct_graph_2020 <- renderPlot(previous_time_expected_pct_graphs[[state_selection()]])
