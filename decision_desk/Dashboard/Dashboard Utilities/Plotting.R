@@ -91,7 +91,12 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
   
+  
   geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
+  
+  city_data <- fromJSON(city_json)
+  city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4326)
   
   geo_data <- st_read(geojson_link) %>% 
     left_join(current_data, by = c("COUNTYFP" = "fips"))
@@ -122,7 +127,35 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
           fillOpacity = 0.7,
           bringToFront = TRUE
         )
+      ) %>%
+      # Adding city markets
+      addCircleMarkers(
+        data = city_sf,
+        radius = 2,
+        color = "black",
+        fillColor = "black",
+        fillOpacity = 0.8,
+        weight = 1
+      ) %>%
+      addLabelOnlyMarkers(
+        data = city_sf,
+        label = ~name,
+        labelOptions = labelOptions(
+          noHide = TRUE,
+          direction = "top",
+          textOnly = TRUE,
+          offset = c(0, -10),  # Offset label to move it above the marker
+          style = list(
+            "color" = "black",          # Use a darker green for better contrast
+            "font-size" = "10px",         # Smaller font size to be less overpowering
+            "font-weight" = "bold",
+            "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
+            "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
+            "border-radius" = "3px"       # Rounded corners for the background
+          )
+        )
       )
+      
         
   } else if (year == 2020) {
     prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
@@ -154,6 +187,33 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
           color = "#666",
           fillOpacity = 0.7,
           bringToFront = TRUE
+        )
+      ) %>%
+      # Adding city markets
+      addCircleMarkers(
+        data = city_sf,
+        radius = 2,
+        color = "black",
+        fillColor = "black",
+        fillOpacity = 0.8,
+        weight = 1
+      ) %>%
+      addLabelOnlyMarkers(
+        data = city_sf,
+        label = ~name,
+        labelOptions = labelOptions(
+          noHide = TRUE,
+          direction = "top",
+          textOnly = TRUE,
+          offset = c(0, -10),  # Offset label to move it above the marker
+          style = list(
+            "color" = "black",          # Use a darker green for better contrast
+            "font-size" = "10px",         # Smaller font size to be less overpowering
+            "font-weight" = "bold",
+            "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
+            "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
+            "border-radius" = "3px"       # Rounded corners for the background
+          )
         )
       )
     
@@ -367,3 +427,6 @@ get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
   
   return (graph)
 }
+
+graph <- get_margin_map(getwd(), 2024, "GA", "President")
+graph
