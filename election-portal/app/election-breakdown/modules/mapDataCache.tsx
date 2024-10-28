@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 
 let stateGeoJSONCache: Map<string, any> = new Map();
 let cityGeoJSONCache: Map<string, any> = new Map();
+// TODO: set to empty string in both cases when switching domains
+const prodSlug = process.env.NODE_ENV === 'development' ? "" : "/Election-Night";
 
 const GeoJsonCache = () => {
 
@@ -10,8 +12,8 @@ const fetchStateGeoJSON = async (stateName: string, year: string) => {
     const stripped_year =  year.trim();
     const nameYearKey = stateName + "_" + stripped_year;
     if (!stateGeoJSONCache.has(nameYearKey)) {
-      console.log(`/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
-      const response = await fetch(`/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
+      console.log(`${prodSlug}/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
+      const response = await fetch(`${prodSlug}/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`);
       const geoJSON = await response.json();
       stateGeoJSONCache.set(nameYearKey, geoJSON); 
     }
@@ -21,8 +23,8 @@ const fetchStateGeoJSON = async (stateName: string, year: string) => {
 
 const fetchCityGeoJSON = async (stateName: string) => {
     if (!cityGeoJSONCache.has(stateName)) { 
-      console.log(`/GeoJSON/City/${stateName}.json`);
-      const response = await fetch(`/GeoJSON/City/${stateName}.json`);
+      console.log(`${prodSlug}/GeoJSON/City/${stateName}.json`);
+      const response = await fetch(`${prodSlug}/GeoJSON/City/${stateName}.json`);
       const geoJSON = await response.json();  
       cityGeoJSONCache.set(stateName, geoJSON); 
     }
