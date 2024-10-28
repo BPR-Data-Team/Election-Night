@@ -378,7 +378,7 @@ estimated_county <- county_and_dems %>%
          across(contains("lower"), ~replace_na(., 0)), 
          across(contains("upper"), ~replace_na(., 0)), 
          office_type = "President") %>%
-  select(fips, state, office_type, total_votes_estimate:margin_upper, pct_reporting)
+  select(fips, state, office_type, total_votes_estimate:margin_upper)
 
 
 estimated_race <- estimated_county %>%

@@ -118,7 +118,7 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
         fillColor = ~pal(margin_pct),
         color = "black",
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                                  Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
+                                  Republican_votes_percent, Democratic_votes_percent, round(pct_reporting, 0)), htmltools::HTML),  # Convert HTML for the popup
         weight = 1,
         opacity = 1,
         fillOpacity = 0.7,
@@ -180,7 +180,7 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
         fillColor = ~pal(margin_pct_1),
         color = "black",
         label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
-                                  prev_rep_pct, prev_dem_pct, "100%"), htmltools::HTML),  # Convert HTML for the popup
+                                  prev_rep_pct, prev_dem_pct, 100), htmltools::HTML),  # Convert HTML for the popup
         weight = 1,
         opacity = 1,
         fillOpacity = 0.7,
