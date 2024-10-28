@@ -187,34 +187,7 @@ ui <- page_sidebar(
                                    "2024 President-Governor Swing" = "pres_gov_swing_24",
                                    "2020 President-Governor Swing" = "pres_gov_swing_20"),
                     selected = "2020_margin"),
-        conditionalPanel(
-          condition = "input.TR_map_select == '2020_margin'",
-          leafletOutput("margin_map_2020")
-        ),
-        conditionalPanel(
-          condition = "input.TR_map_select == '2020_margin_bubble'",
-          leafletOutput("margin_bubble_map_2020")
-        ),
-        conditionalPanel(
-          condition = "input.TR_map_select == 'pres_swing_20'",
-          leafletOutput("president_swing_map_16to20")
-        ),
-        conditionalPanel(
-          condition = "input.TR_map_select == 'pres_sen_swing_24'",
-          leafletOutput("president_senate_swing_map_24to24")
-        ),
-        conditionalPanel(
-          condition = "input.TR_map_select == 'pres_sen_swing_16_18'",
-          leafletOutput("president_senate_swing_map_16to18")
-        ),
-        conditionalPanel(
-          condition = "input.TR_map_select == 'pres_gov_swing_24'",
-          leafletOutput("president_governor_swing_map_24to24")
-        ),
-        conditionalPanel(
-          condition = "input.TR_map_select == 'pres_gov_swing_20'",
-          leafletOutput("president_governor_swing_map_20to20")
-        )
+        leafletOutput("TR_map_output")
       )
     ),
     layout_columns(
@@ -266,26 +239,37 @@ ui <- page_sidebar(
         )
       )
     ),
-    card(
-      fill = TRUE,
-      card_header("Exit Poll Explorer"),
-      selectInput("exit_poll_selector", label = "Poll question",
-                  choices = list("Age" = "Age",
-                                 "Area Type" = "Area type",
-                                 "Education" = "Education",
-                                 "Gender" = "Gender",
-                                 "Income" = "Income",
-                                 "Race" = "Race",
-                                 "Region" = "Region"),
-                  selected = "Age"),
+    layout_columns(
+      card(
+        fill = FALSE,
+        card_header("Exit Poll Explorer"),
+        fluidRow(
+          column(6, 
+            selectInput("exit_poll_selector", label = "Poll question",
+                        choices = list("Age" = "Age",
+                                       "Area Type" = "Area type",
+                                       "Education" = "Education",
+                                       "Gender" = "Gender",
+                                       "Income" = "Income",
+                                       "Race" = "Race",
+                                       "Region" = "Region"),
+                        selected = "Age")
+          ),
+          column(6, 
+            selectInput("exit_poll_year", label = "Year",
+                        choices = c("2020", "2024"),
+                        selected = "2020")
+          )
+        ),
+        tableOutput("exit_poll_table"),
+        tableOutput("exit_poll_expectation")
+      ),
+      card(
+        fill = FALSE,
+        card_header("Harris pct to win"),
+        plotOutput("pct_harris_to_win_graph")
+      )
       
-      selectInput("exit_poll_year", label = "Year",
-                  choices = c("2020", "2024"),
-                  selected = "2020"),
-
-      
-      tableOutput("exit_poll_table"),
-      tableOutput("exit_poll_expectation")
     ),
     layout_columns(
       card(

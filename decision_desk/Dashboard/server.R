@@ -11,8 +11,8 @@ source("decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
 source("decision_desk/Dashboard/Dashboard Utilities/DemographicMaps.R")
 source("decision_desk/Dashboard/Dashboard Utilities/BettingOdds.R")
 source("decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
-#source("decision_desk/Dashboard/Dashboard Utilities/ExitPollExplorer.R")
-
+source("decision_desk/Dashboard/Dashboard Utilities/ExitPollExplorer.R")
+source("decision_desk/Dashboard/Dashboard Utilities/PercentToWin.R")
 
 # ------------------------------ DATA INPUT ------------------------------------ #
 
@@ -33,7 +33,7 @@ exit_poll_data <- read.csv("cleaned_data/Changing Data/CNN_exit_polls_all.csv")
 server <- function(input, output, session) {
   election_type <- reactive({input$category_select})
   state_selection <- reactive({input$state_select})
-  district_selection <- reactive({input$district_select})
+  district_selection <- reactive({0}) # change to input$district_select
   
   last_election_year <- reactive({
     if (election_type() == "President" | election_type() == "Governor") {
@@ -47,8 +47,8 @@ server <- function(input, output, session) {
   
   selected_race_data <- reactive({
     current_data %>% filter(state == state_selection(),
-                            office_type == election_type()) 
-    #district == district_select()) 
+                            office_type == election_type(),
+                            district == district_selection()) 
   })
   
   
@@ -239,13 +239,24 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$TR_map_select, {
-    output$margin_map_2020 <- renderLeaflet({get_margin_map(BASEPATH, 2020, state_selection(), election_type())})
-    output$margin_bubble_map_2020 <- renderLeaflet({get_margin_bubble_map(BASEPATH, 2020, state_selection(), election_type())})
-    output$president_swing_map_16to20 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "President", 2016, 2020)})
-    output$president_senate_swing_map_24to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2024, 2024)})
-    output$president_senate_swing_map_16to18 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2016, 2018)})
-    output$president_governor_swing_map_24to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2024, 2024)})
-    output$president_governor_swing_map_20to20 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2020, 2020)})
+    if (input$TR_map_select == "2020_margin") {
+      output$TR_map_output <- renderLeaflet({get_margin_map(BASEPATH, 2020, state_selection(), election_type())})
+    } else if (input$TR_map_select == "2020_margin_bubble") {
+      output$TR_map_output <- renderLeaflet({get_margin_bubble_map(BASEPATH, 2020, state_selection(), election_type())})
+    } else if (input$TR_map_select == "pres_swing_20") {
+      output$TR_map_output <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "President", 2016, 2020)})
+    } else if (input$TR_map_select == "pres_sen_swing_24") {
+      output$TR_map_output <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2020, 2020)})
+    } else if (input$TR_map_select == "pres_sen_swing_16_18") {
+      output$TR_map_output <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2016, 2018)})
+    } else if (input$TR_map_select == "pres_gov_swing_24") {
+      output$TR_map_output <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2024, 2024)})
+    } else if (input$TR_map_select == "pres_gov_swing_20") {
+      output$TR_map_output <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2020, 2020)})
+    } else {
+      # Default to 2020 Margin
+      output$TR_map_output <- renderLeaflet({get_margin_map(BASEPATH, 2020, state_selection(), election_type())})
+    }
   })
   
   observeEvent(input$BL_map_select, {
@@ -261,27 +272,18 @@ server <- function(input, output, session) {
     output$white_college_educated_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White College")})
   })
   
-  
-  # observeEvent(input$margin_year, {
-  #   updateTabsetPanel(session, "margin_year",
-  #                     selected = paste("margin_map_{input$margin_year}")
-  #   )
-  # })
-  # observeEvent(input$bubble_year, {
-  #   updateTabsetPanel(session, "bubble_year",
-  #                     selected = paste("margin_bubble_map_{input$bubble_year}")
-  #   )
-  # })
-  # observeEvent(input$swing_year, {
-  #   updateTabsetPanel(session, "swing_year",
-  #                     selected = paste("swing_map_{input$swing_year}")
-  #   )
-  # })
-  
   # Graphs 
   output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
   output$expected_pct_graph_2020 <- renderPlot(previous_time_expected_pct_graphs[[state_selection()]])
   
+  harris_to_win_df <- NULL
+  harris_to_win_df <- reactive({
+    pct_harris_to_win(BASEPATH, harris_to_win_df, state_selection(), election_type(), district_selection())
+  })
+  
+  output$pct_harris_to_win_graph <- renderPlot({
+    pct_harris_to_win_graph(harris_to_win_df(), state_selection(), election_type(), district_selection())
+  })
   
   # Dropdown logic
   election_type <- reactive({ input$category_select })
