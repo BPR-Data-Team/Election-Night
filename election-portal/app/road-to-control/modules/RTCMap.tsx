@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { RaceType } from "@/types/RaceType";
 import { Year } from "@/types/Year";
-import Highcharts from "highcharts";
+import Highcharts, { color } from "highcharts";
 import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 import "./rtcmap.css";
@@ -98,10 +98,11 @@ const senData = [
   { "hc-key": "us-wy", Called: "N" },
 ];
 
-if (typeof window !== `undefined`) {
+const colorMapping = { 0: "N", 1: "D", 2: "R" };
+
+if (typeof window !== "undefined") {
   highchartsAccessibility(Highcharts);
 }
-
 if (typeof Highcharts === "object") {
   HighchartsMap(Highcharts);
 }
@@ -112,213 +113,141 @@ interface RTCMapProps {
 }
 
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
-  const [modalOpen, setModalOpen] = useState(false); // Modal visibility state
-  const [selectedState, setSelectedState] = useState<string | null>(null); // Store clicked state
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<any[]>([]);
+  const [mapData, setMapData] = useState(presData); // Default to presData
+
   const fetchMapDataAndInitializeMap = async () => {
     const geoResponse = await fetch(
       "https://code.highcharts.com/mapdata/countries/us/us-all.geo.json"
     );
-    let mapData = await geoResponse.json();
-
-    initializeMap(mapData);
+    const geoJson = await geoResponse.json();
+    initializeMap(geoJson);
   };
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
   }, [raceType, year]);
 
-  const initializeMap = (mapData: any) => {
+  const initializeMap = (geoJson: any) => {
     const currentData = raceType === RaceType.Presidential ? [...presData] : [...senData];
-    originalMap.current = currentData.map((item) => ({...item}));
-    const processData = (data: any[]) =>
-      data.map((item) => ({
-        "hc-key": item["hc-key"],
-        value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
-      }));
+    originalMap.current = currentData.map((item) => ({ ...item })); // Store original state
+
+    const processedData = currentData.map((item) => ({
+      "hc-key": item["hc-key"],
+      value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
+    }));
 
     const handleStateClick = function (this: any) {
-      const stateKey = this["hc-key"] as string;
-      setSelectedState(stateKey); // Store clicked state
-      setModalOpen(true); // Open modal for selection
+      const point = this;
+      const newValue = (point.value + 1) % 3; // Cycle between 0 (N), 1 (D), and 2 (R)
+      point.update({ value: newValue });
+      updateMapData(point["hc-key"], newValue);
     };
-   
+
     const mapOptions: Highcharts.Options = {
-      chart: {
-        type: "map",
-        map: mapData,
-        backgroundColor: "transparent",
-      },
-      credits: {
-        enabled: false,
-      },
-      accessibility: {
-        description: "Map of the United States.",
-      },
-      title: {
-        text: "",
-      },
+      chart: { type: "map", map: geoJson, backgroundColor: "transparent" },
+      title: { text: "" },
+      credits: { enabled: false },
       plotOptions: {
         map: {
+          cursor: "pointer",
           point: {
-            events: {
-              click: handleStateClick
-            }
-          }
+            events: { click: handleStateClick },
+          },
         },
-      },
-      colorAxis: {
-        dataClasses: [
-          {
-            from: 0,
-            to: 0,
-            color: "#505050",
-            name: "Uncalled",
-          },
-          {
-            from: 1,
-            to: 1,
-            color: "#595D9A", // Democrat blue
-            name: "Democrat",
-          },
-          {
-            from: 2,
-            to: 2,
-            color: "#B83C2B", // Republican red
-            name: "Republican",
-          },
-        ],
-        dataClassColor: "category",
-      },
-      legend: {
-        enabled: false,
-      },
-      mapNavigation: {
-        enabled: true,
-        enableMouseWheelZoom: true,
-        enableButtons: false,
       },
       tooltip: {
         formatter: function (this: any) {
-
           return (
             "<b>" +
-            this.point.name )
+            this.point.name)
         },
         style: {
           fontFamily: "gelica, book antiqua, georgia, times new roman, serif",
         },
       },
+      colorAxis: {
+        dataClasses: [
+          { from: 0, to: 0, color: "#505050", name: "Uncalled" },
+          { from: 1, to: 1, color: "#595D9A", name: "Democrat" },
+          { from: 2, to: 2, color: "#B83C2B", name: "Republican" },
+        ],
+      },
       series: [
         {
           type: "map",
-          data: processData(currentData),
-          mapData: mapData,
+          data: processedData,
+          mapData: geoJson,
           joinBy: "hc-key",
           nullColor: "#EAEAEA",
           borderColor: "black",
           borderWidth: 2,
-          name: "Call Status",
-          enableMouseTracking: true,  
           states: {
             hover: {
-              enabled: false,
-            },
+              borderColor: "grey",
+            }
           },
-          // tooltip: {
-          //   pointFormat: "{point.name}",
-          // },
         },
       ],
-      
     };
+
     const chart = Highcharts.mapChart("container", mapOptions);
-    
     chartRef.current = chart;
   };
 
-  const handleOutcomeSelect = (outcome: string) => {
-    console.log(`Selected state: ${selectedState}`);
-    if (selectedState && chartRef.current) {
-      const series = chartRef.current.series[0]; // Access the first series
-      const point = series.data.find(
-        (p) => (p.options as any)["hc-key"] === selectedState
-      );
-      if (point) {
-        console.log("point is not undefined. Yay!")
-        point.update({ value: outcome === "D" ? 1 : outcome === "R" ? 2 : 0 });
-      }
-    }
-    setModalOpen(false);
+  const updateMapData = (key: string, value: number) => {
+    setMapData((prev) =>
+      prev.map((item) =>
+        item["hc-key"] === key ? { ...item, Called: (colorMapping as any)[value] } : item
+      )
+    );
   };
 
   const handleReset = () => {
-    if (chartRef.current) {
-      const originalData = originalMap.current;
-      if (originalData) {
-        const processedData = originalData.map((item: any) => ({
-          id: item["hc-key"],
-          "hc-key": item["hc-key"],
-          value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
-        }));
-
-        // Reset the series data
-        chartRef.current.series[0].setData(processedData);
+      if (chartRef.current) {
+        const originalData = originalMap.current;
+        if (originalData) {
+          const processedData = originalData.map((item: any) => ({
+            id: item["hc-key"],
+            "hc-key": item["hc-key"],
+            value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
+          }));
+  
+          // Reset the series data
+          chartRef.current.series[0].setData(processedData);
+        }
       }
-    }
+    };
+
+  const handleWebSocketData = (newData: any[]) => {
+    newData.forEach((item) => {
+      const point = chartRef.current?.series[0].data.find(
+        (p) => (p as any)["hc-key"] === item["hc-key"]
+      );
+      point?.update({ value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0 });
+    });
+    setMapData(newData);
   };
+
+  useEffect(() => {
+    // Placeholder WebSocket logic (replace with real WebSocket implementation)
+    const ws = new WebSocket("wss://example.com/socket");
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      handleWebSocketData(data);
+    };
+    return () => ws.close();
+  }, []);
 
   return (
-    <>
-      <div id="container" />
-        <div className="reset-button-container">
-          <button onClick={handleReset} className="reset-button">
-            Reset Map
-          </button>
-        </div>
-      {modalOpen && selectedState && (
-        <OutcomeModal
-          stateName={selectedState}
-          onClose={() => setModalOpen(false)}
-          onSelect={handleOutcomeSelect}
-        />
-      )}
-    </>
-  );
-};
-const OutcomeModal = ({
-  stateName,
-  onClose,
-  onSelect,
-}: {
-  stateName: string;
-  onClose: () => void;
-  onSelect: (outcome: string) => void;
-}) => {
-  const fullStateName = stateCodeToName.get(stateName) || stateName;
-
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation(); // Ensure the click doesn't bubble up
-    onClose(); // Close the modal when clicking outside the content
-  };
-
-  const handleContentClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation(); // Prevent click inside content from closing the modal
-  };
-
-  return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content" onClick={handleContentClick}>
-        <h3>Select Outcome for {fullStateName}</h3>
-        <button onClick={() => onSelect("D")} className="modal-button">Democrat</button>
-        <button onClick={() => onSelect("R")} className="modal-button">Republican</button>
-        <button onClick={() => onSelect("N")} className="modal-button">Uncalled</button>
-        <button onClick={onClose} className="modal-button">Cancel</button>
+    <div className="map">
+      <div id="container" style={{ height: "600px", width: "800px" }} />
+      <div className="reset-button-container">
+        <button className="reset-button" onClick={handleReset}>Reset Map</button>
       </div>
     </div>
   );
 };
-
 
 export default RTCMap;

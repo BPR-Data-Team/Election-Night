@@ -13,8 +13,8 @@ const StatusBar: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       // Temporary mock data
-      const leftData = 200;
-      const rightData = 270;
+      const leftData = 190;
+      const rightData = 200;
 
       // Set the count
       setLeftCount(leftData);
@@ -26,7 +26,7 @@ const StatusBar: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [leftCount, rightCount]);
 
   return (
     <div className={styles.container}>

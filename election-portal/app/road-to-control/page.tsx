@@ -20,9 +20,8 @@ export default function Road_To_Control_Page() {
       RaceType.Gubernatorial,
     ]);
     sharedState.setAvailableYears([
-      Year.TwentyTwo,
+      Year.TwentyFour,
       Year.Twenty,
-      Year.Eighteen,
       Year.Sixteen,
     ]);
     sharedState.setAvailibleDemographics([]);
