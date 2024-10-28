@@ -4,18 +4,20 @@
 }
 
 .mapWrapper {
-  width: 100vw;
-  height: 100vh;
   z-index: 0;
   position: fixed;
+  pointer-events: all;
 }
 
 .EBMapContainer {
   position: absolute;
-  width: 80vw;
-  height: 80vh;
   left: 24%;
   top: 12%;
   transition: left 0.5s ease-out, opacity 0.1s ease-in-out;
+  pointer-events: all;
   /* could possibly add a delay if you want "double taps" without animation */
+}
+
+.mapAndTable {
+  pointer-events: none;
 }

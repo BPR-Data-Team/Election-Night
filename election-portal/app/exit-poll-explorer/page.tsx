@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
-import { ExitPollData } from "../../types/data";
+import { ExitPollAnswer, ExitPollData } from "../../types/data";
 import styles from "./page.module.css";
 import Menubar from "../modules/menubar/menubar";
 import { useSharedState } from "../sharedContext";
@@ -12,9 +12,11 @@ import { Demographic } from "@/types/Demographic";
 import EBMap from "../election-breakdown/modules/EBMap";
 import Banner from "../election-breakdown/modules/banner";
 import StatsTable from "./modules/statistics-table";
+import { getStateAbbreviation } from "@/types/State";
 
 export default function Exit_Poll_Explorer_Page() {
   const [exitPollData, setExitPollData] = useState<ExitPollData[] | null>(null);
+  const [tableData, setTableData] = useState<ExitPollAnswer[]>([]);
   const state = useSharedState().state;
 
   useEffect(() => {
@@ -24,13 +26,13 @@ export default function Exit_Poll_Explorer_Page() {
     state.setAvailableYears([Year.Twenty, Year.TwentyFour]);
     state.yearSwitch(Year.TwentyFour);
     state.setAvailibleDemographics([
-      Demographic.All,
       Demographic.Age,
       Demographic.Gender,
       Demographic.Race,
       Demographic.Education,
       Demographic.Income,
       Demographic.AreaType,
+      Demographic.Region,
     ]);
 
     const storedExitPollData = sessionStorage.getItem("exitPollData");
@@ -50,7 +52,6 @@ export default function Exit_Poll_Explorer_Page() {
               const parsedData: ExitPollData[] = results.data.map(
                 (row: any, index: number) => {
                   return {
-                    index: parseInt(row.index),
                     state: row.state,
                     office_type: row.office_type,
                     question: row.question,
@@ -75,38 +76,140 @@ export default function Exit_Poll_Explorer_Page() {
         );
     }
   }, []);
+  const fetch2020Data = () => {};
+  const fetch2024Data = () => {};
 
+  useEffect(() => {
+    if (state.year == Year.Twenty) {
+      fetch2020Data();
+    } else if (state.year == Year.TwentyFour) {
+      fetch2024Data();
+    }
+  }, [state.year]);
+  console.log(getStateAbbreviation(state.view));
+  console.log(state.demographic);
+
+  // useEffect(() => {
+  //   let data: ExitPollAnswer[] = [];
+  //   exitPollData?.forEach((datum) => {
+  //     if (
+  //       datum.state == getStateAbbreviation(state.view) &&
+  //       datum.office_type == "President" &&
+  //       datum.question == state.demographic
+  //     ) {
+  //       if (datum.lastName == "Biden") {
+  //         if (
+  //           data.some(
+  //             (d) =>
+  //               d.hasOwnProperty("answer") &&
+  //               d.hasOwnProperty("percentVote") &&
+  //               d.hasOwnProperty("percentTrump")
+  //           )
+  //         ) {
+  //           const idx = data.findIndex(
+  //             (d) =>
+  //               d.hasOwnProperty("answer") &&
+  //               d.hasOwnProperty("percentVote") &&
+  //               d.hasOwnProperty("percentTrump")
+  //           );
+  //           data[idx] = { ...data[idx], percentBiden: datum.answer_pct };
+  //         } else {
+  //           data.push({
+  //             answer: datum.answer,
+  //             percentVote: datum.demographic_pct,
+  //             percentBiden: datum.answer_pct,
+  //           });
+  //         }
+  //       } else if (datum.lastName == "Trump") {
+  //         if (
+  //           data.some(
+  //             (d) =>
+  //               d.hasOwnProperty("answer") &&
+  //               d.hasOwnProperty("percentVote") &&
+  //               d.hasOwnProperty("percentBiden")
+  //           )
+  //         ) {
+  //           const idx = data.findIndex(
+  //             (d) =>
+  //               d.hasOwnProperty("answer") &&
+  //               d.hasOwnProperty("percentVote") &&
+  //               d.hasOwnProperty("percentBiden")
+  //           );
+  //           data[idx] = { ...data[idx], percentTrump: datum.answer_pct };
+  //         } else {
+  //           data.push({
+  //             answer: datum.answer,
+  //             percentVote: datum.demographic_pct,
+  //             percentTrump: datum.answer_pct,
+  //           });
+  //         }
+  //       }
+  //     }
+  //   });
+  //   setTableData(data);
+  // }, [state.demographic, state.year]);
+
+  useEffect(() => {
+    const dataMap = new Map();
+
+    exitPollData?.forEach((datum) => {
+      if (
+        datum.state === getStateAbbreviation(state.view) &&
+        datum.office_type === "President" &&
+        datum.question === state.demographic
+      ) {
+        const existingEntry = dataMap.get(datum.answer) || {
+          answer: datum.answer,
+          percentVote: datum.demographic_pct,
+        };
+
+        if (datum.lastName === "Biden") {
+          existingEntry.percentBiden = datum.answer_pct;
+        } else if (datum.lastName === "Trump") {
+          existingEntry.percentTrump = datum.answer_pct;
+        }
+
+        dataMap.set(datum.answer, existingEntry);
+      }
+    });
+
+    const data = Array.from(dataMap.values());
+    setTableData(data);
+  }, [state.demographic, state.view, exitPollData]);
+
+  console.log("tableData", tableData);
+  console.log("exitPollData", exitPollData);
   if (!exitPollData) return <p>Loading Exit Poll Data...</p>;
 
   const fakeStats2020 = {
     income: {
       national: [
         {
-          category: "Less than $30,000",
+          answer: "Less than $30,000",
           percentVote: 10,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$30,000-$49,999",
+          answer: "$30,000-$49,999",
           percentVote: 20,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$50,000-$99,999",
+          answer: "$50,000-$99,999",
           percentVote: 50,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$100,000-$199,999",
+          answer: "$100,000-$199,999",
           percentVote: 10,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$200,000 or more",
+          answer: "$200,000 or more",
           percentVote: 10,
           percentTrump: 55,
           percentBiden: 45,
@@ -114,31 +217,31 @@ export default function Exit_Poll_Explorer_Page() {
       ],
       AL: [
         {
-          category: "Less than $30,000",
+          answer: "Less than $30,000",
           percentVote: 10,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$30,000-$49,999",
+          answer: "$30,000-$49,999",
           percentVote: 20,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$50,000-$99,999",
+          answer: "$50,000-$99,999",
           percentVote: 50,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$100,000-$199,999",
+          answer: "$100,000-$199,999",
           percentVote: 10,
           percentTrump: 55,
           percentBiden: 45,
         },
         {
-          category: "$200,000 or more",
+          answer: "$200,000 or more",
           percentVote: 10,
           percentTrump: 55,
           percentBiden: 45,
@@ -146,7 +249,6 @@ export default function Exit_Poll_Explorer_Page() {
       ],
     },
   };
-
   return (
     <div className={styles.page}>
       <Menubar />
@@ -166,12 +268,14 @@ export default function Exit_Poll_Explorer_Page() {
           header=""
           message={state.year.toString()}
         />
-        <div className={styles.mapWrapper} id="mapWrapper">
-          <div className={styles.EBMapContainer} id="EBContainer">
-            <EBMap />
+        <div className={styles.mapAndTable}>
+          <div className={styles.mapWrapper} id="mapWrapper">
+            <div className={styles.EBMapContainer} id="EBContainer">
+              <EBMap />
+            </div>
           </div>
+          {tableData.length != 0 && <StatsTable data={tableData} />}
         </div>
-        <StatsTable data={fakeStats2020.income.national} />
       </div>
     </div>
   );

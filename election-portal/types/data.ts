@@ -24,7 +24,6 @@ export interface HistoricalCountyData {
 }
 
 export interface ExitPollData {
-  index: number;
   state: string;
   office_type: string;
   question: string;
@@ -32,4 +31,11 @@ export interface ExitPollData {
   demographic_pct: number;
   answer_pct: number;
   lastName: string;
+}
+
+export interface ExitPollAnswer {
+  answer: string;
+  percentVote: number;
+  percentBiden?: number;
+  percentTrump?: number;
 }
