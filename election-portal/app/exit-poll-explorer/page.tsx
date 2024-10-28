@@ -86,68 +86,6 @@ export default function Exit_Poll_Explorer_Page() {
       fetch2024Data();
     }
   }, [state.year]);
-  console.log(getStateAbbreviation(state.view));
-  console.log(state.demographic);
-
-  // useEffect(() => {
-  //   let data: ExitPollAnswer[] = [];
-  //   exitPollData?.forEach((datum) => {
-  //     if (
-  //       datum.state == getStateAbbreviation(state.view) &&
-  //       datum.office_type == "President" &&
-  //       datum.question == state.demographic
-  //     ) {
-  //       if (datum.lastName == "Biden") {
-  //         if (
-  //           data.some(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentTrump")
-  //           )
-  //         ) {
-  //           const idx = data.findIndex(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentTrump")
-  //           );
-  //           data[idx] = { ...data[idx], percentBiden: datum.answer_pct };
-  //         } else {
-  //           data.push({
-  //             answer: datum.answer,
-  //             percentVote: datum.demographic_pct,
-  //             percentBiden: datum.answer_pct,
-  //           });
-  //         }
-  //       } else if (datum.lastName == "Trump") {
-  //         if (
-  //           data.some(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentBiden")
-  //           )
-  //         ) {
-  //           const idx = data.findIndex(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentBiden")
-  //           );
-  //           data[idx] = { ...data[idx], percentTrump: datum.answer_pct };
-  //         } else {
-  //           data.push({
-  //             answer: datum.answer,
-  //             percentVote: datum.demographic_pct,
-  //             percentTrump: datum.answer_pct,
-  //           });
-  //         }
-  //       }
-  //     }
-  //   });
-  //   setTableData(data);
-  // }, [state.demographic, state.year]);
 
   useEffect(() => {
     const dataMap = new Map();
@@ -177,8 +115,6 @@ export default function Exit_Poll_Explorer_Page() {
     setTableData(data);
   }, [state.demographic, state.view, exitPollData]);
 
-  console.log("tableData", tableData);
-  console.log("exitPollData", exitPollData);
   if (!exitPollData) return <p>Loading Exit Poll Data...</p>;
 
   const fakeStats2020 = {
