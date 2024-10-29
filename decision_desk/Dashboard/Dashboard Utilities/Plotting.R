@@ -92,12 +92,13 @@ get_margin_map <- function(BASEPATH, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
   
+  suppressWarnings({
+    geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+    city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
   
-  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
-  
-  city_data <- fromJSON(city_json)
-  city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
+    city_data <- fromJSON(city_json)
+    city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
+  })
   
   geo_data <- st_read(geojson_link) %>% 
     left_join(current_data, by = c("COUNTYFP" = "fips"))
@@ -230,8 +231,10 @@ get_margin_bubble_map <- function(BASEPATH, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
   
-  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  
+  suppressWarnings({
+    geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  })
+
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
@@ -324,12 +327,14 @@ get_margin_map_district <- function(BASEPATH, state_abbrev, congressional_distri
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == "House" & district == congressional_district)
   
-  county_within_district_link <- glue("{BASEPATH}/GeoJSON/County in Congressional District/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
+  suppressWarnings({
+    county_within_district_link <- glue("{BASEPATH}/GeoJSON/County in Congressional District/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+    city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
+    
+    city_data <- fromJSON(city_json)
+    city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
+  })
   
-  city_data <- fromJSON(city_json)
-  city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
-
   geo_data <- st_read(county_within_district_link) %>% 
     right_join(current_data, by = c("COUNTYFP" = "fips")) %>%
     mutate(CD118FP = as.numeric(CD118FP))
@@ -412,11 +417,13 @@ get_margin_bubble_map_district <- function(BASEPATH, state_abbrev, congressional
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == "House" & district == congressional_district)
   
-  county_within_district_link <- glue("{BASEPATH}/GeoJSON/County in Congressional District/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
-  
-  city_data <- fromJSON(city_json)
-  city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
+  suppressWarnings({
+    county_within_district_link <- glue("{BASEPATH}/GeoJSON/County in Congressional District/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+    city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
+    
+    city_data <- fromJSON(city_json)
+    city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
+  })
   
   geo_data <- st_read(county_within_district_link) %>% 
     right_join(current_data, by = c("COUNTYFP" = "fips")) %>%
@@ -475,7 +482,9 @@ get_votes_left_map <- function(BASEPATH, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev & office_type == office)
   
-  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  suppressWarnings({
+    geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  })
   
   geo_data <- st_read(geojson_link) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
@@ -550,7 +559,9 @@ get_swing_map <- function(BASEPATH, state_abbrev, office_1, office_2, year_1, ye
   full_data <- full_join(data_1, data_2, by = 'fips') %>%
     mutate(swing = margin_1 - margin_2)
 
-  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  suppressWarnings({
+    geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+  })
   
   geo_data <- st_read(geojson_link) %>%
     left_join(full_data, by = c("COUNTYFP" = "fips"))

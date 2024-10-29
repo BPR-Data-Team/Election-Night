@@ -11,9 +11,9 @@ source("decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
 source("decision_desk/Dashboard/Dashboard Utilities/DemographicMaps.R")
 source("decision_desk/Dashboard/Dashboard Utilities/BettingOdds.R")
 source("decision_desk/Dashboard/Dashboard Utilities/PreviousTimeGraph.R")
-#source("decision_desk/Dashboard/Dashboard Utilities/ExitPollExplorer.R")
-
-
+source("decision_desk/Dashboard/Dashboard Utilities/ExitPollExplorer.R")
+source("decision_desk/Dashboard/Dashboard Utilities/PercentToWin.R")
+source("decision_desk/Dashboard/Dashboard Utilities/FilterRaces.R")
 # ------------------------------ DATA INPUT ------------------------------------ #
 
 current_data <- read.csv("cleaned_data/Changing Data/DDHQ_current_race_results.csv")
@@ -46,12 +46,11 @@ server <- function(input, output, session) {
   })
   
   selected_race_data <- reactive({
-    current_data %>% filter(state == state_selection(),
-                            office_type == election_type()) 
-    #district == district_select()) 
+    current_data %>% filter_races(office_selection = election_type(),
+                                  state_selection = state_selection(),
+                                  district_selection = district_selection())
   })
-  
-  
+
   state_electoral_votes <- reactive({
     min(unlist(electoral_votes %>% 
                  filter(state == state.name[match(state_selection(), state.abb)]) %>% 
@@ -66,6 +65,17 @@ server <- function(input, output, session) {
            "Performance v. President")
   })
   
+  performance_v_president <- reactive({
+    presidential_margin <- current_data %>% 
+      filter_races(state_selection = state_selection(),
+                   office_selection = "President") %>% 
+      pull(margin_pct)[1]
+    
+    current_margin <- selected_race_data()$margin_pct[1] 
+    
+    round(presidential_margin - current_margin, 1)
+  })
+    
   output$performance_or_ev <- renderText({
     ifelse(election_type() == "President", 
            state_electoral_votes(),
@@ -100,16 +110,19 @@ server <- function(input, output, session) {
   })
   
   output$election_night_shift <- renderText({
-    poll_closing %>%
-      filter(State == state_selection()) %>%
-      pull("Shift.in.results")
-    
+    if (state_selection() == "All") {
+      poll_closing %>% pull("Shift.in.results")
+    } else {
+      poll_closing %>% 
+        filter(State == state_selection()) %>% 
+        pull("Shift.in.results")
+    }
   })
   
   output$performance_v_president <- renderText({
     presidential_margin <- current_data %>% 
-      filter(state == state_selection(),
-             office_type == "President") %>% 
+      filter_races(office_selection = "President",
+                   state_selection = state_selection()) %>%
       pull(margin_pct)[1]
     
     current_margin <- selected_race_data()$margin_pct[1]
@@ -158,7 +171,14 @@ server <- function(input, output, session) {
   output$betting_odds <- renderUI({get_betting_odds(election_type(), state_selection())})
   
   output$races_to_call <- renderTable({
-    race_list <- poll_closing %>%
+    race_list <- if (state_selection() == "All") {
+      poll_closing
+    } else {
+      poll_closing %>%
+        filter(State == state_selection())
+    }
+    
+    race_list <- race_list %>%
       filter(State == state_selection()) %>%
       select("Total.elections.to.call", 
              "Call.at.poll.closing",
@@ -182,7 +202,14 @@ server <- function(input, output, session) {
   })
   
   output$return_times <- renderTable({
-    race_list <- poll_closing %>%
+    race_list <- if (state_selection() == "All") {
+      poll_closing
+    } else {
+      poll_closing %>%
+        filter(State == state_selection())
+    }
+    
+    race_list <- race_list %>%
       filter(State == state_selection()) %>%
       select("Poll.Closing", "X2nd.Closing", "First.Results","X50.", "X80.", "X95.") %>%
       rename("1st poll closing" = "Poll.Closing",
@@ -201,15 +228,20 @@ server <- function(input, output, session) {
   })
   
   output$races_to_watch <- renderTable({
-    race_list <- poll_closing %>%
-      filter(State == state_selection()) %>%
-      pull("Races.to.Watch")
+    
+    race_list <- if (state_selection() == "All") {
+      poll_closing %>% pull("Races.to.Watch")
+    } else {
+     poll_closing %>%
+        filter(State == state_selection()) %>%
+        pull("Races.to.Watch")
+    }
     
     transposed_df <- t(do.call(rbind.data.frame, as.list(strsplit(race_list, ",")))) %>%
       as.data.frame() %>%
       rename(" " = "V1")
   })
-  
+
   # Exit Polls
   observeEvent(input$exit_poll_selector, {
     output$exit_poll_table <- renderTable({
@@ -261,31 +293,11 @@ server <- function(input, output, session) {
     output$white_college_educated_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White College")})
   })
   
-  
-  # observeEvent(input$margin_year, {
-  #   updateTabsetPanel(session, "margin_year",
-  #                     selected = paste("margin_map_{input$margin_year}")
-  #   )
-  # })
-  # observeEvent(input$bubble_year, {
-  #   updateTabsetPanel(session, "bubble_year",
-  #                     selected = paste("margin_bubble_map_{input$bubble_year}")
-  #   )
-  # })
-  # observeEvent(input$swing_year, {
-  #   updateTabsetPanel(session, "swing_year",
-  #                     selected = paste("swing_map_{input$swing_year}")
-  #   )
-  # })
-  
   # Graphs 
   output$margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
   output$expected_pct_graph_2020 <- renderPlot(previous_time_expected_pct_graphs[[state_selection()]])
-  
-  
+
   # Dropdown logic
-  election_type <- reactive({ input$category_select })
-  state <- reactive({ input$state_select })
   observe({
     filtered_states <- current_data %>%
       pull("state") %>%
@@ -302,36 +314,57 @@ server <- function(input, output, session) {
   observeEvent(input$category_select, {
     # Filter states based on the selected election type
     filtered_states <- current_data %>%
-      filter(office_type == input$category_select | input$category_select == "All") %>%
+      filter_races(office_selection = input$category_select) %>%
       pull("state") %>%
       unique() %>%
       append("All", after = 0)
     
     # Check if the current state is in the filtered states
-    current_state <- input$state_select
-    if (current_state %in% filtered_states) {
-      selected_state <- current_state  # Keep the current state if it exists in the dropdown
-    } else {
-      selected_state <- "AL"  # Fallback to "All" if the current state is not in the filtered states
-    }
+    selected_state <- ifelse(state_selection() %in% filtered_states, 
+                             state_selection(), 
+                             "All")
+    
     # Update the state dropdown with the filtered states and maintain or reset the selection
     updateSelectInput(session, "state_select",
                       choices = filtered_states,
                       selected = selected_state
     )
+    
+    if (input$category_select != "House") {
+      updateSelectInput(session, "district_select", selected = "All")
+    }
   })
-  output$selected_time <- renderText({closing_times[input$time_slider]})
   
+  observeEvent(input$state_select, {
+    if (input$category_select == "House") {
+      filtered_districts <- current_data %>% 
+        filter_races(office_selection = input$category_select,
+                     state_selection = input$state_select) %>%
+        pull("district") %>%
+        unique() %>%
+        append("All", after = 0)
+      
+      selected_district <- ifelse(input$district_select %in% filtered_districts, 
+                                  input$district_select, 
+                                  "All") 
+      
+      updateSelectInput(session, "district_select",
+                        choices = filtered_districts,
+                        selected = selected_district
+      )
+      
+    } else{
+      updateSelectInput(session, "district_select", selected = "All")
+    }
+  })
+  
+  output$selected_time <- renderText({closing_times[input$time_slider]})
   
   # Render the filtered elections table
   output$elections <- renderTable({
     output$elections <- renderUI({
-      elections <- current_data %>%
-        filter(
-          (input$category_select == "All" | office_type == input$category_select),  # Skip filter if "All"
-          (input$state_select == "All" | state == input$state_select)  # Skip filter if "All"
-        ) %>% mutate(district = suppressWarnings((as.integer(district))))
-      
+      elections <- selected_race_data()
+        
       if (nrow(elections) == 0) {
         return(div("No elections match your criteria"))
       }

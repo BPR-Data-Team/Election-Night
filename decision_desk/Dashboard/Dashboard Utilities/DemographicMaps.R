@@ -4,6 +4,7 @@ library(leaflet.extras)
 library(RColorBrewer)  # For color palettes
 library(sf)
 library(glue)
+library(jsonlite)
 
 county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
 
@@ -15,12 +16,14 @@ get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
   county_dems_data <- demographic_data %>%
     filter(state == state_abbrev)
   
-  geojson_link <- glue("{BASEPATH}/GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
-  
-  city_json <- glue("{BASEPATH}/election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
-  
-  city_data <- fromJSON(city_json)
-  city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4326)
+  suppressMessages({suppressWarnings({
+    geojson_link <- glue("GeoJSON/County/2022/{state.name[match(state_abbrev, state.abb)]}_2022.geojson")
+    
+    city_json <- glue("election-portal/public/GeoJSON/City/{state.name[match(state_abbrev, state.abb)]}.json")
+    
+    city_data <- fromJSON(city_json)
+    city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4326)
+  })})
   
   geo_data <- st_read(geojson_link) %>%
     left_join(county_dems_data, by = c("COUNTYFP" = "fips"))
@@ -141,7 +144,7 @@ get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
             "border-radius" = "3px"       # Rounded corners for the background
           )
         )
-      )
+      ) %>%
       addLegend(
         pal = pal,
         values = c(0, 1),
