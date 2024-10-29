@@ -770,7 +770,7 @@ const EBMap: React.FC = () => {
         [29000, -2000],
         [-20000, -2000]
     ]
-};
+  };
 
   const initializeMap = (mapData: any) => {
     const axisMax: number = Math.max(

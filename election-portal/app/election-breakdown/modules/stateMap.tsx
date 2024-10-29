@@ -139,6 +139,49 @@ const initializeMap = (mapData: any, cityData: any) => {
       visible: false,
   };
 
+    const getMinMaxCoordinates = (mapData: any) => {
+        let minLongitude = Infinity, maxLongitude = -Infinity;
+        let minLatitude = Infinity, maxLatitude = -Infinity;
+
+        mapData.features.forEach((feature: any) => {
+            feature.geometry.coordinates.forEach((coordinates: any) => {
+                const processCoordinates = (coords: any) => {
+                    if (typeof coords[0] === 'number' && typeof coords[1] === 'number') {
+                        const [longitude, latitude] = coords;
+                        if (longitude < minLongitude) minLongitude = longitude;
+                        if (longitude > maxLongitude) maxLongitude = longitude;
+                        if (latitude < minLatitude) minLatitude = latitude;
+                        if (latitude > maxLatitude) maxLatitude = latitude;
+                    } else {
+                        if (Array.isArray(coords)) {
+                            coords.forEach((innerCoords: any) => processCoordinates(innerCoords));
+                        }
+                    }
+                };
+                processCoordinates(coordinates);
+            });
+        });
+
+        return { minLongitude, maxLongitude, minLatitude, maxLatitude };
+    };
+    const { minLongitude, maxLongitude, minLatitude, maxLatitude } = getMinMaxCoordinates(mapData);
+    const horizDiff = (maxLongitude - minLongitude);
+    const vertDiff = (maxLatitude - minLatitude);
+    let zoomScale = 0.7
+    if (vertDiff > horizDiff) {
+        zoomScale = 1;
+    }
+    console.log(maxLongitude+horizDiff, maxLatitude-vertDiff);
+    const zoomGeometry = {
+        type: 'MultiPoint',
+        coordinates: [
+            [minLongitude-horizDiff, maxLatitude-vertDiff],
+            [minLongitude-horizDiff, minLatitude+vertDiff],
+            [maxLongitude+horizDiff, minLatitude+vertDiff],
+            [maxLongitude+horizDiff, maxLatitude-vertDiff],
+        ]
+    };
+
   const mapOptions: Highcharts.Options = {
       chart: {
           type: "map",
@@ -163,9 +206,14 @@ const initializeMap = (mapData: any, cityData: any) => {
                         }
                     });
 
+                    this.mapZoom(zoomScale);
                     chart.redraw();
               }
-          }
+          },
+
+        animation: {
+            duration: 0,
+        },
       },
       credits: {
           enabled: false,
@@ -249,6 +297,12 @@ const initializeMap = (mapData: any, cityData: any) => {
               }
           },
       ],
+      mapView: {
+        projection: {
+            name: 'WebMercator',
+        },
+        fitToGeometry: zoomGeometry,
+      }
   };
 
   Highcharts.mapChart("container", mapOptions);
