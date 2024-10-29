@@ -700,7 +700,12 @@ const EBMap: React.FC = () => {
               // I genuinely have no idea how this is formulated.
               // I just guess-and-checked until it looked right -- I assume that it has to
               // do with the zoomGeometry offsets.
-              chart.mapZoom(0.8, eventPoint.plotX*7 - 1000, eventPoint.plotY*(-8)+10000);
+              let toZoom = 0.8;
+              if (stateName == "Rhode Island" || stateName == "Connecticut"
+                  || stateName == "Delaware" || stateName == "New Jersey"
+                  || stateName == "Maryland" || stateName == "Massachusetts"
+              ) { toZoom = 0.5; }
+              chart.mapZoom(toZoom, eventPoint.plotX*7 - 1000, eventPoint.plotY*(-8)+10000);
             }
         }
       } else if (sharedState.view == stateEnum) {
