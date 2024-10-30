@@ -16,6 +16,7 @@
   padding-bottom: 1rem;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 10;
+  pointer-events: none;
 }
 
 h1,
