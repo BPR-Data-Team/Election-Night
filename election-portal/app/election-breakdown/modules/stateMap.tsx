@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { RaceType } from "@/types/RaceType";
 import { Year } from "@/types/Year";
 import Highcharts from "highcharts";
@@ -6,7 +6,9 @@ import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 
 import GeoJsonCache from "./mapDataCache";
+import { State, getStateFromString } from "../../../types/State";
 
+import { useSharedState } from "../../sharedContext";
 import "./stateMap.css";
 import { json } from "stream/consumers";
 
@@ -108,14 +110,51 @@ const colorAxisStops: [number, string][] = [
 
 const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
   const { fetchStateGeoJSON, fetchCityGeoJSON } = GeoJsonCache();
+  const sharedState = useSharedState().state;
+
+  const [wasPanned, setWasPanned] = useState(false);
+
+  const startPos = useRef<{ x: number; y: number } | null>(null);
+
+  const handleMouseDown = (event: MouseEvent) => {
+    startPos.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const handleMouseUp = (event: MouseEvent) => {
+    if (startPos.current) {
+      const deltaX = Math.abs(event.clientX - startPos.current.x);
+      const deltaY = Math.abs(event.clientY - startPos.current.y);
+      if (deltaX > 10 || deltaY > 10) {
+        setWasPanned(true);
+      } else {
+        setWasPanned(false);
+      }
+      startPos.current = null;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
   
   useEffect(() => {
     retrieveMapData();
   }, [raceType, year, stateName]);
 
   const retrieveMapData = async () => {
+    if (stateName == "National") {
+        return;
+    }
+    console.log("Retrieving map data for", stateName, year);
     const newMapData = await fetchStateGeoJSON(stateName, String(year));
     const newCityData = await fetchCityGeoJSON(stateName);
+    console.log(newMapData);
     initializeMap(newMapData, newCityData);
   };
 
@@ -126,6 +165,14 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
   function getMinState(stateData: FakeData[]): number {
     return Math.min(...stateData.map((state) => state.value));
   }
+
+  const handleOOBClick = () => {
+    if (wasPanned) {
+      return;
+    }
+    sharedState.setView(State.National);
+    sharedState.setLevel("national");
+  };
 
 const initializeMap = (mapData: any, cityData: any) => {
   const axisMax: number = Math.max(
@@ -188,6 +235,11 @@ const initializeMap = (mapData: any, cityData: any) => {
           map: mapData,
           backgroundColor: "transparent",
           events: {
+            click: function (event: any) {
+                if (!event.point) {
+                    handleOOBClick();
+                }
+            },
               load: function () {
                     const chart = this;
 
@@ -265,6 +317,12 @@ const initializeMap = (mapData: any, cityData: any) => {
               },
               tooltip: {
                   pointFormat: "{point.properties.NAME} County",
+              },
+              events: {
+                click: function (event: any) {
+                    // const stateName = event.point["name"];
+                    // handleStateClick(stateName, event.point);
+                },
               },
           },
           {
