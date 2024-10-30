@@ -1,13 +1,135 @@
 .dataDisplay {
     position: fixed;
-    padding-inline-start: 2rem;
+    /* padding-inline-start: 2rem;
     padding-inline-end: 2rem;
     padding-top: 1rem;
-    padding-bottom: 1rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    top: 40%;
-    max-width: 25%;
-    pointer-events: none;
+    padding-bottom: 1rem; */
+    
+    top: 25%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    height: 55%;
+}
+
+.stateYearDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 20%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.spaceDiv {
+    height: 5%;
+    opacity: 0;
+}
+
+.infoDiv {
+    height: 75%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.personStack {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem;
+    width: 50%;
+    height: 100%;
+}
+
+.peopleDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 90%;
+    width: 100%;
+}
+
+.personImageDiv {
+    width: 100%; /* Adjust as needed */
+    height: 50%; /* Adjust as needed */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.personImageDiv img {
+    object-fit: cover;
+    width: 75%;
+    height: auto;
+}
+
+.demPerson {
+    border-radius: 50%; /* Makes the image circular */
+    border: 3px solid; /* Border thickness */
+    border-color: #595D9A; /* Democratic candidate color */
+    background-color: #595D9A; /* Change this if you need a different background */
+}
+
+.repPerson {
+    border-radius: 50%; /* Makes the image circular */
+    border: 3px solid; /* Border thickness */
+    border-color: #B83C2B; /* Republican candidate color */
+    background-color: #B83C2B; /* Change this if you need a different background */
+}
+
+.infoDivTextDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+}
+
+.pctReportingDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    width: 100%;
+    padding-bottom: 1.5rem;
+}
+
+.pct_reporting {
+    font-size: 1.5rem;
+}
+
+.stateYearHeader {
+    font-size: 2.1rem;
+}
+
+.stateName {
+    font-size: 2.1rem;
+    font-weight: 700;
+}
+
+.personName {
+    font-size: 2rem;
+}
+
+.personPercentage {
+    font-size: 2.7rem;
+}
+
+.personVotes {
+    font-size: 1.3rem;
 }
 
 /* Put a future class for state or national and have the max width differ */
@@ -15,5 +137,8 @@
 h1, h2, h3, h4, h5, h6, p, em, i, .wordmark {
     display: inline;
     font-size: 1.5rem;
+    font-weight: 400;
     color: #FFFFFF;
+    font-family: gelica, book antiqua, georgia, times new roman, serif;
 }
+
