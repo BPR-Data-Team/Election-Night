@@ -547,9 +547,9 @@ items = [
 
 
 # Getting matrices and vectors from locally-hosted data
-cov_matrix = np.load("../cleaned_data/AWS_data/cov_matrix.npy")
-mean_predictions = np.load("../cleaned_data/AWS_data/mean_predictions.npy")
-officetype_district = np.load("../cleaned_data/AWS_data/officetype_district_state.npy")
+cov_matrix = np.load("cleaned_data/AWS_data/cov_matrix.npy")
+mean_predictions = np.load("cleaned_data/AWS_data/mean_predictions.npy")
+officetype_district = np.load("cleaned_data/AWS_data/officetype_district_state.npy")
 # Create lists to store the parsed components
 office_type = []
 district = []
@@ -572,13 +572,14 @@ new_predictions_df = pd.DataFrame({
 })
 
 
-original_predictions_df = pd.read_csv("../cleaned_data/AWS_data/Predictions.csv")
+original_predictions_df = pd.read_csv("cleaned_data/AWS_data/Predictions.csv")
 
 #Creating upper and lower bounds for predictions
 rep_called_states = [item['officetype_district_state'] for item in items if item['called'] == 'R']
 dem_called_states = [item['officetype_district_state'] for item in items if item['called'] == 'D']
 lower_bounds = [0 if state_district in dem_called_states else -100 for state_district in officetype_district]
 upper_bounds = [0 if state_district in rep_called_states else 100 for state_district in officetype_district]
+called = ['R' if state_district in rep_called_states else 'D' if state_district in dem_called_states else 'NC' for state_district in officetype_district]
 
 #---- THE FOLLOWING CODE IS FROM GITHUB, DO NOT CHANGE! ----
 
@@ -1004,6 +1005,7 @@ def lnPhi(x):
 random_samples = TruncatedMVN(mean_predictions, cov_matrix, lower_bounds, upper_bounds).sample(100000)
 
 new_predictions_df['margins_new'] = random_samples.tolist()
+new_predictions_df['called'] = called
 
 #Now need to add additional rows for house, senate, and president
 senate_samples = random_samples[new_predictions_df['office_type'] == 'Senate']
@@ -1012,7 +1014,7 @@ US_senate = np.sum(senate_samples >= 0, axis = 0) + 30 #of the races we're not p
 house_samples = random_samples[new_predictions_df['office_type'] == 'House']
 US_house = np.sum(house_samples >= 0, axis = 0) + 27
 
-electoral_votes = pd.read_csv('../cleaned_data/AWS_Data/Electoral Votes Sheet.csv')
+electoral_votes = pd.read_csv('cleaned_data/AWS_Data/Electoral Votes Sheet.csv')
 president_samples = random_samples[new_predictions_df['office_type'] == 'President']
 
 presidential_df = new_predictions_df[new_predictions_df['office_type'] == 'President']
@@ -1053,4 +1055,4 @@ predictions_df['tie_pct_eday'] = predictions_df.apply(
 predictions_df = predictions_df.drop(columns = ['margins_new', 'threshold_winning'])
 
 #Final predictions, to go to the old AWS dataframe!
-predictions_df.to_csv('../cleaned_data/AWS_data/LivePredictions.csv', index = False)
+predictions_df.to_csv('cleaned_data/Changing Data/LivePredictions.csv', index = False)
