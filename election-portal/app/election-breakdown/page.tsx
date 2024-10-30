@@ -16,6 +16,14 @@ import DataDisplay from "./modules/dataDisplay";
 import EBMap from "./modules/EBMap";
 import StateMap from "./modules/stateMap";
 
+const mockStateData = {
+  "dem_name": "Stevens",
+  "rep_name": "Richardson",
+  "dem_votes": 2128102,
+  "rep_votes": 2357106,
+  "pct_reporting": 71,
+}
+
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
   const [historicalElectionsData, setHistoricalElectionsData] = useState<
@@ -219,7 +227,7 @@ export default function Election_Breakdown_Page() {
             message={"level:" + sharedState.level}
           />
 
-          {SMWN && <DataDisplay />}
+          {(SMWN || !displayNational) && <DataDisplay stateName={sharedState.view} year={sharedState.year} stateData={mockStateData} raceType={sharedState.breakdown} sharedStateLevel={sharedState.level}/>}
 
           {/* Needs to be topmost during content screens */}
           <Menubar />
