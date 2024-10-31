@@ -644,6 +644,8 @@ const EBMap: React.FC = () => {
 
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
+  const [selectedStateKey, setSelectedStateKey] = useState<string>("");
+
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
   };
@@ -711,6 +713,9 @@ const EBMap: React.FC = () => {
       } else if (sharedState.view == stateEnum) {
         sharedState.setLevel("state");
       }
+
+      console.log("eventPoint hc-key: " + eventPoint["hc-key"]);
+      setSelectedStateKey(eventPoint["hc-key"]);
   };
 
   // Exists because page.tsx doesn't work if inside container div but outside USA boundaries
@@ -721,6 +726,8 @@ const EBMap: React.FC = () => {
     sharedState.setView(State.National);
     chart.mapZoom(); // resets to default
     chart.mapZoom(0.3);
+
+    setSelectedStateKey("");
   };
 
   useEffect(() => {
@@ -757,6 +764,24 @@ const EBMap: React.FC = () => {
       )
     }
   }, [sharedState.view, wasPanned, chart])
+
+  useEffect(() => {
+    if (chart) {
+      console.log("selectedStateKey: " + selectedStateKey);
+      chart.update({
+        series: [
+          {
+            type: "map",
+            data: (raceType === RaceType.Presidential ? presData : senData).map((state) => ({
+              ...state,
+              borderColor: state["hc-key"] === selectedStateKey ? "lightgreen" : "#000000",
+              borderWidth: state["hc-key"] === selectedStateKey ? 6 : 1,
+            })),
+          },
+        ],
+      });
+    }
+  }, [selectedStateKey, chart, raceType]);
 
   function getMaxState(stateData: FakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -870,7 +895,7 @@ const EBMap: React.FC = () => {
             events: {
             }
           },
-          borderColor: "#000000",
+          borderColor: "#000000", // Conditionally green if selected state
           borderWidth: 1,
           dataLabels: {
             format: "{point.name}",
