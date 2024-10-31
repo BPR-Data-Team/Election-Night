@@ -114,6 +114,10 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
 
   const [wasPanned, setWasPanned] = useState(false);
 
+  const [stateChart, setStateChart] = useState<any>(null);
+  const [selectedCounty, setSelectedCounty] = useState("");
+
+
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
   const handleMouseDown = (event: MouseEvent) => {
@@ -170,9 +174,34 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     if (wasPanned) {
       return;
     }
-    sharedState.setView(State.National);
-    sharedState.setLevel("national");
+    // sharedState.setView(State.National);
+    // sharedState.setLevel("national");
+    setSelectedCounty("");
   };
+
+  const handleCountyClick = (countyKey: string) => {
+    if (!wasPanned) {
+      setSelectedCounty(countyKey); // Update selected county key for border
+    }
+  };
+
+  useEffect(() => {
+    if (stateChart) {
+      stateChart.update({
+        series: [
+          {
+            type: "map",
+            data: presData.map((county) => ({
+              ...county,
+              borderColor: county.GEOID === selectedCounty ? "lightgreen" : "#000000",
+              borderWidth: county.GEOID === selectedCounty ? 6 : 1,
+            })),
+          },
+        ],
+      });
+    }
+  }, [selectedCounty, stateChart]);
+  
 
 const initializeMap = (mapData: any, cityData: any) => {
   const axisMax: number = Math.max(
@@ -320,8 +349,8 @@ const initializeMap = (mapData: any, cityData: any) => {
               },
               events: {
                 click: function (event: any) {
-                    // const stateName = event.point["name"];
-                    // handleStateClick(stateName, event.point);
+                    // const countyName = event.point["name"];
+                    handleCountyClick(event.point.GEOID);
                 },
               },
           },
@@ -364,6 +393,8 @@ const initializeMap = (mapData: any, cityData: any) => {
   };
 
   Highcharts.mapChart("container", mapOptions);
+  const ch = Highcharts.mapChart("container", mapOptions);
+  setStateChart(ch);
 };
 
 
