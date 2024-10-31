@@ -30,6 +30,7 @@ get_exit_polls <- function(abbrev, election_type) {
     unnest(answers) %>%
     unnest(candidateAnswers) %>%
     group_by(mxId) %>%
+    filter(!any(percentage == -1)) %>%
     #Slight problem: for some questions, like age, there are multiple different groupings:
     #How many options do you give? We choose the one with the most options
     mutate(num_options = n() / 2) %>%
@@ -40,7 +41,7 @@ get_exit_polls <- function(abbrev, election_type) {
     #We want two values: what percent of the demographic is this in the poll, 
     #And how does that demographic vote?
     rename(demographic_pct = totalPercentage, answer_pct = percentage) %>%
-    filter(question %in% c("Age", "Race", "Region", "Gender", "Area type", "Education", "Income")) 
+    filter(question %in% c("Age", "Race", "Gender", "Area type", "Education", "Income", "Education by race")) 
   
 }
 
@@ -55,4 +56,4 @@ exit_poll_list <- expand_grid(!!!factors_to_fetch) %>%
 
 exit_polls_df <- bind_rows(exit_poll_list)
 
-write.csv(exit_polls_df, "cleaned_data/Changing Data/CNN_exit_polls_2024.csv")
+write.csv(exit_polls_df, "cleaned_data/Locally-Hosted Data/CNN_exit_polls_2024.csv")
