@@ -76,6 +76,7 @@ export default function Exit_Poll_Explorer_Page() {
         );
     }
   }, []);
+
   const fetch2020Data = () => {};
   const fetch2024Data = () => {};
 
@@ -86,68 +87,6 @@ export default function Exit_Poll_Explorer_Page() {
       fetch2024Data();
     }
   }, [state.year]);
-  console.log(getStateAbbreviation(state.view));
-  console.log(state.demographic);
-
-  // useEffect(() => {
-  //   let data: ExitPollAnswer[] = [];
-  //   exitPollData?.forEach((datum) => {
-  //     if (
-  //       datum.state == getStateAbbreviation(state.view) &&
-  //       datum.office_type == "President" &&
-  //       datum.question == state.demographic
-  //     ) {
-  //       if (datum.lastName == "Biden") {
-  //         if (
-  //           data.some(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentTrump")
-  //           )
-  //         ) {
-  //           const idx = data.findIndex(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentTrump")
-  //           );
-  //           data[idx] = { ...data[idx], percentBiden: datum.answer_pct };
-  //         } else {
-  //           data.push({
-  //             answer: datum.answer,
-  //             percentVote: datum.demographic_pct,
-  //             percentBiden: datum.answer_pct,
-  //           });
-  //         }
-  //       } else if (datum.lastName == "Trump") {
-  //         if (
-  //           data.some(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentBiden")
-  //           )
-  //         ) {
-  //           const idx = data.findIndex(
-  //             (d) =>
-  //               d.hasOwnProperty("answer") &&
-  //               d.hasOwnProperty("percentVote") &&
-  //               d.hasOwnProperty("percentBiden")
-  //           );
-  //           data[idx] = { ...data[idx], percentTrump: datum.answer_pct };
-  //         } else {
-  //           data.push({
-  //             answer: datum.answer,
-  //             percentVote: datum.demographic_pct,
-  //             percentTrump: datum.answer_pct,
-  //           });
-  //         }
-  //       }
-  //     }
-  //   });
-  //   setTableData(data);
-  // }, [state.demographic, state.year]);
 
   useEffect(() => {
     const dataMap = new Map();
@@ -177,78 +116,8 @@ export default function Exit_Poll_Explorer_Page() {
     setTableData(data);
   }, [state.demographic, state.view, exitPollData]);
 
-  console.log("tableData", tableData);
-  console.log("exitPollData", exitPollData);
   if (!exitPollData) return <p>Loading Exit Poll Data...</p>;
 
-  const fakeStats2020 = {
-    income: {
-      national: [
-        {
-          answer: "Less than $30,000",
-          percentVote: 10,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$30,000-$49,999",
-          percentVote: 20,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$50,000-$99,999",
-          percentVote: 50,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$100,000-$199,999",
-          percentVote: 10,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$200,000 or more",
-          percentVote: 10,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-      ],
-      AL: [
-        {
-          answer: "Less than $30,000",
-          percentVote: 10,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$30,000-$49,999",
-          percentVote: 20,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$50,000-$99,999",
-          percentVote: 50,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$100,000-$199,999",
-          percentVote: 10,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-        {
-          answer: "$200,000 or more",
-          percentVote: 10,
-          percentTrump: 55,
-          percentBiden: 45,
-        },
-      ],
-    },
-  };
   return (
     <div className={styles.page}>
       <Menubar />
@@ -264,8 +133,8 @@ export default function Exit_Poll_Explorer_Page() {
         <Banner
           align="left"
           height={7}
-          wordmark={state.demographic}
-          header=""
+          wordmark={`${state.view} | `}
+          header={state.demographic}
           message={state.year.toString()}
         />
         <div className={styles.mapAndTable}>
