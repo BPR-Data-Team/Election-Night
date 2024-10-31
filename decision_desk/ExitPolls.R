@@ -56,4 +56,4 @@ exit_poll_list <- expand_grid(!!!factors_to_fetch) %>%
 
 exit_polls_df <- bind_rows(exit_poll_list)
 
-write.csv(exit_polls_df, "cleaned_data/Locally-Hosted Data/CNN_exit_polls_2024.csv")
+write.csv(exit_polls_df, "cleaned_data/Changing Data/CNN_exit_polls_2024.csv")
