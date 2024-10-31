@@ -139,8 +139,7 @@ house_2022 <- read_csv("data/HouseHistory.csv") %>%
 historical_counties <- pres_county %>% 
   bind_rows(senate_county) %>%
   bind_rows(gov_county) %>%
-  mutate(county = str_remove(county, " County")) %>%
-  filter(!str_detect(county, "[c|C]ity"))
+  mutate(county = str_remove(county, " County")) 
 
 
 #------ COMBINING TO GET FULL RACE VALUES ------
