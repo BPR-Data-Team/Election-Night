@@ -1,15 +1,27 @@
 #container {
   align-content: end;
-  height: 75vh;
+  height: 80vh;
 }
 .map {
   display: flex;
   justify-content: center;
+  height: 600px;
+  width: 800px;
 } 
-.extra-ev-container {
-  flex-direction: column;
+.map-container {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 3rem;
+}
+.map-and-controls {
+  display: flex;
+  align-items: flex-start;
 }
 .circle {
   width: 50px;
@@ -19,6 +31,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 3rem;
 }
 
 .circle-text {
@@ -36,6 +49,8 @@
   padding: 0.3rem;
   font-size: 1.7em;
   border-radius: 4px;
+  margin-top: 15rem;
+  
 }
 
 

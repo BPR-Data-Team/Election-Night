@@ -30,15 +30,12 @@ export default function Road_To_Control_Page() {
       <div className={styles.page}>
         <div className={styles.overflowCatch}>
           {sharedState.drawMode ? <Canvas /> : null}
-          <div className={styles.statusBar}>
-            <StatusBar />
-          </div>
           <div className={styles.mapWrapper} id="mapWrapper">
-            <div
+            {/* <div
               className={styles.StateMapContainer}
-            >
-              <RTCMap year={sharedState.year} raceType={sharedState.breakdown}/>
-            </div>
+            > */}
+            <RTCMap year={sharedState.year} raceType={sharedState.breakdown}/>
+            {/* </div> */}
           </div>
           <Menubar />
         </div>

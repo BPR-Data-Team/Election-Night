@@ -5,8 +5,10 @@ import Highcharts, { color } from "highcharts";
 import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 import "./rtcmap.css";
-import { stateCodeToName } from "./utils/stateMap"; // Adjust the path if needed
+import { stateCodeToName } from "./utils/stateMap";
 import Circle from "./ElectoralVoteButton";
+import StatusBar from "./StatusBar";
+import electoralVotesPerState from "./utils/electoralVotesPerState";
 
 const presData = [
   { "hc-key": "us-al", Called: "R" },
@@ -115,8 +117,11 @@ interface RTCMapProps {
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<any[]>([]);
+  const originalElectoralCounts= useRef<any[]>([]);
   const [mapData, setMapData] = useState(presData); // Default to presData
   const [circleValues, setCircleValues] = useState({ NE2: 0, ME2: 0 });
+  const [leftCount, setLeftCount] = useState(0);
+  const [rightCount, setRightCount] = useState(0);
 
   const fetchMapDataAndInitializeMap = async () => {
     const geoResponse = await fetch(
@@ -139,11 +144,12 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
     }));
 
+
     const handleStateClick = function (this: any) {
       const point = this;
       const newValue = (point.value + 1) % 3; // Cycle between 0 (N), 1 (D), and 2 (R)
       point.update({ value: newValue });
-      updateMapData(point["hc-key"], newValue);
+      updateMapData(point["hc-key"], newValue, point.value);
     };
 
     const mapOptions: Highcharts.Options = {
@@ -195,29 +201,66 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
 
     const chart = Highcharts.mapChart("container", mapOptions);
     chartRef.current = chart;
+    initializeElectoralVotes(currentData);
   };
 
-  const updateMapData = (key: string, value: number) => {
+  const updateMapData = (key: string, value: number, oldValue : number) => {
     setMapData((prev) =>
       prev.map((item) =>
         item["hc-key"] === key ? { ...item, Called: (colorMapping as any)[value] } : item
       )
     );
+    updateElectoralCounts(key, value, oldValue);
+
   };
 
+  const updateElectoralCounts = (key: string, value: number, oldValue : number) => {
+    const electoralVotes = key in electoralVotesPerState ? electoralVotesPerState[key] : 0;
+  
+    if (value === 1) {
+      setLeftCount((prev) => prev + electoralVotes);
+      setRightCount((prev) => prev - electoralVotes);
+    } else if (value === 2) {
+      setRightCount((prev) => prev + electoralVotes);
+      setLeftCount((prev) => prev - electoralVotes);
+    } else {
+      // If it is uncalled, Unsure about the Math here
+      if (oldValue === 1) {
+        setLeftCount((prev) => prev - electoralVotes);
+        setRightCount((prev) => prev - electoralVotes);
+      } else if (oldValue === 2) {
+        setRightCount((prev) => prev - electoralVotes);
+      }
+    }
+  };
+
+  const initializeElectoralVotes = (data: any[]) => {
+    let leftVotes = 0;
+    let rightVotes = 0;
+    data.forEach((item) => {
+      if (item.Called === "D") {
+        item["hc-key"] in electoralVotesPerState && (leftVotes += electoralVotesPerState[item["hc-key"]]);
+      } else if (item.Called === "R") {
+        item["hc-key"] in electoralVotesPerState && (rightVotes += electoralVotesPerState[item["hc-key"]]);
+      }
+    });
+    setLeftCount(leftVotes);
+    setRightCount(rightVotes);
+  };
   const handleReset = () => {
       if (chartRef.current) {
         const originalData = originalMap.current;
         if (originalData) {
-          const processedData = originalData.map((item: any) => ({
+          const original = originalData.map((item: any) => ({
             id: item["hc-key"],
             "hc-key": item["hc-key"],
             value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0,
           }));
   
           // Reset the series data
-          chartRef.current.series[0].setData(processedData);
+          chartRef.current.series[0].setData(original);
           setCircleValues({NE2: 0, ME2: 0});
+          initializeElectoralVotes(originalData);
         }
       }
     };
@@ -230,6 +273,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       point?.update({ value: item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0 });
     });
     setMapData(newData);
+    initializeElectoralVotes(newData);
   };
 
   useEffect(() => {
@@ -243,14 +287,17 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   }, []);
 
   return (
-    <div className="map">
-      <div id="container" style={{ height: "600px", width: "800px" }} />
-      <div className="extra-ev-container">
-        <Circle text="NE2" circleValue={circleValues.NE2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, NE2: typeof value === 'function' ? value(prev.NE2) : value }))}/>
-        <Circle text="ME2" circleValue={circleValues.ME2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, ME2: typeof value === 'function' ? value(prev.ME2) : value }))}/>
-      </div>
-      <div className="reset-button-container">
-        <button className="reset-button" onClick={handleReset}>Reset Map</button>
+    <div className="map-container">
+      <StatusBar leftCount={leftCount} rightCount={rightCount} />
+      <div className="map-and-controls">
+        <div id="container" className="map" />
+        <div className="controls">
+          <div className="circles">
+            <Circle text="NE2" circleValue={circleValues.NE2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, NE2: typeof value === 'function' ? value(prev.NE2) : value }))} />
+            <Circle text="ME2" circleValue={circleValues.ME2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, ME2: typeof value === 'function' ? value(prev.ME2) : value }))} />
+          </div>
+          <button className="reset-button" onClick={handleReset}>Reset Map</button>
+        </div>
       </div>
     </div>
   );
