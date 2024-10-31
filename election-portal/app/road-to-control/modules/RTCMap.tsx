@@ -6,7 +6,7 @@ import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 import "./rtcmap.css";
 import { stateCodeToName } from "./utils/stateMap"; // Adjust the path if needed
-
+import Circle from "./ElectoralVoteButton";
 
 const presData = [
   { "hc-key": "us-al", Called: "R" },
@@ -116,6 +116,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<any[]>([]);
   const [mapData, setMapData] = useState(presData); // Default to presData
+  const [circleValues, setCircleValues] = useState({ NE2: 0, ME2: 0 });
 
   const fetchMapDataAndInitializeMap = async () => {
     const geoResponse = await fetch(
@@ -216,6 +217,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   
           // Reset the series data
           chartRef.current.series[0].setData(processedData);
+          setCircleValues({NE2: 0, ME2: 0});
         }
       }
     };
@@ -243,6 +245,10 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   return (
     <div className="map">
       <div id="container" style={{ height: "600px", width: "800px" }} />
+      <div className="extra-ev-container">
+        <Circle text="NE2" circleValue={circleValues.NE2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, NE2: typeof value === 'function' ? value(prev.NE2) : value }))}/>
+        <Circle text="ME2" circleValue={circleValues.ME2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, ME2: typeof value === 'function' ? value(prev.ME2) : value }))}/>
+      </div>
       <div className="reset-button-container">
         <button className="reset-button" onClick={handleReset}>Reset Map</button>
       </div>
