@@ -1,28 +1,28 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { useSharedState } from "../sharedContext";
-import { State, getStateFromString } from "../../types/State";
-import { RaceType, SharedInfo, Year } from "../../types/SharedInfoType";
-import Head from "next/head";
-import Image from "next/image";
-import Papa from "papaparse";
-import styles from "./page.module.css";
-import Menubar from "../modules/menubar/menubar";
-import Canvas from "../modules/canvas/canvas";
-import { HistoricalCountyData, HistoricalElectionData } from "@/types/data";
-import Banner from "./modules/banner";
-import DataDisplay from "./modules/dataDisplay";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useSharedState } from '../sharedContext';
+import { State, getStateFromString } from '../../types/State';
+import { RaceType, SharedInfo, Year } from '../../types/SharedInfoType';
+import Head from 'next/head';
+import Image from 'next/image';
+import Papa from 'papaparse';
+import styles from './page.module.css';
+import Menubar from '../modules/menubar/menubar';
+import Canvas from '../modules/canvas/canvas';
+import { HistoricalCountyData, HistoricalElectionData } from '@/types/data';
+import Banner from './modules/banner';
+import DataDisplay from './modules/dataDisplay';
 
-import EBMap from "./modules/EBMap";
-import StateMap from "./modules/stateMap";
+import EBMap from './modules/EBMap';
+import StateMap from './modules/stateMap';
 
 const mockStateData = {
-  "dem_name": "Stevens",
-  "rep_name": "Richardson",
-  "dem_votes": 2128102,
-  "rep_votes": 2357106,
-  "pct_reporting": 71,
-}
+  dem_name: 'Stevens',
+  rep_name: 'Richardson',
+  dem_votes: 2128102,
+  rep_votes: 2357106,
+  pct_reporting: 71,
+};
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -41,7 +41,7 @@ export default function Election_Breakdown_Page() {
   // When sharedState.level changes wait 250ms before changing display state
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (sharedState.level == "national") {
+      if (sharedState.level == 'national') {
         setDisplayNational(true);
       } else {
         setDisplayNational(false);
@@ -55,14 +55,14 @@ export default function Election_Breakdown_Page() {
 
   // Would appreciate a better way to do this, if possible
   useEffect(() => {
-    const wrapperDiv = document?.getElementById("mapWrapper");
-    const EBMapDiv = document?.getElementById("EBContainer");
-    wrapperDiv?.addEventListener("click", function (event) {
+    const wrapperDiv = document?.getElementById('mapWrapper');
+    const EBMapDiv = document?.getElementById('EBContainer');
+    wrapperDiv?.addEventListener('click', function (event) {
       if (event.target === event.currentTarget) {
         sharedState.setView(State.National);
       }
     });
-    EBMapDiv?.addEventListener("click", function (event) {
+    EBMapDiv?.addEventListener('click', function (event) {
       if (event.target === event.currentTarget) {
         sharedState.setView(State.National);
       }
@@ -71,9 +71,9 @@ export default function Election_Breakdown_Page() {
 
   useEffect(() => {
     const storedElectionsData = sessionStorage.getItem(
-      "historicalElectionsData"
+      'historicalElectionsData'
     );
-    const storedCountyData = sessionStorage.getItem("historicalCountyData");
+    const storedCountyData = sessionStorage.getItem('historicalCountyData');
 
     // Load Historical Elections Data
     if (storedElectionsData) {
@@ -81,7 +81,7 @@ export default function Election_Breakdown_Page() {
         JSON.parse(storedElectionsData) as HistoricalElectionData[]
       );
     } else {
-      fetch("/cleaned_data/historical_elections.csv")
+      fetch('/cleaned_data/historical_elections.csv')
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -105,14 +105,14 @@ export default function Election_Breakdown_Page() {
                 });
               setHistoricalElectionsData(parsedElectionData);
               sessionStorage.setItem(
-                "historicalElectionsData",
+                'historicalElectionsData',
                 JSON.stringify(parsedElectionData)
               );
             },
           });
         })
         .catch((error) =>
-          console.error("Error loading historical elections data:", error)
+          console.error('Error loading historical elections data:', error)
         );
     }
 
@@ -136,7 +136,7 @@ export default function Election_Breakdown_Page() {
         JSON.parse(storedCountyData) as HistoricalCountyData[]
       );
     } else {
-      fetch("/cleaned_data/historical_county.csv")
+      fetch('/cleaned_data/historical_county.csv')
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -163,14 +163,14 @@ export default function Election_Breakdown_Page() {
               );
               setHistoricalCountyData(parsedCountyData);
               sessionStorage.setItem(
-                "historicalCountyData",
+                'historicalCountyData',
                 JSON.stringify(parsedCountyData)
               );
             },
           });
         })
         .catch((error) =>
-          console.error("Error loading historical county data:", error)
+          console.error('Error loading historical county data:', error)
         );
     }
     // }
@@ -192,7 +192,7 @@ export default function Election_Breakdown_Page() {
                 className={styles.EBMapContainer}
                 id="EBContainer"
                 style={{
-                  ...(sharedState.level == "national"
+                  ...(sharedState.level == 'national'
                     ? { opacity: 1 }
                     : { opacity: 0 }),
                 }}
@@ -204,7 +204,7 @@ export default function Election_Breakdown_Page() {
               <div
                 className={styles.StateMapContainer}
                 style={{
-                  ...(sharedState.level != "national"
+                  ...(sharedState.level != 'national'
                     ? { opacity: 1 }
                     : { opacity: 0 }),
                 }}
@@ -222,12 +222,20 @@ export default function Election_Breakdown_Page() {
           <Banner
             align="left"
             height={3}
-            wordmark={"view:" + sharedState.view}
+            wordmark={'view:' + sharedState.view}
             header=""
-            message={"level:" + sharedState.level}
+            message={'level:' + sharedState.level}
           />
 
-          {(SMWN || !displayNational) && <DataDisplay stateName={sharedState.view} year={sharedState.year} stateData={mockStateData} raceType={sharedState.breakdown} sharedStateLevel={sharedState.level}/>}
+          {(SMWN || !displayNational) && (
+            <DataDisplay
+              stateName={sharedState.view}
+              year={sharedState.year}
+              stateData={mockStateData}
+              raceType={sharedState.breakdown}
+              sharedStateLevel={sharedState.level}
+            />
+          )}
 
           {/* Needs to be topmost during content screens */}
           <Menubar />

@@ -1,40 +1,42 @@
 .button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .button:hover {
-    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0.1);
-    opacity: 1;
+  transition:
+    background-color 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
 }
 
 .button_container {
-    background-color: transparent;
-    border: none;
-    width: 4rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
+  background-color: transparent;
+  border: none;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
 }
 
 .button_col {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .button_icon_container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
-  
+
 .exit_icon {
-    color: white;
-    opacity: 0.75;
-    width: 3rem;
-    height: 3rem;
-    vertical-align: middle;
+  color: white;
+  opacity: 0.75;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: middle;
 }

@@ -13,7 +13,12 @@ table {
   font-size: 1.2rem;
   text-align: center;
   padding: 0.5rem;
-  font-family: gelica, book antiqua, georgia, times new roman, serif;
+  font-family:
+    gelica,
+    book antiqua,
+    georgia,
+    times new roman,
+    serif;
 }
 
 tr {

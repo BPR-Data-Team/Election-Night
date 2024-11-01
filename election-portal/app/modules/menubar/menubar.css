@@ -70,5 +70,10 @@
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
-  font-family: gelica, book antiqua, georgia, times new roman, serif;
+  font-family:
+    gelica,
+    book antiqua,
+    georgia,
+    times new roman,
+    serif;
 }

@@ -1,17 +1,17 @@
 /** @type {import('next').NextConfig} */
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
   eslint: {
-    ignoreDuringBuilds: true, 
+    ignoreDuringBuilds: true,
   },
-  output: 'export', 
+  output: 'export',
   images: {
-    unoptimized: true, 
+    unoptimized: true,
   },
-  basePath: isProd ? "/Election-Night" : "", 
-  assetPrefix: isProd ? "/Election-Night/" : "", 
+  basePath: isProd ? '/Election-Night' : '',
+  assetPrefix: isProd ? '/Election-Night/' : '',
 };
 
 export default nextConfig;

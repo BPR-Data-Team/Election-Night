@@ -30,7 +30,7 @@
   margin-right: 0.01rem;
   background-color: var(--statusbar-left);
   justify-content: flex-start;
-  padding-left: 1rem; 
+  padding-left: 1rem;
   border-radius: 0.5rem;
   transition: width 1s ease;
 }
@@ -41,12 +41,10 @@
   margin-left: 0.01rem;
   background-color: var(--statusbar-right);
   justify-content: flex-end;
-  padding-right: 1rem; 
+  padding-right: 1rem;
   border-radius: 0.5rem;
-  transition: width 1s ease; 
+  transition: width 1s ease;
 }
-
-
 
 .separator {
   width: 0.35rem;

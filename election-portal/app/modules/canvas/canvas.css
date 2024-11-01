@@ -1,12 +1,12 @@
 .drawCanvas {
-    position: absolute;
+  position: absolute;
 
-    /* All of this is to hide the border that comes default with the library we're using */
-    top: -1vh;
-    left: -1vw;
-    width: 109vw;
-    height: 105vh; 
-    overflow: hidden;
-    z-index: 4;
-    filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.25));
+  /* All of this is to hide the border that comes default with the library we're using */
+  top: -1vh;
+  left: -1vw;
+  width: 109vw;
+  height: 105vh;
+  overflow: hidden;
+  z-index: 4;
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.25));
 }

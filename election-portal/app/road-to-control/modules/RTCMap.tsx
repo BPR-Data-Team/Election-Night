@@ -233,7 +233,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       ],
       
     };
-    const chart = Highcharts.mapChart("container", mapOptions);
+    const chart = Highcharts.mapChart("rtc-container", mapOptions);
     
     chartRef.current = chart;
   };
@@ -271,7 +271,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
 
   return (
     <>
-      <div id="container" />
+      <div id="rtc-container" />
         <div className="reset-button-container">
           <button onClick={handleReset} className="reset-button">
             Reset Map

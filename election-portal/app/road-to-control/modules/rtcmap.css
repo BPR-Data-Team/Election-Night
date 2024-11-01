@@ -1,10 +1,10 @@
 #container {
   align-content: end;
-  height: 75vh;
+  height: 100%;
 }
 
 .modal-overlay {
-  position: fixed;  
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -16,7 +16,7 @@
 }
 
 .modal-content {
-  font-family: "gelica, book antiqua, georgia, times new roman, serif";
+  font-family: 'gelica, book antiqua, georgia, times new roman, serif';
   background-color: white;
   padding: 20px;
   border-radius: 8px;
@@ -25,7 +25,7 @@
 }
 
 .modal-button {
-  font-family: "gelica, book antiqua, georgia, times new roman, serif";
+  font-family: 'gelica, book antiqua, georgia, times new roman, serif';
   margin: 5px;
   padding: 10px 20px;
   border: none;
@@ -38,12 +38,10 @@
   right: 16%;
   bottom: 10%;
 }
-.reset-button{
-  font-family: "gelica, book antiqua, georgia, times new roman, serif";
+.reset-button {
+  font-family: 'gelica, book antiqua, georgia, times new roman, serif';
   cursor: pointer;
   padding: 0.3rem;
   font-size: 1.7em;
   border-radius: 4px;
 }
-
-
