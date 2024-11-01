@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { Dispatch, SetStateAction } from "react";
-import "./rightbar.css";
-import { Year } from "@/types/Year";
-import { RaceType } from "@/types/RaceType";
+import React, { Dispatch, SetStateAction } from 'react';
+import './rightbar.css';
+import { Year } from '@/types/Year';
+import { RaceType } from '@/types/RaceType';
 
 type RightbarProps = {
   // give this alignment and height instead of position

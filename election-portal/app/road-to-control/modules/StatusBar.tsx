@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useEffect, useState } from 'react';
 import styles from './statusbar.module.css'; // Import CSS module
 
@@ -7,7 +7,7 @@ const StatusBar: React.FC = () => {
   const [rightPercentage, setRightPercentage] = useState(0);
   const [leftCount, setLeftCount] = useState(0);
   const [rightCount, setRightCount] = useState(0);
-  const total = 538
+  const total = 538;
 
   // Simulate fetching data from an API
   useEffect(() => {

@@ -1,56 +1,56 @@
 export enum State {
-  National = "National",
-  Alabama = "Alabama",
-  Alaska = "Alaska",
-  Arizona = "Arizona",
-  Arkansas = "Arkansas",
-  California = "California",
-  Colorado = "Colorado",
-  Connecticut = "Connecticut",
-  DC = "DC",
-  Delaware = "Delaware",
-  Florida = "Florida",
-  Georgia = "Georgia",
-  Hawaii = "Hawaii",
-  Idaho = "Idaho",
-  Illinois = "Illinois",
-  Indiana = "Indiana",
-  Iowa = "Iowa",
-  Kansas = "Kansas",
-  Kentucky = "Kentucky",
-  Louisiana = "Louisiana",
-  Maine = "Maine",
-  Maryland = "Maryland",
-  Massachusetts = "Massachusetts",
-  Michigan = "Michigan",
-  Minnesota = "Minnesota",
-  Mississippi = "Mississippi",
-  Missouri = "Missouri",
-  Montana = "Montana",
-  Nebraska = "Nebraska",
-  Nevada = "Nevada",
-  NewHampshire = "New Hampshire",
-  NewJersey = "New Jersey",
-  NewMexico = "New Mexico",
-  NewYork = "New York",
-  NorthCarolina = "North Carolina",
-  NorthDakota = "North Dakota",
-  Ohio = "Ohio",
-  Oklahoma = "Oklahoma",
-  Oregon = "Oregon",
-  Pennsylvania = "Pennsylvania",
-  RhodeIsland = "Rhode Island",
-  SouthCarolina = "South Carolina",
-  SouthDakota = "South Dakota",
-  Tennessee = "Tennessee",
-  Texas = "Texas",
-  Utah = "Utah",
-  Vermont = "Vermont",
-  Virginia = "Virginia",
-  Washington = "Washington",
-  WestVirginia = "West Virginia",
-  Wisconsin = "Wisconsin",
-  Wyoming = "Wyoming",
+  National = 'National',
+  Alabama = 'Alabama',
+  Alaska = 'Alaska',
+  Arizona = 'Arizona',
+  Arkansas = 'Arkansas',
+  California = 'California',
+  Colorado = 'Colorado',
+  Connecticut = 'Connecticut',
+  DC = 'DC',
+  Delaware = 'Delaware',
+  Florida = 'Florida',
+  Georgia = 'Georgia',
+  Hawaii = 'Hawaii',
+  Idaho = 'Idaho',
+  Illinois = 'Illinois',
+  Indiana = 'Indiana',
+  Iowa = 'Iowa',
+  Kansas = 'Kansas',
+  Kentucky = 'Kentucky',
+  Louisiana = 'Louisiana',
+  Maine = 'Maine',
+  Maryland = 'Maryland',
+  Massachusetts = 'Massachusetts',
+  Michigan = 'Michigan',
+  Minnesota = 'Minnesota',
+  Mississippi = 'Mississippi',
+  Missouri = 'Missouri',
+  Montana = 'Montana',
+  Nebraska = 'Nebraska',
+  Nevada = 'Nevada',
+  NewHampshire = 'New Hampshire',
+  NewJersey = 'New Jersey',
+  NewMexico = 'New Mexico',
+  NewYork = 'New York',
+  NorthCarolina = 'North Carolina',
+  NorthDakota = 'North Dakota',
+  Ohio = 'Ohio',
+  Oklahoma = 'Oklahoma',
+  Oregon = 'Oregon',
+  Pennsylvania = 'Pennsylvania',
+  RhodeIsland = 'Rhode Island',
+  SouthCarolina = 'South Carolina',
+  SouthDakota = 'South Dakota',
+  Tennessee = 'Tennessee',
+  Texas = 'Texas',
+  Utah = 'Utah',
+  Vermont = 'Vermont',
+  Virginia = 'Virginia',
+  Washington = 'Washington',
+  WestVirginia = 'West Virginia',
+  Wisconsin = 'Wisconsin',
+  Wyoming = 'Wyoming',
 }
 
 export const getStateFromString = (stateName: string): State => {
@@ -289,220 +289,220 @@ export const getNumDistricts = (state: State): number => {
 export const getStateAbbreviation = (state: State): string => {
   switch (state) {
     case State.Alabama:
-      return "AL";
+      return 'AL';
     case State.Alaska:
-      return "AK";
+      return 'AK';
     case State.Arizona:
-      return "AZ";
+      return 'AZ';
     case State.Arkansas:
-      return "AR";
+      return 'AR';
     case State.California:
-      return "CA";
+      return 'CA';
     case State.Colorado:
-      return "CO";
+      return 'CO';
     case State.Connecticut:
-      return "CT";
+      return 'CT';
     case State.DC:
-      return "DC";
+      return 'DC';
     case State.Delaware:
-      return "DE";
+      return 'DE';
     case State.Florida:
-      return "FL";
+      return 'FL';
     case State.Georgia:
-      return "GA";
+      return 'GA';
     case State.Hawaii:
-      return "HI";
+      return 'HI';
     case State.Idaho:
-      return "ID";
+      return 'ID';
     case State.Illinois:
-      return "IL";
+      return 'IL';
     case State.Indiana:
-      return "IN";
+      return 'IN';
     case State.Iowa:
-      return "IA";
+      return 'IA';
     case State.Kansas:
-      return "KS";
+      return 'KS';
     case State.Kentucky:
-      return "KY";
+      return 'KY';
     case State.Louisiana:
-      return "LA";
+      return 'LA';
     case State.Maine:
-      return "ME";
+      return 'ME';
     case State.Maryland:
-      return "MD";
+      return 'MD';
     case State.Massachusetts:
-      return "MA";
+      return 'MA';
     case State.Michigan:
-      return "MI";
+      return 'MI';
     case State.Minnesota:
-      return "MN";
+      return 'MN';
     case State.Mississippi:
-      return "MS";
+      return 'MS';
     case State.Missouri:
-      return "MO";
+      return 'MO';
     case State.Montana:
-      return "MT";
+      return 'MT';
     case State.Nebraska:
-      return "NE";
+      return 'NE';
     case State.Nevada:
-      return "NV";
+      return 'NV';
     case State.NewHampshire:
-      return "NH";
+      return 'NH';
     case State.NewJersey:
-      return "NJ";
+      return 'NJ';
     case State.NewMexico:
-      return "NM";
+      return 'NM';
     case State.NewYork:
-      return "NY";
+      return 'NY';
     case State.NorthCarolina:
-      return "NC";
+      return 'NC';
     case State.NorthDakota:
-      return "ND";
+      return 'ND';
     case State.Ohio:
-      return "OH";
+      return 'OH';
     case State.Oklahoma:
-      return "OK";
+      return 'OK';
     case State.Oregon:
-      return "OR";
+      return 'OR';
     case State.Pennsylvania:
-      return "PA";
+      return 'PA';
     case State.RhodeIsland:
-      return "RI";
+      return 'RI';
     case State.SouthCarolina:
-      return "SC";
+      return 'SC';
     case State.SouthDakota:
-      return "SD";
+      return 'SD';
     case State.Tennessee:
-      return "TN";
+      return 'TN';
     case State.Texas:
-      return "TX";
+      return 'TX';
     case State.Utah:
-      return "UT";
+      return 'UT';
     case State.Vermont:
-      return "VT";
+      return 'VT';
     case State.Virginia:
-      return "VA";
+      return 'VA';
     case State.Washington:
-      return "WA";
+      return 'WA';
     case State.WestVirginia:
-      return "WV";
+      return 'WV';
     case State.Wisconsin:
-      return "WI";
+      return 'WI';
     case State.Wyoming:
-      return "WY";
+      return 'WY';
     case State.National:
-      return "US";
+      return 'US';
     default:
-      return "";
+      return '';
   }
 };
 export const getStateFromAbbreviation = (abbreviation: string): State => {
   switch (abbreviation.toUpperCase()) {
-    case "AL":
+    case 'AL':
       return State.Alabama;
-    case "AK":
+    case 'AK':
       return State.Alaska;
-    case "AZ":
+    case 'AZ':
       return State.Arizona;
-    case "AR":
+    case 'AR':
       return State.Arkansas;
-    case "CA":
+    case 'CA':
       return State.California;
-    case "CO":
+    case 'CO':
       return State.Colorado;
-    case "CT":
+    case 'CT':
       return State.Connecticut;
-    case "DC":
+    case 'DC':
       return State.DC;
-    case "DE":
+    case 'DE':
       return State.Delaware;
-    case "FL":
+    case 'FL':
       return State.Florida;
-    case "GA":
+    case 'GA':
       return State.Georgia;
-    case "HI":
+    case 'HI':
       return State.Hawaii;
-    case "ID":
+    case 'ID':
       return State.Idaho;
-    case "IL":
+    case 'IL':
       return State.Illinois;
-    case "IN":
+    case 'IN':
       return State.Indiana;
-    case "IA":
+    case 'IA':
       return State.Iowa;
-    case "KS":
+    case 'KS':
       return State.Kansas;
-    case "KY":
+    case 'KY':
       return State.Kentucky;
-    case "LA":
+    case 'LA':
       return State.Louisiana;
-    case "ME":
+    case 'ME':
       return State.Maine;
-    case "MD":
+    case 'MD':
       return State.Maryland;
-    case "MA":
+    case 'MA':
       return State.Massachusetts;
-    case "MI":
+    case 'MI':
       return State.Michigan;
-    case "MN":
+    case 'MN':
       return State.Minnesota;
-    case "MS":
+    case 'MS':
       return State.Mississippi;
-    case "MO":
+    case 'MO':
       return State.Missouri;
-    case "MT":
+    case 'MT':
       return State.Montana;
-    case "NE":
+    case 'NE':
       return State.Nebraska;
-    case "NV":
+    case 'NV':
       return State.Nevada;
-    case "NH":
+    case 'NH':
       return State.NewHampshire;
-    case "NJ":
+    case 'NJ':
       return State.NewJersey;
-    case "NM":
+    case 'NM':
       return State.NewMexico;
-    case "NY":
+    case 'NY':
       return State.NewYork;
-    case "NC":
+    case 'NC':
       return State.NorthCarolina;
-    case "ND":
+    case 'ND':
       return State.NorthDakota;
-    case "OH":
+    case 'OH':
       return State.Ohio;
-    case "OK":
+    case 'OK':
       return State.Oklahoma;
-    case "OR":
+    case 'OR':
       return State.Oregon;
-    case "PA":
+    case 'PA':
       return State.Pennsylvania;
-    case "RI":
+    case 'RI':
       return State.RhodeIsland;
-    case "SC":
+    case 'SC':
       return State.SouthCarolina;
-    case "SD":
+    case 'SD':
       return State.SouthDakota;
-    case "TN":
+    case 'TN':
       return State.Tennessee;
-    case "TX":
+    case 'TX':
       return State.Texas;
-    case "UT":
+    case 'UT':
       return State.Utah;
-    case "VT":
+    case 'VT':
       return State.Vermont;
-    case "VA":
+    case 'VA':
       return State.Virginia;
-    case "WA":
+    case 'WA':
       return State.Washington;
-    case "WV":
+    case 'WV':
       return State.WestVirginia;
-    case "WI":
+    case 'WI':
       return State.Wisconsin;
-    case "WY":
+    case 'WY':
       return State.Wyoming;
-    case "US":
+    case 'US':
       return State.National;
     default:
-      throw new Error("Invalid state abbreviation");
+      throw new Error('Invalid state abbreviation');
   }
 };

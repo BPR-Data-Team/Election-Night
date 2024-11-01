@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { useRouter } from "next/navigation";
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   SharedInfo,
   State,
   Year,
   RaceType,
   Demographic,
-} from "../types/SharedInfoType";
+} from '../types/SharedInfoType';
 
 function getYearsFromBreakdown(breakdown: RaceType): Year[] {
   switch (breakdown) {
@@ -34,23 +34,23 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const router = useRouter();
 
-  const [page, setPage] = useState<string>("/");
+  const [page, setPage] = useState<string>('/');
   const setCurrentPage = (page: string) => {
     setPage(page);
     router.push(page);
   };
   const [view, setView] = useState<State>(State.National);
-  const [level, setLevel] = useState<"county" | "state" | "national">(
-    "national"
+  const [level, setLevel] = useState<'county' | 'state' | 'national'>(
+    'national'
   );
   const exitLevel = () => {
-    if (level === "county") {
-      setLevel("state");
-    } else if (level === "state") {
-      setLevel("national");
+    if (level === 'county') {
+      setLevel('state');
+    } else if (level === 'state') {
+      setLevel('national');
       setView(State.National);
-    } else if (level === "national") {
-      setCurrentPage("/");
+    } else if (level === 'national') {
+      setCurrentPage('/');
     }
   };
   const [drawMode, setDrawMode] = useState<boolean>(false);
@@ -66,12 +66,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
-  const [availableYears, setAvailableYears] = useState<Year[]>([
-    Year.TwentyTwo,
-    Year.Twenty,
-    Year.Eighteen,
-    Year.Sixteen,
-  ]);
+  const [availableYears, setAvailableYears] = useState<Year[]>(getYearsFromBreakdown(breakdown));
   const yearSwitch = (year: Year) => {
     setYear(year);
   };
@@ -120,7 +115,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
 export const useSharedState = (): SharedStateContextProps => {
   const context = useContext(SharedStateContext);
   if (!context) {
-    throw new Error("useSharedState must be used within a SharedStateProvider");
+    throw new Error('useSharedState must be used within a SharedStateProvider');
   }
   return context;
 };

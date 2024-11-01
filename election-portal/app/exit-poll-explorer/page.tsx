@@ -1,18 +1,18 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Papa from "papaparse";
-import { ExitPollAnswer, ExitPollData } from "../../types/data";
-import styles from "./page.module.css";
-import Menubar from "../modules/menubar/menubar";
-import { useSharedState } from "../sharedContext";
-import Canvas from "../modules/canvas/canvas";
-import { RaceType } from "@/types/RaceType";
-import { Year } from "@/types/Year";
-import { Demographic } from "@/types/Demographic";
-import EBMap from "../election-breakdown/modules/EBMap";
-import Banner from "../election-breakdown/modules/banner";
-import StatsTable from "./modules/statistics-table";
-import { getStateAbbreviation } from "@/types/State";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Papa from 'papaparse';
+import { ExitPollAnswer, ExitPollData } from '../../types/data';
+import styles from './page.module.css';
+import Menubar from '../modules/menubar/menubar';
+import { useSharedState } from '../sharedContext';
+import Canvas from '../modules/canvas/canvas';
+import { RaceType } from '@/types/RaceType';
+import { Year } from '@/types/Year';
+import { Demographic } from '@/types/Demographic';
+import EBMap from '../election-breakdown/modules/EBMap';
+import Banner from '../election-breakdown/modules/banner';
+import StatsTable from './modules/statistics-table';
+import { getStateAbbreviation } from '@/types/State';
 
 export default function Exit_Poll_Explorer_Page() {
   const [exitPollData, setExitPollData] = useState<ExitPollData[] | null>(null);
@@ -35,13 +35,13 @@ export default function Exit_Poll_Explorer_Page() {
       Demographic.Region,
     ]);
 
-    const storedExitPollData = sessionStorage.getItem("exitPollData");
+    const storedExitPollData = sessionStorage.getItem('exitPollData');
 
     if (storedExitPollData) {
       setExitPollData(JSON.parse(storedExitPollData) as ExitPollData[]);
     } else {
       // Fetch the CSV data and log the response
-      fetch("/cleaned_data/CNN_exit_polls_2020.csv")
+      fetch('/cleaned_data/CNN_exit_polls_2020.csv')
         .then((response) => {
           return response.text();
         })
@@ -65,14 +65,14 @@ export default function Exit_Poll_Explorer_Page() {
 
               setExitPollData(parsedData);
               sessionStorage.setItem(
-                "exitPollData",
+                'exitPollData',
                 JSON.stringify(parsedData)
               );
             },
           });
         })
         .catch((error) =>
-          console.error("Error loading exit poll data:", error)
+          console.error('Error loading exit poll data:', error)
         );
     }
   }, []);
@@ -94,7 +94,7 @@ export default function Exit_Poll_Explorer_Page() {
     exitPollData?.forEach((datum) => {
       if (
         datum.state === getStateAbbreviation(state.view) &&
-        datum.office_type === "President" &&
+        datum.office_type === 'President' &&
         datum.question === state.demographic
       ) {
         const existingEntry = dataMap.get(datum.answer) || {
@@ -102,9 +102,9 @@ export default function Exit_Poll_Explorer_Page() {
           percentVote: datum.demographic_pct,
         };
 
-        if (datum.lastName === "Biden") {
+        if (datum.lastName === 'Biden') {
           existingEntry.percentBiden = datum.answer_pct;
-        } else if (datum.lastName === "Trump") {
+        } else if (datum.lastName === 'Trump') {
           existingEntry.percentTrump = datum.answer_pct;
         }
 
@@ -126,9 +126,9 @@ export default function Exit_Poll_Explorer_Page() {
         <Banner
           align="left"
           height={2}
-          wordmark={"24cast.org"}
+          wordmark={'24cast.org'}
           header=""
-          message={"Exit Poll Explainer"}
+          message={'Exit Poll Explainer'}
         />
         <Banner
           align="left"

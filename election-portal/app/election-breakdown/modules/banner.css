@@ -32,5 +32,10 @@ i,
   display: inline;
   font-size: 1.5rem;
   color: #ffffff;
-  font-family: gelica, book antiqua, georgia, times new roman, serif;
+  font-family:
+    gelica,
+    book antiqua,
+    georgia,
+    times new roman,
+    serif;
 }

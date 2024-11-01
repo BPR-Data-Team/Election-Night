@@ -10,19 +10,18 @@
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
-  padding: 3rem; 
-  box-sizing: border-box; 
+  padding: 3rem;
+  box-sizing: border-box;
 }
 
-
 .row {
-  width: 100%; 
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly; 
+  justify-content: space-evenly;
   gap: 2rem;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 /* Media query for ultra-large screens (75-inch monitor, ~4K resolution) */
@@ -40,4 +39,3 @@
     max-width: 400px;
   }
 }
-

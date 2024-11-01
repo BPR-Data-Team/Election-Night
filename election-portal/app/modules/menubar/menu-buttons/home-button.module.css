@@ -5,18 +5,20 @@
 }
 
 .button:hover {
-    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0.1);
-    opacity: 1;
+  transition:
+    background-color 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
 }
 
 .button_container {
-    background-color: transparent;
-    border: none;
-    width: 4rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
+  background-color: transparent;
+  border: none;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
 }
 
 .button_col {
@@ -60,6 +62,8 @@
 }
 
 .button_container_active {
-    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0.3);
+  transition:
+    background-color 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.3);
 }

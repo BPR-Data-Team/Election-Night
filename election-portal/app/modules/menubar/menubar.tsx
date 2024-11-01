@@ -1,44 +1,44 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useSharedState } from "../../sharedContext";
-import { Demographic, RaceType, Year } from "../../../types/SharedInfoType";
+import React from 'react';
+import { useSharedState } from '../../sharedContext';
+import { Demographic, RaceType, Year } from '../../../types/SharedInfoType';
 
-import "./menubar.css";
-import HomeButton from "./menu-buttons/home-button";
-import ExitButton from "./menu-buttons/exit-button";
-import DrawButton from "./menu-buttons/draw-button";
-import { useRouter } from "next/navigation";
+import './menubar.css';
+import HomeButton from './menu-buttons/home-button';
+import ExitButton from './menu-buttons/exit-button';
+import DrawButton from './menu-buttons/draw-button';
+import { useRouter } from 'next/navigation';
 
 // These can be turned into maps or better parsed from the types
 const breakdownToString = (
   breakdown: RaceType,
   currentBreakdown: RaceType
 ): React.ReactNode => {
-  let str: string = "";
+  let str: string = '';
   const selected: boolean = breakdown === currentBreakdown;
   switch (breakdown) {
     case RaceType.Presidential:
-      str = "Pres.";
+      str = 'Pres.';
       break;
     case RaceType.Senate:
-      str = "Sen.";
+      str = 'Sen.';
       break;
     case RaceType.Gubernatorial:
-      str = "Gub.";
+      str = 'Gub.';
       break;
     case RaceType.House:
-      str = "Hse.";
+      str = 'Hse.';
       break;
     default:
-      str = "Unk.";
+      str = 'Unk.';
       break;
   }
   return (
     <span
       style={{
-        color: selected ? "#ffffff" : "#dddddd",
-        textShadow: selected ? "0 0 10px rgba(255,255,255,0.5)" : "none",
+        color: selected ? '#ffffff' : '#dddddd',
+        textShadow: selected ? '0 0 10px rgba(255,255,255,0.5)' : 'none',
       }}
     >
       {str}
@@ -47,39 +47,39 @@ const breakdownToString = (
 };
 
 const yearToString = (year: Year, currentYear: Year): React.ReactNode => {
-  let str = "";
+  let str = '';
   const selected: boolean = year === currentYear;
   switch (year) {
     case Year.TwentyFour:
-      str = "2024";
+      str = '2024';
       break;
     case Year.TwentyTwo:
-      str = "2022";
+      str = '2022';
       break;
     case Year.Twenty:
-      str = "2020";
+      str = '2020';
       break;
     case Year.Eighteen:
-      str = "2018";
+      str = '2018';
       break;
     case Year.Sixteen:
-      str = "2016";
+      str = '2016';
       break;
     case Year.Fourteen:
-      str = "2014";
+      str = '2014';
       break;
     case Year.Twelve:
-      str = "2012";
+      str = '2012';
       break;
     default:
-      str = "Unk.";
+      str = 'Unk.';
       break;
   }
   return (
     <span
       style={{
-        color: selected ? "#ffffff" : "#dddddd",
-        textShadow: selected ? "0 0 10px rgba(255,255,255,0.5)" : "none",
+        color: selected ? '#ffffff' : '#dddddd',
+        textShadow: selected ? '0 0 10px rgba(255,255,255,0.5)' : 'none',
       }}
     >
       {str}
@@ -95,8 +95,8 @@ const demographicToString = (
   return (
     <span
       style={{
-        color: selected ? "#ffffff" : "#dddddd",
-        textShadow: selected ? "0 0 10px rgba(255,255,255,0.5)" : "none",
+        color: selected ? '#ffffff' : '#dddddd',
+        textShadow: selected ? '0 0 10px rgba(255,255,255,0.5)' : 'none',
       }}
     >
       {demo}

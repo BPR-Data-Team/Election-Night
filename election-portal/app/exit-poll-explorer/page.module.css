@@ -13,7 +13,9 @@
   position: absolute;
   left: 24%;
   top: 12%;
-  transition: left 0.5s ease-out, opacity 0.1s ease-in-out;
+  transition:
+    left 0.5s ease-out,
+    opacity 0.1s ease-in-out;
   pointer-events: all;
   /* could possibly add a delay if you want "double taps" without animation */
 }

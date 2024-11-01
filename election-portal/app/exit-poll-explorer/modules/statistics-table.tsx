@@ -1,4 +1,4 @@
-import "./statistics-table.css";
+import './statistics-table.css';
 
 interface StatsTableProps {
   data: any;
