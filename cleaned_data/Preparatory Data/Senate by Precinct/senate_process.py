@@ -4,7 +4,7 @@ import csv
 years = [2012, 2016, 2018, 2020, 2022]
 
 fips_dict = []
-with open('FIPS References\\county_fips.csv', 'r', encoding='utf-8') as f:
+with open('cleaned_data\Locally-Hosted Data\FIPS References\county_fips.csv', 'r', encoding='utf-8') as f:
     reader = csv.reader(f)
     for row in reader:
         fips_dict.append(row)
