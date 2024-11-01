@@ -122,12 +122,13 @@ export default function Election_Breakdown_Page() {
       RaceType.Senate,
       RaceType.Gubernatorial,
     ]);
-    sharedState.setAvailableYears([
-      Year.TwentyTwo,
-      Year.Twenty,
-      Year.Eighteen,
-      Year.Sixteen,
-    ]);
+    // Years are set automatically in sharedState, this can(?) be safely removed
+    // sharedState.setAvailableYears([
+    //   Year.TwentyTwo,
+    //   Year.Twenty,
+    //   Year.Eighteen,
+    //   Year.Sixteen,
+    // ]);
     sharedState.setAvailibleDemographics([]);
 
     // Load Historical County Data

@@ -66,12 +66,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
-  const [availableYears, setAvailableYears] = useState<Year[]>([
-    Year.TwentyTwo,
-    Year.Twenty,
-    Year.Eighteen,
-    Year.Sixteen,
-  ]);
+  const [availableYears, setAvailableYears] = useState<Year[]>(getYearsFromBreakdown(breakdown));
   const yearSwitch = (year: Year) => {
     setYear(year);
   };
