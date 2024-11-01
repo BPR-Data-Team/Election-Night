@@ -18,8 +18,8 @@ electoral_votes <- read.csv("cleaned_data/Locally-Hosted Data/ElectoralVotes.csv
 election_types <- current_data %>% pull("office_type") %>% unique() %>% append(., "All", after = 0)
 
 poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
-closing_times <- poll_closing %>% pull("Poll.Closing") %>% unique() %>% head(-1)
-
+start_time <- as.POSIXct("2024-11-05 17:00:00")
+end_time <- as.POSIXct("2024-11-06 02:00:00")
 # ----------------------------- TODO ---------------------------------------- #
 #predicted_margin
 # change margin_95_ci from votes to percent 
@@ -46,7 +46,7 @@ ui <- page_sidebar(
     selectInput(
       inputId = "state_select",
       label = "State:",
-      choices = NULL,
+      choices = c("All"),
       selected = "All"
     ),
     conditionalPanel(
@@ -65,13 +65,14 @@ ui <- page_sidebar(
       value = c(0, 100),
       step = 10
     ),
-    sliderTextInput(
+    sliderInput(
       inputId = "poll_closing_bounds",
       label = "Poll Closing Times:",
-      choices = closing_times,
-      selected = c(closing_times[1], closing_times[length(closing_times)]),
-      grid = TRUE,
-      force_edges = TRUE
+      min = start_time,
+      max = end_time,
+      value = c(start_time, end_time),
+      timeFormat = "%I:%M %p",
+      step = 3600,  # One-hour increments
     ),
     checkboxInput(
       inputId = "key_races",
@@ -98,10 +99,6 @@ ui <- page_sidebar(
           full_screen = FALSE, 
           card_header("Percent reporting"),
           textOutput("percent_reporting")
-        ),
-        card(
-          card_header("Time to next poll close"),
-          textOutput("next_poll_close")
         )
       ),
       layout_columns(
@@ -182,7 +179,7 @@ ui <- page_sidebar(
           ),
           conditionalPanel(
             condition = "input.TL_map_select == '2024_swing'",
-            leafletOutput("president_swing_map_20to24")
+            leafletOutput("swing_map_20to24")
           )
         ),
         card(
@@ -191,7 +188,7 @@ ui <- page_sidebar(
           selectInput("TR_map_select", label = NULL,
                       choices = list("2020 Margin" = "2020_margin", 
                                      "2020 Margin Bubble" = "2020_margin_bubble", 
-                                     "Presidential Swing 2016-2020" = "pres_swing_20",
+                                     "Swing 2016-2020" = "swing_20",
                                      "2024 President-Senate Swing" = "pres_sen_swing_24",
                                      "2016-2018 President-Senate Swing" = "pres_sen_swing_16_18",
                                      "2024 President-Governor Swing" = "pres_gov_swing_24",
@@ -206,8 +203,8 @@ ui <- page_sidebar(
             leafletOutput("margin_bubble_map_2020")
           ),
           conditionalPanel(
-            condition = "input.TR_map_select == 'pres_swing_20'",
-            leafletOutput("president_swing_map_16to20")
+            condition = "input.TR_map_select == 'swing_20'",
+            leafletOutput("swing_map_16to20")
           ),
           conditionalPanel(
             condition = "input.TR_map_select == 'pres_sen_swing_24'",
@@ -312,7 +309,7 @@ ui <- page_sidebar(
     )
   ),
   conditionalPanel(
-    condition = "input.category_select == 'All' | input.state_select == 'All'",
+    condition = "input.category_select == 'All' || input.state_select == 'All' || (input.district_select == 'All' && input.category_select == 'House')",
     "Please select an election type and state to view detailed information."
   )
 )

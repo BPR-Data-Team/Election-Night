@@ -3,14 +3,20 @@ library(bslib)
 library(dplyr)
 library(tidyr)
 
-source("decision_desk/Dashboard/Dashboard Utilities/FilterRaces.R")
 
 get_exit_poll_table <- function(data_object, year_selection, state_selection, office_selection, question_selection) {
- data <- data_object %>% 
-    filter_races(office_selection, 
-                 state_selection) %>%
+  data <- data_object %>%
     filter(year == year_selection, 
-           question == question_selection) %>%
+           question == question_selection)
+  
+  if (state_selection != "All") {
+    data <- data %>% filter(state == state_selection)
+  }
+  if (office_selection != "All") {
+    data <- data %>% filter(office_type == office_selection)
+  }
+  
+  data <- data %>%
    group_by(question, answer) %>%
    reframe(demographic_pct = demographic_pct,
              lastName = lastName, 
@@ -27,10 +33,17 @@ get_exit_poll_table <- function(data_object, year_selection, state_selection, of
 
 get_exit_poll_expectation <- function(data_object, year_selection, state_selection, office_selection, question_selection) {
   data <- data_object %>%
-    filter_races(office_selection, 
-                 state_selection) %>%
     filter(year == year_selection, 
-           question == question_selection) %>%
+           question == question_selection)
+  
+  if (state_selection != "All") {
+    data <- data %>% filter(state == state_selection)
+  }
+  if (office_selection != "All") {
+    data <- data %>% filter(office_type == office_selection)
+  }
+  
+  data <- data %>%
     mutate(answer_pct = na_if(answer_pct, -1),
            weighted_prob = demographic_pct * answer_pct / 100) %>%
     group_by(question, lastName) %>%

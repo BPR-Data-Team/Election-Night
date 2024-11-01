@@ -27,6 +27,7 @@ get_time_graph <- function(state_abbrev, graph_type = "vote_share") {
       xlab("Time") +
       ylab("Margin") +
       scale_y_continuous(labels = function(x) ifelse(x < 0, paste0("R+", abs(x)), paste0("D+", x))) +
+      coord_cartesian(ylim = c(-25, 25)) +
       scale_x_datetime(date_labels = "%l %p", date_breaks = "1 hour", expand = expansion(mult = c(0, 0))) +
       geom_hline(yintercept = 0, color = "purple", linetype = "solid") +
       geom_hline(yintercept = final_margin, color = ifelse(final_margin > 0, "blue", "red"), linetype = "dashed") +

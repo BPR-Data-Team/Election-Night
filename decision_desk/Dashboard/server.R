@@ -36,7 +36,7 @@ server <- function(input, output, session) {
   district_selection <- reactive({input$district_select})
   
   last_election_year <- reactive({
-    if (election_type() == "President" | election_type() == "Governor") {
+    if (election_type() == "President" || election_type() == "Governor") {
       2020
     } else if (election_type() == "House") {
       2022
@@ -68,12 +68,12 @@ server <- function(input, output, session) {
   performance_v_president <- reactive({
     presidential_margin <- current_data %>% 
       filter_races(state_selection = state_selection(),
-                   office_selection = "President") %>% 
-      pull(margin_pct)[1]
-    
+                   office_selection = "President") 
+
+    presidential_margin <- presidential_margin$margin_pct[1]
     current_margin <- selected_race_data()$margin_pct[1] 
     
-    round(presidential_margin - current_margin, 1)
+    paste0(round(presidential_margin - current_margin, 1), "%")
   })
     
   output$performance_or_ev <- renderText({
@@ -135,7 +135,7 @@ server <- function(input, output, session) {
   })
   
   output$next_poll_close <- renderText({
-    invalidateLater(1000, session)
+    invalidateLater(10000, session)
     time_to_next_poll()()
   })
   
@@ -193,8 +193,8 @@ server <- function(input, output, session) {
              "To call at 95%" = "Call.95.",
              "Not called election night" = "No.Call.Election.Night") %>%
       t() %>%
-      as.data.frame() %>%
-      rename("Number" = "V1")
+      as.data.frame() #%>%
+     # rename("Number" = "V1")
     
     race_list$Category <- rownames(race_list)
     rownames(race_list) <- NULL
@@ -265,23 +265,23 @@ server <- function(input, output, session) {
   output$map_menu_header <- renderText({input$selected_map})
   
   observeEvent(input$TL_map_select, {
-    output$margin_map_2024 <- renderLeaflet({get_margin_map(BASEPATH, 2024, state_selection(), election_type())})
-    output$margin_bubble_map_2024 <- renderLeaflet({get_margin_bubble_map(BASEPATH, 2024, state_selection(), election_type())})
-    output$president_swing_map_20to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "President", 2020, 2024)})
+    output$margin_map_2024 <- renderLeaflet({get_margin_map(2024, state_selection(), election_type())})
+    output$margin_bubble_map_2024 <- renderLeaflet({get_margin_bubble_map(2024, state_selection(), election_type())})
+    outputswing_map_20to24 <- renderLeaflet({get_swing_map(state_selection(), election_type(), election_type(), 2020, 2024)})
   })
   
   observeEvent(input$TR_map_select, {
-    output$margin_map_2020 <- renderLeaflet({get_margin_map(BASEPATH, 2020, state_selection(), election_type())})
-    output$margin_bubble_map_2020 <- renderLeaflet({get_margin_bubble_map(BASEPATH, 2020, state_selection(), election_type())})
-    output$president_swing_map_16to20 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "President", 2016, 2020)})
-    output$president_senate_swing_map_24to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2024, 2024)})
-    output$president_senate_swing_map_16to18 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Senate", 2016, 2018)})
-    output$president_governor_swing_map_24to24 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2024, 2024)})
-    output$president_governor_swing_map_20to20 <- renderLeaflet({get_swing_map(BASEPATH, state_selection(), "President", "Governor", 2020, 2020)})
+    output$margin_map_2020 <- renderLeaflet({get_margin_map(2020, state_selection(), election_type())})
+    output$margin_bubble_map_2020 <- renderLeaflet({get_margin_bubble_map(2020, state_selection(), election_type())})
+    output$swing_map_16to20 <- renderLeaflet({get_swing_map(state_selection(), election_type(), election_type(), 2016, 2020)})
+    output$president_senate_swing_map_24to24 <- renderLeaflet({get_swing_map(state_selection(), "President", "Senate", 2024, 2024)})
+    output$president_senate_swing_map_16to18 <- renderLeaflet({get_swing_map(state_selection(), "President", "Senate", 2016, 2018)})
+    output$president_governor_swing_map_24to24 <- renderLeaflet({get_swing_map(state_selection(), "President", "Governor", 2024, 2024)})
+    output$president_governor_swing_map_20to20 <- renderLeaflet({get_swing_map(state_selection(), "President", "Governor", 2020, 2020)})
   })
   
   observeEvent(input$BL_map_select, {
-    output$remaining_votes_map <- renderLeaflet({get_votes_left_map(BASEPATH, state_selection(), election_type())})
+    output$remaining_votes_map <- renderLeaflet({get_votes_left_map(state_selection(), election_type())})
     
   })
   
@@ -353,30 +353,86 @@ server <- function(input, output, session) {
                         selected = selected_district
       )
       
-    } else{
-      updateSelectInput(session, "district_select", selected = "All")
     }
   })
   
   output$selected_time <- renderText({closing_times[input$time_slider]})
   
+  # Filter elections based on sliders and checkbox
+  filtered_races <- reactive({
+    elections <- selected_race_data() %>%
+        mutate(race_id = row_number())
+      
+      # Filter by percent reporting
+      elections <- elections %>%
+        filter(pct_reporting >= input$percent_reporting_bounds[1],
+               pct_reporting <= input$percent_reporting_bounds[2])
+
+      # Filter by closing times
+      closing_time_lower <- as.POSIXct(input$poll_closing_bounds[1], format = "%Y-%m-%d %I:%M %p")
+      closing_time_upper <- as.POSIXct(input$poll_closing_bounds[2], format = "%Y-%m-%d %I:%M %p")
+        
+      elections <- elections %>%
+        mutate(poll_close = lapply(poll_close, function (i) {
+          time_only <- as.POSIXct(i, format = "%H:%M:%S")
+          noon <- as.POSIXct("12:00:00", format = "%H:%M:%S")
+          
+          if (is.na(time_only)) {
+            return(NA)
+          }
+          
+          date_part <- if (time_only >= noon) "2024-11-05" else "2024-11-06"
+          
+          return(as.POSIXct(paste(date_part, i), format = "%Y-%m-%d %H:%M:%S"))
+        })) %>%
+        filter(poll_close >= closing_time_lower,
+               poll_close <= closing_time_upper)
+
+      # Filter by key races 
+      if (input$key_races) {
+        elections <- elections %>% filter(race_to_watch == TRUE)
+      }
+      
+      return(elections)
+  })
+  
   # Render the filtered elections table
   output$elections <- renderTable({
     output$elections <- renderUI({
-      elections <- selected_race_data()
+      lapply(filtered_races()$race_id %>% unique(), function(i) {
+        election <- filtered_races() %>% filter(race_id == i)
         
-      if (nrow(elections) == 0) {
-        return(div("No elections match your criteria"))
-      }
-      
-      lapply(1:nrow(elections), function(i) {
-        election <- elections[i, ]
         div(
           class = "election-card",
-          actionLink(inputId = paste0("election_", election$race_id), 
-                     label = glue("{election$office_type} {election$state} - {trunc(election$pct_reporting)}% rep."))
-          )
+          actionLink(inputId = paste0("election_", i), 
+                     label = glue("{election$office_type} {election$state} {election$district} - {trunc(election$pct_reporting)}% rep."))
+        )
       })
     })
+  })
+
+
+  # Observe clicks on action links
+  last_clicked <- reactiveVal(NULL)
+  observe({
+    for (i in filtered_races()$race_id %>% unique()) {
+      link_id <- paste0("election_", i)
+      
+      observeEvent(input[[link_id]], {
+        req(input[[link_id]])
+        
+        if (is.null(last_clicked) || link_id != isolate(last_clicked())) {
+          election <- filtered_races() %>% filter(race_id == i)
+          
+          updateSelectInput(session, "category_select", selected = election$office_type)
+          updateSelectInput(session, "state_select", selected = election$state)
+          updateSelectInput(session, "district_select", selected = election$district)
+          
+          last_clicked(link_id)
+          
+          break
+        }
+      }, ignoreInit = TRUE)
+    }
   })
 }
