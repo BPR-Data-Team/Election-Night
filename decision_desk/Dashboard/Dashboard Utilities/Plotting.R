@@ -330,7 +330,7 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
   return(graph)
 }
 
-get_margin_map_district <- function(state_abbrev, congressional_district) {
+get_margin_map_district <- function(year, state_abbrev, congressional_district) {
   
   #Current data
   current_data <- county_data %>%
@@ -368,68 +368,102 @@ get_margin_map_district <- function(state_abbrev, congressional_district) {
   
   city_sf <- city_sf[is_within,]
   
-  graph <- leaflet(geo_data, options = leafletOptions(
-    attributionControl = FALSE, 
-    zoomControl = FALSE,
-    dragging = FALSE,
-    scrollWheelZoom = FALSE,
-    doubleClickZoom = FALSE,
-    boxZoom = FALSE,
-    touchZoom = FALSE)) %>%
-    #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
-    setMapWidgetStyle(list(background= "white")) %>%
-    addPolygons(
-      fillColor = ~pal(margin_pct),
-      color = "black",
-      label = ~lapply(get_label(county, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                                Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
-      weight = 1,
-      opacity = 1,
-      fillOpacity = 0.7,
-      highlightOptions = highlightOptions(
-        weight = 2,
-        color = "#666",
+  if (year == 2024) {
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
+      addPolygons(
+        fillColor = ~pal(margin_pct),
+        color = "black",
+        label = ~lapply(get_label(county, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
+                                  Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
+        weight = 1,
+        opacity = 1,
         fillOpacity = 0.7,
-        bringToFront = TRUE
+        highlightOptions = highlightOptions(
+          weight = 2,
+          color = "#666",
+          fillOpacity = 0.7,
+          bringToFront = TRUE
+        )
       )
-    )
-  
+  } else {
+    prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
+    prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
+    prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
+    prev_dem_pct <- 100 * prev_dem_votes / prev_total_votes
+    prev_rep_pct <- 100 * prev_rep_votes / prev_total_votes
+    
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
+      addPolygons(
+        fillColor = ~pal(margin_pct),
+        color = "black",
+        label = ~lapply(get_label(county, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
+                                  prev_rep_pct, prev_dem_pct, 100), htmltools::HTML),  # Convert HTML for the popup
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7,
+        highlightOptions = highlightOptions(
+          weight = 2,
+          color = "#666",
+          fillOpacity = 0.7,
+          bringToFront = TRUE
+        )
+      )
+  }
+    
   #If there are no cities in the district, don't have cities on the graph!
   if (nrow(city_sf) > 0) {
-   graph <- graph %>%
-     # Adding city markets
-     addCircleMarkers(
-       data = city_sf,
-       radius = 2,
-       color = "black",
-       fillColor = "black",
-       fillOpacity = 0.8,
-       weight = 1
-     ) %>%
-     addLabelOnlyMarkers(
-       data = city_sf,
-       label = ~name,
-       labelOptions = labelOptions(
-         noHide = TRUE,
-         direction = "top",
-         textOnly = TRUE,
-         offset = c(0, -10),  # Offset label to move it above the marker
-         style = list(
-           "color" = "black",          # Use a darker green for better contrast
-           "font-size" = "10px",         # Smaller font size to be less overpowering
-           "font-weight" = "bold",
-           "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
-           "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
-           "border-radius" = "3px"       # Rounded corners for the background
+     graph <- graph %>%
+       # Adding city markets
+       addCircleMarkers(
+         data = city_sf,
+         radius = 2,
+         color = "black",
+         fillColor = "black",
+         fillOpacity = 0.8,
+         weight = 1
+       ) %>%
+       addLabelOnlyMarkers(
+         data = city_sf,
+         label = ~name,
+         labelOptions = labelOptions(
+           noHide = TRUE,
+           direction = "top",
+           textOnly = TRUE,
+           offset = c(0, -10),  # Offset label to move it above the marker
+           style = list(
+             "color" = "black",          # Use a darker green for better contrast
+             "font-size" = "10px",         # Smaller font size to be less overpowering
+             "font-weight" = "bold",
+             "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
+             "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
+             "border-radius" = "3px"       # Rounded corners for the background
+           )
          )
        )
-     )
-  }
+    }
 
   return (graph)
 }
 
-get_margin_bubble_map_district <- function(state_abbrev, congressional_district) {
+get_margin_bubble_map_district <- function(year, state_abbrev, congressional_district) {
   #Current data
   current_data <- county_data %>%
     filter(state == state_abbrev,
@@ -470,36 +504,73 @@ get_margin_bubble_map_district <- function(state_abbrev, congressional_district)
   
   city_sf <- city_sf[is_within,]
   
-  graph <- leaflet(geo_data, options = leafletOptions(
-    attributionControl = FALSE, 
-    zoomControl = FALSE,
-    dragging = FALSE,
-    scrollWheelZoom = FALSE,
-    doubleClickZoom = FALSE,
-    boxZoom = FALSE,
-    touchZoom = FALSE)) %>%
-    #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
-    setMapWidgetStyle(list(background= "white")) %>%
-    addCircleMarkers(
-      data = geo_data_centroids,
-      fillColor = ~pal(margin_pct), 
-      color = "black",
-      radius = ~ 25 * abs(margin_votes / max_votes),
-      weight = 1,
-      opacity = 1,
-      fillOpacity = 0.7
-    ) %>%
-    addPolygons(
-      data = geo_data,
-      weight = 1,
-      color = "grey",
-      fillColor = "white",
-      opacity = 1,
-      fillOpacity = 0,
-      label = ~lapply(get_label(county, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
-                                Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
-    )
-  
+  if (year == 2024) {
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
+      addCircleMarkers(
+        data = geo_data_centroids,
+        fillColor = ~pal(margin_pct), 
+        color = "black",
+        radius = ~ 25 * abs(margin_votes / max_votes),
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7
+      ) %>%
+      addPolygons(
+        data = geo_data,
+        weight = 1,
+        color = "grey",
+        fillColor = "white",
+        opacity = 1,
+        fillOpacity = 0,
+        label = ~lapply(get_label(county, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
+                                  Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
+      )
+  } else {
+    prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
+    prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
+    prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
+    prev_dem_pct <- 100 * prev_dem_votes / prev_total_votes
+    prev_rep_pct <- 100 * prev_rep_votes / prev_total_votes
+    
+    graph <- leaflet(geo_data, options = leafletOptions(
+      attributionControl = FALSE, 
+      zoomControl = FALSE,
+      dragging = FALSE,
+      scrollWheelZoom = FALSE,
+      doubleClickZoom = FALSE,
+      boxZoom = FALSE,
+      touchZoom = FALSE)) %>%
+      #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+      setMapWidgetStyle(list(background= "white")) %>%
+      addCircleMarkers(
+        data = geo_data_centroids,
+        fillColor = ~pal(margin_pct), 
+        color = "black",
+        radius = ~ 25 * abs(margin_votes / max_votes),
+        weight = 1,
+        opacity = 1,
+        fillOpacity = 0.7
+      ) %>%
+      addPolygons(
+        data = geo_data,
+        weight = 1,
+        color = "grey",
+        fillColor = "white",
+        opacity = 1,
+        fillOpacity = 0,
+        label = ~lapply(get_label(county, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
+                                  prev_rep_pct, prev_dem_pct, 100), htmltools::HTML)  # Convert HTML for the popup
+      )
+  }
   return (graph)
 }
  
@@ -625,3 +696,4 @@ get_swing_map <- function(state_abbrev, office_1, office_2, year_1, year_2) {
     ) 
   return(graph)
 }
+

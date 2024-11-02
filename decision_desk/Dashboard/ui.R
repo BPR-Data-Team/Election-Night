@@ -162,18 +162,7 @@ ui <- page_sidebar(
                                      "2024 Margin Bubble" = "2024_margin_bubble", 
                                      "Swing 2020-2024" = "2024_swing"), 
                       selected = "2024_margin"),
-          conditionalPanel(
-            condition = "input.TL_map_select == '2024_margin'",
-            leafletOutput("margin_map_2024")
-          ),
-          conditionalPanel(
-            condition = "input.TL_map_select == '2024_margin_bubble'",
-            leafletOutput("margin_bubble_map_2024")
-          ),
-          conditionalPanel(
-            condition = "input.TL_map_select == '2024_swing'",
-            leafletOutput("swing_map_20to24")
-          )
+         leafletOutput("TL_map")
         ),
         card(
           full_screen = FALSE, 
@@ -182,39 +171,12 @@ ui <- page_sidebar(
                       choices = list("2020 Margin" = "2020_margin", 
                                      "2020 Margin Bubble" = "2020_margin_bubble", 
                                      "Swing 2016-2020" = "swing_20",
-                                     "2024 President-Senate Swing" = "pres_sen_swing_24",
-                                     "2016-2018 President-Senate Swing" = "pres_sen_swing_16_18",
-                                     "2024 President-Governor Swing" = "pres_gov_swing_24",
-                                     "2020 President-Governor Swing" = "pres_gov_swing_20"),
+                                     "2024 President - 2024 Senate Swing" = "pres_sen_swing_24",
+                                     "2016 President - 2018 Senate Swing" = "pres_sen_swing_16_18",
+                                     "2024 President - 2024 Governor Swing" = "pres_gov_swing_24",
+                                     "2020 President - 2024 Governor Swing" = "pres_gov_swing_20"),
                       selected = "2020_margin"),
-          conditionalPanel(
-            condition = "input.TR_map_select == '2020_margin'",
-            leafletOutput("margin_map_2020")
-          ),
-          conditionalPanel(
-            condition = "input.TR_map_select == '2020_margin_bubble'",
-            leafletOutput("margin_bubble_map_2020")
-          ),
-          conditionalPanel(
-            condition = "input.TR_map_select == 'swing_20'",
-            leafletOutput("swing_map_16to20")
-          ),
-          conditionalPanel(
-            condition = "input.TR_map_select == 'pres_sen_swing_24'",
-            leafletOutput("president_senate_swing_map_24to24")
-          ),
-          conditionalPanel(
-            condition = "input.TR_map_select == 'pres_sen_swing_16_18'",
-            leafletOutput("president_senate_swing_map_16to18")
-          ),
-          conditionalPanel(
-            condition = "input.TR_map_select == 'pres_gov_swing_24'",
-            leafletOutput("president_governor_swing_map_24to24")
-          ),
-          conditionalPanel(
-            condition = "input.TR_map_select == 'pres_gov_swing_20'",
-            leafletOutput("president_governor_swing_map_20to20")
-          )
+          leafletOutput("TR_map")
         )
       ),
       layout_columns(
@@ -233,26 +195,7 @@ ui <- page_sidebar(
                                      "Median income" = "income",
                                      "White college %" = "white_college"),
                       selected = "white"),
-          conditionalPanel(
-            condition = "input.BR_map_select == 'white'",
-            leafletOutput("white_demographics_map")
-          ),
-          conditionalPanel(
-            condition = "input.BR_map_select == 'black'",
-            leafletOutput("black_demographics_map")
-          ),
-          conditionalPanel(
-            condition = "input.BR_map_select == 'hispanic'",
-            leafletOutput("hispanic_demographics_map")
-          ),
-          conditionalPanel(
-            condition = "input.BR_map_select == 'income'",
-            leafletOutput("median_income_demographics_map")
-          ),
-          conditionalPanel(
-            condition = "input.BR_map_select == 'white_college'",
-            leafletOutput("white_college_educated_demographics_map")
-          )
+          leafletOutput("demographic_map")
         )
       ),
       card(
@@ -271,7 +214,6 @@ ui <- page_sidebar(
         selectInput("exit_poll_year", label = "Year",
                     choices = c("2020", "2024"),
                     selected = "2020"),
-  
         
         tableOutput("exit_poll_table"),
         tableOutput("exit_poll_expectation")

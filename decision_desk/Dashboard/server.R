@@ -265,29 +265,75 @@ server <- function(input, output, session) {
   output$map_menu_header <- renderText({input$selected_map})
   
   observeEvent(input$TL_map_select, {
-    output$margin_map_2024 <- renderLeaflet({get_margin_map(2024, state_selection(), election_type())})
-    output$margin_bubble_map_2024 <- renderLeaflet({get_margin_bubble_map(2024, state_selection(), election_type())})
-    outputswing_map_20to24 <- renderLeaflet({get_swing_map(state_selection(), election_type(), election_type(), 2020, 2024)})
+    if (input$TL_map_select == "2024_margin") {
+      if (election_type() == "House") {
+        output$TL_map <- renderLeaflet({get_margin_map_district(2024, state_selection(), district_selection())})
+      } else {
+        output$TL_map <- renderLeaflet({get_margin_map(2024, state_selection(), election_type())})
+      }
+      
+    } else if (input$TL_map_select == "2024_margin_bubble") {
+      if (election_type() == "House") {
+        output$TL_map <- renderLeaflet({get_margin_bubble_map_district(2024, state_selection(), district_selection())})
+      } else {
+        output$TL_map <- renderLeaflet({get_margin_bubble_map(2024, state_selection(), election_type())})
+      }
+      
+    } else if (input$TL_map_select == "2024_swing") {
+      output$TL_map <- renderLeaflet({get_swing_map(state_selection(), election_type(), election_type(), 2020, 2024)})
+    
+    } 
   })
   
   observeEvent(input$TR_map_select, {
-    output$margin_map_2020 <- renderLeaflet({get_margin_map(2020, state_selection(), election_type())})
-    output$margin_bubble_map_2020 <- renderLeaflet({get_margin_bubble_map(2020, state_selection(), election_type())})
-    output$swing_map_16to20 <- renderLeaflet({get_swing_map(state_selection(), election_type(), election_type(), 2016, 2020)})
-    output$president_senate_swing_map_24to24 <- renderLeaflet({get_swing_map(state_selection(), "President", "Senate", 2024, 2024)})
-    output$president_senate_swing_map_16to18 <- renderLeaflet({get_swing_map(state_selection(), "President", "Senate", 2016, 2018)})
-    output$president_governor_swing_map_24to24 <- renderLeaflet({get_swing_map(state_selection(), "President", "Governor", 2024, 2024)})
-    output$president_governor_swing_map_20to20 <- renderLeaflet({get_swing_map(state_selection(), "President", "Governor", 2020, 2020)})
+    if (input$TR_map_select == "2020_margin") {
+      if (election_type() == "House") {
+        output$TR_map <- renderLeaflet({get_margin_map_district(2020, state_selection(), district_selection())})
+      } else {
+        output$TR_map <- renderLeaflet({get_margin_map(2020, state_selection(), election_type())})
+      }
+      
+    } else if (input$TR_map_select == "2020_margin_bubble") {
+      if (election_type() == "House") {
+        output$TR_map <- renderLeaflet({get_margin_bubble_map(2020, state_selection(), district_selection())})
+      } else {
+        output$TR_map <- renderLeaflet({get_margin_bubble_map_district(2020, state_selection(), district_selection())})
+      }
+    
+    } else if (input$TR_map_select == "swing_20") {
+      output$TR_map <- renderLeaflet({get_swing_map(state_selection(), election_type(), election_type(), 2016, 2020)})
+    
+    } else if (input$TR_map_select == "pres_sen_swing_24") {
+      output$TR_map <- renderLeaflet({get_swing_map(state_selection(), "President", "Senate", 2024, 2024)})
+    
+    } else if (input$TR_map_select == "pres_sen_swing_16_18") {
+      output$TR_map <- renderLeaflet({get_swing_map(state_selection(), "President", "Senate", 2016, 2018)})
+    
+    } else if (input$TR_map_select == "pres_gov_swing_24") {
+      output$TR_map <- renderLeaflet({get_swing_map(state_selection(), "President", "Governor", 2024, 2024)})
+    
+    } else if (input$TR_map_select == "pres_gov_swing_20") {
+      output$TR_map <- renderLeaflet({get_swing_map(state_selection(), "President", "Governor", 2020, 2020)})
+    
+    } else {
+      output$TR_map <- renderLeaflet({NULL})
+    }
   })
   
   output$remaining_votes_map <- renderLeaflet({get_votes_left_map(state_selection(), election_type())})
   
   observeEvent(input$BR_map_select, {
-    output$white_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White")})
-    output$black_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Black")})
-    output$hispanic_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Hispanic")})
-    output$median_income_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Income")})
-    output$white_college_educated_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White College")})
+    if (input$BR_map_select == "white") {
+      output$demographic_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White")})
+    } else if (input$BR_map_select == 'black') {
+      output$demographic_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Black")})
+    } else if (input$BR_map_select == 'hispanic') {
+      output$demographic_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Hispanic")})
+    } else if (input$BR_map_select == 'income') {
+      output$demographic_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "Income")})
+    } else if (input$BR_map_select == 'white_college') {
+      output$demographic_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White College")})
+    } 
   })
   
   # Graphs 
@@ -309,6 +355,8 @@ server <- function(input, output, session) {
   
   # Update state dropdown based on the election type
   observeEvent(input$category_select, {
+    req(input$TL_map_select, input$TR_map_select)
+    
     # Filter states based on the selected election type
     filtered_states <- current_data %>%
       filter_races(office_selection = input$category_select) %>%
@@ -334,10 +382,10 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$state_select, {
+    req(input$TL_map_select, input$TR_map_select)
+    
     if (input$category_select == "House") {
-      filtered_districts <- current_data %>% 
-        filter_races(office_selection = input$category_select,
-                     state_selection = input$state_select) %>%
+      filtered_districts <- selected_race_data() %>%
         arrange(district) %>%
         pull("district") %>%
         unique() %>%
