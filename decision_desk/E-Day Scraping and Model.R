@@ -438,21 +438,6 @@ finalized_county_results <- pre_model_county %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
 
 
-# Improved prepare_item function for handling various data types
-prepare_item <- function(row) {
-  lapply(row, function(x) {
-    if (is.na(x)) {
-      return(list(NULL = TRUE))
-    } else if (is.numeric(x)) {
-      return(list(N = as.character(x)))
-    } else if (is.logical(x)) {
-      return(list(BOOL = x))
-    } else {
-      return(list(S = as.character(x)))
-    }
-  })
-}
-
 
 #PUTTING IN FINAL DATA!
 write_csv(finalized_county_results, "cleaned_data/Changing Data/DDHQ_current_county_results.csv")
