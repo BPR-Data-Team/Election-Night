@@ -586,15 +586,15 @@ get_swing_map <- function(state_abbrev, office_1, office_2, year_1, year_2) {
     select(fips, margin_2)
   
   if (nrow(data_1) == 0) {
-    stop("Office and Year For #1 not found")
+    stop(glue("There was no election for this office in {year_1}"))
   }
   
   if (nrow(data_2) == 0) {
-    stop("Office and Year For #2 not found")
+    stop(glue("There was no election for this office in {year_2}"))
   }
   
   full_data <- full_join(data_1, data_2, by = 'fips') %>%
-    mutate(swing = margin_1 - margin_2)
+    mutate(swing = margin_2 - margin_1)
 
   geo_data <- st_read(geojson_link) %>%
     left_join(full_data, by = c("COUNTYFP" = "fips"))
