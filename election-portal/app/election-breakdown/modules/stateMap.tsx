@@ -94,6 +94,7 @@ interface RTCMapProps {
   raceType: RaceType;
   year: Year;
   stateName: string;
+  setCountyName: any;
 }
 
 interface FakeData {
@@ -109,7 +110,7 @@ const colorAxisStops: [number, string][] = [
   [1, '#595D9A'], // Democrat blue
 ];
 
-const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
+const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyName }) => {
   const { fetchStateGeoJSON, fetchCityGeoJSON } = GeoJsonCache();
   const sharedState = useSharedState().state;
 
@@ -177,12 +178,14 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     // sharedState.setView(State.National);
     sharedState.setLevel("state");
     setSelectedCounty('');
+    setCountyName('');
   };
 
-  const handleCountyClick = (countyKey: string) => {
+  const handleCountyClick = (countyKey: string, countyName: string) => {
     if (!wasPanned) {
       setSelectedCounty(countyKey); // Update selected county key for border
       sharedState.setLevel('county');
+      setCountyName(countyName);
     }
   };
 
@@ -361,8 +364,8 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
           },
           events: {
             click: function (event: any) {
-              // const countyName = event.point["name"];
-              handleCountyClick(event.point.GEOID);
+              const countyName = event.point["name"];
+              handleCountyClick(event.point.GEOID, countyName);
             },
           },
         },

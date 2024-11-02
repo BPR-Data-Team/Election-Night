@@ -12,6 +12,7 @@ import Canvas from '../modules/canvas/canvas';
 import { HistoricalCountyData, HistoricalElectionData } from '@/types/data';
 import Banner from './modules/banner';
 import DataDisplay from './modules/dataDisplay';
+import CountyDataDisplay from './modules/countyDataDisplay';
 
 import EBMap from './modules/EBMap';
 import StateMap from './modules/stateMap';
@@ -23,6 +24,15 @@ const mockStateData = {
   rep_votes: 2357106,
   pct_reporting: 71,
 };
+
+const mockCountyData = {
+  Democratic_name: 'Stein',
+  Republican_name: 'Robinson',
+  Democratic_votes_percent: '43%',
+  Republican_votes_percent: '57%',
+  Democratic_votes: 2357106,
+  Republican_votes: 2357106,
+}
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -37,6 +47,7 @@ export default function Election_Breakdown_Page() {
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
   };
+  const [countyName, setCountyName] = useState<string>('');
 
   // When sharedState.level changes wait 250ms before changing display state
   useEffect(() => {
@@ -214,6 +225,7 @@ export default function Election_Breakdown_Page() {
                   year={sharedState.year}
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
+                  setCountyName={setCountyName}
                 />
               </div>
             )}
@@ -228,15 +240,27 @@ export default function Election_Breakdown_Page() {
             message={'level:' + sharedState.level}
           />
 
-          {(SMWN || !displayNational) && (
+            {(SMWN || !displayNational) && sharedState.level !== 'county' && (
             <DataDisplay
               stateName={sharedState.view}
               year={sharedState.year}
               stateData={mockStateData}
               raceType={sharedState.breakdown}
               sharedStateLevel={sharedState.level}
+              
             />
-          )}
+            )}
+
+            {(SMWN || !displayNational) && sharedState.level === 'county' && (
+            <CountyDataDisplay
+              stateName={sharedState.view}
+              countyName={countyName}
+              year={sharedState.year}
+              stateData={mockCountyData}
+              raceType={sharedState.breakdown}
+              sharedStateLevel={sharedState.level}
+            />
+            )}
 
           {/* Needs to be topmost during content screens */}
           <Menubar />
