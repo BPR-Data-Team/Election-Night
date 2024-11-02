@@ -198,7 +198,7 @@ export default function Election_Breakdown_Page() {
                     : { opacity: 0 }),
                 }}
               >
-                <EBMap />
+                <EBMap historicalElectionsData={historicalElectionsData}/>
               </div>
             )}
             {!displayNational && (
@@ -214,6 +214,7 @@ export default function Election_Breakdown_Page() {
                   year={sharedState.year}
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
+                  countyData={historicalCountyData}
                 />
               </div>
             )}
@@ -223,9 +224,9 @@ export default function Election_Breakdown_Page() {
           <Banner
             align="left"
             height={3}
-            wordmark={'view:' + sharedState.view}
+            wordmark="Election Breakdown"
             header=""
-            message={'level:' + sharedState.level}
+            message={sharedState.view}
           />
 
           {(SMWN || !displayNational) && (

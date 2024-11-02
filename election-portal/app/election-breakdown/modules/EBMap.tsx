@@ -1,16 +1,17 @@
-import React, { use, useEffect, useState, useRef } from 'react';
-import { RaceType } from '@/types/RaceType';
-import { Year } from '@/types/Year';
+import React, { useEffect, useState, useRef } from 'react';
+import { getDataVersion, RaceType } from '@/types/RaceType';
 import Highcharts from 'highcharts';
 import HighchartsMap from 'highcharts/modules/map';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
 import './EBMap.css';
 
 import { useSharedState } from '../../sharedContext';
-import { State, getStateFromString } from '../../../types/State';
-import { SharedInfo } from '../../../types/SharedInfoType';
-import { only } from 'node:test';
-
+import { State, getStateAbbreviation, getStateFromString } from '../../../types/State';
+import { HistoricalElectionData } from '@/types/data';
+interface ElectionData {
+  "hc-key": string;
+  value: number;
+}
 const presData: FakeData[] = [
   {
     'hc-key': 'us-al',
@@ -621,21 +622,25 @@ interface FakeData {
   value: number;
 }
 
+interface EBMapProps {
+  historicalElectionsData: HistoricalElectionData[] | null
+}
+
 const colorAxisStops: [number, string][] = [
   [0, '#B83C2B'], // Republican red
-  [0.38, '#B83C2B'],
-  [0.47, '#EAEAEA'],
-  [0.53, '#EAEAEA'],
-  [0.62, '#595D9A'],
+  [0.25, '#B83C2B'],
+  [0.5, '#EAEAEA'],
+  [0.75, '#595D9A'],
   [1, '#595D9A'], // Democrat blue
 ];
 
-const EBMap: React.FC = () => {
+
+const EBMap: React.FC<EBMapProps> = ({historicalElectionsData}) => {
   const sharedState = useSharedState().state;
   const raceType = sharedState.breakdown;
-  const year = sharedState.year;
 
   const [chart, setChart] = useState<any>(null);
+  const [electionData, setElectionData] = useState<ElectionData[]>([]);
   const [geoData, setGeoData] = useState<any>(null);
 
   const [wasPanned, setWasPanned] = useState(false);
@@ -672,24 +677,20 @@ const EBMap: React.FC = () => {
   }, []);
 
   const fetchMapDataAndInitializeMap = async () => {
-    console.log('Map data has begun to load');
     const geoResponse = await fetch(
       'https://code.highcharts.com/mapdata/countries/us/us-all.geo.json'
     );
     let geoData = await geoResponse.json();
-    console.log('Map data loaded');
-    console.log(geoData);
     setGeoData(geoData);
     initializeMap(geoData);
   };
 
   const handleStateClick = async (stateName: string, eventPoint: any) => {
-    console.log(wasPanned);
     if (wasPanned) {
       return;
     }
     const stateEnum = getStateFromString(stateName);
-    console.log('view: ' + sharedState.view + ' level: ' + sharedState.level);
+
     if (sharedState.view != stateEnum) {
       sharedState.setView(stateEnum as State);
       if (chart) {
@@ -722,7 +723,6 @@ const EBMap: React.FC = () => {
       sharedState.setLevel('state');
     }
 
-    console.log('eventPoint hc-key: ' + eventPoint['hc-key']);
     setSelectedStateKey(eventPoint['hc-key']);
   };
 
@@ -773,12 +773,11 @@ const EBMap: React.FC = () => {
 
   useEffect(() => {
     if (chart) {
-      console.log('selectedStateKey: ' + selectedStateKey);
       chart.update({
         series: [
           {
             type: 'map',
-            data: (raceType === RaceType.Presidential ? presData : senData).map(
+            data: electionData.map(
               (state) => ({
                 ...state,
                 borderColor:
@@ -794,11 +793,11 @@ const EBMap: React.FC = () => {
     }
   }, [selectedStateKey, chart, raceType]);
 
-  function getMaxState(stateData: FakeData[]): number {
+  function getMaxState(stateData: ElectionData[]): number {
     return Math.max(...stateData.map((state) => state.value));
   }
 
-  function getMinState(stateData: FakeData[]): number {
+  function getMinState(stateData: ElectionData[]): number {
     return Math.min(...stateData.map((state) => state.value));
   }
 
@@ -814,15 +813,25 @@ const EBMap: React.FC = () => {
   };
 
   const initializeMap = (mapData: any) => {
+    let fetchedData:ElectionData[] = [];
+    historicalElectionsData?.forEach((datum) => {
+      if (
+        datum.office_type === getDataVersion(sharedState.breakdown)
+      ) {
+        fetchedData.push({"hc-key": "us-"+datum.state.toLowerCase(), value: datum.margin_pct_1})
+      }
+    });
+    
     const axisMax: number = Math.max(
-      Math.abs(getMinState(presData)),
-      Math.abs(getMaxState(presData))
+      Math.abs(getMinState(fetchedData)),
+      Math.abs(getMaxState(fetchedData))
     );
     const mapOptions: Highcharts.Options = {
       chart: {
         type: 'map',
         map: mapData,
         backgroundColor: 'transparent',
+        spacing: [0, 0, 0, 0],
         events: {
           click: function (event: any) {
             if (!event.point) {
@@ -894,7 +903,7 @@ const EBMap: React.FC = () => {
         {
           showInLegend: false,
           type: 'map',
-          data: raceType == RaceType.Presidential ? presData : senData,
+          data: fetchedData,
           nullColor: '#505050',
           name: 'Predicted Margin',
           states: {
@@ -928,6 +937,7 @@ const EBMap: React.FC = () => {
     };
     const ch = Highcharts.mapChart('container', mapOptions);
     setChart(ch);
+    setElectionData(fetchedData);
   };
 
   return <div id="container" />;
