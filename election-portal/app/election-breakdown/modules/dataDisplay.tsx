@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './dataDisplay.css';
 import { RaceType } from '@/types/RaceType';
+import { useSharedState } from '../../sharedContext';
 
 // type DataProps = {
 // };
@@ -25,6 +26,8 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   const [demVotePercentage, setDemVotePercentage] = useState<string>('N/A');
   const [repVotePercentage, setRepVotePercentage] = useState<string>('N/A');
   const [pctReporting, setPctReporting] = useState<string>('N/A');
+
+  const sharedState = useSharedState().state;
 
   const setBothVotePercentages = () => {
     setDemVotePercentage(

@@ -175,13 +175,14 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
       return;
     }
     // sharedState.setView(State.National);
-    // sharedState.setLevel("national");
+    sharedState.setLevel("state");
     setSelectedCounty('');
   };
 
   const handleCountyClick = (countyKey: string) => {
     if (!wasPanned) {
       setSelectedCounty(countyKey); // Update selected county key for border
+      sharedState.setLevel('county');
     }
   };
 
