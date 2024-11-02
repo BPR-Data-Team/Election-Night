@@ -1,86 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { RaceType } from '@/types/RaceType';
+import { getDataVersion, RaceType } from '@/types/RaceType';
 import { Year } from '@/types/Year';
 import Highcharts from 'highcharts';
 import HighchartsMap from 'highcharts/modules/map';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
 
 import GeoJsonCache from './mapDataCache';
-import { State, getStateFromString } from '../../../types/State';
+import { State, getStateAbbreviation, getStateFromString } from '../../../types/State';
 
 import { useSharedState } from '../../sharedContext';
 import './stateMap.css';
 import { json } from 'stream/consumers';
+import { HistoricalCountyData } from '@/types/data';
 
-const presData: FakeData[] = [
-  { GEOID: '01069', value: 9.95 },
-  { GEOID: '01023', value: 45.82 },
-  { GEOID: '01005', value: 1.65 },
-  { GEOID: '01107', value: 33.11 },
-  { GEOID: '01033', value: -14.81 },
-  { GEOID: '01051', value: -34.78 },
-  { GEOID: '01009', value: 48.03 },
-  { GEOID: '01025', value: -37.8 },
-  { GEOID: '01055', value: 36.01 },
-  { GEOID: '01115', value: -51.13 },
-  { GEOID: '01065', value: 16.99 },
-  { GEOID: '01089', value: 54.39 },
-  { GEOID: '01071', value: -29.49 },
-  { GEOID: '01043', value: -55.66 },
-  { GEOID: '01001', value: -4.65 },
-  { GEOID: '01121', value: -21.15 },
-  { GEOID: '01131', value: 16.02 },
-  { GEOID: '01091', value: -54.56 },
-  { GEOID: '01041', value: 57.05 },
-  { GEOID: '01085', value: -44.73 },
-  { GEOID: '01063', value: -16.74 },
-  { GEOID: '01101', value: -14.82 },
-  { GEOID: '01095', value: 3.35 },
-  { GEOID: '01109', value: -11.49 },
-  { GEOID: '01003', value: -57.97 },
-  { GEOID: '01129', value: -38.97 },
-  { GEOID: '01117', value: -21.34 },
-  { GEOID: '01035', value: 2.43 },
-  { GEOID: '01049', value: -25.35 },
-  { GEOID: '01073', value: 15.81 },
-  { GEOID: '01047', value: 43.23 },
-  { GEOID: '01099', value: 45.62 },
-  { GEOID: '01097', value: 12.21 },
-  { GEOID: '01039', value: -21.67 },
-  { GEOID: '01119', value: 0.15 },
-  { GEOID: '01075', value: -16.85 },
-  { GEOID: '01029', value: 18.99 },
-  { GEOID: '01021', value: 28.95 },
-  { GEOID: '01103', value: -52.05 },
-  { GEOID: '01037', value: -3.55 },
-  { GEOID: '01083', value: -36.22 },
-  { GEOID: '01013', value: 12.85 },
-  { GEOID: '01045', value: 44.93 },
-  { GEOID: '01105', value: 38.47 },
-  { GEOID: '01031', value: -31.9 },
-  { GEOID: '01011', value: 10.02 },
-  { GEOID: '01125', value: 55.04 },
-  { GEOID: '01015', value: -5.31 },
-  { GEOID: '01007', value: -25.12 },
-  { GEOID: '01067', value: 9.45 },
-  { GEOID: '01017', value: -51.97 },
-  { GEOID: '01077', value: 27.22 },
-  { GEOID: '01127', value: 26.35 },
-  { GEOID: '01057', value: 44.94 },
-  { GEOID: '01061', value: -22.18 },
-  { GEOID: '01079', value: 44.87 },
-  { GEOID: '01027', value: -14.94 },
-  { GEOID: '01087', value: -54.41 },
-  { GEOID: '01093', value: -35.95 },
-  { GEOID: '01133', value: -51.93 },
-  { GEOID: '01113', value: 7.08 },
-  { GEOID: '01081', value: -24.97 },
-  { GEOID: '01019', value: -8.82 },
-  { GEOID: '01059', value: -38.0 },
-  { GEOID: '01111', value: 17.56 },
-  { GEOID: '01123', value: 8.96 },
-  { GEOID: '01053', value: -59.64 },
-];
 
 if (typeof window !== `undefined`) {
   highchartsAccessibility(Highcharts);
@@ -90,14 +22,15 @@ if (typeof Highcharts === 'object') {
   HighchartsMap(Highcharts);
 }
 
-interface RTCMapProps {
+interface ElectionBreakdownProps {
   raceType: RaceType;
   year: Year;
   stateName: string;
+  countyData: HistoricalCountyData[]
 }
 
-interface FakeData {
-  GEOID: string;
+interface ElectionData {
+  NAME: string;
   value: number;
 }
 
@@ -109,7 +42,7 @@ const colorAxisStops: [number, string][] = [
   [1, '#595D9A'], // Democrat blue
 ];
 
-const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
+const StateMap: React.FC<ElectionBreakdownProps> = ({ raceType, year, stateName, countyData }) => {
   const { fetchStateGeoJSON, fetchCityGeoJSON } = GeoJsonCache();
   const sharedState = useSharedState().state;
 
@@ -117,6 +50,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
 
   const [stateChart, setStateChart] = useState<any>(null);
   const [selectedCounty, setSelectedCounty] = useState('');
+  const [electionData, setElectionData] = useState<ElectionData[]>([]);
 
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
@@ -149,7 +83,8 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
 
   useEffect(() => {
     retrieveMapData();
-  }, [raceType, year, stateName]);
+  }, [sharedState.breakdown, sharedState.year, sharedState.view, countyData, year, stateName, raceType]);
+
 
   const retrieveMapData = async () => {
     if (stateName == 'National') {
@@ -160,11 +95,11 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     initializeMap(newMapData, newCityData);
   };
 
-  function getMaxState(stateData: FakeData[]): number {
+  function getMaxState(stateData: ElectionData[]): number {
     return Math.max(...stateData.map((state) => state.value));
   }
 
-  function getMinState(stateData: FakeData[]): number {
+  function getMinState(stateData: ElectionData[]): number {
     return Math.min(...stateData.map((state) => state.value));
   }
 
@@ -182,29 +117,37 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
       setSelectedCounty(countyKey); // Update selected county key for border
     }
   };
-
-  useEffect(() => {
-    if (stateChart) {
-      stateChart.update({
-        series: [
-          {
-            type: 'map',
-            data: presData.map((county) => ({
-              ...county,
-              borderColor:
-                county.GEOID === selectedCounty ? 'lightgreen' : '#000000',
-              borderWidth: county.GEOID === selectedCounty ? 6 : 1,
-            })),
-          },
-        ],
-      });
-    }
-  }, [selectedCounty, stateChart]);
+  // useEffect(() => {
+  //   if (stateChart) {
+  //     stateChart.update({
+  //       series: [
+  //         {
+  //           type: 'map',
+  //           data: electionData.map((county) => ({
+  //             ...county,
+  //             borderColor:
+  //               county.NAME === selectedCounty ? 'lightgreen' : '#000000',
+  //             borderWidth: county.NAME === selectedCounty ? 6 : 1,
+  //           })),
+  //         },
+  //       ],
+  //     });
+  //   }
+  // }, [selectedCounty, stateChart]);
 
   const initializeMap = (mapData: any, cityData: any) => {
+    let fetchedData:ElectionData[] = [];
+    countyData?.forEach((datum) => {
+      if (
+        datum.state === getStateAbbreviation(sharedState.view) &&
+        datum.office_type === getDataVersion(sharedState.breakdown)
+      ) {
+        fetchedData.push({NAME: datum.county, value: datum.margin_pct_1})
+      }
+    });
     const axisMax: number = Math.max(
-      Math.abs(getMinState(presData)),
-      Math.abs(getMaxState(presData))
+      Math.abs(getMinState(fetchedData)),
+      Math.abs(getMaxState(fetchedData))
     );
     const colorAxis: Highcharts.ColorAxisOptions = {
       min: -axisMax,
@@ -268,6 +211,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
         type: 'map',
         map: mapData,
         backgroundColor: 'transparent',
+        spacing: [0, 0, 0, 0],
         events: {
           click: function (event: any) {
             if (!event.point) {
@@ -303,6 +247,24 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
           duration: 0,
         },
       },
+      tooltip: {
+        formatter: function (this: any) {
+          let prefix = this.point.value >= 0 ? 'D' : 'R';
+          return (
+            '<b>' +
+            this.point.name +
+            '</b><br/>' +
+            prefix +
+            '+' +
+            (Math.abs(this.point.value) <= 0.1
+              ? '<0.1'
+              : Math.abs(this.point.value).toFixed(1))
+          );
+        },
+        style: {
+          fontFamily: 'gelica, book antiqua, georgia, times new roman, serif',
+        },
+      },
       credits: {
         enabled: false,
       },
@@ -333,9 +295,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
           showInLegend: false,
           type: 'map',
           mapData: mapData,
-          data: presData,
-          joinBy: 'GEOID',
-          nullColor: '#FFFFFF',
+          data: fetchedData,
+          joinBy: 'NAME',
+          nullColor: '#505050',
           name: 'Counties',
           borderColor: 'black',
           borderWidth: 2,
@@ -404,6 +366,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     // Highcharts.mapChart("eb-state-container", mapOptions);
     const ch = Highcharts.mapChart('eb-state-container', mapOptions);
     setStateChart(ch);
+    setElectionData(fetchedData);
   };
 
   return <div id="eb-state-container" />;

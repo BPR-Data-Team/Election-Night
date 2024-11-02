@@ -214,6 +214,7 @@ export default function Election_Breakdown_Page() {
                   year={sharedState.year}
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
+                  countyData={historicalCountyData}
                 />
               </div>
             )}
