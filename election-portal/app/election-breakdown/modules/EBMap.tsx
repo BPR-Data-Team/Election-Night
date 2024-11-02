@@ -1,6 +1,5 @@
-import React, { use, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { RaceType } from '@/types/RaceType';
-import { Year } from '@/types/Year';
 import Highcharts from 'highcharts';
 import HighchartsMap from 'highcharts/modules/map';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
@@ -8,8 +7,6 @@ import './EBMap.css';
 
 import { useSharedState } from '../../sharedContext';
 import { State, getStateFromString } from '../../../types/State';
-import { SharedInfo } from '../../../types/SharedInfoType';
-import { only } from 'node:test';
 
 const presData: FakeData[] = [
   {
@@ -633,7 +630,6 @@ const colorAxisStops: [number, string][] = [
 const EBMap: React.FC = () => {
   const sharedState = useSharedState().state;
   const raceType = sharedState.breakdown;
-  const year = sharedState.year;
 
   const [chart, setChart] = useState<any>(null);
   const [geoData, setGeoData] = useState<any>(null);
@@ -672,24 +668,20 @@ const EBMap: React.FC = () => {
   }, []);
 
   const fetchMapDataAndInitializeMap = async () => {
-    console.log('Map data has begun to load');
     const geoResponse = await fetch(
       'https://code.highcharts.com/mapdata/countries/us/us-all.geo.json'
     );
     let geoData = await geoResponse.json();
-    console.log('Map data loaded');
-    console.log(geoData);
     setGeoData(geoData);
     initializeMap(geoData);
   };
 
   const handleStateClick = async (stateName: string, eventPoint: any) => {
-    console.log(wasPanned);
     if (wasPanned) {
       return;
     }
     const stateEnum = getStateFromString(stateName);
-    console.log('view: ' + sharedState.view + ' level: ' + sharedState.level);
+
     if (sharedState.view != stateEnum) {
       sharedState.setView(stateEnum as State);
       if (chart) {
@@ -722,7 +714,6 @@ const EBMap: React.FC = () => {
       sharedState.setLevel('state');
     }
 
-    console.log('eventPoint hc-key: ' + eventPoint['hc-key']);
     setSelectedStateKey(eventPoint['hc-key']);
   };
 
@@ -773,7 +764,6 @@ const EBMap: React.FC = () => {
 
   useEffect(() => {
     if (chart) {
-      console.log('selectedStateKey: ' + selectedStateKey);
       chart.update({
         series: [
           {
@@ -823,6 +813,7 @@ const EBMap: React.FC = () => {
         type: 'map',
         map: mapData,
         backgroundColor: 'transparent',
+        spacing: [0, 0, 0, 0],
         events: {
           click: function (event: any) {
             if (!event.point) {

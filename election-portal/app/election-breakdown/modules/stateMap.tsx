@@ -155,10 +155,8 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     if (stateName == 'National') {
       return;
     }
-    console.log('Retrieving map data for', stateName, year);
     const newMapData = await fetchStateGeoJSON(stateName, String(year));
     const newCityData = await fetchCityGeoJSON(stateName);
-    console.log(newMapData);
     initializeMap(newMapData, newCityData);
   };
 
@@ -255,7 +253,6 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
     if (vertDiff > horizDiff) {
       zoomScale = 1;
     }
-    console.log(maxLongitude + horizDiff, maxLatitude - vertDiff);
     const zoomGeometry = {
       type: 'MultiPoint',
       coordinates: [
@@ -368,6 +365,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
         {
           // Series for cities (mappoint)
           type: 'mappoint',
+          enableMouseTracking: false,
           name: 'Cities',
           color: '#D9D9D9',
           data: cityData,
@@ -392,9 +390,6 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName }) => {
             radius: 5,
             lineColor: '#000000',
             lineWidth: 1,
-          },
-          tooltip: {
-            pointFormat: '{point.name}',
           },
         },
       ],

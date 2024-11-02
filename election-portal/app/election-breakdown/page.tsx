@@ -223,9 +223,9 @@ export default function Election_Breakdown_Page() {
           <Banner
             align="left"
             height={3}
-            wordmark={'view:' + sharedState.view}
+            wordmark="Election Breakdown"
             header=""
-            message={'level:' + sharedState.level}
+            message={sharedState.view}
           />
 
           {(SMWN || !displayNational) && (
