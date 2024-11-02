@@ -221,7 +221,8 @@ pre_model_county <- scraped_df %>%
          Democratic_votes_percent = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), Independent_votes_percent, Democratic_votes_percent),
          margin_pct = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), (Independent_votes_percent - Republican_votes_percent), margin_pct),
          swing = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), (Independent_votes_percent - Republican_votes_percent) -
-                          margin_pct_1, swing))
+                          margin_pct_1, swing), 
+         pct_reporting = replace_na(pct_reporting, 0))
 
 
 pre_model_race <- pre_model_county %>% 
@@ -247,6 +248,7 @@ pre_model_race <- pre_model_county %>%
          margin_pct = 100*(dem_votes - rep_votes) / total_votes, 
          pct_absentee = 100 * total_absentee_votes/ total_votes, 
          absentee_margin = 100 * absentee_margin_votes / total_absentee_votes) %>%
+  mutate(pct_reporting = replace_na(pct_reporting, 0)) %>%
   select(office_type, state, district, Democratic_name, Republican_name, Independent_name, dem_votes, 
          rep_votes, ind_votes, green_votes,
          pct_reporting, total_votes, margin_votes, margin_pct,
