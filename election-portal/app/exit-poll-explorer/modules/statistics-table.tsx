@@ -1,4 +1,4 @@
-import "./statistics-table.css";
+import './statistics-table.css';
 
 interface StatsTableProps {
   data: any;
@@ -17,12 +17,12 @@ const StatsTable: React.FC<StatsTableProps> = ({ data }) => {
           </tr>
         </thead>
         <tbody className="table-contents">
-          {data.map((category: any, idx: number) => (
+          {data.map((question: any, idx: number) => (
             <tr key={idx} className="stats-row">
-              <th>{category.category}</th>
-              <td>{category.percentVote}</td>
-              <td>{category.percentBiden}</td>
-              <td>{category.percentTrump}</td>
+              <th>{question.answer}</th>
+              <td>{question.percentVote}</td>
+              <td>{question.percentBiden}</td>
+              <td>{question.percentTrump}</td>
             </tr>
           ))}
         </tbody>

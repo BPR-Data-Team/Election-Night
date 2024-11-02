@@ -1,15 +1,15 @@
-import { RaceType } from "./RaceType";
-import { Year } from "./Year";
-import { State } from "./State";
-import { Demographic } from "./Demographic";
+import { RaceType } from './RaceType';
+import { Year } from './Year';
+import { State } from './State';
+import { Demographic } from './Demographic';
 
 export type SharedInfo = {
   page: string;
   setCurrentPage: (page: string) => void;
   view: State;
   setView: (view: State) => void;
-  level: "county" | "state" | "national";
-  setLevel: (level: "county" | "state" | "national") => void;
+  level: 'county' | 'state' | 'national';
+  setLevel: (level: 'county' | 'state' | 'national') => void;
   exitLevel: () => void;
   drawMode: boolean;
   toggleDraw: () => void;

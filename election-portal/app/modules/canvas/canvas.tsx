@@ -1,17 +1,22 @@
-import { ReactSketchCanvas, ReactSketchCanvasRef, CanvasRef } from "react-sketch-canvas";
+import {
+  ReactSketchCanvas,
+  ReactSketchCanvasRef,
+  CanvasRef,
+} from 'react-sketch-canvas';
 import './canvas.css';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export default function Canvas() {
-
   // Fix for Firefox browser
   // (https://github.com/replicate/scribble-diffusion/issues/31#issuecomment-1451288647)
   const canvasDivRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const canvasMask = canvasDivRef.current?.querySelector<SVGGElement>('#react-sketch-canvas__stroke-group-0');
+    const canvasMask = canvasDivRef.current?.querySelector<SVGGElement>(
+      '#react-sketch-canvas__stroke-group-0'
+    );
 
     if (canvasMask) {
-      canvasMask.removeAttribute("mask");
+      canvasMask.removeAttribute('mask');
     }
   }, []);
 

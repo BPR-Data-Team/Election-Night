@@ -5,7 +5,7 @@
   --statusbar-right: #b83c2b;
   --statusbar-separator: #e0e0e0;
   --statusbar-text: #fff;
-  --statusbar-bgcolor: rgba(0, 0, 0, 0.3);
+  --statusbar-bgcolor: rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,7 +16,7 @@
     --statusbar-right: #b83c2b;
     --statusbar-separator: #e0e0e0;
     --statusbar-text: #fff;
-    --statusbar-bgcolor: rgba(0, 0, 0, 0.3);
+    --statusbar-bgcolor: rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -43,7 +43,7 @@ body {
 }
 
 body::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

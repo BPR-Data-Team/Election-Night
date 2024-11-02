@@ -250,7 +250,9 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       ],
     };
 
-    const chart = Highcharts.mapChart("container", mapOptions);
+    // const chart = Highcharts.mapChart("container", mapOptions);
+    const chart = Highcharts.mapChart("rtc-container", mapOptions);
+    
     chartRef.current = chart;
     initializeElectoralVotes(currentData);
   };
@@ -338,7 +340,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     <div className="map-container">
       <StatusBar leftCount={leftCount} rightCount={rightCount} />
       <div className="map-and-controls">
-        <div id="container" className="map" />
+        <div id="rtc-container" className="map" />
         <div className="controls">
           <div className="circles">
           <Circle

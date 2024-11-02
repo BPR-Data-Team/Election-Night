@@ -29,19 +29,6 @@ past_race_data <- read_csv("cleaned_data/Locally-Hosted Data/historical_election
 
 county_demographics <- read_csv("cleaned_data/Locally-Hosted Data/County_Demographics.csv")
 
-this_time_2020 <- read_csv("cleaned_data/Locally-Hosted Data/Same_Time_2020.csv") %>%
-  mutate(office_type = "President", 
-         district = 0, 
-         .before = everything()) %>%
-  rename_with(.cols = biden_pct:votes, ~ paste0(.x, "_same_time")) %>%
-  filter(timestamp < now()) %>%
-  #filter(timestamp < now(tzone = "UTC") - years(4) - days(2)) %>% #Nov 3 2020 -> Nov 5 2024
-  group_by(office_type, state, district) %>%
-  filter(timestamp == max(timestamp)) %>%
-  ungroup() %>%
-  select(office_type, district, state, margin_same_time, eevp_same_time, votes_same_time) %>%
-  unique()
-
 maine_townships_counties <- read_csv("cleaned_data/Locally-Hosted Data/Maine_Townships_to_Counties.csv") %>%
   mutate(fips = sprintf("%03d", fips))
 
@@ -228,7 +215,14 @@ pre_model_county <- scraped_df %>%
   left_join(past_county_data, by = c("office_type", "district", "state", "fips")) %>%
   filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate") & state %in% c("HI", "MO", "MD", "NE"))) %>% #Some weird stuff here...
   mutate(swing = margin_pct - margin_pct_1) %>% #Calculating swing from previous election
-  left_join(performance_vs_president, by = c("state", "district", "county", "office_type"))
+  left_join(performance_vs_president, by = c("state", "district", "county", "office_type")) %>%
+  mutate(Democratic_name = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), Independent_name, Democratic_name),
+         Democratic_votes = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), Independent_votes, Democratic_votes),
+         Democratic_votes_percent = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), Independent_votes_percent, Democratic_votes_percent),
+         margin_pct = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), (Independent_votes_percent - Republican_votes_percent), margin_pct),
+         swing = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), (Independent_votes_percent - Republican_votes_percent) -
+                          margin_pct_1, swing))
+
 
 pre_model_race <- pre_model_county %>% 
   rowwise() %>%
@@ -265,17 +259,16 @@ pre_model_county <- pre_model_county %>%
 
 
 #----- PART 2: RUNNING ELECTION DAY MODEL -----
-
 live_data <- pre_model_county %>%
   filter(office_type == "President") %>%
-  mutate(total_votes = 100 * margin_votes / margin_pct, 
-         total_votes_2020 = 100 * margin_votes_1 / margin_pct_1,
-         dem_votes = Democratic_votes, 
+  mutate(dem_votes = Democratic_votes, 
          rep_votes = Republican_votes, 
-         dem_votes_2020 = (0.98 * total_votes_2020 + margin_votes_1) / 2, 
-         rep_votes_2020 = (0.98 * total_votes_2020 - margin_votes_1) / 2, 
+         total_votes = 100 * margin_votes / margin_pct, 
+         total_votes_2020 = 100 * margin_votes_1 / margin_pct_1,
          pct_reporting = replace_na(pct_reporting, 0)) %>%
-  select(fips, state, pct_reporting, total_votes, dem_votes, rep_votes, total_votes_2020, dem_votes_2020, rep_votes_2020) 
+  select(fips, state, pct_reporting, total_votes, dem_votes, rep_votes, total_votes_2020, democratic_votes_1, republican_votes_1) %>%
+  rename(dem_votes_2020 = democratic_votes_1, 
+         rep_votes_2020 = republican_votes_1)
 
 county_and_dems <- live_data %>%
   left_join(county_demographics, by = c("fips", "state")) %>%
@@ -378,7 +371,7 @@ estimated_county <- county_and_dems %>%
          across(contains("lower"), ~replace_na(., 0)), 
          across(contains("upper"), ~replace_na(., 0)), 
          office_type = "President") %>%
-  select(fips, state, office_type, total_votes_estimate:margin_upper, pct_reporting)
+  select(fips, state, office_type, total_votes_estimate:margin_upper)
 
 
 estimated_race <- estimated_county %>%
@@ -402,10 +395,11 @@ finalized_race_results <- pre_model_race %>%
          votes_remaining = total_votes_estimate - total_votes) %>% 
   select(office_type, state, district, contains("name"), 
          pct_reporting, dem_votes, rep_votes, ind_votes, green_votes, total_votes, contains("pct"),
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, margin_pct_1, margin_votes_1, 
-         margin_pct_2, votes_remaining, contains("estimate"), contains("lower"), 
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, democratic_votes_1, democratic_votes_2, 
+         republican_votes_1, republican_votes_2, democratic_percent_1, democratic_percent_2, 
+         republican_percent_1, republican_percent_2, margin_pct_1, margin_votes_1, 
+         margin_pct_2, margin_votes_2, votes_remaining, contains("estimate"), contains("lower"), 
          contains("upper"), expected_pct_in) %>%
-  left_join(this_time_2020, by = c("office_type", "state", "district")) %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0))) %>%
   left_join(when_to_expect_results, by = c("office_type", "state", "district"))
 
@@ -413,11 +407,9 @@ finalized_race_results <- pre_model_race %>%
 #Connecticut has weird townships, so we need to combine all results into one "county", which is the entire state
 ct_results <- finalized_race_results %>%
   filter(state == "CT") %>% 
-  select(-contains("same_time")) %>%
   rename(Democratic_votes = dem_votes, Republican_votes = rep_votes, Independent_votes = ind_votes, Green_votes = green_votes, 
          Democratic_votes_percent = dem_votes_pct, Republican_votes_percent = rep_votes_pct, 
          Independent_votes_percent = ind_votes_pct, Green_votes_percent = green_votes_pct) %>%
-  select(-c(margin_pct_1, margin_pct_2, absentee_pct_1, absentee_margin_pct_1)) %>%
   #Connecticut should be one state, not multiple counties
   mutate(county = "Connecticut", 
          fips = "000",
@@ -435,11 +427,13 @@ finalized_county_results <- pre_model_county %>%
   select(office_type, state, county, district, fips, contains("name"), 
          pct_reporting, Democratic_votes, Republican_votes, Independent_votes, Green_votes, total_votes,
          Democratic_votes_percent, Republican_votes_percent, Independent_votes_percent, Green_votes_percent, 
-         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, margin_pct_1, margin_votes_1, 
+         margin_votes, margin_pct, pct_absentee, absentee_margin, swing, democratic_votes_1, 
+         democratic_percent_1, republican_votes_1, republican_percent_1, margin_pct_1, margin_votes_1, 
+         democratic_votes_2, democratic_percent_2, republican_votes_2, republican_percent_2, 
          margin_pct_2, margin_votes_2, performance_vs_president, votes_remaining, contains("estimate"), 
          contains("lower"), contains("upper"), expected_pct_in) %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
-  
+
 
 #PUTTING IN FINAL DATA!
 write_csv(finalized_county_results, "cleaned_data/Changing Data/DDHQ_current_county_results.csv")

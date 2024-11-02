@@ -24,7 +24,6 @@ export interface HistoricalCountyData {
 }
 
 export interface ExitPollData {
-  index: number;
   state: string;
   office_type: string;
   question: string;
