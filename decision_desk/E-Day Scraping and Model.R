@@ -215,7 +215,14 @@ pre_model_county <- scraped_df %>%
   left_join(past_county_data, by = c("office_type", "district", "state", "fips")) %>%
   filter(!(is.na(margin_pct_1) & office_type %in% c("President", "Senate") & state %in% c("HI", "MO", "MD", "NE"))) %>% #Some weird stuff here...
   mutate(swing = margin_pct - margin_pct_1) %>% #Calculating swing from previous election
-  left_join(performance_vs_president, by = c("state", "district", "county", "office_type"))
+  left_join(performance_vs_president, by = c("state", "district", "county", "office_type")) %>%
+  mutate(Democratic_name = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), Independent_name, Democratic_name),
+         Democratic_votes = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), Independent_votes, Democratic_votes),
+         Democratic_votes_percent = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), Independent_votes_percent, Democratic_votes_percent),
+         margin_pct = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), (Independent_votes_percent - Republican_votes_percent), margin_pct),
+         swing = ifelse(Independent_name %in% c("Dan Osborn", "Angus King"), (Independent_votes_percent - Republican_votes_percent) -
+                          margin_pct_1, swing))
+
 
 pre_model_race <- pre_model_county %>% 
   rowwise() %>%
@@ -426,7 +433,7 @@ finalized_county_results <- pre_model_county %>%
          margin_pct_2, margin_votes_2, performance_vs_president, votes_remaining, contains("estimate"), 
          contains("lower"), contains("upper"), expected_pct_in) %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
-  
+
 
 #PUTTING IN FINAL DATA!
 write_csv(finalized_county_results, "cleaned_data/Changing Data/DDHQ_current_county_results.csv")
