@@ -23,7 +23,8 @@ when_to_expect_results <- read_csv("cleaned_data/Locally-Hosted Data/When_to_exp
          when_to_call = `When to call`, 
          poll_close = `Last Poll Close`,
          race_to_watch = `Race to watch`) %>%
-  mutate(race_to_watch = replace_na(race_to_watch, FALSE))
+  mutate(race_to_watch = replace_na(race_to_watch, FALSE), 
+         district = replace_na(district, 0))
 
 past_race_data <- read_csv("cleaned_data/Locally-Hosted Data/historical_elections.csv")
 
@@ -435,6 +436,7 @@ finalized_county_results <- pre_model_county %>%
          margin_pct_2, margin_votes_2, performance_vs_president, votes_remaining, contains("estimate"), 
          contains("lower"), contains("upper"), expected_pct_in) %>%
   mutate(across(votes_remaining:expected_pct_in, ~ round(., 0)))
+
 
 
 #PUTTING IN FINAL DATA!
