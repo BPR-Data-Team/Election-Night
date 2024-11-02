@@ -198,7 +198,7 @@ export default function Election_Breakdown_Page() {
                     : { opacity: 0 }),
                 }}
               >
-                <EBMap />
+                <EBMap historicalElectionsData={historicalElectionsData}/>
               </div>
             )}
             {!displayNational && (
