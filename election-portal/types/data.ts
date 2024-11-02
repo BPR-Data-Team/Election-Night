@@ -33,3 +33,11 @@ export interface ExitPollData {
   answer_pct: number;
   lastName: string;
 }
+
+export interface RTCPresData {
+  year: number;
+  office_type: string;
+  state: string;
+  party_winner: string;
+  electoral_votes: number;
+}

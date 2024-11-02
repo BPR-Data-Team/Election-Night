@@ -5,10 +5,12 @@ import Highcharts, { color } from "highcharts";
 import HighchartsMap from "highcharts/modules/map";
 import highchartsAccessibility from "highcharts/modules/accessibility";
 import "./rtcmap.css";
-import { stateCodeToName } from "./utils/stateMap";
 import Circle from "./ElectoralVoteButton";
 import StatusBar from "./StatusBar";
 import electoralVotesPerState from "./utils/electoralVotesPerState";
+import { parse } from "papaparse";
+import { RTCPresData } from "@/types/data";
+
 
 const presData = [
   { "hc-key": "us-al", Called: "R" },
@@ -63,6 +65,7 @@ const presData = [
   { "hc-key": "us-wi", Called: "N" },
   { "hc-key": "us-wy", Called: "N" },
 ];
+const mockData = presData.map((item) => ({ ...item, Called: "N" }));
 
 const senData = [
   { "hc-key": "us-az", Called: "D" },
@@ -118,10 +121,12 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<any[]>([]);
   const originalElectoralCounts= useRef<any[]>([]);
-  const [mapData, setMapData] = useState(presData); // Default to presData
+  const [mapData, setMapData] = useState(mockData); // Default to presData
   const [circleValues, setCircleValues] = useState({ NE2: 0, ME2: 0 });
   const [leftCount, setLeftCount] = useState(0);
   const [rightCount, setRightCount] = useState(0);
+  const [sixteenPresData, setSixteenPresData] = useState<RTCPresData[] | null>(null);
+  const [twentyPresData, setTwentyPresData] = useState<RTCPresData[] | null>(null);
 
   const fetchMapDataAndInitializeMap = async () => {
     const geoResponse = await fetch(
@@ -132,11 +137,57 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   };
 
   useEffect(() => {
+    //
+    const storedSixteenPresData = sessionStorage.getItem("sixteenPresData");
+
+    if (storedSixteenPresData) {
+      setSixteenPresData(JSON.parse(storedSixteenPresData) as RTCPresData[]);
+    } else {
+      // Fetch the CSV data and log the response
+      fetch("/R2C/2016Presidential.csv")
+        .then((response) => {
+          return response.text();
+        })
+        .then((csvText) => {
+          parse(csvText, {
+            header: true,
+            complete: (results) => {
+              const parsedData: RTCPresData[] = results.data.map(
+                (row: any, index: number) => {
+                  return {
+                    year: parseInt(row.year),
+                    state: row.state,
+                    office_type: row.office_type,
+                    party_winner: row.party_winner,
+                    electoral_votes: parseInt(row.electoral_votes),
+                  };
+                }
+              );
+              setSixteenPresData(parsedData);
+              sessionStorage.setItem(
+                "sixteenPresData",
+                JSON.stringify(parsedData)
+              );
+            },
+          });
+        })
+        .catch((error) =>
+          console.error("Error loading exit poll data:", error)
+        );
+    }
+  }, []);
+
+  useEffect(() => {
     fetchMapDataAndInitializeMap();
   }, [raceType, year]);
 
   const initializeMap = (geoJson: any) => {
-    const currentData = raceType === RaceType.Presidential ? [...presData] : [...senData];
+    //TODO: Change mockData
+    const formattedPresData = sixteenPresData?.map((item) => ({
+      "hc-key": item.state,
+      Called: item.party_winner === "D" ? "D" : item.party_winner === "R" ? "R" : "N",
+    }));
+    const currentData = (raceType === RaceType.Presidential && year === Year.Sixteen) ? [...formattedPresData] : [...mockData];
     originalMap.current = currentData.map((item) => ({ ...item })); // Store original state
 
     const processedData = currentData.map((item) => ({
@@ -211,26 +262,18 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       )
     );
     updateElectoralCounts(key, value, oldValue);
-
   };
 
   const updateElectoralCounts = (key: string, value: number, oldValue : number) => {
     const electoralVotes = key in electoralVotesPerState ? electoralVotesPerState[key] : 0;
-  
     if (value === 1) {
       setLeftCount((prev) => prev + electoralVotes);
-      setRightCount((prev) => prev - electoralVotes);
     } else if (value === 2) {
-      setRightCount((prev) => prev + electoralVotes);
+      setRightCount((prev) => prev + (electoralVotes));
       setLeftCount((prev) => prev - electoralVotes);
     } else {
-      // If it is uncalled, Unsure about the Math here
-      if (oldValue === 1) {
-        setLeftCount((prev) => prev - electoralVotes);
-        setRightCount((prev) => prev - electoralVotes);
-      } else if (oldValue === 2) {
-        setRightCount((prev) => prev - electoralVotes);
-      }
+      setRightCount((prev) => prev - electoralVotes);
+      
     }
   };
 
@@ -286,6 +329,11 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     return () => ws.close();
   }, []);
 
+  const incrementLeftCount = () => setLeftCount((prev) => prev + 1);
+  const incrementRightCount = () => setRightCount((prev) => prev + 1);
+  const decrementLeftCount = () => setLeftCount((prev) => prev - 1);
+  const decrementRightCount = () => setRightCount((prev) => prev - 1);
+
   return (
     <div className="map-container">
       <StatusBar leftCount={leftCount} rightCount={rightCount} />
@@ -293,8 +341,34 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
         <div id="container" className="map" />
         <div className="controls">
           <div className="circles">
-            <Circle text="NE2" circleValue={circleValues.NE2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, NE2: typeof value === 'function' ? value(prev.NE2) : value }))} />
-            <Circle text="ME2" circleValue={circleValues.ME2} setCircleValue={(value) => setCircleValues((prev) => ({ ...prev, ME2: typeof value === 'function' ? value(prev.ME2) : value }))} />
+          <Circle
+              text="NE2"
+              circleValue={circleValues.NE2}
+              setCircleValue={(value) =>
+                setCircleValues((prev) => ({
+                  ...prev,
+                  NE2: typeof value === "function" ? value(prev.NE2) : value,
+                }))
+              }
+              incrementLeftCount={incrementLeftCount}
+              incrementRightCount={incrementRightCount}
+              decrementLeftCount={decrementLeftCount}
+              decrementRightCount={decrementRightCount}
+            />
+            <Circle
+              text="ME2"
+              circleValue={circleValues.ME2}
+              setCircleValue={(value) =>
+                setCircleValues((prev) => ({
+                  ...prev,
+                  ME2: typeof value === "function" ? value(prev.ME2) : value,
+                }))
+              }
+              incrementLeftCount={incrementLeftCount}
+              incrementRightCount={incrementRightCount}
+              decrementLeftCount={decrementLeftCount}
+              decrementRightCount={decrementRightCount}
+            />
           </div>
           <button className="reset-button" onClick={handleReset}>Reset Map</button>
         </div>
