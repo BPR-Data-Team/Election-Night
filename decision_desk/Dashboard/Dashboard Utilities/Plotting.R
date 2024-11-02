@@ -336,7 +336,7 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
   return(graph)
 }
 
-get_margin_map_district <- function(state_abbrev, congressional_district) {
+get_margin_map_district <- function(year, state_abbrev, congressional_district) {
   
   #Current data
   current_data <- county_data %>%
@@ -441,7 +441,7 @@ get_margin_map_district <- function(state_abbrev, congressional_district) {
   return (graph)
 }
 
-get_margin_bubble_map_district <- function(state_abbrev, congressional_district) {
+get_margin_bubble_map_district <- function(year, state_abbrev, congressional_district) {
   #Current data
   current_data <- county_data %>%
     filter(state == state_abbrev,
