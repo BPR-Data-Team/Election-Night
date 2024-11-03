@@ -79,23 +79,65 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
 
                 <div className="countyRow">
                     <div className="firstCountyCell"></div>
-                    <div className="countyCell"><p>2024</p></div>
-                    <div className="countyCell"><p></p></div>
-                    <div className="countyCell"><p></p></div>
+                    <div className="countyCell"><p>{year === 2024 && "2024"}</p></div>
+                    <div className="countyCell"><p>{year === 2020 && "2020"}</p></div>
+                    <div className="countyCell"><p>{year === 2016 && "2016"}</p></div>
                 </div>
 
                 <div className="countyRow">
                     <div className="firstCountyCell"><p className='countyName'>{stateData['Democratic_name']}</p></div>
-                    <div className="countyCell"><p>{stateData['Democratic_votes_percent']}</p><p>{stateData['Democratic_votes']}</p></div>
-                    <div className="countyCell"><p></p></div>
-                    <div className="countyCell"><p></p></div>
+                    <div className="countyCell">
+                        {year === 2024 && 
+                            <div className='countyPercentCell'>
+                                <p className='votesPercentage'>{stateData['Democratic_votes_percent']}</p>
+                                <p className='votesNumber'>{stateData['Democratic_votes'].toLocaleString('en-US')}</p>
+                            </div>
+                        }
+                    </div>
+                    <div className="countyCell">
+                        {year === 2020 && 
+                            <div className='countyPercentCell'>
+                                <p className='votesPercentage'>{stateData['Democratic_votes_percent']}</p>
+                                <p className='votesNumber'>{stateData['Democratic_votes'].toLocaleString('en-US')}</p>
+                            </div>
+                        }
+                    </div>
+                    <div className="countyCell">
+                        {year === 2016 && 
+                            <div className='countyPercentCell'>
+                                <p className='votesPercentage'>{stateData['Democratic_votes_percent']}</p>
+                                <p className='votesNumber'>{stateData['Democratic_votes'].toLocaleString('en-US')}</p>
+                            </div>
+                        }
+                    </div>
                 </div>
 
                 <div className="countyRow">
                     <div className="firstCountyCell"><p className='countyName'>{stateData['Republican_name']}</p></div>
-                    <div className="countyCell"><p>{stateData['Republican_votes_percent']}</p><p>{stateData['Republican_votes']}</p></div>
-                    <div className="countyCell"><p></p></div>
-                    <div className="countyCell"><p></p></div>
+                    <div className="countyCell">
+                        {year === 2024 && 
+                            <div className='countyPercentCell'>
+                                <p className='votesPercentage'>{stateData['Republican_votes_percent']}</p>
+                                <p className='votesNumber'>{stateData['Republican_votes'].toLocaleString('en-US')}</p>
+                            </div>
+                        }
+                    </div>
+                    <div className="countyCell">
+                        {year === 2020 && 
+                            <div className='countyPercentCell'>
+                                <p className='votesPercentage'>{stateData['Republican_votes_percent']}</p>
+                                <p className='votesNumber'>{stateData['Republican_votes'].toLocaleString('en-US')}</p>
+                            </div>
+                        }
+                    </div>
+                    <div className="countyCell">
+                        {year === 2016 && 
+                            <div className='countyPercentCell'>
+                                <p className='votesPercentage'>{stateData['Republican_votes_percent']}</p>
+                                <p className='votesNumber'>{stateData['Republican_votes'].toLocaleString('en-US')}</p>
+                            </div>
+                        }
+                    </div>
                 </div>
                 
             </div>

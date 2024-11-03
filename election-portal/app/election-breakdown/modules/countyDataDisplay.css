@@ -31,7 +31,7 @@
   .countyInfoDiv {
     height: 75%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -66,27 +66,31 @@
     width: 100%;
     height: 100%;
     border-collapse: separate;
-    border: 1px solid transparent;
-    border-color: #ffffff;
+    /* border: 1px solid transparent; */
+    /* border-color: #ffffff; */
+    /* background-color: rgba(0, 0, 0, 0.4); */
   }
 
   .countyRow {
     display: table-row;
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
     border-color: #ffffff;
   }
 
   .countyCell {
     display: table-cell;
+    background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid transparent;
     border-color: #ffffff;
     text-align: center;
     vertical-align: middle;
     width: 20%;
+    
   }
 
   .firstCountyCell {
     display: table-cell;
+    background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid transparent;
     border-color: #ffffff;
     text-align: center;
@@ -96,6 +100,25 @@
 
   .table .row:first-child {
     width: 40%;
+  }
+
+  
+
+  .countyPercentCell {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .votesPercentage {
+    font-size: 2.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .votesNumber {
+    font-size: 1rem;
   }
   
   /* Put a future class for state or national and have the max width differ */
