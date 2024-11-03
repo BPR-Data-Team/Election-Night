@@ -31,13 +31,13 @@ ui <- page_sidebar(
       inputId = "category_select",  # Updated to match server
       label = "Election type:",
       choices = election_types,
-      selected = 'All'
+      selected = "All"
     ),
     selectizeInput(
       inputId = "state_select",
       label = "State:",
       choices = c("All"),
-      selected = "All",
+      selected = "All"
     ),
     conditionalPanel(
       condition = "input.category_select == 'House'",
