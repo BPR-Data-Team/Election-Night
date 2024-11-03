@@ -76,7 +76,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     setYear(year);
   };
 
-  const [demographic, setDemographic] = useState<Demographic>(Demographic.All);
+  const [demographic, setDemographic] = useState<Demographic>(Demographic.Age);
   const [availableDemographics, setAvailibleDemographics] = useState<
     Demographic[]
   >([]);

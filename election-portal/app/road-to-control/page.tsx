@@ -16,8 +16,6 @@ export default function Road_To_Control_Page() {
     // set menubar options
     sharedState.setAvailableBreakdowns([
       RaceType.Presidential,
-      RaceType.Senate,
-      RaceType.Gubernatorial,
     ]);
     sharedState.setAvailableYears([
       Year.TwentyFour,
