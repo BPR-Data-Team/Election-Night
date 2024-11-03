@@ -178,16 +178,21 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   useEffect(() => {
     if (chart) {
+      const updatedData = electionData.map((state) => ({
+        ...state,
+        borderColor:
+          state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
+        borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
+      }));
+      const reorderedData = [
+        ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
+        ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
+      ];
       chart.update({
         series: [
           {
             type: 'map',
-            data: electionData.map((state) => ({
-              ...state,
-              borderColor:
-                state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
-              borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
-            })),
+            data: reorderedData,
           },
         ],
       });
