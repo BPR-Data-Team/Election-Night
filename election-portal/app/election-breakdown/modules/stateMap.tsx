@@ -85,6 +85,10 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   }, []);
 
   useEffect(() => {
+    setMenubar();
+  }, []);
+
+  useEffect(() => {
     retrieveMapData();
   }, [
     sharedState.breakdown,
@@ -103,6 +107,28 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     const newMapData = await fetchStateGeoJSON(stateName, String(year));
     const newCityData = await fetchCityGeoJSON(stateName);
     initializeMap(newMapData, newCityData);
+  };
+
+  const setMenubar = () => {
+    const options: RaceType[] = [RaceType.Presidential];
+    if (
+      countyData.some(
+        (datum) =>
+          datum.state === getStateAbbreviation(sharedState.view) &&
+          datum.office_type === 'Governor'
+      )
+    ) {
+      options.push(RaceType.Gubernatorial);
+    } else if (
+      countyData.some(
+        (datum) =>
+          datum.state === getStateAbbreviation(sharedState.view) &&
+          datum.office_type === 'Senate'
+      )
+    ) {
+      options.push(RaceType.Senate);
+    }
+    sharedState.setAvailableBreakdowns(options);
   };
 
   function getMaxState(stateData: ElectionData[]): number {
@@ -182,6 +208,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         }
       }
     });
+
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
       Math.abs(getMaxState(fetchedData))
