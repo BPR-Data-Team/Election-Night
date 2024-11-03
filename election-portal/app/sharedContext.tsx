@@ -103,6 +103,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     demographicSwitch,
     availableDemographics,
     setAvailibleDemographics,
+    
   };
 
   return (

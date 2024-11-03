@@ -9,6 +9,21 @@ export interface HistoricalElectionData {
   absentee_margin_pct_1: number;
 }
 
+export interface ElectionData {
+  office_type: string;
+  state: string;
+  district: string;
+  Democratic_name: string;
+  Republican_name: string;
+  pct_reporting: number;
+  dem_votes: number;
+  rep_votes: number;
+  dem_votes_pct: number;
+  rep_votes_pct: number;
+  swing: number;
+  margin_pct: number;
+}
+
 export interface HistoricalCountyData {
   county: string;
   office_type: string;
