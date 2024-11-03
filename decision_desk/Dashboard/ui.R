@@ -27,13 +27,13 @@ ui <- page_sidebar(
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebar =  sidebar(
     title = "Graph controls",
-    selectInput(
+    selectizeInput(
       inputId = "category_select",  # Updated to match server
       label = "Election type:",
       choices = election_types,
       selected = "All"
     ),
-    selectInput(
+    selectizeInput(
       inputId = "state_select",
       label = "State:",
       choices = c("All"),
