@@ -23,6 +23,23 @@ export interface HistoricalCountyData {
   margin_votes_2: number;
 }
 
+// when merging into geojson, use county fips
+export interface CountyData {
+  county: string;
+  office_type: string;
+  district: string;
+  state: string;
+  fips: string;
+  Democratic_name: string;
+  Republican_name: string;
+  dem_votes: number;
+  rep_votes: number;
+  dem_votes_pct: number;
+  rep_votes_pct: number;
+  swing: number;
+  margin_pct: number;
+}
+
 export interface ExitPollData {
   state: string;
   office_type: string;
