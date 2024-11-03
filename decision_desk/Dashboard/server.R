@@ -397,42 +397,36 @@ server <- function(input, output, session) {
   })
   
   # Render the filtered elections table
-  output$elections <- renderTable({
-    output$elections <- renderUI({
-      lapply(filtered_races()$race_id, function(i) {
-        election <- filtered_races() %>% filter(race_id == i)
-        
-        div(
-          class = "election-card",
-          actionLink(inputId = paste0("election_", i), 
-                     label = glue("{election$office_type} {election$state} {election$district} - {trunc(election$pct_reporting)}% rep."))
+  # Render the filtered elections cards
+  output$elections <- renderUI({
+    lapply(filtered_races()$race_id, function(i) {
+      election <- filtered_races() %>% filter(race_id == i)
+      
+      # Create dynamic action links for each election
+      div(
+        class = "election-card",
+        actionLink(
+          inputId = paste0("election_", i),
+          label = glue("{election$office_type} {election$state} {election$district} - {trunc(election$pct_reporting)}% rep.")
         )
-      })
+      )
     })
   })
-
-
+  
   # Observe clicks on action links
-  last_clicked <- reactiveVal(NULL)
   observe({
-    for (i in filtered_races()$race_id %>% unique()) {
+    lapply(filtered_races()$race_id, function(i) {
       link_id <- paste0("election_", i)
       
       observeEvent(input[[link_id]], {
         req(input[[link_id]])
         
-        if (is.null(last_clicked) || link_id != isolate(last_clicked())) {
-          election <- filtered_races() %>% filter(race_id == i)
-          
-          updateSelectInput(session, "category_select", selected = election$office_type)
-          updateSelectInput(session, "state_select", selected = election$state)
-          updateSelectInput(session, "district_select", selected = election$district)
-          
-          last_clicked(link_id)
-          
-          break
-        }
+        # Update the select inputs to reflect the chosen election
+        election <- filtered_races() %>% filter(race_id == i)
+        updateSelectInput(session, "category_select", selected = election$office_type)
+        updateSelectInput(session, "state_select", selected = election$state)
+        updateSelectInput(session, "district_select", selected = election$district)
       }, ignoreInit = TRUE)
-    }
+    })
   })
 }

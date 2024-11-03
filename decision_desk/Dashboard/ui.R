@@ -69,7 +69,7 @@ ui <- page_sidebar(
       label = "Key Races Only",
       value = FALSE
     ),
-    tableOutput("elections")
+    uiOutput("elections")
   ),
   conditionalPanel(
     condition = "input.category_select != 'All' && input.state_select != 'All' && !(input.category_select == 'House' && input.district_select == 'All')",
