@@ -13,11 +13,13 @@ import {
 function getYearsFromBreakdown(breakdown: RaceType): Year[] {
   switch (breakdown) {
     case RaceType.Presidential:
-      return [Year.Twenty, Year.Sixteen];
+      return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
     case RaceType.Senate:
-      return [Year.Eighteen, Year.Twelve];
+      return [Year.TwentyFour, Year.Eighteen, Year.Twelve];
+    case RaceType.Gubernatorial:
+      return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
     default:
-      return [Year.TwentyTwo, Year.Twenty, Year.Eighteen, Year.Sixteen];
+      return [Year.TwentyFour, Year.TwentyTwo, Year.Twenty, Year.Eighteen, Year.Sixteen];
   }
 }
 
@@ -63,6 +65,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   ]);
   const breakdownSwitch = (breakdown: RaceType) => {
     setAvailableYears(getYearsFromBreakdown(breakdown));
+    setYear(Year.TwentyFour);
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);

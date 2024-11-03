@@ -6,13 +6,11 @@ import HighchartsMap from 'highcharts/modules/map';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
 
 import GeoJsonCache from './mapDataCache';
-import { State, getStateAbbreviation, getStateFromString } from '../../../types/State';
+import { getStateAbbreviation } from '../../../types/State';
 
 import { useSharedState } from '../../sharedContext';
 import './stateMap.css';
-import { json } from 'stream/consumers';
 import { HistoricalCountyData } from '@/types/data';
-
 
 if (typeof window !== `undefined`) {
   highchartsAccessibility(Highcharts);
@@ -26,7 +24,7 @@ interface ElectionBreakdownProps {
   raceType: RaceType;
   year: Year;
   stateName: string;
-  countyData: HistoricalCountyData[]
+  countyData: HistoricalCountyData[];
 }
 
 interface ElectionData {
@@ -42,7 +40,12 @@ const colorAxisStops: [number, string][] = [
   [1, '#595D9A'], // Democrat blue
 ];
 
-const StateMap: React.FC<ElectionBreakdownProps> = ({ raceType, year, stateName, countyData }) => {
+const StateMap: React.FC<ElectionBreakdownProps> = ({
+  raceType,
+  year,
+  stateName,
+  countyData,
+}) => {
   const { fetchStateGeoJSON, fetchCityGeoJSON } = GeoJsonCache();
   const sharedState = useSharedState().state;
 
@@ -83,8 +86,15 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({ raceType, year, stateName,
 
   useEffect(() => {
     retrieveMapData();
-  }, [sharedState.breakdown, sharedState.year, sharedState.view, countyData, year, stateName, raceType]);
-
+  }, [
+    sharedState.breakdown,
+    sharedState.year,
+    sharedState.view,
+    countyData,
+    year,
+    stateName,
+    raceType,
+  ]);
 
   const retrieveMapData = async () => {
     if (stateName == 'National') {
@@ -107,8 +117,6 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({ raceType, year, stateName,
     if (wasPanned) {
       return;
     }
-    // sharedState.setView(State.National);
-    // sharedState.setLevel("national");
     setSelectedCounty('');
   };
 
@@ -117,32 +125,61 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({ raceType, year, stateName,
       setSelectedCounty(countyKey); // Update selected county key for border
     }
   };
-  // useEffect(() => {
-  //   if (stateChart) {
-  //     stateChart.update({
-  //       series: [
-  //         {
-  //           type: 'map',
-  //           data: electionData.map((county) => ({
-  //             ...county,
-  //             borderColor:
-  //               county.NAME === selectedCounty ? 'lightgreen' : '#000000',
-  //             borderWidth: county.NAME === selectedCounty ? 6 : 1,
-  //           })),
-  //         },
-  //       ],
-  //     });
-  //   }
-  // }, [selectedCounty, stateChart]);
 
   const initializeMap = (mapData: any, cityData: any) => {
-    let fetchedData:ElectionData[] = [];
+    let fetchedData: ElectionData[] = [];
     countyData?.forEach((datum) => {
       if (
         datum.state === getStateAbbreviation(sharedState.view) &&
         datum.office_type === getDataVersion(sharedState.breakdown)
       ) {
-        fetchedData.push({NAME: datum.county, value: datum.margin_pct_1})
+        switch (sharedState.breakdown) {
+          case RaceType.Senate:
+            switch (sharedState.year) {
+              case Year.Eighteen:
+                fetchedData.push({
+                  NAME: datum.county,
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Twelve:
+                fetchedData.push({
+                  NAME: datum.county,
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+          case RaceType.Gubernatorial:
+            switch (sharedState.year) {
+              case Year.Twenty:
+                fetchedData.push({
+                  NAME: datum.county,
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Sixteen:
+                fetchedData.push({
+                  NAME: datum.county,
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+          case RaceType.Presidential:
+            switch (sharedState.year) {
+              case Year.Twenty:
+                fetchedData.push({
+                  NAME: datum.county,
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Sixteen:
+                fetchedData.push({
+                  NAME: datum.county,
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+        }
       }
     });
     const axisMax: number = Math.max(

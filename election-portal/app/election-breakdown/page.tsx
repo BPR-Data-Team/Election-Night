@@ -122,13 +122,7 @@ export default function Election_Breakdown_Page() {
       RaceType.Senate,
       RaceType.Gubernatorial,
     ]);
-    // Years are set automatically in sharedState, this can(?) be safely removed
-    // sharedState.setAvailableYears([
-    //   Year.TwentyTwo,
-    //   Year.Twenty,
-    //   Year.Eighteen,
-    //   Year.Sixteen,
-    // ]);
+
     sharedState.setAvailibleDemographics([]);
 
     // Load Historical County Data
@@ -185,8 +179,6 @@ export default function Election_Breakdown_Page() {
       <div className={styles.page}>
         <div className={styles.overflowCatch}>
           {sharedState.drawMode ? <Canvas /> : null}
-
-          {/* <EBMap year={state.year} raceType={state.breakdown} onClick={handleStateClick}/> */}
           <div className={styles.mapWrapper} id="mapWrapper">
             {displayNational && (
               <div
@@ -198,7 +190,7 @@ export default function Election_Breakdown_Page() {
                     : { opacity: 0 }),
                 }}
               >
-                <EBMap historicalElectionsData={historicalElectionsData}/>
+                <EBMap historicalElectionsData={historicalElectionsData} />
               </div>
             )}
             {!displayNational && (
