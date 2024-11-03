@@ -27,7 +27,7 @@ export default function Canvas() {
         width="100%"
         height="100%"
         canvasColor="transparent"
-        strokeColor="#88EE88"
+        strokeColor="#22EE22"
       />
     </div>
   );
