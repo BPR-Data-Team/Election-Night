@@ -2,6 +2,7 @@ import { RaceType } from './RaceType';
 import { Year } from './Year';
 import { State } from './State';
 import { Demographic } from './Demographic';
+import { ElectionData } from './data';
 
 export type SharedInfo = {
   page: string;
@@ -25,6 +26,9 @@ export type SharedInfo = {
   demographicSwitch: (demographic: Demographic) => void;
   availableDemographics: Demographic[];
   setAvailibleDemographics: (demographics: Demographic[]) => void;
+  electionData: Map<string, ElectionData> | undefined;
+  electionDataLoading: boolean;
+  electionDataError: Error | null;
 };
 
 export { RaceType, Year, State, Demographic };

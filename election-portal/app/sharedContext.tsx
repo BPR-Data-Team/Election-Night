@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   SharedInfo,
@@ -9,6 +9,46 @@ import {
   RaceType,
   Demographic,
 } from '../types/SharedInfoType';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import { ElectionData } from '@/types/data';
+
+const fetchRaceData = async (): Promise<Map<string, ElectionData>> => {
+  try {
+    const response = await axios.get<ElectionData[]>(
+      'https://ti2579xmyi.execute-api.us-east-1.amazonaws.com/active?table=race'
+    );
+
+    // Convert the array to a Map, using a unique identifier as the key
+    const electionDataMap = new Map<string, ElectionData>();
+    response.data.forEach((item) => {
+      var newItem: ElectionData = {
+        Democratic_name: item.Democratic_name,
+        rep_votes: item.rep_votes,
+        office_type: item.office_type,
+        state: item.state,
+        district: item.district,
+        Republican_name: item.Republican_name,
+        pct_reporting: item.pct_reporting,
+        dem_votes: item.dem_votes,
+        dem_votes_pct: item.dem_votes_pct,
+        rep_votes_pct: item.rep_votes_pct,
+        swing: item.swing,
+        margin_pct: item.margin_pct,
+        officetype_district_state: item.officetype_district_state,
+      };
+      electionDataMap.set(item.officetype_district_state, newItem);
+    });
+
+    electionDataMap.forEach((key, item) => {
+      console.log(key, item);
+    });
+    return electionDataMap;
+  } catch (error) {
+    console.error('Error fetching race data:', error);
+    throw error;
+  }
+};
 
 function getYearsFromBreakdown(breakdown: RaceType): Year[] {
   switch (breakdown) {
@@ -66,7 +106,9 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
-  const [availableYears, setAvailableYears] = useState<Year[]>(getYearsFromBreakdown(breakdown));
+  const [availableYears, setAvailableYears] = useState<Year[]>(
+    getYearsFromBreakdown(breakdown)
+  );
   const yearSwitch = (year: Year) => {
     setYear(year);
   };
@@ -80,6 +122,50 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       setDemographic(demographic);
     }
   };
+  const {
+    data: initialElectionData,
+    isLoading: electionDataLoading,
+    error: electionDataError,
+  } = useQuery<Map<string, ElectionData>, Error>('raceData', fetchRaceData);
+
+  const [electionData, setElectionData] = useState<Map<string, ElectionData>>(
+    initialElectionData || new Map()
+  );
+
+  useEffect(() => {
+    const socket = new WebSocket('wss://your-websocket-url');//Put in websocket URL
+
+    socket.onopen = () => {
+      //Any clean up we might need to do from old websocket connection
+      console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+      //Update row key from map to new row
+      const updatedData: { key: string; data: ElectionData } = JSON.parse(
+        event.data
+      );
+      console.log('Received update:', updatedData);
+
+      setElectionData((prevData) => {
+        const newData = new Map(prevData);
+        newData.set(updatedData.key, updatedData.data); // Update the specific entry
+        return newData;
+      });
+    };
+
+    socket.onclose = () => {
+      //Trigger function that runs RESTAPI until we get a new websocket connection
+      console.log('WebSocket disconnected');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   const state: SharedInfo = {
     page,
@@ -103,7 +189,9 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     demographicSwitch,
     availableDemographics,
     setAvailibleDemographics,
-    
+    electionData,
+    electionDataError,
+    electionDataLoading,
   };
 
   return (

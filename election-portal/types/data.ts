@@ -22,6 +22,7 @@ export interface ElectionData {
   rep_votes_pct: number;
   swing: number;
   margin_pct: number;
+  officetype_district_state: string;
 }
 
 export interface HistoricalCountyData {
