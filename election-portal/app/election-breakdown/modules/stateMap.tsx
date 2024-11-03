@@ -150,6 +150,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
 
   useEffect(() => {
     retrieveMapData();
+    console.log('stateChart', stateChart);
   }, [raceType, year, stateName]);
 
   const retrieveMapData = async () => {
@@ -171,7 +172,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     return Math.min(...stateData.map((state) => state.value));
   }
 
-  const handleOOBClick = () => {
+  const handleOOBClick = (chart: any, zoomScale: any) => {
     if (wasPanned) {
       return;
     }
@@ -179,6 +180,10 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     sharedState.setLevel("state");
     setSelectedCounty('');
     setCountyName('');
+    // if (chart) {
+    //   chart.mapZoom();
+    //   setTimeout(() => chart.mapZoom(zoomScale), 50);
+    // }
   };
 
   const handleCountyClick = (countyKey: string, countyName: string) => {
@@ -198,14 +203,16 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
             data: presData.map((county) => ({
               ...county,
               borderColor:
-                county.GEOID === selectedCounty ? 'lightgreen' : '#000000',
-              borderWidth: county.GEOID === selectedCounty ? 6 : 1,
+                ((county.GEOID === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+              borderWidth: 
+                ((county.GEOID === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
             })),
           },
+          
         ],
       });
     }
-  }, [selectedCounty, stateChart]);
+  }, [selectedCounty, stateChart, sharedState.level]);
 
   const initializeMap = (mapData: any, cityData: any) => {
     const axisMax: number = Math.max(
@@ -275,10 +282,19 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
         type: 'map',
         map: mapData,
         backgroundColor: 'transparent',
+        animation: {
+          duration: 350
+        },
+        panning: {
+          enabled: true,
+          type: 'xy',
+        },
         events: {
           click: function (event: any) {
+            const chart = this;
+
             if (!event.point) {
-              handleOOBClick();
+              handleOOBClick(chart, zoomScale);
             }
           },
           load: function () {
@@ -302,12 +318,8 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
             });
 
             this.mapZoom(zoomScale);
-            chart.redraw();
+            // chart.redraw();
           },
-        },
-
-        animation: {
-          duration: 0,
         },
       },
       credits: {
@@ -318,6 +330,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
       },
       title: {
         text: '',
+      },
+      tooltip: {
+        enabled: false,
       },
       plotOptions: {
         map: {
@@ -348,8 +363,8 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
           borderWidth: 2,
           states: {
             hover: {
-              borderColor: 'lightgreen',
-            },
+              enabled: false,
+            }
           },
           dataLabels: {
             format: '{point.properties.NAME}',
@@ -359,9 +374,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
             },
             padding: 10,
           },
-          tooltip: {
-            pointFormat: '{point.properties.NAME} County',
-          },
+          // tooltip: {
+          //   pointFormat: '{point.properties.NAME} County',
+          // },
           events: {
             click: function (event: any) {
               const countyName = event.point["name"];
@@ -412,6 +427,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
 
     // Highcharts.mapChart("eb-state-container", mapOptions);
     const ch = Highcharts.mapChart('eb-state-container', mapOptions);
+    console.log(ch ? "Ch exists" : "Ch does not exist");
     setStateChart(ch);
   };
 

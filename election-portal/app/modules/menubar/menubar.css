@@ -62,7 +62,8 @@
 
 .breakdown,
 .year,
-.demographic {
+.demographic,
+.viewAll {
   background-color: transparent;
   border: none;
   margin-top: 0.5rem;
@@ -76,4 +77,8 @@
     georgia,
     times new roman,
     serif;
+}
+
+.viewAll {
+    margin-bottom: 1rem;
 }

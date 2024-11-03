@@ -868,23 +868,26 @@ const EBMap: React.FC = () => {
         visible: false,
       },
       tooltip: {
-        formatter: function (this: any) {
-          let prefix = this.point['Called for Dems'] == 'TRUE' ? 'D' : 'R';
-          return (
-            '<b>' +
-            this.point.name +
-            '</b><br/>' +
-            prefix +
-            '+' +
-            (Math.abs(this.point.value) <= 0.1
-              ? '<0.1'
-              : Math.abs(this.point.value).toFixed(1))
-          );
-        },
-        style: {
-          fontFamily: 'gelica, book antiqua, georgia, times new roman, serif',
-        },
+        enabled: false,
       },
+      // tooltip: {
+      //   formatter: function (this: any) {
+      //     let prefix = this.point['Called for Dems'] == 'TRUE' ? 'D' : 'R';
+      //     return (
+      //       '<b>' +
+      //       this.point.name +
+      //       '</b><br/>' +
+      //       prefix +
+      //       '+' +
+      //       (Math.abs(this.point.value) <= 0.1
+      //         ? '<0.1'
+      //         : Math.abs(this.point.value).toFixed(1))
+      //     );
+      //   },
+      //   style: {
+      //     fontFamily: 'gelica, book antiqua, georgia, times new roman, serif',
+      //   },
+      // },
       legend: {
         itemStyle: {
           fontFamily: 'gelica, book antiqua, georgia, times new roman, serif',
@@ -898,9 +901,6 @@ const EBMap: React.FC = () => {
           nullColor: '#505050',
           name: 'Predicted Margin',
           states: {
-            hover: {
-              borderColor: 'lightgreen',
-            },
           },
           point: {
             events: {},

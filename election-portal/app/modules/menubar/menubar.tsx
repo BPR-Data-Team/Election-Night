@@ -9,6 +9,7 @@ import HomeButton from './menu-buttons/home-button';
 import ExitButton from './menu-buttons/exit-button';
 import DrawButton from './menu-buttons/draw-button';
 import { useRouter } from 'next/navigation';
+import { truncate } from 'fs';
 
 // These can be turned into maps or better parsed from the types
 const breakdownToString = (
@@ -104,7 +105,12 @@ const demographicToString = (
   );
 };
 
-const Menubar: React.FC = () => {
+interface MenubarProps {
+  countyViewAll?: boolean;
+  setCountyViewAll?: any;
+}
+
+const Menubar: React.FC<MenubarProps> = ({countyViewAll, setCountyViewAll}) => {
   const state = useSharedState().state;
 
   return (
@@ -174,6 +180,20 @@ const Menubar: React.FC = () => {
             </div>
           </>
         )}
+
+        {(state.level != 'national' && countyViewAll != undefined && setCountyViewAll != undefined) ? (
+          <>
+            <button
+              className="viewAll"
+              onClick={() => {
+                setCountyViewAll(true);
+                state.yearSwitch(Year.TwentyFour);
+              }}
+            >
+              All
+            </button>
+          </>
+        ) : null}
       </div>
     </div>
   );

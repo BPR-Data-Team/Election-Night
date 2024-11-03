@@ -48,6 +48,7 @@ export default function Election_Breakdown_Page() {
     setIsBannerVisible(!isBannerVisible);
   };
   const [countyName, setCountyName] = useState<string>('');
+  const [countyViewAll, setCountyViewAll] = useState<boolean>(false);
 
   // When sharedState.level changes wait 250ms before changing display state
   useEffect(() => {
@@ -259,11 +260,12 @@ export default function Election_Breakdown_Page() {
               stateData={mockCountyData}
               raceType={sharedState.breakdown}
               sharedStateLevel={sharedState.level}
+              countyViewAll={countyViewAll}
             />
             )}
 
           {/* Needs to be topmost during content screens */}
-          <Menubar />
+          <Menubar countyViewAll={countyViewAll} setCountyViewAll={setCountyViewAll}/>
           {/* Future homepage topmost element */}
         </div>
       </div>
