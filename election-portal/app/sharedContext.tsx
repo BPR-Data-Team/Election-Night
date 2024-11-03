@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   SharedInfo,
@@ -123,10 +123,49 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
   const {
-    data: electionData,
+    data: initialElectionData,
     isLoading: electionDataLoading,
     error: electionDataError,
   } = useQuery<Map<string, ElectionData>, Error>('raceData', fetchRaceData);
+
+  const [electionData, setElectionData] = useState<Map<string, ElectionData>>(
+    initialElectionData || new Map()
+  );
+
+  useEffect(() => {
+    const socket = new WebSocket('wss://your-websocket-url');//Put in websocket URL
+
+    socket.onopen = () => {
+      //Any clean up we might need to do from old websocket connection
+      console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+      //Update row key from map to new row
+      const updatedData: { key: string; data: ElectionData } = JSON.parse(
+        event.data
+      );
+      console.log('Received update:', updatedData);
+
+      setElectionData((prevData) => {
+        const newData = new Map(prevData);
+        newData.set(updatedData.key, updatedData.data); // Update the specific entry
+        return newData;
+      });
+    };
+
+    socket.onclose = () => {
+      //Trigger function that runs RESTAPI until we get a new websocket connection
+      console.log('WebSocket disconnected');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   const state: SharedInfo = {
     page,
