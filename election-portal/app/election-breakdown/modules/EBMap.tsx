@@ -22,6 +22,14 @@ if (typeof Highcharts === 'object') {
   HighchartsMap(Highcharts);
 }
 
+interface FakeData {
+  'hc-key': string;
+  'Office Type': string;
+  'Called for Dems': string;
+  'Called for Reps': string;
+  value: number;
+}
+
 interface EBMapProps {
   historicalElectionsData: HistoricalElectionData[] | null;
 }
