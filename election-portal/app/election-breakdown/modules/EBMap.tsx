@@ -635,7 +635,7 @@ const colorAxisStops: [number, string][] = [
 ];
 
 
-const EBMap: React.FC<EBMapProps> = ({historicalElectionsData}) => {
+const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
   const sharedState = useSharedState().state;
   const raceType = sharedState.breakdown;
 
@@ -813,15 +813,15 @@ const EBMap: React.FC<EBMapProps> = ({historicalElectionsData}) => {
   };
 
   const initializeMap = (mapData: any) => {
-    let fetchedData:ElectionData[] = [];
+    let fetchedData: ElectionData[] = [];
     historicalElectionsData?.forEach((datum) => {
       if (
         datum.office_type === getDataVersion(sharedState.breakdown)
       ) {
-        fetchedData.push({"hc-key": "us-"+datum.state.toLowerCase(), value: datum.margin_pct_1})
+        fetchedData.push({ "hc-key": "us-" + datum.state.toLowerCase(), value: datum.margin_pct_1 })
       }
     });
-    
+
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
       Math.abs(getMaxState(fetchedData))
