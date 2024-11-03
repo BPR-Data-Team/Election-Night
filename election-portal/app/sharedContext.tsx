@@ -13,7 +13,7 @@ import {
 function getYearsFromBreakdown(breakdown: RaceType): Year[] {
   switch (breakdown) {
     case RaceType.Presidential:
-      return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
+      return [Year.TwentyFour, Year.Twenty, Year.Sixteen, Year.Swing];
     case RaceType.Senate:
       return [Year.TwentyFour, Year.Eighteen, Year.Twelve];
     case RaceType.Gubernatorial:

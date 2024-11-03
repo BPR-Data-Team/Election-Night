@@ -71,6 +71,9 @@ const yearToString = (year: Year, currentYear: Year): React.ReactNode => {
     case Year.Twelve:
       str = '2012';
       break;
+    case Year.Swing:
+      str = 'Swing';
+      break;
     default:
       str = 'Unk.';
       break;

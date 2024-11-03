@@ -6,4 +6,5 @@ export enum Year {
   Twenty = 2020,
   TwentyTwo = 2022,
   TwentyFour = 2024,
+  Swing = "Swing"
 }
