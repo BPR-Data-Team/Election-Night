@@ -9,7 +9,11 @@ const prodSlug =
 const GeoJsonCache = () => {
   // Fetch a single state's GeoJSON data and store it in the cache
   const fetchStateGeoJSON = async (stateName: string, year: string) => {
-    const stripped_year = year.trim();
+    let stripped_year = year.trim();
+    // we don't have geoJSONS for 2012
+    if (stripped_year === '2012') {
+      stripped_year = '2022';
+    }
     const nameYearKey = stateName + '_' + stripped_year;
     if (!stateGeoJSONCache.has(nameYearKey)) {
       console.log(
