@@ -71,3 +71,11 @@ export interface ExitPollAnswer {
   percentBiden?: number;
   percentTrump?: number;
 }
+
+// will need to parse partition key for fields
+export interface CalledElection {
+  state: string;
+  district: string;
+  office_type: string;
+  is_called: string;
+}
