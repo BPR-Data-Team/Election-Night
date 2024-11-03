@@ -77,6 +77,12 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
 
+    sharedState.setAvailableBreakdowns([
+      RaceType.Presidential,
+      RaceType.Senate,
+      RaceType.Gubernatorial,
+    ]);
+
     return () => {
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
