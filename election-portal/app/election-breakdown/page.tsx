@@ -53,6 +53,7 @@ export default function Election_Breakdown_Page() {
   // State Mode While National
   const SMWN = sharedState.view != State.National && displayNational;
 
+  // Would appreciate a better way to do this, if possible
   useEffect(() => {
     const wrapperDiv = document?.getElementById('mapWrapper');
     const EBMapDiv = document?.getElementById('EBContainer');
@@ -167,6 +168,7 @@ export default function Election_Breakdown_Page() {
           console.error('Error loading historical county data:', error)
         );
     }
+    // }
   }, []);
 
   if (!historicalElectionsData || !historicalCountyData)
