@@ -22,6 +22,8 @@ import {
   ElectionData,
   CalledElection,
   ExitPollData,
+  RawCountyData,
+  CalledElectionRaw,
 } from '@/types/data';
 
 // FETCH DDHQ RACE
@@ -75,7 +77,7 @@ const fetchCountyData = async (): Promise<Map<string, CountyData>> => {
       // fetch data now
       console.log('fetching county data from API');
       const response = await axios.get<{
-        items: CountyData[];
+        items: RawCountyData[];
         lastKey: string | null;
       }>(url);
       response.data.items.forEach((item) => {
@@ -119,7 +121,7 @@ const fetchCalledElectionData = async (): Promise<
   Map<string, CalledElection>
 > => {
   try {
-    const response = await axios.get<CalledElection[]>(
+    const response = await axios.get<CalledElectionRaw[]>(
       'https://ti2579xmyi.execute-api.us-east-1.amazonaws.com/active?table=logan'
     );
     // First, parse out state, district, and office_type from key
@@ -128,16 +130,23 @@ const fetchCalledElectionData = async (): Promise<
     response.data.forEach((item) => {
       const state_district_office = item.state_district_office;
       const regex = /([A-Z]{2})(\d+)(.+)/;
-      const [, state, district, office_type] =
-        state_district_office.match(regex);
-      var newItem: CalledElection = {
-        state: state,
-        district: district,
-        office_type: office_type,
-        is_called: item.called,
-        state_district_office: state_district_office,
-      };
-      calledElectionMap.set(state_district_office, newItem);
+      const match = item.state_district_office.match(regex);
+      if (match) {
+        // Only destructure if match is not null
+        const [, state, district, office_type] = match;
+        var newItem: CalledElection = {
+          state: state,
+          district: district,
+          office_type: office_type,
+          is_called: item.called,
+          state_district_office: state_district_office,
+        };
+        calledElectionMap.set(state_district_office, newItem);
+      } else {
+        console.error(
+          `Pattern did not match for: ${item.state_district_office}`
+        );
+      }
     });
 
     console.log(`Total logan data entries: ${calledElectionMap.size}`);
@@ -206,7 +215,13 @@ function getYearsFromBreakdown(breakdown: RaceType): Year[] {
     case RaceType.Gubernatorial:
       return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
     default:
-      return [Year.TwentyFour, Year.TwentyTwo, Year.Twenty, Year.Eighteen, Year.Sixteen];
+      return [
+        Year.TwentyFour,
+        Year.TwentyTwo,
+        Year.Twenty,
+        Year.Eighteen,
+        Year.Sixteen,
+      ];
   }
 }
 

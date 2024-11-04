@@ -58,6 +58,24 @@ export interface CountyData {
   officetype_county_district_state: string;
 }
 
+export interface RawCountyData {
+  county: string;
+  office_type: string;
+  district: string;
+  state: string;
+  fips: string;
+  Democratic_name: string;
+  Republican_name: string;
+  Democratic_votes: number;
+  Republican_votes: number;
+  Democratic_votes_percent: number;
+  Republican_votes_percent: number;
+  swing: number;
+  margin_pct: number;
+  pct_reporting: number;
+  officetype_county_district_state: string;
+}
+
 export interface ExitPollData {
   state: string;
   office_type: string;
@@ -81,5 +99,10 @@ export interface CalledElection {
   district: string;
   office_type: string;
   is_called: string;
+  state_district_office: string;
+}
+
+export interface CalledElectionRaw {
+  called: string;
   state_district_office: string;
 }
