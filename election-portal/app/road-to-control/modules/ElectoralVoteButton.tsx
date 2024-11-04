@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './electoralvotebutton.module.css';
 
 interface CircleProps {
@@ -40,7 +40,6 @@ const Circle: React.FC<CircleProps> = ({
           if (prev === 2) decrementRightCount();
           if (newValue === 1) incrementLeftCount();
           if (newValue === 2) incrementRightCount();
-          console.log(newValue);
           return newValue;
         })
       }
