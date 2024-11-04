@@ -66,7 +66,7 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
         <div className="countyStateYearDiv">
           <h1 className="countyStateYearHeader">
             <p className="countyName">
-              {'Lake and Peninsula'}
+              {countyName}
             </p>{' '}
           </h1>
         </div>

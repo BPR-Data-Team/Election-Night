@@ -25,14 +25,7 @@ const mockStateData = {
   pct_reporting: 71,
 };
 
-const mockCountyData = {
-  Democratic_name: 'Stein',
-  Republican_name: 'Robinson',
-  Democratic_votes_percent: '43%',
-  Republican_votes_percent: '57%',
-  Democratic_votes: 2357106,
-  Republican_votes: 2357106,
-}
+
 
 export default function Election_Breakdown_Page() {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -80,6 +73,12 @@ export default function Election_Breakdown_Page() {
       }
     });
   }, [sharedState]);
+
+  useEffect(() => {
+    if (sharedState.level != 'county') {
+      setCountyViewAll(false);
+    }
+  }, [sharedState.level]);
 
   useEffect(() => {
     const storedElectionsData = sessionStorage.getItem(
@@ -241,18 +240,19 @@ export default function Election_Breakdown_Page() {
             message={'level:' + sharedState.level}
           />
 
-            {(SMWN || !displayNational) && sharedState.level !== 'county' && (
+            {(SMWN || !displayNational) && (
             <DataDisplay
               stateName={sharedState.view}
+              countyName={countyName}
               year={sharedState.year}
               stateData={mockStateData}
               raceType={sharedState.breakdown}
               sharedStateLevel={sharedState.level}
-              
+              countyViewAll={countyViewAll}
             />
             )}
 
-            {(SMWN || !displayNational) && sharedState.level === 'county' && (
+            {/* {((SMWN || !displayNational) && sharedState.level === 'county' && countyViewAll == true) && (
             <CountyDataDisplay
               stateName={sharedState.view}
               countyName={countyName}
@@ -262,10 +262,12 @@ export default function Election_Breakdown_Page() {
               sharedStateLevel={sharedState.level}
               countyViewAll={countyViewAll}
             />
-            )}
+            )} */}
 
           {/* Needs to be topmost during content screens */}
-          <Menubar countyViewAll={countyViewAll} setCountyViewAll={setCountyViewAll}/>
+          {sharedState.level === 'county' ? 
+          <Menubar countyViewAll={countyViewAll} setCountyViewAll={setCountyViewAll}/> : 
+          <Menubar />}
           {/* Future homepage topmost element */}
         </div>
       </div>
