@@ -157,8 +157,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     if (stateName == 'National') {
       return;
     }
+    const countyOrDistrict = raceType === RaceType.Presidential ? 'County' : 'Congressional District';
     console.log('Retrieving map data for', stateName, year);
-    const newMapData = await fetchStateGeoJSON(stateName, String(year));
+    const newMapData = await fetchStateGeoJSON(stateName, String(year), countyOrDistrict);
     const newCityData = await fetchCityGeoJSON(stateName);
     console.log(newMapData);
     initializeMap(newMapData, newCityData);
