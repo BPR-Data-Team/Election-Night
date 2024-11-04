@@ -45,7 +45,7 @@
   transition:
     color 0.2s ease-in-out,
     opacity 0.2s ease-in-out;
-  color: rgba(150, 255, 150, 1);
+  color: rgba(34, 238, 34, 1);
   opacity: 1;
   width: 3rem;
   height: 3rem;

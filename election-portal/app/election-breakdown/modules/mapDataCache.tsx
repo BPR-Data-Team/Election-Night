@@ -13,6 +13,9 @@ const GeoJsonCache = () => {
     if (stripped_year === '2024') {
       stripped_year = '2022';
     }
+     if (stripped_year === '2012') {
+      stripped_year = '2022';
+    }
     const stripped_countyOrDistrict = countyOrDistrict.trim();
     const nameYearKey = stateName + '_' + stripped_year + '_' + stripped_countyOrDistrict;
     if (!stateGeoJSONCache.has(nameYearKey)) {

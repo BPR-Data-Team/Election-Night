@@ -280,10 +280,7 @@ server <- function(input, output, session) {
     output$president_governor_swing_map_20to20 <- renderLeaflet({get_swing_map(state_selection(), "President", "Governor", 2020, 2020)})
   })
   
-  observeEvent(input$BL_map_select, {
-    output$remaining_votes_map <- renderLeaflet({get_votes_left_map(state_selection(), election_type())})
-    
-  })
+  output$remaining_votes_map <- renderLeaflet({get_votes_left_map(state_selection(), election_type())})
   
   observeEvent(input$BR_map_select, {
     output$white_demographics_map <- renderLeaflet({get_demographic_graph(BASEPATH, state_selection(), "White")})
@@ -315,6 +312,7 @@ server <- function(input, output, session) {
     # Filter states based on the selected election type
     filtered_states <- current_data %>%
       filter_races(office_selection = input$category_select) %>%
+      arrange(state) %>%
       pull("state") %>%
       unique() %>%
       append("All", after = 0)
@@ -340,6 +338,7 @@ server <- function(input, output, session) {
       filtered_districts <- current_data %>% 
         filter_races(office_selection = input$category_select,
                      state_selection = input$state_select) %>%
+        arrange(district) %>%
         pull("district") %>%
         unique() %>%
         append("All", after = 0)
@@ -361,7 +360,8 @@ server <- function(input, output, session) {
   # Filter elections based on sliders and checkbox
   filtered_races <- reactive({
     elections <- selected_race_data() %>%
-        mutate(race_id = row_number())
+        mutate(race_id = row_number()) %>% 
+        arrange(state, office_type, district)
       
       # Filter by percent reporting
       elections <- elections %>%
@@ -397,42 +397,36 @@ server <- function(input, output, session) {
   })
   
   # Render the filtered elections table
-  output$elections <- renderTable({
-    output$elections <- renderUI({
-      lapply(filtered_races()$race_id %>% unique(), function(i) {
-        election <- filtered_races() %>% filter(race_id == i)
-        
-        div(
-          class = "election-card",
-          actionLink(inputId = paste0("election_", i), 
-                     label = glue("{election$office_type} {election$state} {election$district} - {trunc(election$pct_reporting)}% rep."))
+  # Render the filtered elections cards
+  output$elections <- renderUI({
+    lapply(filtered_races()$race_id, function(i) {
+      election <- filtered_races() %>% filter(race_id == i)
+      
+      # Create dynamic action links for each election
+      div(
+        class = "election-card",
+        actionLink(
+          inputId = paste0("election_", i),
+          label = glue("{election$office_type} {election$state} {election$district} - {trunc(election$pct_reporting)}% rep.")
         )
-      })
+      )
     })
   })
-
-
+  
   # Observe clicks on action links
-  last_clicked <- reactiveVal(NULL)
   observe({
-    for (i in filtered_races()$race_id %>% unique()) {
+    lapply(filtered_races()$race_id, function(i) {
       link_id <- paste0("election_", i)
       
       observeEvent(input[[link_id]], {
         req(input[[link_id]])
         
-        if (is.null(last_clicked) || link_id != isolate(last_clicked())) {
-          election <- filtered_races() %>% filter(race_id == i)
-          
-          updateSelectInput(session, "category_select", selected = election$office_type)
-          updateSelectInput(session, "state_select", selected = election$state)
-          updateSelectInput(session, "district_select", selected = election$district)
-          
-          last_clicked(link_id)
-          
-          break
-        }
+        # Update the select inputs to reflect the chosen election
+        election <- filtered_races() %>% filter(race_id == i)
+        updateSelectInput(session, "category_select", selected = election$office_type)
+        updateSelectInput(session, "state_select", selected = election$state)
+        updateSelectInput(session, "district_select", selected = election$district)
       }, ignoreInit = TRUE)
-    }
+    })
   })
 }
