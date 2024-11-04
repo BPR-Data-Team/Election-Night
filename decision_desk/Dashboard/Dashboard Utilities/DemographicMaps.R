@@ -6,13 +6,11 @@ library(sf)
 library(glue)
 library(jsonlite)
 
-county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
-
 transfer_names <- read_csv("cleaned_data/Locally-Hosted Data/Demographic_Name_Transfers.csv", show_col_types = FALSE) 
 
 demographic_data <- read_csv("cleaned_data/Locally-Hosted Data/County_Demographics.csv", show_col_types = FALSE) 
 
-get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
+get_demographic_graph <- function(state_abbrev, demographic_type) {
   county_dems_data <- demographic_data %>%
     filter(state == state_abbrev)
   
@@ -156,11 +154,6 @@ get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
   
   return (graph)
 }
-
-state_abbrev <- "AL"
-demographic_type <- "Income"
-
-get_demographic_graph(getwd(), state_abbrev, demographic_type)
 
 
 
