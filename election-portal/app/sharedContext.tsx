@@ -338,7 +338,8 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   // WEBSOCKET CONNECTION
   useEffect(() => {
     const socket = new WebSocket(
-      'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/'
+      // 'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/' MOCK WEBSOCKET
+      'wss://xjilt868ci.execute-api.us-east-1.amazonaws.com/prod/'
     );
 
     // TODO
