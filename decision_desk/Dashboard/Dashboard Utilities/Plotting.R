@@ -629,5 +629,3 @@ get_swing_map <- function(county_data, state_abbrev, office_1, office_2, year_1,
   return(graph)
 }
 
-graph <- get_margin_map(2024, "VT", "President")
-graph
