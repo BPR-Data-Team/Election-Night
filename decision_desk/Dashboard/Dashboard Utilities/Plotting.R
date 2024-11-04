@@ -6,6 +6,7 @@ library(sf)
 library(glue)
 library(shinyWidgets)
 library(bslib)
+library(htmlwidgets)
 
 county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
 
@@ -113,12 +114,9 @@ get_margin_map <- function(year, state_abbrev, office) {
     
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
+      scrollWheelZoom = FALSE, 
+      zoomControl = FALSE
+      )) %>%
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
@@ -154,15 +152,20 @@ get_margin_map <- function(year, state_abbrev, office) {
           textOnly = TRUE,
           offset = c(0, -10),  # Offset label to move it above the marker
           style = list(
-            "color" = "black",          # Use a darker green for better contrast
-            "font-size" = "10px",         # Smaller font size to be less overpowering
+            "color" = "black",          # Color of the text
+            "font-size" = "10px",       # Font size
             "font-weight" = "bold",
-            "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
-            "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
-            "border-radius" = "3px"       # Rounded corners for the background
+            "background-color" = "rgba(255, 255, 255, 0.0)",  # No background, or make it fully transparent
+            "padding" = "0px",          # Remove padding to make text follow closely
+            "text-shadow" = "-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff"  # Creates an outline-like effect
           )
         )
-      )
+      ) %>%
+      htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
       
         
   } else if (year == 2020) {
@@ -174,13 +177,9 @@ get_margin_map <- function(year, state_abbrev, office) {
     prev_rep_pct <- 100 * prev_rep_votes / prev_total_votes
     
     graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
+      attributionControl = FALSE,
+      scrollWheelZoom = FALSE, 
+      zoomControl = FALSE)) %>%
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>%
       addPolygons(
@@ -216,15 +215,20 @@ get_margin_map <- function(year, state_abbrev, office) {
           textOnly = TRUE,
           offset = c(0, -10),  # Offset label to move it above the marker
           style = list(
-            "color" = "black",          # Use a darker green for better contrast
-            "font-size" = "10px",         # Smaller font size to be less overpowering
+            "color" = "black",          # Color of the text
+            "font-size" = "10px",       # Font size
             "font-weight" = "bold",
-            "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
-            "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
-            "border-radius" = "3px"       # Rounded corners for the background
+            "background-color" = "rgba(255, 255, 255, 0.0)",  # No background, or make it fully transparent
+            "padding" = "0px",          # Remove padding to make text follow closely
+            "text-shadow" = "-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff"  # Creates an outline-like effect
           )
         )
-      )
+      ) %>%
+      htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
     
   } else {
     stop("Invalid year for get_margin_map")
@@ -254,13 +258,9 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
     max_votes <- max(abs(geo_data_centroids$margin_votes))
     
     graph <- leaflet(geo_data, options = leafletOptions(
-      attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
+      attributionControl = FALSE,
+      scrollWheelZoom = FALSE, 
+      zoomControl = FALSE)) %>%
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
       addCircleMarkers(
@@ -281,7 +281,12 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
         fillOpacity = 0,
         label = ~lapply(get_label(NAME, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                                   Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
-      )
+      ) %>%
+      htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
     
   } else if (year == 2020) {
     
@@ -295,12 +300,8 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
     
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
-      zoomControl = FALSE,
-      dragging = FALSE,
-      scrollWheelZoom = FALSE,
-      doubleClickZoom = FALSE,
-      boxZoom = FALSE,
-      touchZoom = FALSE)) %>%
+      scrollWheelZoom = FALSE, 
+      zoomControl = FALSE)) %>%
       #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
       setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
       addCircleMarkers(
@@ -321,7 +322,12 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
         fillOpacity = 0,
         label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
                                   prev_rep_pct, prev_dem_pct, "100%"), htmltools::HTML),  # Convert HTML for the popup
-      )
+      ) %>%
+      htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
     
   } else {
     warning("Invalid year for get_margin_bubble_map")
@@ -369,13 +375,9 @@ get_margin_map_district <- function(state_abbrev, congressional_district) {
   city_sf <- city_sf[is_within,]
   
   graph <- leaflet(geo_data, options = leafletOptions(
-    attributionControl = FALSE, 
-    zoomControl = FALSE,
-    dragging = FALSE,
+    attributionControl = FALSE,
     scrollWheelZoom = FALSE,
-    doubleClickZoom = FALSE,
-    boxZoom = FALSE,
-    touchZoom = FALSE)) %>%
+    zoomControl = FALSE)) %>%
     #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
     setMapWidgetStyle(list(background= "white")) %>%
     addPolygons(
@@ -392,7 +394,12 @@ get_margin_map_district <- function(state_abbrev, congressional_district) {
         fillOpacity = 0.7,
         bringToFront = TRUE
       )
-    )
+    ) %>%
+    htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
   
   #If there are no cities in the district, don't have cities on the graph!
   if (nrow(city_sf) > 0) {
@@ -415,15 +422,20 @@ get_margin_map_district <- function(state_abbrev, congressional_district) {
          textOnly = TRUE,
          offset = c(0, -10),  # Offset label to move it above the marker
          style = list(
-           "color" = "black",          # Use a darker green for better contrast
-           "font-size" = "10px",         # Smaller font size to be less overpowering
+           "color" = "black",          # Color of the text
+           "font-size" = "10px",       # Font size
            "font-weight" = "bold",
-           "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
-           "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
-           "border-radius" = "3px"       # Rounded corners for the background
+           "background-color" = "rgba(255, 255, 255, 0.0)",  # No background, or make it fully transparent
+           "padding" = "0px",          # Remove padding to make text follow closely
+           "text-shadow" = "-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff"  # Creates an outline-like effect
          )
        )
-     )
+     ) %>%
+     htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
   }
 
   return (graph)
@@ -472,12 +484,8 @@ get_margin_bubble_map_district <- function(state_abbrev, congressional_district)
   
   graph <- leaflet(geo_data, options = leafletOptions(
     attributionControl = FALSE, 
-    zoomControl = FALSE,
-    dragging = FALSE,
-    scrollWheelZoom = FALSE,
-    doubleClickZoom = FALSE,
-    boxZoom = FALSE,
-    touchZoom = FALSE)) %>%
+    scrollWheelZoom = FALSE, 
+    zoomControl = FALSE)) %>%
     #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
     setMapWidgetStyle(list(background= "white")) %>%
     addCircleMarkers(
@@ -498,7 +506,12 @@ get_margin_bubble_map_district <- function(state_abbrev, congressional_district)
       fillOpacity = 0,
       label = ~lapply(get_label(county, Republican_name, Democratic_name, Republican_votes, Democratic_votes, 
                                 Republican_votes_percent, Democratic_votes_percent, pct_reporting), htmltools::HTML),  # Convert HTML for the popup
-    )
+    ) %>%
+    htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
   
   return (graph)
 }
@@ -521,13 +534,9 @@ get_votes_left_map <- function(state_abbrev, office) {
   geo_data_centroids <- st_centroid(geo_data)
 
   graph <- leaflet(geo_data, options = leafletOptions(
-    attributionControl = FALSE, 
-    zoomControl = FALSE,
-    dragging = FALSE,
-    scrollWheelZoom = FALSE,
-    doubleClickZoom = FALSE,
-    boxZoom = FALSE,
-    touchZoom = FALSE)) %>%
+    attributionControl = FALSE,
+    scrollWheelZoom = FALSE, 
+    zoomControl = FALSE)) %>%
     #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
     setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
     addCircleMarkers(
@@ -548,7 +557,12 @@ get_votes_left_map <- function(state_abbrev, office) {
       fillOpacity = 0,
       label = ~lapply(get_label_votes_remaining(NAME, total_votes, total_votes_lower, total_votes_upper, 
                                                 margin_pct, margin_lower, margin_upper), htmltools::HTML),  # Convert HTML for the popup
-    )
+    ) %>%
+    htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
   
   return (graph)
 }
@@ -586,27 +600,23 @@ get_swing_map <- function(state_abbrev, office_1, office_2, year_1, year_2) {
     select(fips, margin_2)
   
   if (nrow(data_1) == 0) {
-    stop("Office and Year For #1 not found")
+    stop(glue("There was no election for this office in {year_1}"))
   }
   
   if (nrow(data_2) == 0) {
-    stop("Office and Year For #2 not found")
+    stop(glue("There was no election for this office in {year_2}"))
   }
   
   full_data <- full_join(data_1, data_2, by = 'fips') %>%
-    mutate(swing = margin_1 - margin_2)
+    mutate(swing = margin_2 - margin_1)
 
   geo_data <- st_read(geojson_link) %>%
     left_join(full_data, by = c("COUNTYFP" = "fips"))
   
   graph <- leaflet(geo_data, options = leafletOptions(
-    attributionControl = FALSE, 
-    zoomControl = FALSE,
-    dragging = FALSE,
-    scrollWheelZoom = FALSE,
-    doubleClickZoom = FALSE,
-    boxZoom = FALSE,
-    touchZoom = FALSE)) %>%
+    attributionControl = FALSE,
+    scrollWheelZoom = FALSE, 
+    zoomControl = FALSE)) %>%
     #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
     setMapWidgetStyle(list(background= "white")) %>%
     addPolygons(
@@ -622,6 +632,14 @@ get_swing_map <- function(state_abbrev, office_1, office_2, year_1, year_2) {
         bringToFront = TRUE
       ),
       label = ~glue("{NAME} swing: {ifelse(swing > 0, 'D+', 'R+')}{abs(round(swing, 1))}")
-    ) 
+    ) %>%
+    htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
   return(graph)
 }
+
+graph <- get_margin_map(2024, "VT", "President")
+graph

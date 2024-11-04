@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { SharedStateProvider } from './sharedContext';
 import './globals.css';
+import { AppProviders } from '@/AppProviders';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -22,7 +23,7 @@ export default function RootLayout({
         ></link>
       </head>
       <body>
-        <SharedStateProvider>{children}</SharedStateProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

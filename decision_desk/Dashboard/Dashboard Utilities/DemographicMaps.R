@@ -82,12 +82,12 @@ get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
           textOnly = TRUE,
           offset = c(0, -10),  # Offset label to move it above the marker
           style = list(
-            "color" = "black",          # Use a darker green for better contrast
-            "font-size" = "10px",         # Smaller font size to be less overpowering
+            "color" = "black",          # Color of the text
+            "font-size" = "10px",       # Font size
             "font-weight" = "bold",
-            "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
-            "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
-            "border-radius" = "3px"       # Rounded corners for the background
+            "background-color" = "rgba(255, 255, 255, 0.0)",  # No background, or make it fully transparent
+            "padding" = "0px",          # Remove padding to make text follow closely
+            "text-shadow" = "-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff"  # Creates an outline-like effect
           )
         )
       )
@@ -136,12 +136,12 @@ get_demographic_graph <- function(BASEPATH, state_abbrev, demographic_type) {
           textOnly = TRUE,
           offset = c(0, -10),  # Offset label to move it above the marker
           style = list(
-            "color" = "black",          # Use a darker green for better contrast
-            "font-size" = "10px",         # Smaller font size to be less overpowering
+            "color" = "black",          # Color of the text
+            "font-size" = "10px",       # Font size
             "font-weight" = "bold",
-            "background-color" = "rgba(255, 255, 255, 0.7)",  # Semi-transparent white background for readability
-            "padding" = "0.5px 0.5px",        # Add some padding for better visual spacing
-            "border-radius" = "3px"       # Rounded corners for the background
+            "background-color" = "rgba(255, 255, 255, 0.0)",  # No background, or make it fully transparent
+            "padding" = "0px",          # Remove padding to make text follow closely
+            "text-shadow" = "-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff"  # Creates an outline-like effect
           )
         )
       ) %>%

@@ -20,16 +20,6 @@ election_types <- current_data %>% pull("office_type") %>% unique() %>% append(.
 poll_closing <- read.csv("cleaned_data/Locally-Hosted Data/poll_closing.csv")
 start_time <- as.POSIXct("2024-11-05 17:00:00")
 end_time <- as.POSIXct("2024-11-06 02:00:00")
-# ----------------------------- TODO ---------------------------------------- #
-#predicted_margin
-# change margin_95_ci from votes to percent 
-#last_election_turnout
-#election_night_shift
-#margin_graph_2020
-#expected_pct_graph_2020
-#24cast_prediction
-# If race type all, change dashboard to race agnostic
-
 
 # ------------------------------ UI ------------------------------------------ #
 ui <- page_sidebar(
@@ -37,13 +27,13 @@ ui <- page_sidebar(
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebar =  sidebar(
     title = "Graph controls",
-    selectInput(
+    selectizeInput(
       inputId = "category_select",  # Updated to match server
       label = "Election type:",
       choices = election_types,
       selected = "All"
     ),
-    selectInput(
+    selectizeInput(
       inputId = "state_select",
       label = "State:",
       choices = c("All"),
@@ -79,10 +69,10 @@ ui <- page_sidebar(
       label = "Key Races Only",
       value = FALSE
     ),
-    tableOutput("elections")
+    uiOutput("elections")
   ),
   conditionalPanel(
-    condition = "input.category_select != 'All' && input.state_select != 'All'",
+    condition = "input.category_select != 'All' && input.state_select != 'All' && !(input.category_select == 'House' && input.district_select == 'All')",
     fluidPage(
       layout_columns(
         fill = FALSE,
@@ -141,7 +131,10 @@ ui <- page_sidebar(
           card_header("Expected election night shift"),
           uiOutput("election_night_shift")
         ), 
-        card(uiOutput("betting_odds"), full_screen = FALSE)
+        card(
+          card_header("Polymarket Betting Odds"),
+          uiOutput("betting_odds"), full_screen = FALSE
+        )
       ),
       layout_columns(
         card(
@@ -227,19 +220,8 @@ ui <- page_sidebar(
       layout_columns(
         card(
           full_screen = FALSE, 
-          card_header("Voting Distribution Map Select"),
-          selectInput("BL_map_select", label = NULL,
-                      choices = list("Where votes remain" = "remaining_votes", 
-                                     "Early voting partisanship" = "early_voting"),
-                      selected = "remaining_votes"),
-          conditionalPanel(
-            condition = "input.BL_map_select == 'remaining_votes'",
-            leafletOutput("remaining_votes_map")
-          ),
-          conditionalPanel(
-            condition = "input.BL_map_select == 'early_voting'",
-            leafletOutput("early_voting_partisanship_map")
-          )
+          card_header("Where votes remain map"),
+          leafletOutput("remaining_votes_map")
         ),
         card(
           full_screen = FALSE, 
@@ -309,7 +291,7 @@ ui <- page_sidebar(
     )
   ),
   conditionalPanel(
-    condition = "input.category_select == 'All' || input.state_select == 'All' || (input.district_select == 'All' && input.category_select == 'House')",
+    condition = "input.category_select == 'All' || input.state_select == 'All' || (input.category_select == 'House' && input.district_select == 'All')",
     "Please select an election type and state to view detailed information."
   )
 )

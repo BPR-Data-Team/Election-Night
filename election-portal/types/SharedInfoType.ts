@@ -2,6 +2,7 @@ import { RaceType } from './RaceType';
 import { Year } from './Year';
 import { State } from './State';
 import { Demographic } from './Demographic';
+import { CountyData, ElectionData, CalledElection, ExitPollData } from './data';
 
 export type SharedInfo = {
   page: string;
@@ -25,6 +26,18 @@ export type SharedInfo = {
   demographicSwitch: (demographic: Demographic) => void;
   availableDemographics: Demographic[];
   setAvailibleDemographics: (demographics: Demographic[]) => void;
+  electionData: Map<string, ElectionData> | undefined;
+  electionDataLoading: boolean;
+  electionDataError: Error | null;
+  countyData: Map<string, CountyData> | undefined;
+  countyDataLoading: boolean;
+  countyDataError: Error | null;
+  exitPollData: Map<string, ExitPollData> | undefined;
+  exitPollDataLoading: boolean;
+  exitPollDataError: Error | null;
+  calledElectionData: Map<string, CalledElection> | undefined;
+  calledElectionDataLoading: boolean;
+  calledElectionDataError: Error | null;
 };
 
 export { RaceType, Year, State, Demographic };

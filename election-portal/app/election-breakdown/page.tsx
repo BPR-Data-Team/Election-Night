@@ -53,7 +53,6 @@ export default function Election_Breakdown_Page() {
   // State Mode While National
   const SMWN = sharedState.view != State.National && displayNational;
 
-  // Would appreciate a better way to do this, if possible
   useEffect(() => {
     const wrapperDiv = document?.getElementById('mapWrapper');
     const EBMapDiv = document?.getElementById('EBContainer');
@@ -122,13 +121,7 @@ export default function Election_Breakdown_Page() {
       RaceType.Senate,
       RaceType.Gubernatorial,
     ]);
-    // Years are set automatically in sharedState, this can(?) be safely removed
-    // sharedState.setAvailableYears([
-    //   Year.TwentyTwo,
-    //   Year.Twenty,
-    //   Year.Eighteen,
-    //   Year.Sixteen,
-    // ]);
+
     sharedState.setAvailibleDemographics([]);
 
     // Load Historical County Data
@@ -174,7 +167,6 @@ export default function Election_Breakdown_Page() {
           console.error('Error loading historical county data:', error)
         );
     }
-    // }
   }, []);
 
   if (!historicalElectionsData || !historicalCountyData)
@@ -185,8 +177,6 @@ export default function Election_Breakdown_Page() {
       <div className={styles.page}>
         <div className={styles.overflowCatch}>
           {sharedState.drawMode ? <Canvas /> : null}
-
-          {/* <EBMap year={state.year} raceType={state.breakdown} onClick={handleStateClick}/> */}
           <div className={styles.mapWrapper} id="mapWrapper">
             {displayNational && (
               <div
@@ -198,7 +188,7 @@ export default function Election_Breakdown_Page() {
                     : { opacity: 0 }),
                 }}
               >
-                <EBMap />
+                <EBMap historicalElectionsData={historicalElectionsData} />
               </div>
             )}
             {!displayNational && (
@@ -214,6 +204,7 @@ export default function Election_Breakdown_Page() {
                   year={sharedState.year}
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
+                  countyData={historicalCountyData}
                 />
               </div>
             )}
@@ -223,9 +214,9 @@ export default function Election_Breakdown_Page() {
           <Banner
             align="left"
             height={3}
-            wordmark={'view:' + sharedState.view}
+            wordmark="Election Breakdown"
             header=""
-            message={'level:' + sharedState.level}
+            message={sharedState.view}
           />
 
           {(SMWN || !displayNational) && (
