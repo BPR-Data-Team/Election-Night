@@ -90,7 +90,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     mapData: any[],
     circleValues: any[],
     collective: any[],
-  }>({ mapData: [], circleValues: [] });
+  }>({ mapData: [], circleValues: [], collective: []});
   const originalElectoralCounts = useRef<any[]>([]);
   const [mapData, setMapData] = useState(mockData); // Default to presData
   const [circleValues, setCircleValues] = useState({
