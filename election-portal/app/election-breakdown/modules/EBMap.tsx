@@ -646,12 +646,14 @@ const EBMap: React.FC = () => {
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
+    console.log('mouse down', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
+      console.log('mouse up', event.clientX, event.clientY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -662,10 +664,12 @@ const EBMap: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log('adding event listeners');
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
+      console.log('removing event listeners')
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
     };

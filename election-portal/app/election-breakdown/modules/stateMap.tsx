@@ -119,16 +119,22 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
   const [stateChart, setStateChart] = useState<any>(null);
   const [selectedCounty, setSelectedCounty] = useState('');
 
+  const [zoomScale, setZoomScale] = useState<number | null>(null);
+  const [currentZoom, setCurrentZoom] = useState<number>(0.8);
+
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
+    console.log('Mouse down: ', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
+      console.log('Mouse up: ', event.clientX, event.clientY);
+      console.log('Delta X: ', deltaX, 'Delta Y: ', deltaY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -165,6 +171,36 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     initializeMap(newMapData, newCityData);
   };
 
+  useEffect(() => {
+    if (stateChart) {
+
+      stateChart.update({
+        chart: {
+          animation: {
+            duration: 50,
+          },
+          events: {
+            click: function (event: any) {
+              if (!event.point) {
+                handleOOBClick(stateChart, zoomScale);
+              }
+            },
+          },
+        },
+        series: [
+          {
+            events: {
+              click: function (event: any) {
+                const countyName = event.point["name"];
+                handleCountyClick(event.point.GEOID, countyName);
+              },
+            },
+          },
+        ],
+      });
+    }
+  }, [sharedState.view, wasPanned, stateChart]);
+
   function getMaxState(stateData: FakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
   }
@@ -178,18 +214,23 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
       return;
     }
     // sharedState.setView(State.National);
-    sharedState.setLevel("state");
+    const stateEnum = getStateFromString(stateName);
+    sharedState.setLevel('state');
     setSelectedCounty('');
     setCountyName('');
-    // if (chart) {
-    //   chart.mapZoom();
-    //   setTimeout(() => chart.mapZoom(zoomScale), 50);
-    // }
+    if (chart) {
+      // chart.mapZoom();
+      // setTimeout(() => chart.mapZoom(zoomScale), 50);
+      chart.mapZoom();
+      chart.mapZoom(zoomScale);
+    }
   };
 
   const handleCountyClick = (countyKey: string, countyName: string) => {
+    console.log('wasPanned', wasPanned);
     if (!wasPanned) {
       setSelectedCounty(countyKey); // Update selected county key for border
+      
       sharedState.setLevel('county');
       setCountyName(countyName);
     }
@@ -261,12 +302,27 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     };
     const { minLongitude, maxLongitude, minLatitude, maxLatitude } =
       getMinMaxCoordinates(mapData);
+    const axisMaxFirst: number = Math.max(
+      Math.abs(getMinState(presData)),
+      Math.abs(getMaxState(presData))
+    );
+    const zoomScale = axisMaxFirst > 100
+      ? 0.8
+      : axisMaxFirst > 50
+      ? 1.0
+      : axisMaxFirst > 25
+      ? 1.2
+      : 1.5
+    ;  
     const horizDiff = maxLongitude - minLongitude;
     const vertDiff = maxLatitude - minLatitude;
-    let zoomScale = 0.7;
+    // let zoomScale = 0.8;
+    setZoomScale(0.8);
     if (vertDiff > horizDiff) {
-      zoomScale = 1;
+      // zoomScale = 1;
+      setZoomScale(1);
     }
+    setCurrentZoom(zoomScale);
     console.log(maxLongitude + horizDiff, maxLatitude - vertDiff);
     const zoomGeometry = {
       type: 'MultiPoint',
@@ -283,9 +339,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
         type: 'map',
         map: mapData,
         backgroundColor: 'transparent',
-        animation: {
-          duration: 350
-        },
+        // animation: {
+        //   duration: 50,
+        // },
         panning: {
           enabled: true,
           type: 'xy',
@@ -312,17 +368,21 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
                         y: -2,
                       },
                     },
-                    false
+                    // false
+                    true
                   ); //Don't redraw the chart every time we update a point
                 });
               }
             });
 
             this.mapZoom(zoomScale);
-            // chart.redraw();
+            chart.redraw();
+          },
+          redraw: function () {
+            const zoomLevel = (this as any).mapView.zoom;
+            
           },
         },
-      },
       credits: {
         enabled: false,
       },
@@ -403,6 +463,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
                 '"gelica, book antiqua, georgia, times new roman, serif"',
             },
             formatter: function () {
+              // const offsetX = '      ';
+              // const final_result = this.point.index % 2 === 0 ? offsetX + this.point.name: this.point.name + offsetX;
+              // return final_result;
               return this.point.name;
             },
             overflow: true,
