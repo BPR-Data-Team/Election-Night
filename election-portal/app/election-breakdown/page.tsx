@@ -40,7 +40,6 @@ export default function Election_Breakdown_Page() {
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
   };
-  const [countyName, setCountyName] = useState<string>('');
   const [countyViewAll, setCountyViewAll] = useState<boolean>(false);
 
   // When sharedState.level changes wait 250ms before changing display state
@@ -215,7 +214,7 @@ export default function Election_Breakdown_Page() {
                   year={sharedState.year}
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
-                  setCountyName={setCountyName}
+                  setCountyName={sharedState.setCountyName}
                   countyData={historicalCountyData}
                 />
               </div>
@@ -234,7 +233,7 @@ export default function Election_Breakdown_Page() {
           {(SMWN || !displayNational) && (
             <DataDisplay
               stateName={sharedState.view}
-              countyName={countyName}
+              countyName={sharedState.countyName}
               year={sharedState.year}
               stateData={mockStateData}
               historicalCountyData={historicalCountyData}

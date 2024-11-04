@@ -23,7 +23,6 @@ import { HistoricalCountyData } from '@/types/data';
 //   { district: '0', value: 9.8},
 // ];
 
-
 if (typeof window !== `undefined`) {
   highchartsAccessibility(Highcharts);
 }
@@ -71,7 +70,9 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   const [zoomScale, setZoomScale] = useState<number | null>(null);
   const [currentZoom, setCurrentZoom] = useState<number | null>(null);
-  const [centerPosition, setCenterPosition] = useState<[number, number] | null>(null);
+  const [centerPosition, setCenterPosition] = useState<[number, number] | null>(
+    null
+  );
 
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
@@ -107,9 +108,9 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   useEffect(() => {
     retrieveMapData();
-     sharedState.setLevel('state');
-     setSelectedCounty('');
-      setCountyName('');
+    sharedState.setLevel('state');
+    setSelectedCounty('');
+    setCountyName('');
   }, [
     sharedState.breakdown,
     sharedState.year,
@@ -125,14 +126,17 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       return;
     }
     // const countyOrDistrict = raceType === RaceType.Presidential ? 'County' : 'Congressional District';
-    const newMapData = await fetchStateGeoJSON(stateName, String(year), 'County');
+    const newMapData = await fetchStateGeoJSON(
+      stateName,
+      String(year),
+      'County'
+    );
     const newCityData = await fetchCityGeoJSON(stateName);
     initializeMap(newMapData, newCityData);
   };
 
   useEffect(() => {
     if (stateChart) {
-
       stateChart.update({
         chart: {
           animation: {
@@ -152,7 +156,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
               click: function (event: any) {
                 // const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
                 // const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
-                handleCountyClick(event.point["name"], event.point["name"]);
+                handleCountyClick(event.point['name'], event.point['name']);
               },
             },
           },
@@ -168,12 +172,12 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   function getMinState(stateData: ElectionData[]): number {
     return Math.min(...stateData.map((state) => state.value));
   }
-  
+
   const setMenubar = () => {
     const options: RaceType[] = [RaceType.Presidential];
     if (
       countyData.some(
-        (datum) =>
+        (datum: { state: string; office_type: string }) =>
           datum.state === getStateAbbreviation(sharedState.view) &&
           datum.office_type === 'Governor'
       )
@@ -181,7 +185,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       options.push(RaceType.Gubernatorial);
     } else if (
       countyData.some(
-        (datum) =>
+        (datum: { state: string; office_type: string }) =>
           datum.state === getStateAbbreviation(sharedState.view) &&
           datum.office_type === 'Senate'
       )
@@ -211,7 +215,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     if (!wasPanned) {
       // setSelectedCounty(countyKey); // Update selected county key for border
       setSelectedCounty(countyName);
-      
+
       sharedState.setLevel('county');
       setCountyName(countyName);
     }
@@ -222,22 +226,25 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       console.log('countyData: ', countyData);
       console.log('selectedCounty: ', selectedCounty);
       stateChart.update({
-              series: [
-                {
-                  type: 'map',
-                  data: electionData.map((datum) => ({
-                    ...datum,
-                    borderColor:
-                      ((datum.NAME === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
-                    borderWidth: 
-                      ((datum.NAME === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
-                  })),
-                },
-              ]
-            });
+        series: [
+          {
+            type: 'map',
+            data: electionData.map((datum) => ({
+              ...datum,
+              borderColor:
+                datum.NAME === selectedCounty && sharedState.level === 'county'
+                  ? 'lightgreen'
+                  : '#000000',
+              borderWidth:
+                datum.NAME === selectedCounty && sharedState.level === 'county'
+                  ? 6
+                  : 1,
+            })),
+          },
+        ],
+      });
     }
-  }
-  , [selectedCounty, stateChart, sharedState.level]);
+  }, [selectedCounty, stateChart, sharedState.level]);
 
   // useEffect(() => {
   //   if (stateChart && raceType === RaceType.Presidential) {
@@ -249,11 +256,11 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   //             ...county,
   //             borderColor:
   //               ((county.fips === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
-  //             borderWidth: 
+  //             borderWidth:
   //               ((county.fips === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
   //           })),
   //         },
-          
+
   //       ],
   //     });
   //   } else if (stateChart && raceType != RaceType.Presidential) {
@@ -265,11 +272,11 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   //             ...district,
   //             borderColor:
   //               ((district.district === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
-  //             borderWidth: 
+  //             borderWidth:
   //               ((district.district === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
   //           })),
   //         },
-          
+
   //       ],
   //     });
   //   }
@@ -277,60 +284,68 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   const initializeMap = (mapData: any, cityData: any) => {
     let fetchedData: ElectionData[] = [];
-    countyData?.forEach((datum) => {
-      if (
-        datum.state === getStateAbbreviation(sharedState.view) &&
-        datum.office_type === getDataVersion(sharedState.breakdown)
-      ) {
-        switch (sharedState.breakdown) {
-          case RaceType.Senate:
-            switch (sharedState.year) {
-              case Year.Eighteen:
-                fetchedData.push({
-                  NAME: datum.county,
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Twelve:
-                fetchedData.push({
-                  NAME: datum.county,
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Gubernatorial:
-            switch (sharedState.year) {
-              case Year.Twenty:
-                fetchedData.push({
-                  NAME: datum.county,
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  NAME: datum.county,
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Presidential:
-            switch (sharedState.year) {
-              case Year.Twenty:
-                fetchedData.push({
-                  NAME: datum.county,
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  NAME: datum.county,
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
+    countyData?.forEach(
+      (datum: {
+        state: string;
+        office_type: string;
+        county: any;
+        margin_pct_1: any;
+        margin_pct_2: any;
+      }) => {
+        if (
+          datum.state === getStateAbbreviation(sharedState.view) &&
+          datum.office_type === getDataVersion(sharedState.breakdown)
+        ) {
+          switch (sharedState.breakdown) {
+            case RaceType.Senate:
+              switch (sharedState.year) {
+                case Year.Eighteen:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_1,
+                  });
+                  break;
+                case Year.Twelve:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_2,
+                  });
+                  break;
+              }
+            case RaceType.Gubernatorial:
+              switch (sharedState.year) {
+                case Year.Twenty:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_1,
+                  });
+                  break;
+                case Year.Sixteen:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_2,
+                  });
+                  break;
+              }
+            case RaceType.Presidential:
+              switch (sharedState.year) {
+                case Year.Twenty:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_1,
+                  });
+                  break;
+                case Year.Sixteen:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_2,
+                  });
+                  break;
+              }
+          }
         }
       }
-    });
+    );
 
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
@@ -388,12 +403,12 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     //   : axisMaxFirst > 25
     //   ? 1.2
     //   : 1.5
-    // ;  
+    // ;
     const horizDiff = maxLongitude - minLongitude;
     const vertDiff = maxLatitude - minLatitude;
     // let zoomScale = 0.8;
     setZoomScale(0.8);
-    setCurrentZoom(0.8)
+    setCurrentZoom(0.8);
     if (vertDiff > horizDiff) {
       // zoomScale = 1;
       setZoomScale(1);
@@ -431,7 +446,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
             const chart = this;
 
             if (currentZoom && centerPosition) {
-              (chart as any).mapView.setView(centerPosition, currentZoom)
+              (chart as any).mapView.setView(centerPosition, currentZoom);
               // chart.setCenter(centerPosition);
               // chart.mapZoom(currentZoom);
             }
@@ -470,6 +485,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         },
       },
       tooltip: {
+        enabled: true,
         formatter: function (this: any) {
           let prefix = this.point.value >= 0 ? 'D' : 'R';
           return (
@@ -495,9 +511,6 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       },
       title: {
         text: '',
-      },
-      tooltip: {
-        enabled: true,
       },
       plotOptions: {
         map: {
@@ -531,7 +544,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
           states: {
             hover: {
               enabled: false,
-            }
+            },
           },
           dataLabels: {
             format: '{point.properties.NAME}',
@@ -542,12 +555,21 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
             padding: 10,
           },
           tooltip: {
-            pointFormat: raceType === RaceType.Presidential ? '{point.properties.NAME} County' : '{point.properties.NAMELSAD}',
+            pointFormat:
+              raceType === RaceType.Presidential
+                ? '{point.properties.NAME} County'
+                : '{point.properties.NAMELSAD}',
           },
           events: {
             click: function (event: any) {
-              const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
-              const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
+              const countyName =
+                raceType == RaceType.Presidential
+                  ? event.point['name']
+                  : event.point.properties.NAMELSAD;
+              const fipsOrDistrict =
+                raceType == RaceType.Presidential
+                  ? event.point.fips
+                  : event.point.district;
               handleCountyClick(fipsOrDistrict, countyName);
             },
           },
@@ -596,7 +618,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
     // Highcharts.mapChart("eb-state-container", mapOptions);
     const ch = Highcharts.mapChart('eb-state-container', mapOptions);
-    console.log(ch ? "Ch exists" : "Ch does not exist");
+    console.log(ch ? 'Ch exists' : 'Ch does not exist');
     setStateChart(ch);
     setElectionData(fetchedData);
   };

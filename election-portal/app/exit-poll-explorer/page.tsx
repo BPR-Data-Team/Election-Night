@@ -361,7 +361,7 @@ export default function Exit_Poll_Explorer_Page() {
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
                   countyData={historicalCountyData}
-                  setCountyName={setCountyName}
+                  setCountyName={sharedState.setCountyName}
                 />
               </div>
             )}
