@@ -246,8 +246,13 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   };
 
   useEffect(() => {
-    fetchMapDataAndInitializeMap();
-  }, [raceType, year]);
+    if (
+      (year === Year.Sixteen && sixteenPresData) ||
+      (year === Year.Twenty && twentyPresData)
+    ) {
+      fetchMapDataAndInitializeMap();
+    }
+  }, [raceType, year, sixteenPresData, twentyPresData]);
 
   /**
    * Formats presidential data for use in a map.
