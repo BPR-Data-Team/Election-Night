@@ -38,6 +38,8 @@ export type SharedInfo = {
   calledElectionData: Map<string, CalledElection> | undefined;
   calledElectionDataLoading: boolean;
   calledElectionDataError: Error | null;
+  countyName: string;
+  setCountyName: (county: string) => void;
 };
 
 export { RaceType, Year, State, Demographic };

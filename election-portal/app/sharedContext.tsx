@@ -510,7 +510,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       socket.close();
     };
   }, []);
-
+  const [countyName, setCountyName] = useState<string>('');
   const state: SharedInfo = {
     page,
     setCurrentPage,
@@ -545,6 +545,8 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     calledElectionData,
     calledElectionDataLoading,
     calledElectionDataError,
+    countyName,
+    setCountyName,
   };
 
   return (
