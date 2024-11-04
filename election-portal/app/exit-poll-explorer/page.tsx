@@ -366,7 +366,6 @@ export default function Exit_Poll_Explorer_Page() {
               </div>
             )}
           </div>
-          {tableData.length != 0 && <StatsTable data={tableData} />}
         </div>
       </div>
     </div>
