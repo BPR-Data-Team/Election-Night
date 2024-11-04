@@ -86,7 +86,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const originalMap = useRef<any[]>([]);
   const originalElectoralCounts= useRef<any[]>([]);
   const [mapData, setMapData] = useState(mockData); // Default to presData
-  const [circleValues, setCircleValues] = useState({ NE2: 0, ME2: 0 });
+  const [circleValues, setCircleValues] = useState({ NE1: 0, NE2: 0, NE3: 0, ME1: 0, ME2: 0 });
   const [leftCount, setLeftCount] = useState(0);
   const [rightCount, setRightCount] = useState(0);
   const [sixteenPresData, setSixteenPresData] = useState<RTCPresData[] | null>(null);
@@ -133,10 +133,10 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     const fetchData = async (year: Year, setData: React.Dispatch<React.SetStateAction<RTCPresData[] | null>>, storageKey: string, csvPath: string) => {
       const storedData = sessionStorage.getItem(storageKey);
   
-      if (storedData) {
-        console.log(storedData);
-        setData(JSON.parse(storedData) as RTCPresData[]);
-      } else {
+      // if (storedData) {
+      //   console.log(storedData);
+      //   setData(JSON.parse(storedData) as RTCPresData[]);
+      // } else {
         try {
           const response = await fetch(csvPath);
           const csvText = await response.text();
@@ -149,6 +149,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
                 office_type: row.office_type,
                 party_winner: row.party_winner,
                 electoral_votes: parseInt(row.electoral_votes),
+                district: row.district,
               }));
               console.log(parsedData);
               setData(parsedData);
@@ -158,12 +159,34 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
         } catch (error) {
           console.error(`Error loading ${year} data:`, error);
         }
-      }
+      // }
     };
   
     fetchData(Year.Sixteen, setSixteenPresData, "sixteenPresData", "/R2C/2016Presidential.csv");
     fetchData(Year.Twenty, setTwentyPresData, "twentyPresData", "/R2C/2020Presidential.csv");
   }, []);
+
+  useEffect(() => {
+    const initializeCircleValues = (data: RTCPresData[]) => {
+      const initialCircleValues = { NE1: 0, NE2: 0, NE3: 0, ME1: 0, ME2: 0 };
+      data.forEach((item) => {
+        if (item.state === "NE" && item.district > 0) {
+          initialCircleValues[`NE${item.district}`] = item.party_winner === "D" ? 1 : item.party_winner === "R" ? 2 : 0;
+        } else if (item.state === "ME" && item.district > 0) {
+          initialCircleValues[`ME${item.district}`] = item.party_winner === "D" ? 1 : item.party_winner === "R" ? 2 : 0;
+        }
+      });
+      setCircleValues(initialCircleValues);
+    };
+    if (year === Year.Sixteen && sixteenPresData) {
+      initializeCircleValues(sixteenPresData);
+    } else if (year === Year.Twenty && twentyPresData) {
+      initializeCircleValues(twentyPresData);
+    } else {
+      //TODO: 2024 live data
+      initializeCircleValues([])
+    }
+  }, [raceType, year]);
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
@@ -174,6 +197,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       "hc-key": "us-" + item.state.toLowerCase(),
       Called: item.party_winner === "D" ? "D" : item.party_winner === "R" ? "R" : "N",
       electoral_votes: item.electoral_votes,
+      district: item.district,
     }));
   };
 
@@ -187,8 +211,6 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
         default:
           return mockData;
       }
-    } else if (raceType === RaceType.Senate) {
-      return senData; // Assuming you have similar data for Senate races
     } else {
       return mockData;
     }
@@ -198,7 +220,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     //TODO: Change mockData
     const formattedData = getFormattedData(raceType, year);
     const currentData = formattedData ? [...formattedData] : [...mockData];
-
+    console.log(currentData);
     originalMap.current = currentData.map((item) => ({ ...item })); // Store original state
 
     const processedData = currentData.map((item) => ({
@@ -298,7 +320,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     let rightVotes = 0;
     data.forEach((item) => {
       if (item.Called === "D") {
-       leftVotes += item.electoral_votes;
+      leftVotes += item.electoral_votes;
       } else if (item.Called === "R") {
         rightVotes += item.electoral_votes;
       }
@@ -306,9 +328,17 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     setLeftCount(leftVotes);
     setRightCount(rightVotes);
   };
+
+  const getCircleValue = (state: string, district: number, data: any[]) => {
+    const item = data.find((item: any) => item['hc-key'] === state && item.district === district.toString());
+    if (!item) return 0;
+    return item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0;
+  };
+
   const handleReset = () => {
       if (chartRef.current) {
         const originalData = originalMap.current;
+        console.log(originalData);
         if (originalData) {
           const original = originalData.map((item: any) => ({
             id: item["hc-key"],
@@ -318,7 +348,16 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   
           // Reset the series data
           chartRef.current.series[0].setData(original);
-          setCircleValues({NE2: 0, ME2: 0});
+          console.log(getCircleValue("NE", 1, originalData));
+          const circleValues = {
+            NE1: getCircleValue("us-ne", 1, originalData),
+            NE2: getCircleValue("us-ne", 2, originalData),
+            NE3: getCircleValue("us-ne", 3, originalData),
+            ME1: getCircleValue("us-me", 1, originalData),
+            ME2: getCircleValue("us-me", 2, originalData),
+          };
+          console.log(circleValues);
+          setCircleValues(circleValues);
           initializeElectoralVotes(originalData);
         }
       }
@@ -335,8 +374,21 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       <div className="map-and-controls">
         <div id="rtc-container" className="map" />
         <div className="controls">
-            {year === Year.TwentyFour && (
             <div className="circles">
+              <Circle
+              text="NE1"
+              circleValue={circleValues.NE1}
+              setCircleValue={(value) =>
+                setCircleValues((prev) => ({
+                ...prev,
+                NE1: typeof value === "function" ? value(prev.NE1) : value,
+                }))
+              }
+              incrementLeftCount={incrementLeftCount}
+              incrementRightCount={incrementRightCount}
+              decrementLeftCount={decrementLeftCount}
+              decrementRightCount={decrementRightCount}
+              />
               <Circle
               text="NE2"
               circleValue={circleValues.NE2}
@@ -344,6 +396,34 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
                 setCircleValues((prev) => ({
                 ...prev,
                 NE2: typeof value === "function" ? value(prev.NE2) : value,
+                }))
+              }
+              incrementLeftCount={incrementLeftCount}
+              incrementRightCount={incrementRightCount}
+              decrementLeftCount={decrementLeftCount}
+              decrementRightCount={decrementRightCount}
+              />
+              <Circle
+              text="NE3"
+              circleValue={circleValues.NE3}
+              setCircleValue={(value) =>
+                setCircleValues((prev) => ({
+                ...prev,
+                NE3: typeof value === "function" ? value(prev.NE3) : value,
+                }))
+              }
+              incrementLeftCount={incrementLeftCount}
+              incrementRightCount={incrementRightCount}
+              decrementLeftCount={decrementLeftCount}
+              decrementRightCount={decrementRightCount}
+              />
+              <Circle
+              text="ME1"
+              circleValue={circleValues.ME1}
+              setCircleValue={(value) =>
+                setCircleValues((prev) => ({
+                ...prev,
+                ME1: typeof value === "function" ? value(prev.ME1) : value,
                 }))
               }
               incrementLeftCount={incrementLeftCount}
@@ -366,7 +446,6 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
               decrementRightCount={decrementRightCount}
               />
             </div>
-            )}
           <button className="reset-button" onClick={handleReset}>Reset Map</button>
         </div>
       </div>

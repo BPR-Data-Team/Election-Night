@@ -39,4 +39,5 @@ export interface RTCPresData {
   state: string;
   party_winner: string;
   electoral_votes: number;
+  district: number;
 }

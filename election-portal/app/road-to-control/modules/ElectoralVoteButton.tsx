@@ -23,6 +23,7 @@ const Circle: React.FC<CircleProps> = ({ text, circleValue, setCircleValue, incr
             if (prev === 2) decrementRightCount();
             if (newValue === 1) incrementLeftCount();
             if (newValue === 2) incrementRightCount();
+            console.log(newValue);
             return newValue;
         });
     };

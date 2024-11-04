@@ -36,12 +36,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
+  margin-top: 15px;
 }
 
 .circle-text {
   font-size: 16px;
   color: black;
+  font-family: 'gelica, book antiqua, georgia, times new roman, serif';
 }
 .reset-button-container {
   position: fixed;
@@ -54,6 +55,6 @@
   padding: 0.3rem;
   font-size: 1.7em;
   border-radius: 4px;
-  margin-top: 15rem;
+  margin-top: 10rem;
   
 }
