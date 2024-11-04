@@ -11,6 +11,9 @@ import electoralVotesPerState from './utils/electoralVotesPerState';
 import { parse } from 'papaparse';
 import { RTCPresData } from '@/types/data';
 
+const prodSlug =
+  process.env.NODE_ENV === 'development' ? '' : '/Election-Night';
+
 const colorMapping = { 0: 'N', 1: 'D', 2: 'R' };
 
 if (typeof window !== 'undefined') {
@@ -194,13 +197,13 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       Year.Sixteen,
       setSixteenPresData,
       'sixteenPresData',
-      'public/R2C/2016Presidential.csv'
+      prodSlug + '/R2C/2016Presidential.csv'
     );
     fetchData(
       Year.Twenty,
       setTwentyPresData,
       'twentyPresData',
-      'public/R2C/2020Presidential.csv'
+      prodSlug + '/R2C/2020Presidential.csv'
     );
   }, []);
 
