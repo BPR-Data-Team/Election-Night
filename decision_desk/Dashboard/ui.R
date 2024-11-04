@@ -73,13 +73,13 @@ ui <- page_sidebar(
     uiOutput("elections") %>% withSpinner()
   ),
   conditionalPanel(
-    condition = "input.category_select != 'All' && input.state_select != 'All' && !(input.category_select == 'House' && input.district_select == 'All')",
+    condition = "input.category_select != 'All' && input.state_select != 'All' && input.category_select != 'House'",
     fluidPage(
       layout_columns(
         fill = FALSE,
         card(
           card_header("Current Electoral Vote Tally"),
-          "TODO"
+          htmlOutput("electoral_vote_tally")
         ),
         card(
           full_screen = FALSE, 
@@ -129,7 +129,7 @@ ui <- page_sidebar(
         card(
           full_screen = FALSE, 
           card_header("Republican Votes"),
-          textOutput("rep_pct")
+          textOutput("rep_votes")
         )
       ),
       layout_columns(
@@ -245,6 +245,18 @@ ui <- page_sidebar(
       layout_columns(
         card(
           fill = TRUE,
+          card_header("Margin over time in 2024"),
+          plotOutput("margin_graph_2024") %>% withSpinner()
+        ),
+        card(
+          fill = TRUE, 
+          card_header("Pct of vote reporting in 2024"), 
+          plotOutput("expected_pct_graph_2024") %>% withSpinner()
+        )
+      ),
+      layout_columns(
+        card(
+          fill = TRUE,
           card_header("Margin over time in 2020"),
           plotOutput("margin_graph_2020") %>% withSpinner()
         ),
@@ -252,6 +264,118 @@ ui <- page_sidebar(
           fill = TRUE, 
           card_header("Pct of vote reporting in 2020"), 
           plotOutput("expected_pct_graph_2020") %>% withSpinner()
+        )
+      )
+    )
+  ),
+  conditionalPanel(
+    condition = "input.category_select == 'House' && input.district_select != 'All'",
+    fluidPage(
+      layout_columns(
+        fill = FALSE,
+        card(
+          card_header("Current Electoral Vote Tally"),
+          htmlOutput("house_electoral_vote_tally")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Performance v. President"),
+          textOutput("house_performance_v_president")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Percent reporting"),
+          textOutput("house_pct_reporting")
+        )
+      ),
+      layout_columns(
+        card(
+          full_screen = FALSE, 
+          card_header("Current Margin"),
+          uiOutput("house_margin")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("2022 Margin"),
+          htmlOutput("house_2022_margin")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Current Turnout"),
+          textOutput("house_turnout")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("2022 Turnout"),
+          textOutput("house_2022_turnout")
+        )
+      ),
+      layout_columns(
+        card(
+          full_screen = FALSE, 
+          card_header("Democrat %"),
+          textOutput("house_dem_pct")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Republican %"),
+          textOutput("house_rep_pct")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Democrat Votes"),
+          textOutput("house_dem_votes")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Republican Votes"),
+          textOutput("house_rep_votes")
+        )
+      ),
+      card(
+        full_screen = FALSE,
+        card_header("Expected election night shift"),
+        uiOutput("house_election_night_shift")
+      ), 
+      card(
+        full_screen = TRUE, 
+        card_header("Races to Watch"),
+        tableOutput("house_races_to_watch")
+      ),
+      layout_columns(
+        card(
+          full_screen = FALSE, 
+          card_header("2024 Margin Map"),
+          leafletOutput("house_margin_map") %>% withSpinner()
+        ),
+        card(
+          full_screen = FALSE,
+          card_header("2024 Margin Bubble Map"),
+          leafletOutput("house_margin_bubble_map") %>% withSpinner()
+        )
+      ),
+      layout_columns(
+        card(
+          fill = TRUE,
+          card_header("Margin over time in 2024"),
+          plotOutput("house_margin_graph_2024") %>% withSpinner()
+        ),
+        card(
+          fill = TRUE, 
+          card_header("Pct of vote reporting in 2024"), 
+          plotOutput("house_expected_pct_graph_2024") %>% withSpinner()
+        )
+      ),
+      layout_columns(
+        card(
+          fill = TRUE,
+          card_header("Margin over time in 2022"),
+          plotOutput("house_margin_graph_2022") %>% withSpinner()
+        ),
+        card(
+          fill = TRUE, 
+          card_header("Pct of vote reporting in 2022"),
+          plotOutput("house_expected_pct_graph_2022") %>% withSpinner()
         )
       )
     )

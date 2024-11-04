@@ -92,9 +92,6 @@ get_label_votes_remaining <- function(NAME, total_votes_estimate, total_votes_lo
 get_margin_map <- function(county_data, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev, office_type == office)
-  
-  view(county_data)
-  view(current_data)
 
   state_name <- state.name[match(state_abbrev, state.abb)]
   
@@ -310,8 +307,8 @@ get_margin_bubble_map <- function(county_data, year, state_abbrev, office) {
         fillColor = "white",
         opacity = 1,
         fillOpacity = 0,
-        label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
-                                  prev_rep_pct, prev_dem_pct, "100%"), htmltools::HTML),  # Convert HTML for the popup
+        label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", republican_votes_1, democratic_votes_1, 
+                                  republican_percent_1, democratic_percent_1, "100%"), htmltools::HTML),  # Convert HTML for the popup
       ) %>%
       htmlwidgets::onRender("
         function(el, x) {
