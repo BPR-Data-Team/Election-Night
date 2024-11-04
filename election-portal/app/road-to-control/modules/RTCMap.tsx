@@ -24,7 +24,7 @@ interface RTCMapProps {
   raceType: RaceType;
   year: Year;
 }
-
+//mock data
 const presData = [
   { "hc-key": "us-al", Called: "R", electoral_votes: 9 },
   { "hc-key": "us-ak", Called: "D", electoral_votes: 3 },
@@ -78,7 +78,7 @@ const presData = [
   { "hc-key": "us-wi", Called: "N", electoral_votes: 10 },
   { "hc-key": "us-wy", Called: "N", electoral_votes: 3 },
 ];
-
+//mock data
 const mockData = presData.map((item) => ({ ...item, Called: "N" }));
 
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
@@ -101,6 +101,10 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     initializeMap(geoJson);
   };
 
+  /**
+   * Placeholder intended to handle live websocket data. Feel free to completely delete if necessary.
+   *
+   */
   const handleWebSocketData = (newData: any[]) => {
     const formattedData = newData.map((item) => ({
       "hc-key": item["hc-key"],
@@ -118,7 +122,10 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     setMapData(formattedData);
     initializeElectoralVotes(formattedData);
   };
-  
+  /**
+   * Placeholder intended to handle live websocket data. Feel free to completely delete if necessary.
+   *
+   */
   useEffect(() => {
     // Placeholder WebSocket logic (replace with real WebSocket implementation)
     const ws = new WebSocket("wss://example.com/socket");
@@ -132,11 +139,10 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   useEffect(() => {
     const fetchData = async (year: Year, setData: React.Dispatch<React.SetStateAction<RTCPresData[] | null>>, storageKey: string, csvPath: string) => {
       const storedData = sessionStorage.getItem(storageKey);
-  
-      // if (storedData) {
-      //   console.log(storedData);
-      //   setData(JSON.parse(storedData) as RTCPresData[]);
-      // } else {
+      if (storedData) {
+        console.log(storedData);
+        setData(JSON.parse(storedData) as RTCPresData[]);
+      } else {
         try {
           const response = await fetch(csvPath);
           const csvText = await response.text();
@@ -159,7 +165,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
         } catch (error) {
           console.error(`Error loading ${year} data:`, error);
         }
-      // }
+      }
     };
   
     fetchData(Year.Sixteen, setSixteenPresData, "sixteenPresData", "/R2C/2016Presidential.csv");
@@ -192,6 +198,9 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     fetchMapDataAndInitializeMap();
   }, [raceType, year]);
 
+  /**
+   * Formats presidential data for use in a map.
+   */
   const formatPresData = (data: RTCPresData[] | null) => {
     return data?.map((item) => ({
       "hc-key": "us-" + item.state.toLowerCase(),
@@ -201,6 +210,9 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     }));
   };
 
+  /**
+   * Formats data based on the race type and year provided.
+   */
   const getFormattedData = (raceType: RaceType, year: Year) => {
     if (raceType === RaceType.Presidential) {
       switch (year) {
@@ -285,14 +297,19 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
         },
       ],
     };
-
-    // const chart = Highcharts.mapChart("container", mapOptions);
     const chart = Highcharts.mapChart("rtc-container", mapOptions);
     
     chartRef.current = chart;
     initializeElectoralVotes(currentData);
   };
 
+  /**
+   * Updates the map data and electoral counts based on the provided key and value.
+   *
+   * Update the map data with new values and adjust the electoral counts accordingly.
+   * It maps through the current map data, finds the item with the matching key, and updates its 'Called' property.
+   * Additionally, it updates the electoral counts using the provided key, value, oldValue, and the corresponding electoral votes.
+   */
   const updateMapData = (key: string, value: number, oldValue : number) => {
     setMapData((prev) =>
       prev.map((item) =>
@@ -304,6 +321,11 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     updateElectoralCounts(key, value, oldValue, electoral_votes);
   };
 
+  /**
+   * Updates the electoral counts based on the provided key and value.
+   *
+   * called when a state is clicked on the map.
+   */
   const updateElectoralCounts = (key: string, value: number, oldValue : number, electoral_votes : number) => {
     if (value === 1) {
       setLeftCount((prev) => prev + electoral_votes);
@@ -315,6 +337,14 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     }
   };
 
+  /**
+   * Initializes the electoral votes count for left and right parties.
+   * Iterates through the provided data array and sums up the electoral votes
+   * based on the 'Called' property ('D' for left and 'R' for right).
+   * Updates the state with the total counts for both parties.
+   * 
+   * Called on first render and when the map is reset.
+   */
   const initializeElectoralVotes = (data: any[]) => {
     let leftVotes = 0;
     let rightVotes = 0;
@@ -329,12 +359,20 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     setRightCount(rightVotes);
   };
 
+  /**
+   * Retrieves the value for a circle based on the state and district from the provided data.
+   * Helper for `handleReset`.
+   */
   const getCircleValue = (state: string, district: number, data: any[]) => {
     const item = data.find((item: any) => item['hc-key'] === state && item.district === district.toString());
     if (!item) return 0;
     return item.Called === "D" ? 1 : item.Called === "R" ? 2 : 0;
   };
 
+  /**
+   * Resets the chart to its original state using the data stored in `originalMap`.
+   * It updates the series data and circle values, and reinitializes the electoral votes.
+   */
   const handleReset = () => {
       if (chartRef.current) {
         const originalData = originalMap.current;
