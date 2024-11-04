@@ -86,6 +86,17 @@ export interface ExitPollData {
   lastName: string;
 }
 
+//Note: Unsure what this is doing here...
+export interface ExitPollAnswer {
+  state: string;
+  office_type: string;
+  question: string;
+  answer: string;
+  demographic_pct: number;
+  answer_pct: number;
+  lastName: string;
+}
+
 export interface RTCPresData {
   year: number;
   office_type: string;
