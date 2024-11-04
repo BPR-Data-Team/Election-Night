@@ -12,6 +12,18 @@ import { useSharedState } from '../../sharedContext';
 import './stateMap.css';
 import { HistoricalCountyData } from '@/types/data';
 
+// const countyData = [
+//   { district: '01', value: 12.1},
+//   { district: '02', value: -3.2},
+//   { district: '03', value: 4.3},
+//   { district: '04', value: 5.4},
+//   { district: '05', value: 6.5},
+//   { district: '06', value: -7.6},
+//   { district: '07', value: 8.7},
+//   { district: '0', value: 9.8},
+// ];
+
+
 if (typeof window !== `undefined`) {
   highchartsAccessibility(Highcharts);
 }
@@ -24,7 +36,8 @@ interface ElectionBreakdownProps {
   raceType: RaceType;
   year: Year;
   stateName: string;
-  countyData: HistoricalCountyData[];
+  countyData: any;
+  setCountyName: any;
 }
 
 interface ElectionData {
@@ -45,6 +58,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   year,
   stateName,
   countyData,
+  setCountyName,
 }) => {
   const { fetchStateGeoJSON, fetchCityGeoJSON } = GeoJsonCache();
   const sharedState = useSharedState().state;
@@ -55,16 +69,23 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   const [selectedCounty, setSelectedCounty] = useState('');
   const [electionData, setElectionData] = useState<ElectionData[]>([]);
 
+  const [zoomScale, setZoomScale] = useState<number | null>(null);
+  const [currentZoom, setCurrentZoom] = useState<number | null>(null);
+  const [centerPosition, setCenterPosition] = useState<[number, number] | null>(null);
+
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
+    console.log('Mouse down: ', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
+      console.log('Mouse up: ', event.clientX, event.clientY);
+      console.log('Delta X: ', deltaX, 'Delta Y: ', deltaY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -85,11 +106,10 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   }, []);
 
   useEffect(() => {
-    setMenubar();
-  }, []);
-
-  useEffect(() => {
     retrieveMapData();
+     sharedState.setLevel('state');
+     setSelectedCounty('');
+      setCountyName('');
   }, [
     sharedState.breakdown,
     sharedState.year,
@@ -104,11 +124,51 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     if (stateName == 'National') {
       return;
     }
-    const newMapData = await fetchStateGeoJSON(stateName, String(year));
+    // const countyOrDistrict = raceType === RaceType.Presidential ? 'County' : 'Congressional District';
+    const newMapData = await fetchStateGeoJSON(stateName, String(year), 'County');
     const newCityData = await fetchCityGeoJSON(stateName);
     initializeMap(newMapData, newCityData);
   };
 
+  useEffect(() => {
+    if (stateChart) {
+
+      stateChart.update({
+        chart: {
+          animation: {
+            duration: 50,
+          },
+          events: {
+            click: function (event: any) {
+              if (!event.point) {
+                handleOOBClick(stateChart, zoomScale);
+              }
+            },
+          },
+        },
+        series: [
+          {
+            events: {
+              click: function (event: any) {
+                // const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
+                // const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
+                handleCountyClick(event.point["name"], event.point["name"]);
+              },
+            },
+          },
+        ],
+      });
+    }
+  }, [sharedState.view, wasPanned, stateChart]);
+
+  function getMaxState(stateData: ElectionData[]): number {
+    return Math.max(...stateData.map((state) => state.value));
+  }
+
+  function getMinState(stateData: ElectionData[]): number {
+    return Math.min(...stateData.map((state) => state.value));
+  }
+  
   const setMenubar = () => {
     const options: RaceType[] = [RaceType.Presidential];
     if (
@@ -131,26 +191,89 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     sharedState.setAvailableBreakdowns(options);
   };
 
-  function getMaxState(stateData: ElectionData[]): number {
-    return Math.max(...stateData.map((state) => state.value));
-  }
-
-  function getMinState(stateData: ElectionData[]): number {
-    return Math.min(...stateData.map((state) => state.value));
-  }
-
-  const handleOOBClick = () => {
+  const handleOOBClick = (chart: any, zoomScale: any) => {
     if (wasPanned) {
       return;
     }
+    sharedState.setLevel('state');
     setSelectedCounty('');
-  };
-
-  const handleCountyClick = (countyKey: string) => {
-    if (!wasPanned) {
-      setSelectedCounty(countyKey); // Update selected county key for border
+    setCountyName('');
+    if (chart) {
+      // chart.mapZoom();
+      // setTimeout(() => chart.mapZoom(zoomScale), 50);
+      chart.mapZoom();
+      chart.mapZoom(zoomScale);
     }
   };
+
+  const handleCountyClick = (countyKey: string, countyName: string) => {
+    console.log('wasPanned', wasPanned);
+    if (!wasPanned) {
+      // setSelectedCounty(countyKey); // Update selected county key for border
+      setSelectedCounty(countyName);
+      
+      sharedState.setLevel('county');
+      setCountyName(countyName);
+    }
+  };
+
+  useEffect(() => {
+    if (stateChart && countyData) {
+      console.log('countyData: ', countyData);
+      console.log('selectedCounty: ', selectedCounty);
+      stateChart.update({
+              series: [
+                {
+                  type: 'map',
+                  data: electionData.map((datum) => ({
+                    ...datum,
+                    borderColor:
+                      ((datum.NAME === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+                    borderWidth: 
+                      ((datum.NAME === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+                  })),
+                },
+              ]
+            });
+    }
+  }
+  , [selectedCounty, stateChart, sharedState.level]);
+
+  // useEffect(() => {
+  //   if (stateChart && raceType === RaceType.Presidential) {
+  //     stateChart.update({
+  //       series: [
+  //         {
+  //           type: 'map',
+  //           data: presData.map((county) => ({
+  //             ...county,
+  //             borderColor:
+  //               ((county.fips === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+  //             borderWidth: 
+  //               ((county.fips === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+  //           })),
+  //         },
+          
+  //       ],
+  //     });
+  //   } else if (stateChart && raceType != RaceType.Presidential) {
+  //     stateChart.update({
+  //       series: [
+  //         {
+  //           type: 'map',
+  //           data: countyData.map((district) => ({
+  //             ...district,
+  //             borderColor:
+  //               ((district.district === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+  //             borderWidth: 
+  //               ((district.district === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+  //           })),
+  //         },
+          
+  //       ],
+  //     });
+  //   }
+  // }, [selectedCounty, stateChart, sharedState.level]);
 
   const initializeMap = (mapData: any, cityData: any) => {
     let fetchedData: ElectionData[] = [];
@@ -254,11 +377,27 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     };
     const { minLongitude, maxLongitude, minLatitude, maxLatitude } =
       getMinMaxCoordinates(mapData);
+    // const axisMaxFirst: number = Math.max(
+    //   Math.abs(getMinState(presData)),
+    //   Math.abs(getMaxState(presData))
+    // );
+    // const zoomScale = axisMaxFirst > 100
+    //   ? 0.8
+    //   : axisMaxFirst > 50
+    //   ? 1.0
+    //   : axisMaxFirst > 25
+    //   ? 1.2
+    //   : 1.5
+    // ;  
     const horizDiff = maxLongitude - minLongitude;
     const vertDiff = maxLatitude - minLatitude;
-    let zoomScale = 0.7;
+    // let zoomScale = 0.8;
+    setZoomScale(0.8);
+    setCurrentZoom(0.8)
     if (vertDiff > horizDiff) {
-      zoomScale = 1;
+      // zoomScale = 1;
+      setZoomScale(1);
+      setCurrentZoom(1);
     }
     const zoomGeometry = {
       type: 'MultiPoint',
@@ -275,15 +414,27 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         type: 'map',
         map: mapData,
         backgroundColor: 'transparent',
+        panning: {
+          enabled: true,
+          type: 'xy',
+        },
         spacing: [0, 0, 0, 0],
         events: {
           click: function (event: any) {
+            const chart = this;
+
             if (!event.point) {
-              handleOOBClick();
+              handleOOBClick(chart, zoomScale);
             }
           },
           load: function () {
             const chart = this;
+
+            if (currentZoom && centerPosition) {
+              (chart as any).mapView.setView(centerPosition, currentZoom)
+              // chart.setCenter(centerPosition);
+              // chart.mapZoom(currentZoom);
+            }
 
             chart.series.forEach(function (series) {
               if (series.type === 'mappoint') {
@@ -296,19 +447,26 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                         y: -2,
                       },
                     },
-                    false
+                    // false
+                    true
                   ); //Don't redraw the chart every time we update a point
                 });
               }
             });
 
-            this.mapZoom(zoomScale);
+            if (currentZoom !== null) {
+              this.mapZoom(currentZoom);
+            } else if (zoomScale !== null) {
+              this.mapZoom(zoomScale);
+            }
             chart.redraw();
           },
-        },
+          redraw: function () {
+            const chart = this as any;
 
-        animation: {
-          duration: 0,
+            const zoomLevel = chart.mapView.zoom;
+            setCurrentZoom(zoomLevel);
+          },
         },
       },
       tooltip: {
@@ -338,6 +496,9 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       title: {
         text: '',
       },
+      tooltip: {
+        enabled: true,
+      },
       plotOptions: {
         map: {
           cursor: 'pointer',
@@ -347,6 +508,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         enabled: true,
         enableMouseWheelZoom: true,
         enableButtons: false,
+        enableTouchZoom: true,
       },
       colorAxis: colorAxis,
       legend: {
@@ -360,6 +522,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
           type: 'map',
           mapData: mapData,
           data: fetchedData,
+          // joinBy: raceType == RaceType.Presidential ? ['COUNTYFP', 'fips'] : ['CD116FP', 'district'],
           joinBy: 'NAME',
           nullColor: '#505050',
           name: 'Counties',
@@ -367,8 +530,8 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
           borderWidth: 2,
           states: {
             hover: {
-              borderColor: 'lightgreen',
-            },
+              enabled: false,
+            }
           },
           dataLabels: {
             format: '{point.properties.NAME}',
@@ -379,12 +542,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
             padding: 10,
           },
           tooltip: {
-            pointFormat: '{point.properties.NAME} County',
+            pointFormat: raceType === RaceType.Presidential ? '{point.properties.NAME} County' : '{point.properties.NAMELSAD}',
           },
           events: {
             click: function (event: any) {
-              // const countyName = event.point["name"];
-              handleCountyClick(event.point.GEOID);
+              const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
+              const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
+              handleCountyClick(fipsOrDistrict, countyName);
             },
           },
         },
@@ -407,6 +571,9 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                 '"gelica, book antiqua, georgia, times new roman, serif"',
             },
             formatter: function () {
+              // const offsetX = '      ';
+              // const final_result = this.point.index % 2 === 0 ? offsetX + this.point.name: this.point.name + offsetX;
+              // return final_result;
               return this.point.name;
             },
             overflow: true,
@@ -429,6 +596,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
     // Highcharts.mapChart("eb-state-container", mapOptions);
     const ch = Highcharts.mapChart('eb-state-container', mapOptions);
+    console.log(ch ? "Ch exists" : "Ch does not exist");
     setStateChart(ch);
     setElectionData(fetchedData);
   };

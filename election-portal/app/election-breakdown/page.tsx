@@ -12,9 +12,12 @@ import Canvas from '../modules/canvas/canvas';
 import { HistoricalCountyData, HistoricalElectionData } from '@/types/data';
 import Banner from './modules/banner';
 import DataDisplay from './modules/dataDisplay';
+import CountyDataDisplay from './modules/countyDataDisplay';
 
 import EBMap from './modules/EBMap';
 import StateMap from './modules/stateMap';
+const prodSlug =
+  process.env.NODE_ENV === 'development' ? '' : '/Election-Night';
 
 const mockStateData = {
   dem_name: 'Stevens',
@@ -37,6 +40,8 @@ export default function Election_Breakdown_Page() {
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
   };
+  const [countyName, setCountyName] = useState<string>('');
+  const [countyViewAll, setCountyViewAll] = useState<boolean>(false);
 
   // When sharedState.level changes wait 250ms before changing display state
   useEffect(() => {
@@ -69,6 +74,12 @@ export default function Election_Breakdown_Page() {
   }, [sharedState]);
 
   useEffect(() => {
+    if (sharedState.level != 'county') {
+      setCountyViewAll(false);
+    }
+  }, [sharedState.level]);
+
+  useEffect(() => {
     const storedElectionsData = sessionStorage.getItem(
       'historicalElectionsData'
     );
@@ -80,7 +91,7 @@ export default function Election_Breakdown_Page() {
         JSON.parse(storedElectionsData) as HistoricalElectionData[]
       );
     } else {
-      fetch('/cleaned_data/historical_elections.csv')
+      fetch(`${prodSlug}/cleaned_data/historical_elections.csv`)
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -130,7 +141,7 @@ export default function Election_Breakdown_Page() {
         JSON.parse(storedCountyData) as HistoricalCountyData[]
       );
     } else {
-      fetch('/cleaned_data/historical_county.csv')
+      fetch(`${prodSlug}/cleaned_data/historical_county.csv`)
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -204,6 +215,7 @@ export default function Election_Breakdown_Page() {
                   year={sharedState.year}
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
+                  setCountyName={setCountyName}
                   countyData={historicalCountyData}
                 />
               </div>
@@ -222,15 +234,38 @@ export default function Election_Breakdown_Page() {
           {(SMWN || !displayNational) && (
             <DataDisplay
               stateName={sharedState.view}
+              countyName={countyName}
               year={sharedState.year}
               stateData={mockStateData}
+              historicalCountyData={historicalCountyData}
+              historicalElectionsData={historicalElectionsData}
               raceType={sharedState.breakdown}
               sharedStateLevel={sharedState.level}
+              countyViewAll={countyViewAll}
             />
           )}
 
+          {/* {((SMWN || !displayNational) && sharedState.level === 'county' && countyViewAll == true) && (
+            <CountyDataDisplay
+              stateName={sharedState.view}
+              countyName={countyName}
+              year={sharedState.year}
+              stateData={mockCountyData}
+              raceType={sharedState.breakdown}
+              sharedStateLevel={sharedState.level}
+              countyViewAll={countyViewAll}
+            />
+            )} */}
+
           {/* Needs to be topmost during content screens */}
-          <Menubar />
+          {sharedState.level === 'county' ? (
+            <Menubar
+              countyViewAll={countyViewAll}
+              setCountyViewAll={setCountyViewAll}
+            />
+          ) : (
+            <Menubar />
+          )}
           {/* Future homepage topmost element */}
         </div>
       </div>

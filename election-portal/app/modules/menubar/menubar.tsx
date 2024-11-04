@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSharedState } from '../../sharedContext';
 import { Demographic, RaceType, Year } from '../../../types/SharedInfoType';
 
@@ -9,6 +9,8 @@ import HomeButton from './menu-buttons/home-button';
 import ExitButton from './menu-buttons/exit-button';
 import DrawButton from './menu-buttons/draw-button';
 import { useRouter } from 'next/navigation';
+import { truncate } from 'fs';
+import { FaBullseye } from 'react-icons/fa';
 
 // These can be turned into maps or better parsed from the types
 const breakdownToString = (
@@ -46,9 +48,13 @@ const breakdownToString = (
   );
 };
 
-const yearToString = (year: Year, currentYear: Year): React.ReactNode => {
+const yearToString = (year: Year, currentYear: Year, countyViewAll: boolean | null): React.ReactNode => {
   let str = '';
-  const selected: boolean = year === currentYear;
+  let selected: boolean = year === currentYear;
+  if (countyViewAll != null) {
+    selected = false;
+  }
+  
   switch (year) {
     case Year.TwentyFour:
       str = '2024';
@@ -104,8 +110,19 @@ const demographicToString = (
   );
 };
 
-const Menubar: React.FC = () => {
+interface MenubarProps {
+  countyViewAll?: boolean;
+  setCountyViewAll?: any;
+}
+
+const Menubar: React.FC<MenubarProps> = ({countyViewAll, setCountyViewAll}) => {
   const state = useSharedState().state;
+
+   const handleYearClick = (year: Year) => {
+    state.yearSwitch(year);
+    setCountyViewAll && setCountyViewAll(false);
+  };
+    
 
   return (
     <div className="rightbar">
@@ -148,9 +165,9 @@ const Menubar: React.FC = () => {
                 <button
                   className="year"
                   key={index}
-                  onClick={() => state.yearSwitch(year)}
+                  onClick={() => handleYearClick(year)}
                 >
-                  {yearToString(year, state.year)}
+                  {countyViewAll ? yearToString(year, state.year, countyViewAll) : yearToString(year, state.year, null)}
                 </button>
               ))}
             </div>
@@ -174,6 +191,27 @@ const Menubar: React.FC = () => {
             </div>
           </>
         )}
+
+        {(countyViewAll != undefined && setCountyViewAll != undefined) ? (
+          <>
+            <button
+              className="viewAll"
+              onClick={() => {
+                setCountyViewAll(true);
+                state.yearSwitch(Year.TwentyFour);
+              }}
+            >
+              <span
+                style={{
+                  color: countyViewAll ? '#ffffff' : '#dddddd',
+                  textShadow: countyViewAll ? '0 0 10px rgba(255,255,255,0.5)' : 'none',
+                }}
+              >
+                All
+              </span>
+            </button>
+          </>
+        ) : null}
       </div>
     </div>
   );

@@ -2,25 +2,31 @@ import React, { useRef } from 'react';
 
 let stateGeoJSONCache: Map<string, any> = new Map();
 let cityGeoJSONCache: Map<string, any> = new Map();
+let historicalCountyDataCache: Map<string, any> = new Map();
 // TODO: set to empty string in both cases when switching domains
 const prodSlug =
   process.env.NODE_ENV === 'development' ? '' : '/Election-Night';
 
+
 const GeoJsonCache = () => {
+
   // Fetch a single state's GeoJSON data and store it in the cache
-  const fetchStateGeoJSON = async (stateName: string, year: string) => {
+  const fetchStateGeoJSON = async (stateName: string, year: string, countyOrDistrict: string) => {
     let stripped_year = year.trim();
-    // we don't have geoJSONS for 2012
-    if (stripped_year === '2012') {
+    if (stripped_year === '2024') {
       stripped_year = '2022';
     }
-    const nameYearKey = stateName + '_' + stripped_year;
+     if (stripped_year === '2012') {
+      stripped_year = '2022';
+    }
+    const stripped_countyOrDistrict = countyOrDistrict.trim();
+    const nameYearKey = stateName + '_' + stripped_year + '_' + stripped_countyOrDistrict;
     if (!stateGeoJSONCache.has(nameYearKey)) {
       console.log(
-        `${prodSlug}/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`
+        `${prodSlug}/GeoJSON/${stripped_countyOrDistrict}/${stripped_year}/${stateName}_${stripped_year}.geojson`
       );
       const response = await fetch(
-        `${prodSlug}/GeoJSON/County/${stripped_year}/${stateName}_${stripped_year}.geojson`
+        `${prodSlug}/GeoJSON/${stripped_countyOrDistrict}/${stripped_year}/${stateName}_${stripped_year}.geojson`
       );
       const geoJSON = await response.json();
       stateGeoJSONCache.set(nameYearKey, geoJSON);

@@ -50,12 +50,14 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
+    console.log('mouse down', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
+      console.log('mouse up', event.clientX, event.clientY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -66,6 +68,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
   };
 
   useEffect(() => {
+    console.log('adding event listeners');
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
 
@@ -76,6 +79,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
     ]);
 
     return () => {
+      console.log('removing event listeners')
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
     };
@@ -318,6 +322,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         enabled: true,
         enableMouseWheelZoom: true,
         enableButtons: false,
+        enableTouchZoom: true,
       },
       colorAxis: {
         min: -axisMax,
@@ -326,23 +331,26 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         visible: false,
       },
       tooltip: {
-        formatter: function (this: any) {
-          let prefix = this.point['Called for Dems'] == 'TRUE' ? 'D' : 'R';
-          return (
-            '<b>' +
-            this.point.name +
-            '</b><br/>' +
-            prefix +
-            '+' +
-            (Math.abs(this.point.value) <= 0.1
-              ? '<0.1'
-              : Math.abs(this.point.value).toFixed(1))
-          );
-        },
-        style: {
-          fontFamily: 'gelica, book antiqua, georgia, times new roman, serif',
-        },
+        enabled: false,
       },
+      // tooltip: {
+      //   formatter: function (this: any) {
+      //     let prefix = this.point['Called for Dems'] == 'TRUE' ? 'D' : 'R';
+      //     return (
+      //       '<b>' +
+      //       this.point.name +
+      //       '</b><br/>' +
+      //       prefix +
+      //       '+' +
+      //       (Math.abs(this.point.value) <= 0.1
+      //         ? '<0.1'
+      //         : Math.abs(this.point.value).toFixed(1))
+      //     );
+      //   },
+      //   style: {
+      //     fontFamily: 'gelica, book antiqua, georgia, times new roman, serif',
+      //   },
+      // },
       legend: {
         itemStyle: {
           fontFamily: 'gelica, book antiqua, georgia, times new roman, serif',
@@ -356,9 +364,6 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
           nullColor: '#505050',
           name: 'Predicted Margin',
           states: {
-            hover: {
-              borderColor: 'lightgreen',
-            },
           },
           point: {
             events: {},
