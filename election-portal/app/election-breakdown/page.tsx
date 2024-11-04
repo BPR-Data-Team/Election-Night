@@ -44,15 +44,12 @@ export default function Election_Breakdown_Page() {
 
   // When sharedState.level changes wait 250ms before changing display state
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (sharedState.level == 'national') {
-        setDisplayNational(true);
-      } else {
-        setDisplayNational(false);
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [sharedState.level, displayNational]);
+    if (sharedState.level == 'national') {
+      setDisplayNational(true);
+    } else {
+      setDisplayNational(false);
+    }
+  }, [sharedState.level]);
 
   // State Mode While National
   const SMWN = sharedState.view != State.National && displayNational;
