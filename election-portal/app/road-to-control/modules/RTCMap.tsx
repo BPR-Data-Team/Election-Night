@@ -82,15 +82,19 @@ const presData = [
   { 'hc-key': 'us-wy', Called: 'N', electoral_votes: 3 },
 ];
 //mock data
-const mockData = presData.map((item) => ({ ...item, Called: 'N', district: 0 }));
+const mockData = presData.map((item) => ({
+  ...item,
+  Called: 'N',
+  district: 0,
+}));
 
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<{
-    mapData: any[],
-    circleValues: any[],
-    collective: any[],
-  }>({ mapData: [], circleValues: [], collective: []});
+    mapData: any[];
+    circleValues: any[];
+    collective: any[];
+  }>({ mapData: [], circleValues: [], collective: [] });
   const originalElectoralCounts = useRef<any[]>([]);
   const [mapData, setMapData] = useState(mockData); // Default to presData
   const [circleValues, setCircleValues] = useState({
@@ -123,13 +127,13 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   /**
    * Placeholder intended to handle live websocket data. Feel free to completely delete if necessary.
    *
-   */
   const handleWebSocketData = (newData: any[]) => {
     const formattedData = newData.map((item) => ({
       'hc-key': item['hc-key'],
       Called:
         item.party_winner === 'D' ? 'D' : item.party_winner === 'R' ? 'R' : 'N',
       electoral_votes: item.electoral_votes,
+      district: item.district,
     }));
 
     formattedData.forEach((item) => {
@@ -143,7 +147,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
 
     setMapData(formattedData);
     initializeElectoralVotes(formattedData);
-  };
+  };*/
 
   useEffect(() => {
     const fetchData = async (
@@ -410,7 +414,8 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
    */
   const getCircleValue = (state: string, district: number, data: any[]) => {
     const item = data.find(
-      (item) => item['hc-key'] === state && item.district === district.toString()
+      (item) =>
+        item['hc-key'] === state && item.district === district.toString()
     );
     if (!item) return 0;
     return item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0;
