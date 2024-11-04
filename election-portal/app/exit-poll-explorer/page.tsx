@@ -27,7 +27,6 @@ import StateMap from '../election-breakdown/modules/stateMap';
 export default function Exit_Poll_Explorer_Page() {
   const [exitPollData, setExitPollData] = useState<ExitPollData[] | null>(null);
   const [tableData, setTableData] = useState<ExitPollAnswer[]>([]);
-  const state = useSharedState().state;
 
   const [historicalElectionsData, setHistoricalElectionsData] = useState<
     HistoricalElectionData[] | null
@@ -166,32 +165,335 @@ export default function Exit_Poll_Explorer_Page() {
     const statesWithExitPolls = (datum: HistoricalElectionData) => {
       if (datum.state) {
         const stateName = getStateFromAbbreviation(datum.state);
-        return (
-          stateName === State.Alabama ||
-          stateName === State.Arizona ||
-          stateName === State.California ||
-          stateName === State.Colorado ||
-          stateName === State.Florida ||
-          stateName === State.Georgia ||
-          stateName === State.Iowa ||
-          stateName === State.Kentucky ||
-          stateName === State.Maine ||
-          stateName === State.Michigan ||
-          stateName === State.Minnesota ||
-          stateName === State.Montana ||
-          stateName === State.Nevada ||
-          stateName === State.NewHampshire ||
-          stateName === State.NewYork ||
-          stateName === State.NorthCarolina ||
-          stateName === State.Ohio ||
-          stateName === State.Oregon ||
-          stateName === State.Pennsylvania ||
-          stateName === State.SouthCarolina ||
-          stateName === State.Texas ||
-          stateName === State.Virginia ||
-          stateName === State.Washington ||
-          stateName === State.Wisconsin
-        );
+        if (
+          sharedState.demographic == Demographic.Age &&
+          sharedState.breakdown == RaceType.Presidential
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.California ||
+            stateName === State.Colorado ||
+            stateName === State.Florida ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Maine ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Montana ||
+            stateName === State.Nevada ||
+            stateName === State.NewHampshire ||
+            stateName === State.NewYork ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Ohio ||
+            stateName === State.Oregon ||
+            stateName === State.Pennsylvania ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia ||
+            stateName === State.Washington ||
+            stateName === State.Wisconsin
+          );
+        } else if (
+          sharedState.demographic == Demographic.Age &&
+          sharedState.breakdown == RaceType.Senate
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Maine ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Montana ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Oregon ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia
+          );
+        } else if (
+          sharedState.demographic == Demographic.AreaType &&
+          sharedState.breakdown == RaceType.Presidential
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Florida ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Nevada ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Ohio ||
+            stateName === State.Oregon ||
+            stateName === State.Pennsylvania ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia ||
+            stateName === State.Washington ||
+            stateName === State.Wisconsin
+          );
+        } else if (
+          sharedState.demographic == Demographic.AreaType &&
+          sharedState.breakdown == RaceType.Senate
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Maine ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Oregon ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia
+          );
+        } else if (
+          sharedState.demographic == Demographic.Education &&
+          sharedState.breakdown == RaceType.Presidential
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.California ||
+            stateName === State.Colorado ||
+            stateName === State.Florida ||
+            stateName === State.Georgia ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Nevada ||
+            stateName === State.NewYork ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Ohio ||
+            stateName === State.Pennsylvania ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia ||
+            stateName === State.Wisconsin
+          );
+        } else if (
+          sharedState.demographic == Demographic.Education &&
+          sharedState.breakdown == RaceType.Senate
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Georgia ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.NorthCarolina ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia
+          );
+        } else if (
+          sharedState.demographic == Demographic.Gender &&
+          sharedState.breakdown == RaceType.Presidential
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.California ||
+            stateName === State.Colorado ||
+            stateName === State.Florida ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Maine ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Montana ||
+            stateName === State.Nevada ||
+            stateName === State.NewHampshire ||
+            stateName === State.NewYork ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Ohio ||
+            stateName === State.Oregon ||
+            stateName === State.Pennsylvania ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia ||
+            stateName === State.Washington ||
+            stateName === State.Wisconsin
+          );
+        } else if (
+          sharedState.demographic == Demographic.Gender &&
+          sharedState.breakdown == RaceType.Senate
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Maine ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Montana ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Oregon ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia
+          );
+        } else if (
+          sharedState.demographic == Demographic.Income &&
+          sharedState.breakdown == RaceType.Presidential
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.California ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Nevada ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Oregon ||
+            stateName === State.Pennsylvania ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia ||
+            stateName === State.Wisconsin
+          );
+        } else if (
+          sharedState.demographic == Demographic.Income &&
+          sharedState.breakdown == RaceType.Senate
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia
+          );
+        } else if (
+          sharedState.demographic == Demographic.Race &&
+          sharedState.breakdown == RaceType.Presidential
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.California ||
+            stateName === State.Colorado ||
+            stateName === State.Florida ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Maine ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Montana ||
+            stateName === State.Nevada ||
+            stateName === State.NewHampshire ||
+            stateName === State.NewYork ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Ohio ||
+            stateName === State.Pennsylvania ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia ||
+            stateName === State.Washington ||
+            stateName === State.Wisconsin
+          );
+        } else if (
+          sharedState.demographic == Demographic.Race &&
+          sharedState.breakdown == RaceType.Senate
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Maine ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Montana ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia
+          );
+        } else if (
+          sharedState.demographic == Demographic.Region &&
+          sharedState.breakdown == RaceType.Presidential
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Florida ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Nevada ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Ohio ||
+            stateName === State.Oregon ||
+            stateName === State.Pennsylvania ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia ||
+            stateName === State.Washington ||
+            stateName === State.Wisconsin
+          );
+        } else if (
+          sharedState.demographic == Demographic.Region &&
+          sharedState.breakdown == RaceType.Senate
+        ) {
+          return (
+            stateName === State.Alabama ||
+            stateName === State.Arizona ||
+            stateName === State.Colorado ||
+            stateName === State.Georgia ||
+            stateName === State.Iowa ||
+            stateName === State.Kentucky ||
+            stateName === State.Michigan ||
+            stateName === State.Minnesota ||
+            stateName === State.Maine ||
+            stateName === State.NewHampshire ||
+            stateName === State.NorthCarolina ||
+            stateName === State.Oregon ||
+            stateName === State.SouthCarolina ||
+            stateName === State.Texas ||
+            stateName === State.Virginia
+          );
+        } else {
+          return;
+        }
       }
     };
     if (historicalElectionsData) {
@@ -207,15 +509,15 @@ export default function Exit_Poll_Explorer_Page() {
 
   useEffect(() => {
     filterHistoricalData();
-  }, [historicalElectionsData]);
+  }, [historicalElectionsData, sharedState.breakdown, sharedState.demographic]);
 
   useEffect(() => {
     // Sets the menubar options
-    state.setAvailableBreakdowns([]);
-    state.breakdownSwitch(RaceType.Presidential);
-    state.setAvailableYears([Year.Twenty, Year.TwentyFour]);
-    state.yearSwitch(Year.TwentyFour);
-    state.setAvailibleDemographics([
+    sharedState.setAvailableBreakdowns([]);
+    sharedState.breakdownSwitch(RaceType.Presidential);
+    sharedState.setAvailableYears([Year.TwentyFour, Year.Twenty]);
+    sharedState.yearSwitch(Year.TwentyFour);
+    sharedState.setAvailibleDemographics([
       Demographic.Age,
       Demographic.Gender,
       Demographic.Race,
@@ -271,21 +573,21 @@ export default function Exit_Poll_Explorer_Page() {
   const fetch2024Data = () => {};
 
   useEffect(() => {
-    if (state.year == Year.Twenty) {
+    if (sharedState.year == Year.Twenty) {
       fetch2020Data();
-    } else if (state.year == Year.TwentyFour) {
+    } else if (sharedState.year == Year.TwentyFour) {
       fetch2024Data();
     }
-  }, [state.year]);
+  }, [sharedState.year]);
 
   useEffect(() => {
     const dataMap = new Map();
 
     exitPollData?.forEach((datum) => {
       if (
-        datum.state === getStateAbbreviation(state.view) &&
+        datum.state === getStateAbbreviation(sharedState.view) &&
         datum.office_type === 'President' &&
-        datum.question === state.demographic
+        datum.question === sharedState.demographic
       ) {
         const existingEntry = dataMap.get(datum.answer) || {
           answer: datum.answer,
@@ -304,7 +606,7 @@ export default function Exit_Poll_Explorer_Page() {
 
     const data = Array.from(dataMap.values());
     setTableData(data);
-  }, [state.demographic, state.view, exitPollData]);
+  }, [sharedState.demographic, sharedState.view, exitPollData]);
   console.log('exitPollData', exitPollData);
   console.log('historicalCountyData', historicalCountyData);
   console.log('historicalElectionsData', historicalElectionsData);
@@ -315,7 +617,7 @@ export default function Exit_Poll_Explorer_Page() {
     <div className={styles.page}>
       <Menubar />
       <div className={styles.main}>
-        {state.drawMode ? <Canvas /> : null}
+        {sharedState.drawMode ? <Canvas /> : null}
         <Banner
           align="left"
           height={2}
@@ -326,9 +628,9 @@ export default function Exit_Poll_Explorer_Page() {
         <Banner
           align="left"
           height={7}
-          wordmark={`${state.view} | `}
-          header={state.demographic}
-          message={state.year.toString()}
+          wordmark={`${sharedState.view} | `}
+          header={sharedState.demographic}
+          message={sharedState.year.toString()}
         />
         <div className={styles.mapAndTable}>
           <div className={styles.mapWrapper} id="mapWrapper">
