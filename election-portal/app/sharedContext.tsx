@@ -176,10 +176,11 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
           demographic_pct: item.demographic_pct,
           answer_pct: item.answer_pct,
           lastName: item.lastName,
-          state_officetype_answer_lastname:
-            item.state_officetype_answer_lastname,
         };
-        exitPollMap.set(item.state_officetype_answer_lastname, newItem);
+        exitPollMap.set(
+          item.state + item.office_type + item.answer + item.lastName,
+          newItem
+        );
       });
       lastKey = response.data.lastKey;
       console.log(
@@ -431,8 +432,6 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
           demographic_pct: row.demographic_pct,
           answer_pct: row.answer_pct,
           lastName: row.lastName,
-          state_officetype_answer_lastname:
-            row.state_officetype_answer_lastname,
         };
         setExitPollData((prevData) => {
           const newData = new Map(prevData);

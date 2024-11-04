@@ -66,7 +66,6 @@ export interface ExitPollData {
   demographic_pct: number;
   answer_pct: number;
   lastName: string;
-  state_officetype_answer_lastname: string;
 }
 
 export interface ExitPollAnswer {
