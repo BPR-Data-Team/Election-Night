@@ -12,75 +12,87 @@ import { useSharedState } from '../../sharedContext';
 import './stateMap.css';
 import { json } from 'stream/consumers';
 
-const presData: FakeData[] = [
-  { GEOID: '01069', value: 9.95 },
-  { GEOID: '01023', value: 45.82 },
-  { GEOID: '01005', value: 1.65 },
-  { GEOID: '01107', value: 33.11 },
-  { GEOID: '01033', value: -14.81 },
-  { GEOID: '01051', value: -34.78 },
-  { GEOID: '01009', value: 48.03 },
-  { GEOID: '01025', value: -37.8 },
-  { GEOID: '01055', value: 36.01 },
-  { GEOID: '01115', value: -51.13 },
-  { GEOID: '01065', value: 16.99 },
-  { GEOID: '01089', value: 54.39 },
-  { GEOID: '01071', value: -29.49 },
-  { GEOID: '01043', value: -55.66 },
-  { GEOID: '01001', value: -4.65 },
-  { GEOID: '01121', value: -21.15 },
-  { GEOID: '01131', value: 16.02 },
-  { GEOID: '01091', value: -54.56 },
-  { GEOID: '01041', value: 57.05 },
-  { GEOID: '01085', value: -44.73 },
-  { GEOID: '01063', value: -16.74 },
-  { GEOID: '01101', value: -14.82 },
-  { GEOID: '01095', value: 3.35 },
-  { GEOID: '01109', value: -11.49 },
-  { GEOID: '01003', value: -57.97 },
-  { GEOID: '01129', value: -38.97 },
-  { GEOID: '01117', value: -21.34 },
-  { GEOID: '01035', value: 2.43 },
-  { GEOID: '01049', value: -25.35 },
-  { GEOID: '01073', value: 15.81 },
-  { GEOID: '01047', value: 43.23 },
-  { GEOID: '01099', value: 45.62 },
-  { GEOID: '01097', value: 12.21 },
-  { GEOID: '01039', value: -21.67 },
-  { GEOID: '01119', value: 0.15 },
-  { GEOID: '01075', value: -16.85 },
-  { GEOID: '01029', value: 18.99 },
-  { GEOID: '01021', value: 28.95 },
-  { GEOID: '01103', value: -52.05 },
-  { GEOID: '01037', value: -3.55 },
-  { GEOID: '01083', value: -36.22 },
-  { GEOID: '01013', value: 12.85 },
-  { GEOID: '01045', value: 44.93 },
-  { GEOID: '01105', value: 38.47 },
-  { GEOID: '01031', value: -31.9 },
-  { GEOID: '01011', value: 10.02 },
-  { GEOID: '01125', value: 55.04 },
-  { GEOID: '01015', value: -5.31 },
-  { GEOID: '01007', value: -25.12 },
-  { GEOID: '01067', value: 9.45 },
-  { GEOID: '01017', value: -51.97 },
-  { GEOID: '01077', value: 27.22 },
-  { GEOID: '01127', value: 26.35 },
-  { GEOID: '01057', value: 44.94 },
-  { GEOID: '01061', value: -22.18 },
-  { GEOID: '01079', value: 44.87 },
-  { GEOID: '01027', value: -14.94 },
-  { GEOID: '01087', value: -54.41 },
-  { GEOID: '01093', value: -35.95 },
-  { GEOID: '01133', value: -51.93 },
-  { GEOID: '01113', value: 7.08 },
-  { GEOID: '01081', value: -24.97 },
-  { GEOID: '01019', value: -8.82 },
-  { GEOID: '01059', value: -38.0 },
-  { GEOID: '01111', value: 17.56 },
-  { GEOID: '01123', value: 8.96 },
-  { GEOID: '01053', value: -59.64 },
+const presData = [
+  { fips: '069', value: -2.5 },
+  { fips: '023', value: 14.29 },
+  { fips: '005', value: 1.47 },
+  { fips: '107', value: 26.1 },
+  { fips: '033', value: 33.26 },
+  { fips: '051', value: 47.24 },
+  { fips: '009', value: -24.56 },
+  { fips: '025', value: 16.06 },
+  { fips: '055', value: 3.66 },
+  { fips: '115', value: -38.52 },
+  { fips: '065', value: -43.17 },
+  { fips: '089', value: 12.89 },
+  { fips: '071', value: 57.24 },
+  { fips: '043', value: -23.14 },
+  { fips: '001', value: -7.58 },
+  { fips: '121', value: 6.38 },
+  { fips: '131', value: -27.42 },
+  { fips: '091', value: 3.56 },
+  { fips: '041', value: -48.73 },
+  { fips: '085', value: 9.22 },
+  { fips: '063', value: -58.39 },
+  { fips: '101', value: 40.66 },
+  { fips: '095', value: 35.89 },
+  { fips: '109', value: -18.32 },
+  { fips: '003', value: -2.08 },
+  { fips: '129', value: 25.98 },
+  { fips: '117', value: -50.14 },
+  { fips: '035', value: -49.59 },
+  { fips: '049', value: 27.63 },
+  { fips: '073', value: 45.52 },
+  { fips: '047', value: -28.97 },
+  { fips: '099', value: -38.41 },
+  { fips: '097', value: 20.71 },
+  { fips: '039', value: 6.83 },
+  { fips: '119', value: -15.74 },
+  { fips: '075', value: -54.88 },
+  { fips: '029', value: 18.67 },
+  { fips: '021', value: -47.64 },
+  { fips: '103', value: 13.28 },
+  { fips: '037', value: 36.94 },
+  { fips: '083', value: 2.53 },
+  { fips: '013', value: -10.52 },
+  { fips: '045', value: 32.41 },
+  { fips: '105', value: -9.76 },
+  { fips: '031', value: 50.42 },
+  { fips: '011', value: -33.24 },
+  { fips: '125', value: -35.09 },
+  { fips: '015', value: 40.84 },
+  { fips: '007', value: -11.89 },
+  { fips: '067', value: 19.67 },
+  { fips: '017', value: 7.01 },
+  { fips: '077', value: 54.83 },
+  { fips: '127', value: -37.55 },
+  { fips: '057', value: -20.04 },
+  { fips: '061', value: 3.15 },
+  { fips: '079', value: -39.21 },
+  { fips: '027', value: -57.08 },
+  { fips: '087', value: 38.02 },
+  { fips: '093', value: 48.78 },
+  { fips: '133', value: -25.33 },
+  { fips: '113', value: -30.47 },
+  { fips: '081', value: 17.48 },
+  { fips: '019', value: -44.23 },
+  { fips: '059', value: 22.79 },
+  { fips: '111', value: -5.12 },
+  { fips: '123', value: -21.74 },
+  { fips: '053', value: 41.69 },
 ];
+
+const countyData = [
+  { district: '01', value: 12.1},
+  { district: '02', value: -3.2},
+  { district: '03', value: 4.3},
+  { district: '04', value: 5.4},
+  { district: '05', value: 6.5},
+  { district: '06', value: -7.6},
+  { district: '07', value: 8.7},
+  { district: '0', value: 9.8},
+];
+
 
 if (typeof window !== `undefined`) {
   highchartsAccessibility(Highcharts);
@@ -98,7 +110,12 @@ interface RTCMapProps {
 }
 
 interface FakeData {
-  GEOID: string;
+  fips: string;
+  value: number;
+}
+
+interface countyFakeData {
+  district: string;
   value: number;
 }
 
@@ -121,6 +138,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
 
   const [zoomScale, setZoomScale] = useState<number | null>(null);
   const [currentZoom, setCurrentZoom] = useState<number | null>(null);
+  const [centerPosition, setCenterPosition] = useState<[number, number] | null>(null);
 
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
@@ -155,6 +173,17 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
   }, []);
 
   useEffect(() => {
+
+    if (stateChart) {
+      const zoomLevel = stateChart.mapView.zoom;
+      const center = stateChart.mapView.center;
+      setCurrentZoom(zoomLevel);
+      setCenterPosition(center);
+      sharedState.setLevel('state');
+      setSelectedCounty('');
+      setCountyName('');
+    }
+
     retrieveMapData();
     console.log('stateChart', stateChart);
   }, [raceType, year, stateName]);
@@ -191,8 +220,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
           {
             events: {
               click: function (event: any) {
-                const countyName = event.point["name"];
-                handleCountyClick(event.point.GEOID, countyName);
+                const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
+                const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
+                handleCountyClick(fipsOrDistrict, countyName);
               },
             },
           },
@@ -201,11 +231,11 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     }
   }, [sharedState.view, wasPanned, stateChart]);
 
-  function getMaxState(stateData: FakeData[]): number {
+  function getMaxState(stateData: FakeData[] | countyFakeData[]): number {
     return Math.max(...stateData.map((state) => state.value));
   }
 
-  function getMinState(stateData: FakeData[]): number {
+  function getMinState(stateData: FakeData[] | countyFakeData[]): number {
     return Math.min(...stateData.map((state) => state.value));
   }
 
@@ -237,7 +267,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
   };
 
   useEffect(() => {
-    if (stateChart) {
+    if (stateChart && raceType === RaceType.Presidential) {
       stateChart.update({
         series: [
           {
@@ -245,9 +275,25 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
             data: presData.map((county) => ({
               ...county,
               borderColor:
-                ((county.GEOID === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+                ((county.fips === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
               borderWidth: 
-                ((county.GEOID === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+                ((county.fips === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+            })),
+          },
+          
+        ],
+      });
+    } else if (stateChart && raceType != RaceType.Presidential) {
+      stateChart.update({
+        series: [
+          {
+            type: 'map',
+            data: countyData.map((district) => ({
+              ...district,
+              borderColor:
+                ((district.district === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+              borderWidth: 
+                ((district.district === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
             })),
           },
           
@@ -258,8 +304,9 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
 
   const initializeMap = (mapData: any, cityData: any) => {
     const axisMax: number = Math.max(
-      Math.abs(getMinState(presData)),
-      Math.abs(getMaxState(presData))
+      raceType === RaceType.Presidential ? Math.abs(getMinState(presData)) : Math.abs(getMinState(countyData)),
+      raceType === RaceType.Presidential ? Math.abs(getMaxState(presData)) : Math.abs(getMaxState(countyData))
+      // Math.abs(getMaxState(presData))
     );
     const colorAxis: Highcharts.ColorAxisOptions = {
       min: -axisMax,
@@ -302,18 +349,18 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     };
     const { minLongitude, maxLongitude, minLatitude, maxLatitude } =
       getMinMaxCoordinates(mapData);
-    const axisMaxFirst: number = Math.max(
-      Math.abs(getMinState(presData)),
-      Math.abs(getMaxState(presData))
-    );
-    const zoomScale = axisMaxFirst > 100
-      ? 0.8
-      : axisMaxFirst > 50
-      ? 1.0
-      : axisMaxFirst > 25
-      ? 1.2
-      : 1.5
-    ;  
+    // const axisMaxFirst: number = Math.max(
+    //   Math.abs(getMinState(presData)),
+    //   Math.abs(getMaxState(presData))
+    // );
+    // const zoomScale = axisMaxFirst > 100
+    //   ? 0.8
+    //   : axisMaxFirst > 50
+    //   ? 1.0
+    //   : axisMaxFirst > 25
+    //   ? 1.2
+    //   : 1.5
+    // ;  
     const horizDiff = maxLongitude - minLongitude;
     const vertDiff = maxLatitude - minLatitude;
     // let zoomScale = 0.8;
@@ -358,6 +405,12 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
           load: function () {
             const chart = this;
 
+            if (currentZoom && centerPosition) {
+              (chart as any).mapView.setView(centerPosition, currentZoom)
+              // chart.setCenter(centerPosition);
+              // chart.mapZoom(currentZoom);
+            }
+
             chart.series.forEach(function (series) {
               if (series.type === 'mappoint') {
                 series.points.forEach(function (point, index) {
@@ -376,7 +429,11 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
               }
             });
 
-            currentZoom ? this.mapZoom(currentZoom) : this.mapZoom(zoomScale);
+            if (currentZoom !== null) {
+              this.mapZoom(currentZoom);
+            } else if (zoomScale !== null) {
+              this.mapZoom(zoomScale);
+            }
             chart.redraw();
           },
           redraw: function () {
@@ -397,7 +454,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
         text: '',
       },
       tooltip: {
-        enabled: false,
+        enabled: true,
       },
       plotOptions: {
         map: {
@@ -421,8 +478,8 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
           showInLegend: false,
           type: 'map',
           mapData: mapData,
-          data: presData,
-          joinBy: 'GEOID',
+          data: raceType == RaceType.Presidential ? presData : countyData,
+          joinBy: raceType == RaceType.Presidential ? ['COUNTYFP', 'fips'] : ['CD116FP', 'district'],
           nullColor: '#FFFFFF',
           name: 'Counties',
           borderColor: 'black',
@@ -440,13 +497,14 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
             },
             padding: 10,
           },
-          // tooltip: {
-          //   pointFormat: '{point.properties.NAME} County',
-          // },
+          tooltip: {
+            pointFormat: raceType === RaceType.Presidential ? '{point.properties.NAME} County' : '{point.properties.NAMELSAD}',
+          },
           events: {
             click: function (event: any) {
-              const countyName = event.point["name"];
-              handleCountyClick(event.point.GEOID, countyName);
+              const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
+              const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
+              handleCountyClick(fipsOrDistrict, countyName);
             },
           },
         },
