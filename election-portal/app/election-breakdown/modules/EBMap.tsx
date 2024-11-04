@@ -864,6 +864,7 @@ const EBMap: React.FC = () => {
         enabled: true,
         enableMouseWheelZoom: true,
         enableButtons: false,
+        enableTouchZoom: true,
       },
       colorAxis: {
         min: -axisMax,

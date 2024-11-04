@@ -120,7 +120,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
   const [selectedCounty, setSelectedCounty] = useState('');
 
   const [zoomScale, setZoomScale] = useState<number | null>(null);
-  const [currentZoom, setCurrentZoom] = useState<number>(0.8);
+  const [currentZoom, setCurrentZoom] = useState<number | null>(null);
 
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
@@ -318,11 +318,12 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
     const vertDiff = maxLatitude - minLatitude;
     // let zoomScale = 0.8;
     setZoomScale(0.8);
+    setCurrentZoom(0.8)
     if (vertDiff > horizDiff) {
       // zoomScale = 1;
       setZoomScale(1);
+      setCurrentZoom(1);
     }
-    setCurrentZoom(zoomScale);
     console.log(maxLongitude + horizDiff, maxLatitude - vertDiff);
     const zoomGeometry = {
       type: 'MultiPoint',
@@ -375,14 +376,17 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
               }
             });
 
-            this.mapZoom(zoomScale);
+            currentZoom ? this.mapZoom(currentZoom) : this.mapZoom(zoomScale);
             chart.redraw();
           },
           redraw: function () {
-            const zoomLevel = (this as any).mapView.zoom;
-            
+            const chart = this as any;
+
+            const zoomLevel = chart.mapView.zoom;
+            setCurrentZoom(zoomLevel);
           },
         },
+      },
       credits: {
         enabled: false,
       },
@@ -404,6 +408,7 @@ const StateMap: React.FC<RTCMapProps> = ({ raceType, year, stateName, setCountyN
         enabled: true,
         enableMouseWheelZoom: true,
         enableButtons: false,
+        enableTouchZoom: true,
       },
       colorAxis: colorAxis,
       legend: {
