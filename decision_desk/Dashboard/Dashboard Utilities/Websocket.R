@@ -51,8 +51,10 @@ get_rest_api_data <- function(table) {
   
   api_response <- GET(url)
   
-  data(fromJSON(content(api_response, as = "text", encoding = "UTF-8")))
+  df <- as.data.frame(bind_rows(fromJSON(content(api_response, as = "text", encoding = "UTF-8"))))
+  data(df)
 
   return(data)
 }
 
+get_rest_api_data("race")
