@@ -197,13 +197,13 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       Year.Sixteen,
       setSixteenPresData,
       'sixteenPresData',
-      prodSlug + '/R2C/2016Presidential.csv'
+      `${prodSlug}/R2C/2016Presidential.csv`
     );
     fetchData(
       Year.Twenty,
       setTwentyPresData,
       'twentyPresData',
-      prodSlug + '/R2C/2020Presidential.csv'
+      `${prodSlug}/R2C/2020Presidential.csv`
     );
   }, []);
 
