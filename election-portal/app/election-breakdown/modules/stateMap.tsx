@@ -209,7 +209,8 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   const handleCountyClick = (countyKey: string, countyName: string) => {
     console.log('wasPanned', wasPanned);
     if (!wasPanned) {
-      setSelectedCounty(countyKey); // Update selected county key for border
+      // setSelectedCounty(countyKey); // Update selected county key for border
+      setSelectedCounty(countyName);
       
       sharedState.setLevel('county');
       setCountyName(countyName);
@@ -217,40 +218,63 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   };
 
   useEffect(() => {
-    if (stateChart && raceType === RaceType.Presidential) {
+    if (stateChart && countyData) {
+      console.log('countyData: ', countyData);
+      console.log('selectedCounty: ', selectedCounty);
       stateChart.update({
-        series: [
-          {
-            type: 'map',
-            data: presData.map((county) => ({
-              ...county,
-              borderColor:
-                ((county.fips === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
-              borderWidth: 
-                ((county.fips === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
-            })),
-          },
-          
-        ],
-      });
-    } else if (stateChart && raceType != RaceType.Presidential) {
-      stateChart.update({
-        series: [
-          {
-            type: 'map',
-            data: countyData.map((district) => ({
-              ...district,
-              borderColor:
-                ((district.district === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
-              borderWidth: 
-                ((district.district === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
-            })),
-          },
-          
-        ],
-      });
+              series: [
+                {
+                  type: 'map',
+                  data: electionData.map((datum) => ({
+                    ...datum,
+                    borderColor:
+                      ((datum.NAME === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+                    borderWidth: 
+                      ((datum.NAME === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+                  })),
+                },
+              ]
+            });
     }
-  }, [selectedCounty, stateChart, sharedState.level]);
+  }
+  , [selectedCounty, stateChart, sharedState.level]);
+
+  // useEffect(() => {
+  //   if (stateChart && raceType === RaceType.Presidential) {
+  //     stateChart.update({
+  //       series: [
+  //         {
+  //           type: 'map',
+  //           data: presData.map((county) => ({
+  //             ...county,
+  //             borderColor:
+  //               ((county.fips === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+  //             borderWidth: 
+  //               ((county.fips === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+  //           })),
+  //         },
+          
+  //       ],
+  //     });
+  //   } else if (stateChart && raceType != RaceType.Presidential) {
+  //     stateChart.update({
+  //       series: [
+  //         {
+  //           type: 'map',
+  //           data: countyData.map((district) => ({
+  //             ...district,
+  //             borderColor:
+  //               ((district.district === selectedCounty) && (sharedState.level === "county"))  ? 'lightgreen' : '#000000',
+  //             borderWidth: 
+  //               ((district.district === selectedCounty) && (sharedState.level === "county")) ? 6 : 1,
+  //           })),
+  //         },
+          
+  //       ],
+  //     });
+  //   }
+  // }, [selectedCounty, stateChart, sharedState.level]);
+
   const initializeMap = (mapData: any, cityData: any) => {
     let fetchedData: ElectionData[] = [];
     countyData?.forEach((datum) => {
@@ -498,7 +522,8 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
           type: 'map',
           mapData: mapData,
           data: fetchedData,
-          joinBy: raceType == RaceType.Presidential ? ['COUNTYFP', 'fips'] : ['CD116FP', 'district'],
+          // joinBy: raceType == RaceType.Presidential ? ['COUNTYFP', 'fips'] : ['CD116FP', 'district'],
+          joinBy: 'NAME',
           nullColor: '#505050',
           name: 'Counties',
           borderColor: 'black',
