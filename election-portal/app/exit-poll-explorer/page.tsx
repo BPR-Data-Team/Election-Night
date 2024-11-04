@@ -14,7 +14,7 @@ import Canvas from '../modules/canvas/canvas';
 import { RaceType } from '@/types/RaceType';
 import { Year } from '@/types/Year';
 import { Demographic } from '@/types/Demographic';
-import EBMap from '../election-breakdown/modules/EBMap';
+import EXMap from './modules/EXMap';
 import Banner from '../election-breakdown/modules/banner';
 import StatsTable from './modules/statistics-table';
 import {
@@ -57,13 +57,13 @@ export default function Exit_Poll_Explorer_Page() {
 
   useEffect(() => {
     const wrapperDiv = document?.getElementById('mapWrapper');
-    const EBMapDiv = document?.getElementById('EBContainer');
+    const EXMapDiv = document?.getElementById('EXContainer');
     wrapperDiv?.addEventListener('click', function (event) {
       if (event.target === event.currentTarget) {
         sharedState.setView(State.National);
       }
     });
-    EBMapDiv?.addEventListener('click', function (event) {
+    EXMapDiv?.addEventListener('click', function (event) {
       if (event.target === event.currentTarget) {
         sharedState.setView(State.National);
       }
@@ -334,15 +334,15 @@ export default function Exit_Poll_Explorer_Page() {
           <div className={styles.mapWrapper} id="mapWrapper">
             {displayNational && (
               <div
-                className={styles.EBMapContainer}
-                id="EBContainer"
+                className={styles.EXMapContainer}
+                id="EXMapContainer"
                 style={{
                   ...(sharedState.level == 'national'
                     ? { opacity: 1 }
                     : { opacity: 0 }),
                 }}
               >
-                <EBMap
+                <EXMap
                   historicalElectionsData={filteredHistoricalElectionsData}
                 />
               </div>

@@ -11,14 +11,17 @@
   height: 100vh;
 }
 
-.EBMapContainer {
+.EXMapContainer {
   position: absolute;
-  left: 24%;
-  top: 12%;
+  width: 100vw;
+  height: 100vh;
   transition:
     left 0.5s ease-out,
     opacity 0.1s ease-in-out;
-  pointer-events: all;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /* could possibly add a delay if you want "double taps" without animation */
 }
 
