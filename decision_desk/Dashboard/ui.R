@@ -3,6 +3,7 @@ library(shinyWidgets)
 library(bslib)
 library(ggplot2)
 library(leaflet)
+library(shinycssloaders)
 
 source("decision_desk/Dashboard/Dashboard Utilities/Plotting.R")
 source("decision_desk/Dashboard/Dashboard Utilities/TimeToNextPoll.R")
@@ -69,7 +70,7 @@ ui <- page_sidebar(
       label = "Key Races Only",
       value = FALSE
     ),
-    uiOutput("elections")
+    uiOutput("elections") %>% withSpinner()
   ),
   conditionalPanel(
     condition = "input.category_select != 'All' && input.state_select != 'All' && !(input.category_select == 'House' && input.district_select == 'All')",
@@ -106,6 +107,29 @@ ui <- page_sidebar(
           full_screen = FALSE, 
           card_header("Predicted Percent in"),
           textOutput("expected_pct_in")
+        )
+      ),
+      layout_columns(
+        
+        card(
+          full_screen = FALSE, 
+          card_header("Democrat %"),
+          textOutput("dem_pct")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Republican %"),
+          textOutput("rep_pct")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Democrat Votes"),
+          textOutput("dem_votes")
+        ),
+        card(
+          full_screen = FALSE, 
+          card_header("Republican Votes"),
+          textOutput("rep_pct")
         )
       ),
       layout_columns(
@@ -162,7 +186,7 @@ ui <- page_sidebar(
                                      "2024 Margin Bubble" = "2024_margin_bubble", 
                                      "Swing 2020-2024" = "2024_swing"), 
                       selected = "2024_margin"),
-         leafletOutput("TL_map")
+         leafletOutput("TL_map") %>% withSpinner()
         ),
         card(
           full_screen = FALSE, 
@@ -176,14 +200,14 @@ ui <- page_sidebar(
                                      "2024 President - 2024 Governor Swing" = "pres_gov_swing_24",
                                      "2020 President - 2024 Governor Swing" = "pres_gov_swing_20"),
                       selected = "2020_margin"),
-          leafletOutput("TR_map")
+          leafletOutput("TR_map") %>% withSpinner()
         )
       ),
       layout_columns(
         card(
           full_screen = FALSE, 
           card_header("Where votes remain map"),
-          leafletOutput("remaining_votes_map")
+          leafletOutput("remaining_votes_map") %>% withSpinner()
         ),
         card(
           full_screen = FALSE, 
@@ -195,7 +219,7 @@ ui <- page_sidebar(
                                      "Median income" = "income",
                                      "White college %" = "white_college"),
                       selected = "white"),
-          leafletOutput("demographic_map")
+          leafletOutput("demographic_map") %>% withSpinner()
         )
       ),
       card(
@@ -215,19 +239,19 @@ ui <- page_sidebar(
                     choices = c("2020", "2024"),
                     selected = "2020"),
         
-        tableOutput("exit_poll_table"),
-        tableOutput("exit_poll_expectation")
+        tableOutput("exit_poll_table") %>% withSpinner(),
+        tableOutput("exit_poll_expectation") %>% withSpinner()
       ),
       layout_columns(
         card(
           fill = TRUE,
           card_header("Margin over time in 2020"),
-          plotOutput("margin_graph_2020")
+          plotOutput("margin_graph_2020") %>% withSpinner()
         ),
         card(
           fill = TRUE, 
           card_header("Pct of vote reporting in 2020"), 
-          plotOutput("expected_pct_graph_2020")
+          plotOutput("expected_pct_graph_2020") %>% withSpinner()
         )
       )
     )

@@ -89,10 +89,13 @@ get_label_votes_remaining <- function(NAME, total_votes_estimate, total_votes_lo
 }
 
 # Map makers 
-get_margin_map <- function(year, state_abbrev, office) {
+get_margin_map <- function(county_data, year, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev, office_type == office)
   
+  view(county_data)
+  view(current_data)
+
   state_name <- state.name[match(state_abbrev, state.abb)]
   
   if (is.na(state_name)) {
@@ -102,12 +105,10 @@ get_margin_map <- function(year, state_abbrev, office) {
   geojson_link <- glue("GeoJSON/County/2022/{state_name}_2022.geojson")
   city_json <- glue("election-portal/public/GeoJSON/City/{state_name}.json")
 
-
   city_data <- fromJSON(city_json)
   city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
 
-  
-  geo_data <- st_read(geojson_link) %>% 
+  geo_data <- st_read(geojson_link, quiet=TRUE) %>% 
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
   if (year == 2024) {
@@ -169,13 +170,7 @@ get_margin_map <- function(year, state_abbrev, office) {
       
         
   } else if (year == 2020) {
-    
-    prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
-    prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
-    prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
-    prev_dem_pct <- 100 * prev_dem_votes / prev_total_votes
-    prev_rep_pct <- 100 * prev_rep_votes / prev_total_votes
-    
+
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE,
       scrollWheelZoom = FALSE, 
@@ -185,8 +180,8 @@ get_margin_map <- function(year, state_abbrev, office) {
       addPolygons(
         fillColor = ~pal(margin_pct_1),
         color = "black",
-        label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", prev_rep_votes, prev_dem_votes, 
-                                  prev_rep_pct, prev_dem_pct, 100), htmltools::HTML),  # Convert HTML for the popup
+        label = ~lapply(get_label(NAME, "Republican Candidate", "Democratic Candidate", republican_votes_1, democratic_votes_1, 
+                                  republican_percent_1, democratic_percent_1, 100), htmltools::HTML),  # Convert HTML for the popup
         weight = 1,
         opacity = 1,
         fillOpacity = 0.7,
@@ -237,9 +232,10 @@ get_margin_map <- function(year, state_abbrev, office) {
   return(graph)
 }
 
-get_margin_bubble_map <- function(year, state_abbrev, office) {
+get_margin_bubble_map <- function(county_data, year, state_abbrev, office) {
   current_data <- county_data %>%
-    filter(state == state_abbrev, office_type == office)
+    filter(state == state_abbrev, office_type == office) 
+  
   state_name <- state.name[match(state_abbrev, state.abb)]
   
   if (is.na(state_name)) {
@@ -248,7 +244,7 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
   
   geojson_link <- glue("GeoJSON/County/2022/{state_name}_2022.geojson")
 
-  geo_data <- st_read(geojson_link) %>%
+  geo_data <- st_read(geojson_link, quiet=TRUE) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
   geo_data_centroids <- st_centroid(geo_data)
@@ -291,13 +287,7 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
   } else if (year == 2020) {
     
     max_votes <- max(abs(geo_data_centroids$margin_votes_1))
-    
-    prev_total_votes <- round(100 * geo_data$margin_votes_1 / geo_data$margin_pct_1, 0)
-    prev_dem_votes <- round((geo_data$margin_votes_1 + prev_total_votes) / 2, 0)
-    prev_rep_votes <- round((prev_total_votes - geo_data$margin_votes_1) / 2, 0)
-    prev_dem_pct <- 100 * prev_dem_votes / prev_total_votes
-    prev_rep_pct <- 100 * prev_rep_votes / prev_total_votes
-    
+
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
       scrollWheelZoom = FALSE, 
@@ -336,7 +326,7 @@ get_margin_bubble_map <- function(year, state_abbrev, office) {
   return(graph)
 }
 
-get_margin_map_district <- function(year, state_abbrev, congressional_district) {
+get_margin_map_district <- function(county_data, year, state_abbrev, congressional_district) {
   
   #Current data
   current_data <- county_data %>%
@@ -441,7 +431,7 @@ get_margin_map_district <- function(year, state_abbrev, congressional_district) 
   return (graph)
 }
 
-get_margin_bubble_map_district <- function(year, state_abbrev, congressional_district) {
+get_margin_bubble_map_district <- function(county_data, year, state_abbrev, congressional_district) {
   #Current data
   current_data <- county_data %>%
     filter(state == state_abbrev,
@@ -475,7 +465,7 @@ get_margin_bubble_map_district <- function(year, state_abbrev, congressional_dis
   geo_data_centroids <- st_centroid(geo_data)
   max_votes <- max(abs(geo_data_centroids$margin_votes))
   
-  #CHecking that all cities are within the graph
+  #Checking that all cities are within the graph
   within_result <- st_within(city_sf, geo_data)
   
   is_within <- map_lgl(within_result, function(x) length(x) > 0)
@@ -516,7 +506,7 @@ get_margin_bubble_map_district <- function(year, state_abbrev, congressional_dis
   return (graph)
 }
  
-get_votes_left_map <- function(state_abbrev, office) {
+get_votes_left_map <- function(county_data, state_abbrev, office) {
   current_data <- county_data %>%
     filter(state == state_abbrev, office_type == office)
   
@@ -528,11 +518,12 @@ get_votes_left_map <- function(state_abbrev, office) {
   
   geojson_link <- glue("GeoJSON/County/2022/{state_name}_2022.geojson")
   
-  geo_data <- st_read(geojson_link) %>%
+  geo_data <- st_read(geojson_link, quiet=TRUE) %>%
     left_join(current_data, by = c("COUNTYFP" = "fips"))
   
   geo_data_centroids <- st_centroid(geo_data)
-
+  max_votes <- max(abs(geo_data_centroids$margin_votes_1))
+  
   graph <- leaflet(geo_data, options = leafletOptions(
     attributionControl = FALSE,
     scrollWheelZoom = FALSE, 
@@ -541,9 +532,9 @@ get_votes_left_map <- function(state_abbrev, office) {
     setMapWidgetStyle(list(background= "white")) %>% # A blank tile layer
     addCircleMarkers(
       data = geo_data_centroids,
-      fillColor = ~pal(margin_votes),
+      fillColor = ~pal(margin_pct),
       color = "black",
-      radius = ~ ifelse(votes_remaining <= 0, 0, sqrt(votes_remaining) / 10),
+      radius = ~ 25 * abs(margin_votes / max_votes),
       weight = 1,
       opacity = 1,
       fillOpacity = 0.7
@@ -567,7 +558,7 @@ get_votes_left_map <- function(state_abbrev, office) {
   return (graph)
 }
 
-get_swing_map <- function(state_abbrev, office_1, office_2, year_1, year_2) {
+get_swing_map <- function(county_data, state_abbrev, office_1, office_2, year_1, year_2) {
   
   state_county_data <- county_data %>% filter(state == state_abbrev)
   
@@ -610,7 +601,7 @@ get_swing_map <- function(state_abbrev, office_1, office_2, year_1, year_2) {
   full_data <- full_join(data_1, data_2, by = 'fips') %>%
     mutate(swing = margin_2 - margin_1)
 
-  geo_data <- st_read(geojson_link) %>%
+  geo_data <- st_read(geojson_link, quiet=TRUE) %>%
     left_join(full_data, by = c("COUNTYFP" = "fips"))
   
   graph <- leaflet(geo_data, options = leafletOptions(
