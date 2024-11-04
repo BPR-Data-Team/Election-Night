@@ -237,6 +237,8 @@ export default function Election_Breakdown_Page() {
               countyName={countyName}
               year={sharedState.year}
               stateData={mockStateData}
+              historicalCountyData={historicalCountyData}
+              historicalElectionsData={historicalElectionsData}
               raceType={sharedState.breakdown}
               sharedStateLevel={sharedState.level}
               countyViewAll={countyViewAll}

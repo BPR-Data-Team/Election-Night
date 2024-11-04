@@ -12,16 +12,16 @@ import { useSharedState } from '../../sharedContext';
 import './stateMap.css';
 import { HistoricalCountyData } from '@/types/data';
 
-const countyData = [
-  { district: '01', value: 12.1},
-  { district: '02', value: -3.2},
-  { district: '03', value: 4.3},
-  { district: '04', value: 5.4},
-  { district: '05', value: 6.5},
-  { district: '06', value: -7.6},
-  { district: '07', value: 8.7},
-  { district: '0', value: 9.8},
-];
+// const countyData = [
+//   { district: '01', value: 12.1},
+//   { district: '02', value: -3.2},
+//   { district: '03', value: 4.3},
+//   { district: '04', value: 5.4},
+//   { district: '05', value: 6.5},
+//   { district: '06', value: -7.6},
+//   { district: '07', value: 8.7},
+//   { district: '0', value: 9.8},
+// ];
 
 
 if (typeof window !== `undefined`) {
@@ -124,8 +124,8 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     if (stateName == 'National') {
       return;
     }
-    const countyOrDistrict = raceType === RaceType.Presidential ? 'County' : 'Congressional District';
-    const newMapData = await fetchStateGeoJSON(stateName, String(year), countyOrDistrict);
+    // const countyOrDistrict = raceType === RaceType.Presidential ? 'County' : 'Congressional District';
+    const newMapData = await fetchStateGeoJSON(stateName, String(year), 'County');
     const newCityData = await fetchCityGeoJSON(stateName);
     initializeMap(newMapData, newCityData);
   };
@@ -150,9 +150,9 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
           {
             events: {
               click: function (event: any) {
-                const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
-                const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
-                handleCountyClick(fipsOrDistrict, countyName);
+                // const countyName = raceType == RaceType.Presidential ? event.point["name"] : event.point.properties.NAMELSAD;
+                // const fipsOrDistrict = raceType == RaceType.Presidential ? event.point.fips : event.point.district;
+                handleCountyClick(event.point["name"], event.point["name"]);
               },
             },
           },

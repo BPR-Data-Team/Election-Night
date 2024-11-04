@@ -2,11 +2,14 @@ import React, { useRef } from 'react';
 
 let stateGeoJSONCache: Map<string, any> = new Map();
 let cityGeoJSONCache: Map<string, any> = new Map();
+let historicalCountyDataCache: Map<string, any> = new Map();
 // TODO: set to empty string in both cases when switching domains
 const prodSlug =
   process.env.NODE_ENV === 'development' ? '' : '/Election-Night';
 
+
 const GeoJsonCache = () => {
+
   // Fetch a single state's GeoJSON data and store it in the cache
   const fetchStateGeoJSON = async (stateName: string, year: string, countyOrDistrict: string) => {
     let stripped_year = year.trim();

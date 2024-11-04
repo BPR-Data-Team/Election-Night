@@ -2,10 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import './dataDisplay.css';
-import { RaceType } from '@/types/RaceType';
+
+import { getDataVersion, RaceType } from '@/types/RaceType';
+import { Year } from '@/types/Year';
+
 import { useSharedState } from '../../sharedContext';
+import { getStateAbbreviation } from '../../../types/State';
 
 import CountyDataDisplay from "./countyDataDisplay"
+
 
 
 const mockCountyData = {
@@ -22,16 +27,29 @@ type DataDisplayProps = {
   countyName: string;
   year: number;
   stateData: any;
+  historicalCountyData: any;
+  historicalElectionsData: any;
   raceType: RaceType;
   sharedStateLevel: string;
   countyViewAll: boolean;
 };
+
+interface ElectionData {
+  Democratic_name: string;
+  Republican_name: string;
+  Democratic_votes_percent: string;
+  Republican_votes_percent: string;
+  Democratic_votes: number;
+  Republican_votes: number;
+}
 
 const DataDisplay: React.FC<DataDisplayProps> = ({
   stateName,
   countyName,
   year,
   stateData,
+  historicalCountyData,
+  historicalElectionsData,
   raceType,
   sharedStateLevel,
   countyViewAll,
@@ -42,7 +60,10 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
 
   const [levelTitle, setLevelTitle] = useState<string>('');
 
+  const [displayData, setDisplayData] = useState<any>(null);
+
   useEffect(() => {
+    
     if (sharedStateLevel == 'state') {
       setLevelTitle('Statewide');
     } else if (sharedStateLevel == 'county') {
@@ -51,6 +72,69 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
       setLevelTitle(stateName);
     }
   }, [sharedStateLevel, countyName]);
+
+  // const initializeData = () => {
+  //   let fetchedData: ElectionData[] = [];
+  //   historicalCountyData?.forEach((datum) => {
+  //     if (
+  //       datum.state === getStateAbbreviation(sharedState.view) &&
+  //       datum.office_type === getDataVersion(sharedState.breakdown)
+  //     ) {
+  //       switch (sharedState.breakdown) {
+  //         case RaceType.Senate:
+  //           switch (sharedState.year) {
+  //             case Year.Eighteen:
+  //               fetchedData.push({
+  //                 Democratic_name: string;
+  //                 Republican_name: string;
+  //                 Democratic_votes_percent: string;
+  //                 Republican_votes_percent: string;
+  //                 Democratic_votes: number;
+  //                 Republican_votes: number;
+  //               });
+  //               break;
+  //             case Year.Twelve:
+  //               fetchedData.push({
+  //                 NAME: datum.county,
+  //                 value: datum.margin_pct_2,
+  //               });
+  //               break;
+  //           }
+  //         case RaceType.Gubernatorial:
+  //           switch (sharedState.year) {
+  //             case Year.Twenty:
+  //               fetchedData.push({
+  //                 NAME: datum.county,
+  //                 value: datum.margin_pct_1,
+  //               });
+  //               break;
+  //             case Year.Sixteen:
+  //               fetchedData.push({
+  //                 NAME: datum.county,
+  //                 value: datum.margin_pct_2,
+  //               });
+  //               break;
+  //           }
+  //         case RaceType.Presidential:
+  //           switch (sharedState.year) {
+  //             case Year.Twenty:
+  //               fetchedData.push({
+  //                 NAME: datum.county,
+  //                 value: datum.margin_pct_1,
+  //               });
+  //               break;
+  //             case Year.Sixteen:
+  //               fetchedData.push({
+  //                 NAME: datum.county,
+  //                 value: datum.margin_pct_2,
+  //               });
+  //               break;
+  //           }
+  //       }
+  //     }
+  //   });
+  //   setDisplayData(fetchedData);
+  // }
 
   const sharedState = useSharedState().state;
 
