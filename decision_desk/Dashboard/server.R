@@ -513,7 +513,7 @@ server <- function(input, output, session) {
         class = "election-card",
         actionLink(
           inputId = paste0("election_", i),
-          label = glue("{election$office_type} {election$state} {election$district} - {trunc(election$pct_reporting)}% rep.")
+          label = glue("{election$office_type} {election$state} {election$district} - {trunc((election$pct_reporting))}% rep.")
         )
       )
     })
