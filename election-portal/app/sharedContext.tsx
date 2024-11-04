@@ -1,5 +1,4 @@
 'use client';
-
 import React, {
   createContext,
   useContext,
@@ -26,7 +25,41 @@ import {
   CalledElectionRaw,
 } from '@/types/data';
 
-// FETCH DDHQ RACE
+function getYearsFromBreakdown(breakdown: RaceType): Year[] {
+  switch (breakdown) {
+    case RaceType.Presidential:
+      return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
+    case RaceType.Senate:
+      return [Year.TwentyFour, Year.Eighteen, Year.Twelve];
+    case RaceType.Gubernatorial:
+      return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
+    default:
+      return [
+        Year.TwentyFour,
+        Year.TwentyTwo,
+        Year.Twenty,
+        Year.Eighteen,
+        Year.Sixteen,
+      ];
+  }
+}
+
+interface SharedStateContextProps {
+  state: SharedInfo;
+}
+
+const SharedStateContext = createContext<SharedStateContextProps | undefined>(
+  undefined
+);
+
+export const useSharedState = (): SharedStateContextProps => {
+  const context = useContext(SharedStateContext);
+  if (!context) {
+    throw new Error('useSharedState must be used within a SharedStateProvider');
+  }
+  return context;
+};
+
 const fetchRaceData = async (): Promise<Map<string, ElectionData>> => {
   try {
     const response = await axios.get<ElectionData[]>(
@@ -206,33 +239,9 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
   }
 };
 
-function getYearsFromBreakdown(breakdown: RaceType): Year[] {
-  switch (breakdown) {
-    case RaceType.Presidential:
-      return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
-    case RaceType.Senate:
-      return [Year.TwentyFour, Year.Eighteen, Year.Twelve];
-    case RaceType.Gubernatorial:
-      return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
-    default:
-      return [
-        Year.TwentyFour,
-        Year.TwentyTwo,
-        Year.Twenty,
-        Year.Eighteen,
-        Year.Sixteen,
-      ];
-  }
-}
-
 interface SharedStateContextProps {
   state: SharedInfo;
 }
-
-const SharedStateContext = createContext<SharedStateContextProps | undefined>(
-  undefined
-);
-
 export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -543,12 +552,4 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       {children}
     </SharedStateContext.Provider>
   );
-};
-
-export const useSharedState = (): SharedStateContextProps => {
-  const context = useContext(SharedStateContext);
-  if (!context) {
-    throw new Error('useSharedState must be used within a SharedStateProvider');
-  }
-  return context;
 };

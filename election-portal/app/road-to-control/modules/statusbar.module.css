@@ -3,7 +3,7 @@
 .container {
   width: 70%;
   position: relative;
-  height: 2.5rem;
+  height: 2rem;
   background-color: var(--statusbar-bgcolor);
   display: flex;
   justify-content: space-between; /* Ensures the bars are on the sides */

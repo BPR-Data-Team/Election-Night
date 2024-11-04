@@ -1,38 +1,49 @@
 #rtc-container {
   align-content: end;
-  height: 100%;
+  height: 80vh;
 }
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.map {
   display: flex;
-  align-items: end;
   justify-content: center;
-  z-index: 1000;
+  width: 80%;
+} 
+.map-and-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}
+.map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 3rem;
+}
+.map-and-controls {
+  display: flex;
+  align-items: flex-start;
+}
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
 }
 
-.modal-content {
+.circle-text {
+  font-size: 16px;
+  color: black;
   font-family: 'gelica, book antiqua, georgia, times new roman, serif';
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
 }
-
-.modal-button {
-  font-family: 'gelica, book antiqua, georgia, times new roman, serif';
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .reset-button-container {
   position: fixed;
   right: 16%;
@@ -44,4 +55,6 @@
   padding: 0.3rem;
   font-size: 1.7em;
   border-radius: 4px;
+  margin-top: 10rem;
+  
 }

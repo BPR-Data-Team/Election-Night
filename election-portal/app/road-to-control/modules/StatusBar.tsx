@@ -1,32 +1,16 @@
-'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './statusbar.module.css'; // Import CSS module
 
-const StatusBar: React.FC = () => {
-  const [leftPercentage, setLeftPercentage] = useState(0);
-  const [rightPercentage, setRightPercentage] = useState(0);
-  const [leftCount, setLeftCount] = useState(0);
-  const [rightCount, setRightCount] = useState(0);
+interface StatusBarProps {
+  leftCount: number;
+  rightCount: number;
+  
+}
+
+const StatusBar: React.FC<StatusBarProps> = ({ leftCount, rightCount }) => {
   const total = 538;
-
-  // Simulate fetching data from an API
-  useEffect(() => {
-    const fetchData = async () => {
-      // Temporary mock data
-      const leftData = 200;
-      const rightData = 270;
-
-      // Set the count
-      setLeftCount(leftData);
-      setRightCount(rightData);
-
-      // Calculate the percentages based on the total
-      setLeftPercentage((leftData / total) * 100);
-      setRightPercentage((rightData / total) * 100);
-    };
-
-    fetchData();
-  }, []);
+  const leftPercentage = (leftCount / total) * 100;
+  const rightPercentage = (rightCount / total) * 100;
 
   return (
     <div className={styles.container}>
