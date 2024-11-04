@@ -24,7 +24,7 @@ import {
   ExitPollData,
 } from '@/types/data';
 
-// use REST API to fetch ddhq race data
+// FETCH DDHQ RACE
 const fetchRaceData = async (): Promise<Map<string, ElectionData>> => {
   try {
     const response = await axios.get<ElectionData[]>(
@@ -51,11 +51,7 @@ const fetchRaceData = async (): Promise<Map<string, ElectionData>> => {
       };
       electionDataMap.set(item.officetype_district_state, newItem);
     });
-
-    // for now, for readability
-    // electionDataMap.forEach((key, item) => {
-    //   console.log(key, item);
-    // });
+    console.log(`Total race data entries: ${electionDataMap.size}`);
     return electionDataMap;
   } catch (error) {
     console.error('Error fetching race data:', error);
@@ -63,55 +59,69 @@ const fetchRaceData = async (): Promise<Map<string, ElectionData>> => {
   }
 };
 
-// use REST API to fetch ddhq county data
+// FETCH DDHQ COUNTY WITH PAGINATION
 const fetchCountyData = async (): Promise<Map<string, CountyData>> => {
-  try {
-    const response = await axios.get<CountyData[]>(
-      'https://ti2579xmyi.execute-api.us-east-1.amazonaws.com/active?table=county'
-    );
+  const countyDataMap = new Map<string, CountyData>();
+  let lastKey = null; // set lastKey as null initially
 
-    // Convert the array to a Map, using a unique identifier as the key
-    const countyDataMap = new Map<string, CountyData>();
-    response.data.forEach((item) => {
-      var newItem: CountyData = {
-        county: item.county,
-        office_type: item.office_type,
-        district: item.district,
-        state: item.state,
-        fips: item.fips,
-        Democratic_name: item.Democratic_name,
-        Republican_name: item.Republican_name,
-        dem_votes: item.Democratic_votes,
-        rep_votes: item.Republican_votes,
-        dem_votes_pct: item.Democratic_votes_percent,
-        rep_votes_pct: item.Republican_votes_percent,
-        swing: item.swing,
-        margin_pct: item.margin_pct,
-        pct_reporting: item.pct_reporting,
-        officetype_county_district_state: item.officetype_county_district_state,
-      };
-      countyDataMap.set(item.officetype_county_district_state, newItem);
-    });
-    // log each entry for now
-    // countyDataMap.forEach((key, item) => {
-    //   console.log(key, item);
-    // });
+  try {
+    do {
+      let url =
+        'https://ti2579xmyi.execute-api.us-east-1.amazonaws.com/active?table=county';
+      if (lastKey) {
+        const encodedLastKey = encodeURIComponent(JSON.stringify(lastKey));
+        url += `&lastKey=${encodedLastKey}`;
+      }
+      // fetch data now
+      console.log('fetching county data from API');
+      const response = await axios.get<{
+        items: CountyData[];
+        lastKey: string | null;
+      }>(url);
+      response.data.items.forEach((item) => {
+        const newItem: CountyData = {
+          county: item.county,
+          office_type: item.office_type,
+          district: item.district,
+          state: item.state,
+          fips: item.fips,
+          Democratic_name: item.Democratic_name,
+          Republican_name: item.Republican_name,
+          dem_votes: item.Democratic_votes,
+          rep_votes: item.Republican_votes,
+          dem_votes_pct: item.Democratic_votes_percent,
+          rep_votes_pct: item.Republican_votes_percent,
+          swing: item.swing,
+          margin_pct: item.margin_pct,
+          pct_reporting: item.pct_reporting,
+          officetype_county_district_state:
+            item.officetype_county_district_state,
+        };
+        countyDataMap.set(item.officetype_county_district_state, newItem);
+      });
+      lastKey = response.data.lastKey;
+      console.log(
+        `County data map size after last API Pull: ${countyDataMap.size}`
+      );
+    } while (lastKey); // continue fetching until lastKey is null
+
+    console.log(`Total county data entries: ${countyDataMap.size}`);
+
     return countyDataMap;
   } catch (error) {
-    console.error('Error fetching race data:', error);
+    console.error('Error fetching county data:', error);
     throw error;
   }
 };
 
-// use REST API to fetch logan data
+// FETCH LOGAN DATA
 const fetchCalledElectionData = async (): Promise<
   Map<string, CalledElection>
 > => {
   try {
-    const response = await axios.get<CountyData[]>(
+    const response = await axios.get<CalledElection[]>(
       'https://ti2579xmyi.execute-api.us-east-1.amazonaws.com/active?table=logan'
     );
-
     // First, parse out state, district, and office_type from key
     // Then convert REST API response into map
     const calledElectionMap = new Map<string, CalledElection>();
@@ -129,42 +139,59 @@ const fetchCalledElectionData = async (): Promise<
       };
       calledElectionMap.set(state_district_office, newItem);
     });
-    // log each entry for now
-    calledElectionMap.forEach((key, item) => {
-      console.log(key, item);
-    });
+
+    console.log(`Total logan data entries: ${calledElectionMap.size}`);
     return calledElectionMap;
   } catch (error) {
-    console.error('Error fetching race data:', error);
+    console.error('Error fetching logan data:', error);
     throw error;
   }
 };
 
-// use REST API to fetch Exit Poll Data (nothing there currently)
+// FETCH EXIT POLLS WITH PAGINATION
 const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
+  const exitPollMap = new Map<string, ExitPollData>();
+  let lastKey = null; // set lastKey as null initially
+
   try {
-    const response = await axios.get<ExitPollData[]>(
-      'https://ti2579xmyi.execute-api.us-east-1.amazonaws.com/active?table=exit_polls'
-    );
+    do {
+      let url =
+        'https://ti2579xmyi.execute-api.us-east-1.amazonaws.com/active?table=exit_polls';
+      if (lastKey) {
+        const encodedLastKey = encodeURIComponent(JSON.stringify(lastKey));
+        url += `&lastKey=${encodedLastKey}`;
+      }
+      // fetch data now
+      console.log('fetching exit poll data from API');
+      const response = await axios.get<{
+        items: ExitPollData[];
+        lastKey: string | null;
+      }>(url);
+      response.data.items.forEach((item) => {
+        const newItem: ExitPollData = {
+          state: item.state,
+          office_type: item.office_type,
+          question: item.question,
+          answer: item.answer,
+          demographic_pct: item.demographic_pct,
+          answer_pct: item.answer_pct,
+          lastName: item.lastName,
+          state_officetype_answer_lastname:
+            item.state_officetype_answer_lastname,
+        };
+        exitPollMap.set(item.state_officetype_answer_lastname, newItem);
+      });
+      lastKey = response.data.lastKey;
+      console.log(
+        `Exit poll data map size after last API Pull: ${exitPollMap.size}`
+      );
+    } while (lastKey); // continue fetching until lastKey is null
 
-    const exitPollsMap = new Map<string, ExitPollData>();
-    response.data.forEach((item) => {
-      var newItem: ExitPollData = {
-        state: item.state,
-        office_type: item.office_type,
-        question: item.question,
-        answer: item.answer,
-        demographic_pct: item.demographic_pct,
-        answer_pct: item.answer_pct,
-        lastName: item.lastName,
-        state_officetype_answer_lastname: item.state_officetype_answer_lastname,
-      };
-      exitPollsMap.set(item.state_officetype_answer_lastname, newItem);
-    });
+    console.log(`Total exit poll data entries: ${exitPollMap.size}`);
 
-    return exitPollsMap;
+    return exitPollMap;
   } catch (error) {
-    console.error('Error fetching race data:', error);
+    console.error('Error fetching exit poll data:', error);
     throw error;
   }
 };
@@ -241,42 +268,80 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       setDemographic(demographic);
     }
   };
+
+  // useQuery stuff for REST API Connection
+
+  // RACE DATA
   const {
     data: initialElectionData,
     isLoading: electionDataLoading,
     error: electionDataError,
-  } = useQuery<Map<string, ElectionData>, Error>('raceData', fetchRaceData);
-
+  } = useQuery<Map<string, ElectionData>, Error>('raceData', fetchRaceData, {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
   const [electionData, setElectionData] = useState<Map<string, ElectionData>>(
     initialElectionData || new Map()
   );
+
+  // COUNTY DATA
   const {
     data: initialCountyData,
     isLoading: countyDataLoading,
     error: countyDataError,
-  } = useQuery<Map<string, CountyData>, Error>('countyData', fetchCountyData);
-
+  } = useQuery<Map<string, CountyData>, Error>('countyData', fetchCountyData, {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
   const [countyData, setCountyData] = useState<Map<string, CountyData>>(
     initialCountyData || new Map()
   );
+
+  // CALLED ELECTION DATA
   const {
     data: initialCalledElectionData,
     isLoading: calledElectionDataLoading,
     error: calledElectionDataError,
   } = useQuery<Map<string, CalledElection>, Error>(
     'calledElectionData',
-    fetchCalledElectionData
+    fetchCalledElectionData,
+    {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      refetchOnWindowFocus: false,
+    }
   );
-
   const [calledElectionData, setCalledElectionData] = useState<
     Map<string, CalledElection>
-  >(initialCountyData || new Map());
+  >(initialCalledElectionData || new Map());
 
+  // EXIT POLL DATA
+  const {
+    data: initialExitPollData,
+    isLoading: exitPollDataLoading,
+    error: exitPollDataError,
+  } = useQuery<Map<string, ExitPollData>, Error>(
+    'exitPollData',
+    fetchExitPollData,
+    {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData>>(
+    initialExitPollData || new Map()
+  );
+
+  // WEBSOCKET CONNECTION
   useEffect(() => {
     const socket = new WebSocket(
       'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/'
     );
 
+    // TODO
     socket.onopen = () => {
       //Any clean up we might need to do from old websocket connection
       // not sure if there's anything?
@@ -287,8 +352,6 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
 
     socket.onmessage = (event) => {
       const update = JSON.parse(event.data);
-
-      // check tableName for different streams and set map accordingy
 
       //RACE TABLE
       if (update.tableName == 'Race_Results' && update.data.length > 0) {
@@ -321,7 +384,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       }
 
       // COUNTY TABLE
-      if (update.tabelName == 'County_Results' && update.data.length > 0) {
+      if (update.tableName == 'County_Results' && update.data.length > 0) {
         const row = update.data[0];
         const key = row.officetype_county_district_state;
 
@@ -353,9 +416,34 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
         });
       }
 
+      // EXIT POLL TABLE
+      if (update.tableName == 'Exit_Polls' && update.data.length > 0) {
+        const row = update.data[0];
+        const key = row.state_officetype_answer_lastname;
+
+        // Create a new object with only the required fields
+        const filteredRow: ExitPollData = {
+          state: row.state,
+          office_type: row.office_type,
+          question: row.question,
+          answer: row.answer,
+          demographic_pct: row.demographic_pct,
+          answer_pct: row.answer_pct,
+          lastName: row.lastName,
+          state_officetype_answer_lastname:
+            row.state_officetype_answer_lastname,
+        };
+        setExitPollData((prevData) => {
+          const newData = new Map(prevData);
+          newData.set(key, filteredRow);
+          console.log(newData);
+          return newData;
+        });
+      }
+
       // CALLED ELECTION DATA
       if (
-        update.tabelName == 'Logan_Called_Elections' &&
+        update.tableName == 'Logan_Called_Elections' &&
         update.data.length > 0
       ) {
         // use regex to parse key into 3 different fields
@@ -381,6 +469,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       }
     };
 
+    // TODO
     socket.onclose = () => {
       //Trigger function that runs RESTAPI until we get a new websocket connection
       // reference chat for wrapping this whole function in an internal function so that we can call reconnect
@@ -423,6 +512,9 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     countyData,
     countyDataError,
     countyDataLoading,
+    exitPollData,
+    exitPollDataError,
+    exitPollDataLoading,
     calledElectionData,
     calledElectionDataLoading,
     calledElectionDataError,
