@@ -54,6 +54,8 @@ export interface CountyData {
   rep_votes_pct: number;
   swing: number;
   margin_pct: number;
+  pct_reporting: number;
+  officetype_county_district_state: string;
 }
 
 export interface ExitPollData {
@@ -64,6 +66,7 @@ export interface ExitPollData {
   demographic_pct: number;
   answer_pct: number;
   lastName: string;
+  state_officetype_answer_lastname: string;
 }
 
 export interface ExitPollAnswer {
@@ -79,4 +82,5 @@ export interface CalledElection {
   district: string;
   office_type: string;
   is_called: string;
+  state_district_office: string;
 }
