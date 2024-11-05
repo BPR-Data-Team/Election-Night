@@ -109,8 +109,8 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   useEffect(() => {
     retrieveMapData();
     // sharedState.setLevel('state'); //breaks EBMap
-    setSelectedCounty('');
-    setCountyName('');
+    // setSelectedCounty('');
+    // setCountyName('');
   }, [
     sharedState.breakdown,
     sharedState.year,
@@ -151,18 +151,112 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     );
     const newCityData = await fetchCityGeoJSON(stateName);
     if (mapData === null || cityData === null) {
+      console.log('Setting map data');
       setMapData(newMapData);
       setCityData(newCityData);
       initializeMap(newMapData, newCityData);
     } else {
+      console.log('Updating map data');
+      console.log('New map data:', newMapData);
+      console.log('New city data:', newCityData);
+      console.log('New Map Data does not equal old map data:', newMapData !== mapData);
       setMapData(newMapData);
       setCityData(newCityData);
+
+      let fetchedData: ElectionData[] = [];
+    countyData?.forEach(
+      (datum: {
+        state: string;
+        office_type: string;
+        county: any;
+        margin_pct_1: any;
+        margin_pct_2: any;
+      }) => {
+        if (
+          datum.state === getStateAbbreviation(sharedState.view) &&
+          datum.office_type === getDataVersion(sharedState.breakdown)
+        ) {
+          switch (sharedState.breakdown) {
+            case RaceType.Senate:
+              switch (sharedState.year) {
+                case Year.Eighteen:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_1,
+                  });
+                  break;
+                case Year.Twelve:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_2,
+                  });
+                  break;
+              }
+            case RaceType.Gubernatorial:
+              switch (sharedState.year) {
+                case Year.Twenty:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_1,
+                  });
+                  break;
+                case Year.Sixteen:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_2,
+                  });
+                  break;
+              }
+            case RaceType.Presidential:
+              switch (sharedState.year) {
+                case Year.Twenty:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_1,
+                  });
+                  break;
+                case Year.Sixteen:
+                  fetchedData.push({
+                    NAME: datum.county,
+                    value: datum.margin_pct_2,
+                  });
+                  break;
+              }
+          }
+        }
+      }
+    );
+
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.countyData?.forEach((datum) => {
+        if (
+          datum.state === getStateAbbreviation(sharedState.view) &&
+          datum.office_type === getDataVersion(sharedState.breakdown)
+        ) {fetchedData.push({
+          NAME: datum.county,
+          value: datum.margin_pct,
+          });
+        }
+      });
+    }
+
       if (stateChart) {
         stateChart.update({
           series: [
             {
               type: 'map',
               map: newMapData,
+              data: fetchedData.map((datum) => ({
+                ...datum,
+                borderColor:
+                  datum.NAME === selectedCounty && sharedState.level === 'county'
+                    ? 'lightgreen'
+                    : '#000000',
+                borderWidth:
+                  datum.NAME === selectedCounty && sharedState.level === 'county'
+                    ? 6
+                    : 1,
+              })),
             },
             {
               type: 'mappoint',
@@ -171,11 +265,14 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
           ],
         });
       }
+
+      setElectionData(fetchedData);
     }
   };
 
   useEffect(() => {
     if (stateChart) {
+
       stateChart.update({
         chart: {
           animation: {
@@ -395,6 +492,10 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
           });
         }
       });
+
+      console.log('Fetched data:', fetchedData);
+      console.log('Electoral data:', electionData);
+      console.log('Fetched data does not equal election data:', fetchedData !== electionData);
     }
 
     const axisMax: number = Math.max(
