@@ -82,11 +82,19 @@ const presData = [
   { 'hc-key': 'us-wy', Called: 'N', electoral_votes: 3 },
 ];
 //mock data
-const mockData = presData.map((item) => ({ ...item, Called: 'N' }));
+const mockData = presData.map((item) => ({
+  ...item,
+  Called: 'N',
+  district: 0,
+}));
 
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const chartRef = useRef<Highcharts.Chart | null>(null);
-  const originalMap = useRef<any[]>([]);
+  const originalMap = useRef<{
+    mapData: any[];
+    circleValues: any[];
+    collective: any[];
+  }>({ mapData: [], circleValues: [], collective: [] });
   const originalElectoralCounts = useRef<any[]>([]);
   const [mapData, setMapData] = useState(mockData); // Default to presData
   const [circleValues, setCircleValues] = useState({
@@ -119,13 +127,13 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   /**
    * Placeholder intended to handle live websocket data. Feel free to completely delete if necessary.
    *
-   */
   const handleWebSocketData = (newData: any[]) => {
     const formattedData = newData.map((item) => ({
       'hc-key': item['hc-key'],
       Called:
         item.party_winner === 'D' ? 'D' : item.party_winner === 'R' ? 'R' : 'N',
       electoral_votes: item.electoral_votes,
+      district: item.district,
     }));
 
     formattedData.forEach((item) => {
@@ -139,20 +147,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
 
     setMapData(formattedData);
     initializeElectoralVotes(formattedData);
-  };
-  /**
-   * Placeholder intended to handle live websocket data. Feel free to completely delete if necessary.
-   *
-   */
-  useEffect(() => {
-    // Placeholder WebSocket logic (replace with real WebSocket implementation)
-    const ws = new WebSocket('wss://example.com/socket');
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      handleWebSocketData(data);
-    };
-    return () => ws.close();
-  }, []);
+  };*/
 
   useEffect(() => {
     const fetchData = async (
@@ -163,7 +158,6 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     ) => {
       const storedData = sessionStorage.getItem(storageKey);
       if (storedData) {
-        console.log(storedData);
         setData(JSON.parse(storedData) as RTCPresData[]);
       } else {
         try {
@@ -182,7 +176,6 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
                   district: row.district,
                 })
               );
-              console.log(parsedData);
               setData(parsedData);
               sessionStorage.setItem(storageKey, JSON.stringify(parsedData));
             },
@@ -207,46 +200,30 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     );
   }, []);
 
-  const useCircleValues = (
-    year: Year,
-    sixteenPresData?: RTCPresData[],
-    twentyPresData?: RTCPresData[]
-  ) => {
-    const [circleValues, setCircleValues] = useState({
-      NE1: 0,
-      NE2: 0,
-      NE3: 0,
-      ME1: 0,
-      ME2: 0,
+  const initializeCircleValues = useCallback((data: RTCPresData[] = []) => {
+    const initialCircleValues = { NE1: 0, NE2: 0, NE3: 0, ME1: 0, ME2: 0 };
+
+    data.forEach((item) => {
+      if ((item.state === 'NE' || item.state === 'ME') && item.district > 0) {
+        const districtKey =
+          `${item.state}${item.district}` as keyof typeof initialCircleValues;
+        initialCircleValues[districtKey] =
+          item.party_winner === 'D' ? 1 : item.party_winner === 'R' ? 2 : 0;
+      }
     });
 
-    const initializeCircleValues = useCallback((data: RTCPresData[] = []) => {
-      const initialCircleValues = { NE1: 0, NE2: 0, NE3: 0, ME1: 0, ME2: 0 };
+    setCircleValues(initialCircleValues);
+  }, []);
 
-      data.forEach((item) => {
-        if ((item.state === 'NE' || item.state === 'ME') && item.district > 0) {
-          const districtKey =
-            `${item.state}${item.district}` as keyof typeof initialCircleValues;
-          initialCircleValues[districtKey] =
-            item.party_winner === 'D' ? 1 : item.party_winner === 'R' ? 2 : 0;
-        }
-      });
-
-      setCircleValues(initialCircleValues);
-    }, []);
-
-    useEffect(() => {
-      if (year === Year.Sixteen && sixteenPresData) {
-        initializeCircleValues(sixteenPresData);
-      } else if (year === Year.Twenty && twentyPresData) {
-        initializeCircleValues(twentyPresData);
-      } else {
-        initializeCircleValues([]); // Placeholder for future data
-      }
-    }, [year, sixteenPresData, twentyPresData, initializeCircleValues]);
-
-    return circleValues;
-  };
+  useEffect(() => {
+    if (year === Year.Sixteen && sixteenPresData) {
+      initializeCircleValues(sixteenPresData);
+    } else if (year === Year.Twenty && twentyPresData) {
+      initializeCircleValues(twentyPresData);
+    } else {
+      initializeCircleValues([]); // Placeholder for future data
+    }
+  }, [year, sixteenPresData, twentyPresData, initializeCircleValues]);
 
   useEffect(() => {
     if (
@@ -292,20 +269,28 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     //TODO: Change mockData
     const formattedData = getFormattedData(raceType, year);
     const currentData = formattedData ? [...formattedData] : [...mockData];
-    console.log(currentData);
-    originalMap.current = currentData.map((item) => ({ ...item })); // Store original state
+    originalMap.current = {
+      mapData: currentData
+        .filter((item) => item.district == 0)
+        .map((item) => ({ ...item })),
+      circleValues: currentData
+        .filter((item) => item.district != 0)
+        .map((item) => ({ ...item })),
+      collective: currentData.map((item) => ({ ...item })),
+    }; // Store original state
 
-    const processedData = currentData.map((item) => ({
-      'hc-key': item['hc-key'],
-      value: item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0,
-      electoral_votes: item.electoral_votes,
-    }));
+    const processedData = currentData
+      .filter((item) => item.district == 0)
+      .map((item) => ({
+        'hc-key': item['hc-key'],
+        value: item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0,
+        electoral_votes: item.electoral_votes,
+      }));
 
     const handleStateClick = function (this: any) {
       const point = this;
       const newValue = (point.value + 1) % 3; // Cycle between 0 (N), 1 (D), and 2 (R)
       point.update({ value: newValue });
-      console.log(point);
       updateMapData(point['hc-key'], newValue, point.value);
     };
 
@@ -429,7 +414,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
    */
   const getCircleValue = (state: string, district: number, data: any[]) => {
     const item = data.find(
-      (item: any) =>
+      (item) =>
         item['hc-key'] === state && item.district === district.toString()
     );
     if (!item) return 0;
@@ -443,9 +428,9 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const handleReset = () => {
     if (chartRef.current) {
       const originalData = originalMap.current;
-      console.log(originalData);
       if (originalData) {
-        const original = originalData.map((item: any) => ({
+        const data = originalData.mapData;
+        const original = data.map((item) => ({
           id: item['hc-key'],
           'hc-key': item['hc-key'],
           value: item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0,
@@ -453,17 +438,15 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
 
         // Reset the series data
         chartRef.current.series[0].setData(original);
-        console.log(getCircleValue('NE', 1, originalData));
         const circleValues = {
-          NE1: getCircleValue('us-ne', 1, originalData),
-          NE2: getCircleValue('us-ne', 2, originalData),
-          NE3: getCircleValue('us-ne', 3, originalData),
-          ME1: getCircleValue('us-me', 1, originalData),
-          ME2: getCircleValue('us-me', 2, originalData),
+          NE1: getCircleValue('us-ne', 1, originalData.circleValues),
+          NE2: getCircleValue('us-ne', 2, originalData.circleValues),
+          NE3: getCircleValue('us-ne', 3, originalData.circleValues),
+          ME1: getCircleValue('us-me', 1, originalData.circleValues),
+          ME2: getCircleValue('us-me', 2, originalData.circleValues),
         };
-        console.log(circleValues);
         setCircleValues(circleValues);
-        initializeElectoralVotes(originalData);
+        initializeElectoralVotes(originalData.collective);
       }
     }
   };

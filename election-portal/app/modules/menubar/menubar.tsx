@@ -125,6 +125,8 @@ const Menubar: React.FC<MenubarProps> = ({
 }) => {
   const state = useSharedState().state;
 
+  //console.log('Menubar is rendering with state:', state);
+
   const handleYearClick = (year: Year) => {
     state.yearSwitch(year);
     if (setCountyViewAll != undefined) {
