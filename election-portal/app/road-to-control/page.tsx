@@ -33,6 +33,7 @@ export default function Road_To_Control_Page() {
           <RTCMap
             year={sharedState.year}
             raceType={sharedState.breakdown}
+            liveData={sharedState.calledElectionData}
           />
         </div>
         <Menubar />
