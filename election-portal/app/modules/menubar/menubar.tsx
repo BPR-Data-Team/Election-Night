@@ -124,7 +124,7 @@ const Menubar: React.FC<MenubarProps> = ({
   handleReset,
 }) => {
   const state = useSharedState().state;
-  const path = usePathname();
+
   //console.log('Menubar is rendering with state:', state);
 
   const handleYearClick = (year: Year) => {
@@ -133,7 +133,7 @@ const Menubar: React.FC<MenubarProps> = ({
       setCountyViewAll(false);
     }
   };
-
+  
   return (
     <div className="rightbar">
       <div className="contents">
@@ -150,19 +150,22 @@ const Menubar: React.FC<MenubarProps> = ({
 
         {state.availableBreakdowns.length != 0 && (
           <>
-            <div className="divider"></div>
-
-            <div className="breakdowns">
-              {state.availableBreakdowns.map((breakdown, index) => (
-                <button
-                  className="breakdown"
-                  key={index}
-                  onClick={() => state.breakdownSwitch(breakdown)}
-                >
-                  {breakdownToString(breakdown, state.breakdown)}
-                </button>
-              ))}
-            </div>
+            {(state.page != '/road-to-control' && pathname != '/road-to-control') && (
+              <>
+                <div className="divider"></div>
+                <div className="breakdowns">
+                  {state.availableBreakdowns.map((breakdown, index) => (
+                    <button
+                      className="breakdown"
+                      key={index}
+                      onClick={() => state.breakdownSwitch(breakdown)}
+                    >
+                      {breakdownToString(breakdown, state.breakdown)}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
 
@@ -225,7 +228,7 @@ const Menubar: React.FC<MenubarProps> = ({
             </button>
           </>
         ) : null}
-        {path === '/road-to-control' ? (
+        {pathname === '/road-to-control' ? (
           <>
           <div className="divider"></div>
           <div className="reset-buttons">
