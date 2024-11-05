@@ -30,6 +30,17 @@ const Circle: React.FC<CircleProps> = ({
     }
   };
 
+  const getTextColor = () => {
+    switch (circleValue) {
+      case 1:
+        return '#FFFFFF'; // Democrat
+      case 2:
+        return '#FFFFFF'; // Republican
+      default:
+        return '#000000'; // Uncalled
+    }
+  };
+
   return (
     <div
       className="circle"
@@ -45,7 +56,7 @@ const Circle: React.FC<CircleProps> = ({
       }
       style={{ backgroundColor: getColor() }}
     >
-      <span className="circle-text">{text}</span>
+      <span className="circle-text" style={{ color: getTextColor() }}>{text}</span>
     </div>
   );
 };

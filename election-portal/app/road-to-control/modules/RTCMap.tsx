@@ -308,6 +308,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       },
       legend: { enabled: false },
       tooltip: {
+        enabled: false,
         formatter: function (this: any) {
           return '<b>' + this.point.name;
         },
@@ -317,7 +318,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       },
       colorAxis: {
         dataClasses: [
-          { from: 0, to: 0, color: '#505050', name: 'Uncalled' },
+          { from: 0, to: 0, color: '#EAEAEA', name: 'Uncalled' },
           { from: 1, to: 1, color: '#595D9A', name: 'Democrat' },
           { from: 2, to: 2, color: '#B83C2B', name: 'Republican' },
         ],
@@ -330,10 +331,10 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
           joinBy: 'hc-key',
           nullColor: '#EAEAEA',
           borderColor: 'black',
-          borderWidth: 2,
+          borderWidth: 1,
           states: {
             hover: {
-              borderColor: 'grey',
+              enabled: false,
             },
           },
         },
