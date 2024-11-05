@@ -282,6 +282,16 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
         }
       }
     });
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.electionData?.forEach((datum) => {
+        if (datum.office_type === getDataVersion(raceType)) {
+          fetchedData.push({
+            'hc-key': 'us-' + datum.state.toLowerCase(),
+            value: datum.margin_pct,
+          });
+        }
+      });
+    }
     return fetchedData;
   };
 

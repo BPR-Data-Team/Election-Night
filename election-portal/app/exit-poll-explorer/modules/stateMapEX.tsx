@@ -284,68 +284,83 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   const initializeMap = (mapData: any, cityData: any) => {
     let fetchedData: ElectionData[] = [];
-    countyData?.forEach(
-      (datum: {
-        state: string;
-        office_type: string;
-        county: any;
-        margin_pct_1: any;
-        margin_pct_2: any;
-      }) => {
+
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.countyData?.forEach((datum) => {
         if (
           datum.state === getStateAbbreviation(sharedState.view) &&
           datum.office_type === getDataVersion(sharedState.breakdown)
         ) {
-          switch (sharedState.breakdown) {
-            case RaceType.Senate:
-              switch (sharedState.year) {
-                case Year.Eighteen:
-                  fetchedData.push({
-                    NAME: datum.county,
-                    value: datum.margin_pct_1,
-                  });
-                  break;
-                case Year.Twelve:
-                  fetchedData.push({
-                    NAME: datum.county,
-                    value: datum.margin_pct_2,
-                  });
-                  break;
-              }
-            case RaceType.Gubernatorial:
-              switch (sharedState.year) {
-                case Year.Twenty:
-                  fetchedData.push({
-                    NAME: datum.county,
-                    value: datum.margin_pct_1,
-                  });
-                  break;
-                case Year.Sixteen:
-                  fetchedData.push({
-                    NAME: datum.county,
-                    value: datum.margin_pct_2,
-                  });
-                  break;
-              }
-            case RaceType.Presidential:
-              switch (sharedState.year) {
-                case Year.Twenty:
-                  fetchedData.push({
-                    NAME: datum.county,
-                    value: datum.margin_pct_1,
-                  });
-                  break;
-                case Year.Sixteen:
-                  fetchedData.push({
-                    NAME: datum.county,
-                    value: datum.margin_pct_2,
-                  });
-                  break;
-              }
+          fetchedData.push({
+            NAME: datum.county,
+            value: datum.margin_pct,
+          });
+        }
+      });
+    } else {
+      countyData?.forEach(
+        (datum: {
+          state: string;
+          office_type: string;
+          county: any;
+          margin_pct_1: any;
+          margin_pct_2: any;
+        }) => {
+          if (
+            datum.state === getStateAbbreviation(sharedState.view) &&
+            datum.office_type === getDataVersion(sharedState.breakdown)
+          ) {
+            switch (sharedState.breakdown) {
+              case RaceType.Senate:
+                switch (sharedState.year) {
+                  case Year.Eighteen:
+                    fetchedData.push({
+                      NAME: datum.county,
+                      value: datum.margin_pct_1,
+                    });
+                    break;
+                  case Year.Twelve:
+                    fetchedData.push({
+                      NAME: datum.county,
+                      value: datum.margin_pct_2,
+                    });
+                    break;
+                }
+              case RaceType.Gubernatorial:
+                switch (sharedState.year) {
+                  case Year.Twenty:
+                    fetchedData.push({
+                      NAME: datum.county,
+                      value: datum.margin_pct_1,
+                    });
+                    break;
+                  case Year.Sixteen:
+                    fetchedData.push({
+                      NAME: datum.county,
+                      value: datum.margin_pct_2,
+                    });
+                    break;
+                }
+              case RaceType.Presidential:
+                switch (sharedState.year) {
+                  case Year.Twenty:
+                    fetchedData.push({
+                      NAME: datum.county,
+                      value: datum.margin_pct_1,
+                    });
+                    break;
+                  case Year.Sixteen:
+                    fetchedData.push({
+                      NAME: datum.county,
+                      value: datum.margin_pct_2,
+                    });
+                    break;
+                }
+            }
           }
         }
-      }
-    );
+      );
+    }
 
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
