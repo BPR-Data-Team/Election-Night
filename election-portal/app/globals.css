@@ -31,12 +31,7 @@ body {
 
 body {
   color: var(--foreground);
-  background: linear-gradient(
-    to right,
-    #e7e7e7 0%,
-    #b3b3b3 15% 85%,
-    #e7e7e7 100%
-  );
+  background: radial-gradient(circle, #ffffff, #00000000);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,12 +44,7 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    to right,
-    #b3b3b3 0%,
-    #e7e7e7 15% 85%,
-    #b3b3b3 100%
-  );
+  background: radial-gradient(circle, #b3b3b3, #f2f2f2);
   mask: linear-gradient(#fff, transparent);
   z-index: -1;
 }
