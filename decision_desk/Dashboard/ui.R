@@ -200,7 +200,7 @@ ui <- page_sidebar(
                                      "2024 President - 2024 Senate Swing" = "pres_sen_swing_24",
                                      "2016 President - 2018 Senate Swing" = "pres_sen_swing_16_18",
                                      "2024 President - 2024 Governor Swing" = "pres_gov_swing_24",
-                                     "2020 President - 2024 Governor Swing" = "pres_gov_swing_20"),
+                                     "2020 President - 2020 Governor Swing" = "pres_gov_swing_20"),
                       selected = "2020_margin"),
           leafletOutput("TR_map") %>% withSpinner()
         )
