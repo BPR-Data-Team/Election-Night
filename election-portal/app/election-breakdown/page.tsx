@@ -61,7 +61,7 @@ export default function Election_Breakdown_Page() {
   }, [historicalCountyData, historicalElectionsData]);
 
   // State Mode While National
-  const SMWN = sharedState.view != State.National && displayNational;
+  const SMWN = (sharedState.view != State.National) && displayNational;
 
   useEffect(() => {
     const wrapperDiv = document?.getElementById('mapWrapper');

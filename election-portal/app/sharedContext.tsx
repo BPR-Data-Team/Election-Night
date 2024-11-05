@@ -265,8 +265,10 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   );
   const exitLevel = () => {
     if (level === 'county') {
+      console.log("SETTING FROM COUNTY TO STATE");
       setLevel('state');
     } else if (level === 'state') {
+      console.log("SETTING FROM STATE TO NAT");
       setLevel('national');
       setView(State.National);
     } else if (level === 'national') {

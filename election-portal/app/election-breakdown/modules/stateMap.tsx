@@ -105,7 +105,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   useEffect(() => {
     retrieveMapData();
-    sharedState.setLevel('state');
+    // sharedState.setLevel('state'); //breaks EBMap
     setSelectedCounty('');
     setCountyName('');
   }, [
@@ -119,6 +119,22 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     sharedState.countyData,
     stateName,
   ]);
+  
+  useEffect(() => {
+    if (stateChart) {
+      stateChart.update({
+        chart: {
+          events: {
+            click: function (event: any) {
+              if (!event.point) {
+                handleOOBClick(stateChart, zoomScale);
+              }
+            },
+          },
+        },
+      });
+    }
+  }, [sharedState.level]);
 
   const retrieveMapData = async () => {
     if (stateName == 'National') {
@@ -198,15 +214,15 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     if (wasPanned) {
       return;
     }
-    sharedState.setLevel('state');
+    sharedState.exitLevel();
     setSelectedCounty('');
     setCountyName('');
-    if (chart) {
-      // chart.mapZoom();
-      // setTimeout(() => chart.mapZoom(zoomScale), 50);
-      chart.mapZoom();
-      chart.mapZoom(zoomScale);
-    }
+    // if (chart) {
+    //   // chart.mapZoom();
+    //   // setTimeout(() => chart.mapZoom(zoomScale), 50);
+    //   chart.mapZoom();
+    //   chart.mapZoom(zoomScale);
+    // }
   };
 
   const handleCountyClick = (countyKey: string, countyName: string) => {
@@ -495,7 +511,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         },
       },
       tooltip: {
-        enabled: true,
+        enabled: false,
         formatter: function (this: any) {
           let prefix = this.point.value >= 0 ? 'D' : 'R';
           return (
@@ -600,7 +616,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
               textOutline: '1px contrast',
               color: '#FFFFFF',
               fontFamily:
-                '"gelica, book antiqua, georgia, times new roman, serif"',
+                'gelica, book antiqua, georgia, times new roman, serif',
             },
             formatter: function () {
               // const offsetX = '      ';
