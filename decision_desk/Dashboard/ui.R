@@ -268,8 +268,10 @@ ui <- page_sidebar(
       ),
       card(
         fill = TRUE,
-        card_header("Percent of Remaining Vote Harris needs to win over time"),
-        tableOutput("pct_to_win_graph") %>% withSpinner()
+        card_header("Percent of Remaining Vote Harris needs to win"),
+        textOutput("votes_remaining"),
+        textOutput("harris_to_win"),
+        textOutput("harris_to_win_ci")
       )
     )
   ),
@@ -382,6 +384,12 @@ ui <- page_sidebar(
           card_header("Pct of vote reporting in 2022"),
           plotOutput("house_expected_pct_graph_2022") %>% withSpinner()
         )
+      ),
+      card(
+        fill = TRUE,
+        card_header("Percent of Remaining Vote Harris needs to win"),
+        textOutput("house_votes_remaining"),
+        textOutput("house_harris_to_win"),
       )
     )
   ),

@@ -32,11 +32,14 @@ pct_harris_to_win_value <- function (race_data, state_selection, office_selectio
     pct_to_win_upper <- ifelse(upper_votes_remaining < current_margin_votes, 0, 0.5)
   }
   
-  return(list("pct_to_win" = pct_to_win, "pct_to_win_lower" = pct_to_win_lower, "pct_to_win_upper" = pct_to_win_upper))
+  return(list("votes_remaining" = votes_remaining, 
+              "pct_to_win" = pct_to_win, 
+              "pct_to_win_lower" = pct_to_win_lower, 
+              "pct_to_win_upper" = pct_to_win_upper))
   
 }
 
-pct_harris_to_win <- function (race_data, state_selection, office_selection, district_selection) {
+calculate_pct_harris_to_win <- function (race_data, state_selection, office_selection, district_selection) {
   selected_race <- race_data %>% 
     filter_races(state_selection = state_selection, 
                  office_selection = office_selection,

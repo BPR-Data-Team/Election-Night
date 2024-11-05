@@ -481,6 +481,7 @@ server <- function(input, output, session) {
   output$expected_pct_graph_2024 <- expected_pct_graph_2024
   output$house_expected_pct_graph_2024 <- expected_pct_graph_2024
   
+  # FAILED CODE FOR GRAPH OVER TIME 
   # harris_to_win_df <- reactive(data.frame())
   # observe({
   #   req(nrow(current_data()) > 0)
@@ -494,8 +495,35 @@ server <- function(input, output, session) {
   #   output$pct_to_win_graph <- pct_harris_to_win_graph(harris_to_win_df(),  state_selection(), election_type(), district_selection())
   # })
   
-  output$harris_to_win <- renderTable({
+  # LAST MINUTE PATCH TO PROVIDE MINIMUM FUNCTIONALITY
+  harris_to_win_list <- reactive({
     pct_harris_to_win_value(current_data(), state_selection(), election_type(), district_selection())
+  })
+  
+  output$harris_to_win_ci <- renderText({
+    lower <- harris_to_win_list()$pct_to_win_lower
+    upper <- harris_to_win_list()$pct_to_win_upper
+    
+    glue("Confidence Interval: {round(lower, 1)}% - {round(upper, 1)}%")
+  })
+  output$harris_to_win <- renderText({
+    glue("Percent to win: {round(harris_to_win_list()$pct_to_win, 1)}%")
+  })
+  output$votes_remaining <- renderText({
+    glue("Votes Remaining: {format(harris_to_win_list()$votes_remaining, nsmall=0, big.mark=',')}")
+  })
+  
+  output$house_harris_to_win_ci <- renderText({
+    lower <- harris_to_win_list()$pct_to_win_lower
+    upper <- harris_to_win_list()$pct_to_win_upper
+    
+    glue("Confidence Interval: {round(lower, 1)}% - {round(upper, 1)}%")
+  })
+  output$house_harris_to_win <- renderText({
+    glue("Percent to win: {round(harris_to_win_list()$pct_to_win, 1)}%")
+  })
+  output$house_votes_remaining <- renderText({
+    glue("Votes Remaining: {format(harris_to_win_list()$votes_remaining, nsmall=0, big.mark=',')}")
   })
   
 
