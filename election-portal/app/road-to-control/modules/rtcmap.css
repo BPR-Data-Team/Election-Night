@@ -1,6 +1,6 @@
 #rtc-container {
   align-content: end;
-  height: 80vh;
+  height: 95vh;
 }
 .map {
   display: flex;
@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 100%;
 }
 .map-container {
   display: flex;
@@ -23,7 +23,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-left: 3rem;
 }
 .map-and-controls {
   display: flex;
@@ -51,6 +50,7 @@
     times new roman,
     serif;
 }
+
 /* .reset-button-container {
   position: fixed;
   right: 16%;

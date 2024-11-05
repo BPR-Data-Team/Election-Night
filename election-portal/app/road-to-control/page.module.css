@@ -16,7 +16,7 @@
   position: fixed;
 }
 
-.StateMapContainer {
+.RTCMapContainer {
   position: absolute;
   width: 100vw;
   height: 75vh;

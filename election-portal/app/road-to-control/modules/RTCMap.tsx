@@ -11,6 +11,8 @@ import electoralVotes from './utils/electoralVotesPerState';
 import { parse } from 'papaparse';
 import Menubar from '../../modules/menubar/menubar';
 import { CalledElection, RTCPresData } from '@/types/data';
+import {useSharedState} from '../../sharedContext';
+import Canvas from "../../modules/canvas/canvas";
 
 const prodSlug =
   process.env.NODE_ENV === 'development' ? '' : '/Election-Night';
@@ -91,6 +93,7 @@ const mockData = presData.map((item) => ({
 }));
 
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
+  const sharedState = useSharedState().state;
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<{
     mapData: any[];
@@ -304,7 +307,15 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
     };
 
     const mapOptions: Highcharts.Options = {
-      chart: { type: 'map', map: geoJson, backgroundColor: 'transparent' },
+      chart: { type: 'map', map: geoJson, backgroundColor: 'transparent', events: {
+        load: function () {
+          this.mapZoom(1);
+        },
+      },
+      panning: {
+        enabled: true,
+        type: 'xy',
+      },},
       title: { text: '' },
       credits: { enabled: false },
       mapNavigation: {
@@ -451,86 +462,90 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
   const decrementRightCount = () => setRightCount((prev) => prev - 1);
 
   return (
-    <div className="map-container">
-      <StatusBar leftCount={leftCount} rightCount={rightCount} />
-      <div className="map-and-controls">
-        <div id="rtc-container" className="map" />
-        <div className="controls">
-          <div className="circles">
-            <Circle
-              text="NE1"
-              circleValue={circleValues.NE1}
-              setCircleValue={(value) =>
-                setCircleValues((prev) => ({
-                  ...prev,
-                  NE1: typeof value === 'function' ? value(prev.NE1) : value,
-                }))
-              }
-              incrementLeftCount={() => setLeftCount((prev) => prev + 1)}
-              incrementRightCount={() => setRightCount((prev) => prev + 1)}
-              decrementLeftCount={() => setLeftCount((prev) => prev - 1)}
-              decrementRightCount={() => setRightCount((prev) => prev - 1)}
-            />
-            <Circle
-              text="NE2"
-              circleValue={circleValues.NE2}
-              setCircleValue={(value) =>
-                setCircleValues((prev) => ({
-                  ...prev,
-                  NE2: typeof value === 'function' ? value(prev.NE2) : value,
-                }))
-              }
-              incrementLeftCount={incrementLeftCount}
-              incrementRightCount={incrementRightCount}
-              decrementLeftCount={decrementLeftCount}
-              decrementRightCount={decrementRightCount}
-            />
-            <Circle
-              text="NE3"
-              circleValue={circleValues.NE3}
-              setCircleValue={(value) =>
-                setCircleValues((prev) => ({
-                  ...prev,
-                  NE3: typeof value === 'function' ? value(prev.NE3) : value,
-                }))
-              }
-              incrementLeftCount={incrementLeftCount}
-              incrementRightCount={incrementRightCount}
-              decrementLeftCount={decrementLeftCount}
-              decrementRightCount={decrementRightCount}
-            />
-            <Circle
-              text="ME1"
-              circleValue={circleValues.ME1}
-              setCircleValue={(value) =>
-                setCircleValues((prev) => ({
-                  ...prev,
-                  ME1: typeof value === 'function' ? value(prev.ME1) : value,
-                }))
-              }
-              incrementLeftCount={incrementLeftCount}
-              incrementRightCount={incrementRightCount}
-              decrementLeftCount={decrementLeftCount}
-              decrementRightCount={decrementRightCount}
-            />
-            <Circle
-              text="ME2"
-              circleValue={circleValues.ME2}
-              setCircleValue={(value) =>
-                setCircleValues((prev) => ({
-                  ...prev,
-                  ME2: typeof value === 'function' ? value(prev.ME2) : value,
-                }))
-              }
-              incrementLeftCount={incrementLeftCount}
-              incrementRightCount={incrementRightCount}
-              decrementLeftCount={decrementLeftCount}
-              decrementRightCount={decrementRightCount}
-            />
+    <div>
+      {sharedState.drawMode ? <Canvas /> : null}
+      <div className="map-container">
+        <StatusBar leftCount={leftCount} rightCount={rightCount} />
+        <div className="map-and-controls">
+          <div id="rtc-container" className="map" />
+          <div className="controls">
+            <div className="circles">
+              <Circle
+                text="NE1"
+                circleValue={circleValues.NE1}
+                setCircleValue={(value) =>
+                  setCircleValues((prev) => ({
+                    ...prev,
+                    NE1: typeof value === 'function' ? value(prev.NE1) : value,
+                  }))
+                }
+                incrementLeftCount={() => setLeftCount((prev) => prev + 1)}
+                incrementRightCount={() => setRightCount((prev) => prev + 1)}
+                decrementLeftCount={() => setLeftCount((prev) => prev - 1)}
+                decrementRightCount={() => setRightCount((prev) => prev - 1)}
+              />
+              <Circle
+                text="NE2"
+                circleValue={circleValues.NE2}
+                setCircleValue={(value) =>
+                  setCircleValues((prev) => ({
+                    ...prev,
+                    NE2: typeof value === 'function' ? value(prev.NE2) : value,
+                  }))
+                }
+                incrementLeftCount={incrementLeftCount}
+                incrementRightCount={incrementRightCount}
+                decrementLeftCount={decrementLeftCount}
+                decrementRightCount={decrementRightCount}
+              />
+              <Circle
+                text="NE3"
+                circleValue={circleValues.NE3}
+                setCircleValue={(value) =>
+                  setCircleValues((prev) => ({
+                    ...prev,
+                    NE3: typeof value === 'function' ? value(prev.NE3) : value,
+                  }))
+                }
+                incrementLeftCount={incrementLeftCount}
+                incrementRightCount={incrementRightCount}
+                decrementLeftCount={decrementLeftCount}
+                decrementRightCount={decrementRightCount}
+              />
+              <Circle
+                text="ME1"
+                circleValue={circleValues.ME1}
+                setCircleValue={(value) =>
+                  setCircleValues((prev) => ({
+                    ...prev,
+                    ME1: typeof value === 'function' ? value(prev.ME1) : value,
+                  }))
+                }
+                incrementLeftCount={incrementLeftCount}
+                incrementRightCount={incrementRightCount}
+                decrementLeftCount={decrementLeftCount}
+                decrementRightCount={decrementRightCount}
+              />
+              <Circle
+                text="ME2"
+                circleValue={circleValues.ME2}
+                setCircleValue={(value) =>
+                  setCircleValues((prev) => ({
+                    ...prev,
+                    ME2: typeof value === 'function' ? value(prev.ME2) : value,
+                  }))
+                }
+                incrementLeftCount={incrementLeftCount}
+                incrementRightCount={incrementRightCount}
+                decrementLeftCount={decrementLeftCount}
+                decrementRightCount={decrementRightCount}
+              />
+            </div>
+            
           </div>
-          <Menubar handleReset={handleReset} />
         </div>
       </div>
+      <Menubar handleReset={handleReset} />
     </div>
   );
 };

@@ -210,9 +210,6 @@ export default function Election_Breakdown_Page() {
     }
   }, []);
 
-  if (!historicalElectionsData || !historicalCountyData)
-    return <p>Loading Data...</p>;
-
   return (
     <>
       <div className={styles.page}>
