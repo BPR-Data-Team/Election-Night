@@ -98,6 +98,14 @@ export default function Exit_Poll_Explorer_Page() {
                     margin_votes_1: parseInt(row.margin_votes_1),
                     margin_pct_2: parseFloat(row.margin_pct_2),
                     absentee_pct_1: parseFloat(row.absentee_pct_1),
+                    democratic_percent_1: parseFloat(row.democratic_percent_1),
+                    republican_percent_1: parseFloat(row.republican_percent_1),
+                    democratic_percent_2: parseFloat(row.democratic_percent_2),
+                    republican_percent_2: parseFloat(row.republican_percent_2),
+                    democratic_votes_1: parseInt(row.democratic_votes_1),
+                    republican_votes_1: parseInt(row.republican_votes_1),
+                    democratic_votes_2: parseInt(row.democratic_votes_2),
+                    republican_votes_2: parseInt(row.republican_votes_2),
                     absentee_margin_pct_1: parseFloat(
                       row.absentee_margin_pct_1
                     ),
@@ -144,6 +152,14 @@ export default function Exit_Poll_Explorer_Page() {
                     ),
                     margin_pct_2: parseFloat(row.margin_pct_2),
                     margin_votes_2: parseInt(row.margin_votes_2),
+                    democratic_percent_1: parseFloat(row.democratic_percent_1),
+                    republican_percent_1: parseFloat(row.republican_percent_1),
+                    democratic_percent_2: parseFloat(row.democratic_percent_2),
+                    republican_percent_2: parseFloat(row.republican_percent_2),
+                    democratic_votes_1: parseInt(row.democratic_votes_1),
+                    republican_votes_1: parseInt(row.republican_votes_1),
+                    democratic_votes_2: parseInt(row.democratic_votes_2),
+                    republican_votes_2: parseInt(row.republican_votes_2),
                   };
                 }
               );
