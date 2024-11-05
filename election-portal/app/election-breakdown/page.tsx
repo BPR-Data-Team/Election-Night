@@ -287,7 +287,7 @@ export default function Election_Breakdown_Page() {
             )} */}
 
           {/* Needs to be topmost during content screens */}
-          {sharedState.level === 'county' ? (
+          {sharedState.level != 'national' ? (
             <Menubar
               countyViewAll={countyViewAll}
               setCountyViewAll={setCountyViewAll}

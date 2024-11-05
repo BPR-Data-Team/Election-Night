@@ -67,7 +67,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
 }) => {
   const [demVotePercentage, setDemVotePercentage] = useState<string>('N/A');
   const [repVotePercentage, setRepVotePercentage] = useState<string>('N/A');
-  const [pctReporting, setPctReporting] = useState<string>('N/A');
+  const [pctReporting, setPctReporting] = useState<number>(100);
 
   const [levelTitle, setLevelTitle] = useState<string>('');
 
@@ -133,6 +133,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         if (newDisplayData24) {
           console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
+          setPctReporting(Math.round(newDisplayData24.pct_reporting ? newDisplayData24.pct_reporting : 0));
         }
       } else {
       let key = getDataVersion(raceType) + getStateAbbreviation(sharedState.view) + '0';
@@ -160,6 +161,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         if (newDisplayData24) {
           console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
+          setPctReporting(Math.round(newDisplayData24.pct_reporting ? newDisplayData24.pct_reporting : 0));
         }
       }
       let key = getStateAbbreviation(sharedState.view) + countyName + getDataVersion(raceType);
@@ -186,7 +188,9 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         if (newDisplayData24) {
           console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
+          setPctReporting(Math.round(newDisplayData24.pct_reporting));
         }
+        
       } else {
         let key = getDataVersion(raceType) + getStateAbbreviation(sharedState.view) + '0';
         if (firstOrSecond()) {
@@ -205,6 +209,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   }, [sharedStateLevel, 
         countyName, 
         stateName, 
+        year,
         historicalCountyData, 
         historicalElectionsData, 
         sharedState.level,
@@ -523,35 +528,35 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
 
   
 
-  const setBothVotePercentages = () => {
-    setDemVotePercentage(
-      stateData['dem_votes'] && stateData['rep_votes']
-        ? Math.round(
-            (stateData['dem_votes'] /
-              (stateData['dem_votes'] + stateData['rep_votes'])) *
-              100
-          ) + '%'
-        : 'N/A'
-    );
-    setRepVotePercentage(
-      stateData['dem_votes'] && stateData['rep_votes']
-        ? Math.round(
-            (stateData['rep_votes'] /
-              (stateData['dem_votes'] + stateData['rep_votes'])) *
-              100
-          ) + '%'
-        : 'N/A'
-    );
-  };
+  // const setBothVotePercentages = () => {
+  //   setDemVotePercentage(
+  //     stateData['dem_votes'] && stateData['rep_votes']
+  //       ? Math.round(
+  //           (stateData['dem_votes'] /
+  //             (stateData['dem_votes'] + stateData['rep_votes'])) *
+  //             100
+  //         ) + '%'
+  //       : 'N/A'
+  //   );
+  //   setRepVotePercentage(
+  //     stateData['dem_votes'] && stateData['rep_votes']
+  //       ? Math.round(
+  //           (stateData['rep_votes'] /
+  //             (stateData['dem_votes'] + stateData['rep_votes'])) *
+  //             100
+  //         ) + '%'
+  //       : 'N/A'
+  //   );
+  // };
 
-  useEffect(() => {
-    setBothVotePercentages();
-    setPctReporting(
-      Math.round(stateData['pct_reporting'])
-        ? stateData['pct_reporting']
-        : 'N/A'
-    );
-  }, [stateName, year, stateData, raceType]);
+  // useEffect(() => {
+  //   setBothVotePercentages();
+  //   setPctReporting(
+  //     Math.round(stateData['pct_reporting'])
+  //       ? stateData['pct_reporting']
+  //       : 'N/A'
+  //   );
+  // }, [stateName, year, stateData, raceType]);
 
 
 

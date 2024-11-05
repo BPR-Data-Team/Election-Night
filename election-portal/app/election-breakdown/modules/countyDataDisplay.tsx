@@ -127,7 +127,7 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
         <div className="countyStateYearDiv">
           <h1 className="countyStateYearHeader">
             <p className="countyName">
-              {countyName}
+              {sharedState.level === 'county' ? countyName : stateName}
             </p>{' '}
           </h1>
         </div>
