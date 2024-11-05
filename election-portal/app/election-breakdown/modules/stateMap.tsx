@@ -600,7 +600,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
               textOutline: '1px contrast',
               color: '#FFFFFF',
               fontFamily:
-                '"gelica, book antiqua, georgia, times new roman, serif"',
+                'gelica, book antiqua, georgia, times new roman, serif',
             },
             formatter: function () {
               // const offsetX = '      ';
