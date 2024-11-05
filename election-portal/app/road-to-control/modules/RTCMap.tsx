@@ -10,6 +10,7 @@ import StatusBar from './StatusBar';
 import electoralVotesPerState from './utils/electoralVotesPerState';
 import { parse } from 'papaparse';
 import { RTCPresData } from '@/types/data';
+import Menubar from '../../modules/menubar/menubar';
 
 const prodSlug =
   process.env.NODE_ENV === 'development' ? '' : '/Election-Night';
@@ -535,9 +536,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
               decrementRightCount={decrementRightCount}
             />
           </div>
-          <button className="reset-button" onClick={handleReset}>
-            Reset Map
-          </button>
+          <Menubar handleReset={handleReset} />
         </div>
       </div>
     </div>
