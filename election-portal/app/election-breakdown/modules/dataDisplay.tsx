@@ -71,7 +71,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     } else {
       setLevelTitle(stateName);
     }
-  }, [sharedStateLevel, countyName]);
+  }, [sharedStateLevel, countyName, stateName]);
 
   // const initializeData = () => {
   //   let fetchedData: ElectionData[] = [];
