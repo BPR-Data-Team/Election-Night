@@ -363,7 +363,11 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
           data: fetchedData,
           nullColor: '#505050',
           name: 'Predicted Margin',
-          states: {},
+          states: {
+            hover: {
+              enabled: false,
+            }
+          },
           point: {
             events: {},
           },
