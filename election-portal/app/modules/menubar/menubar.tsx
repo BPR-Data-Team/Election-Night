@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import { useSharedState } from '../../sharedContext';
 import { Demographic, RaceType, Year } from '../../../types/SharedInfoType';
-
 import './menubar.css';
 import HomeButton from './menu-buttons/home-button';
 import ExitButton from './menu-buttons/exit-button';
@@ -11,7 +10,6 @@ import DrawButton from './menu-buttons/draw-button';
 import { usePathname } from 'next/navigation';
 import { truncate } from 'fs';
 import { FaBullseye } from 'react-icons/fa';
-
 // These can be turned into maps or better parsed from the types
 const breakdownToString = (
   breakdown: RaceType,
@@ -117,15 +115,16 @@ const demographicToString = (
 interface MenubarProps {
   countyViewAll?: boolean;
   setCountyViewAll?: any;
+  handleReset?: () => void;
 }
 
 const Menubar: React.FC<MenubarProps> = ({
   countyViewAll,
   setCountyViewAll,
+  handleReset,
 }) => {
   const state = useSharedState().state;
   const pathname = usePathname();
-
   //console.log('Menubar is rendering with state:', state);
 
   const handleYearClick = (year: Year) => {
@@ -134,8 +133,6 @@ const Menubar: React.FC<MenubarProps> = ({
       setCountyViewAll(false);
     }
   };
-
-  console.log(pathname);
   
   return (
     <div className="rightbar">
@@ -229,6 +226,16 @@ const Menubar: React.FC<MenubarProps> = ({
                 All
               </span>
             </button>
+          </>
+        ) : null}
+        {pathname === '/road-to-control' ? (
+          <>
+          <div className="divider"></div>
+          <div className="reset-buttons">
+            <button className="reset" onClick={handleReset}>
+              Reset Map
+            </button>
+          </div>
           </>
         ) : null}
       </div>

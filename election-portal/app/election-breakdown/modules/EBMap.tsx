@@ -8,6 +8,7 @@ import { useSharedState } from '../../sharedContext';
 import { State, getStateFromString } from '../../../types/State';
 import { HistoricalElectionData } from '@/types/data';
 import { Year } from '@/types/Year';
+import { get } from 'http';
 interface ElectionData {
   'hc-key': string;
   value: number;
@@ -45,6 +46,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
   const startPos = useRef<{ x: number; y: number } | null>(null);
 
   const [selectedStateKey, setSelectedStateKey] = useState<string>('');
+  const [previousView, setPreviousView] = useState<State>(State.National);
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
@@ -119,8 +121,8 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
           }
           chart.mapZoom(
             toZoom,
-            eventPoint.plotX * 7 - 1000,
-            eventPoint.plotY * -8 + 10000
+            eventPoint.plotX * 5 - 1000,
+            eventPoint.plotY * -7 + 10000
           );
         }
       }
@@ -145,7 +147,40 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType, sharedState.year, sharedState.electionData]);
+  }, []);
+
+  useEffect(() => { 
+    const fetchedData = getFetchedFromHistoricalData(historicalElectionsData);
+    setElectionData(fetchedData);
+  }, [sharedState.electionData, sharedState.countyData, historicalElectionsData, sharedState.year, raceType]);
+
+  useEffect(() => {
+    if (chart) {
+      chart.update({
+        series: [
+          {
+            type: 'map',
+            data: electionData,
+          },
+        ],
+      });
+    }
+  }, [electionData]);
+
+  useEffect(() => {
+    if (electionData) {
+      if (!electionData.some((data) => data['hc-key'] === selectedStateKey)) {
+        if (sharedState.view !== State.National) {
+          setPreviousView(sharedState.view);
+        }
+        sharedState.setView(State.National);
+      } else {
+        if (sharedState.view === State.National && previousView !== State.National) {
+          sharedState.setView(previousView);
+        }
+      }
+    }
+  }, [electionData]);
 
   useEffect(() => {
     if (chart && chart != undefined) {
@@ -176,78 +211,6 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
     }
   }, [sharedState.view, wasPanned, chart]);
 
-  useEffect(() => { 
-    let fetchedData: ElectionData[] = [];
-    historicalElectionsData?.forEach((datum) => {
-      if (datum.office_type === getDataVersion(raceType)) {
-        switch (raceType) {
-          case RaceType.Senate:
-            switch (sharedState.year) {
-              case Year.Eighteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Twelve:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Gubernatorial:
-            switch (sharedState.year) {
-              case Year.Twenty:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Presidential:
-            switch (sharedState.year) {
-              case Year.Twenty:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-        }
-      }
-    });
-
-    if (sharedState.year === Year.TwentyFour) {
-      sharedState.electionData?.forEach((datum) => {
-        if (datum.office_type === getDataVersion(raceType)) {
-          fetchedData.push({
-            'hc-key': 'us-' + datum.state.toLowerCase(),
-            value: datum.margin_pct,
-            });
-        }
-        
-      });
-    }
-    
-
-    setElectionData(fetchedData);
-
-
-  }, [sharedState.electionData, sharedState.countyData]);
-
   useEffect(() => {
     if (chart) {
       const updatedData = electionData.map((state) => ({
@@ -269,7 +232,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         ],
       });
     }
-  }, [selectedStateKey, chart, raceType]);
+  }, [selectedStateKey, chart, raceType, electionData]);
 
   function getMaxState(stateData: ElectionData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -289,7 +252,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
     ],
   };
 
-  const initializeMap = (mapData: any) => {
+  const getFetchedFromHistoricalData = (historicalElectionsData: HistoricalElectionData[] | null): ElectionData[] => {
     let fetchedData: ElectionData[] = [];
     historicalElectionsData?.forEach((datum) => {
       if (datum.office_type === getDataVersion(raceType)) {
@@ -342,7 +305,6 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         }
       }
     });
-
     if (sharedState.year === Year.TwentyFour) {
       sharedState.electionData?.forEach((datum) => {
         if (datum.office_type === getDataVersion(raceType)) {
@@ -354,6 +316,12 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         
       });
     }
+    return fetchedData;
+  };
+
+  const initializeMap = (mapData: any) => {
+
+    let fetchedData = getFetchedFromHistoricalData(historicalElectionsData);
 
 
     const axisMax: number = Math.max(

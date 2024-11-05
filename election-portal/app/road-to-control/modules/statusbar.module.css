@@ -38,7 +38,6 @@
 
 .statusBarRight {
   right: 0;
-
   margin-left: 0.01rem;
   background-color: var(--statusbar-right);
   justify-content: flex-end;

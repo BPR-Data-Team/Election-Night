@@ -246,27 +246,34 @@ ui <- page_sidebar(
       ),
       layout_columns(
         card(
-          fill = TRUE,
-          card_header("Margin over time in 2024"),
+          fill = FALSE,
+          card_header("This race margin over time in 2024"),
           plotOutput("margin_graph_2024") %>% withSpinner()
         ),
         card(
-          fill = TRUE, 
+          fill = FALSE, 
           card_header("Pct of vote reporting in 2024"), 
           plotOutput("expected_pct_graph_2024") %>% withSpinner()
         )
       ),
       layout_columns(
         card(
-          fill = TRUE,
-          card_header("Margin over time in 2020"),
+          fill = FALSE,
+          card_header("Presidential Margin over time in 2020"),
           plotOutput("margin_graph_2020") %>% withSpinner()
         ),
         card(
-          fill = TRUE, 
+          fill = FALSE, 
           card_header("Pct of vote reporting in 2020"), 
           plotOutput("expected_pct_graph_2020") %>% withSpinner()
         )
+      ),
+      card(
+        fill = TRUE,
+        card_header("Percent of Remaining Vote Harris needs to win"),
+        textOutput("votes_remaining"),
+        textOutput("harris_to_win"),
+        textOutput("harris_to_win_ci")
       )
     )
   ),
@@ -358,27 +365,33 @@ ui <- page_sidebar(
       ),
       layout_columns(
         card(
-          fill = TRUE,
-          card_header("Margin over time in 2024"),
+          fill = FALSE,
+          card_header("This race margin over time in 2024"),
           plotOutput("house_margin_graph_2024") %>% withSpinner()
         ),
         card(
-          fill = TRUE, 
+          fill = FALSE, 
           card_header("Pct of vote reporting in 2024"), 
           plotOutput("house_expected_pct_graph_2024") %>% withSpinner()
         )
       ),
       layout_columns(
         card(
-          fill = TRUE,
-          card_header("Margin over time in 2022"),
+          fill = FALSE,
+          card_header("Presidential Margin over time in 2022"),
           plotOutput("house_margin_graph_2022") %>% withSpinner()
         ),
         card(
-          fill = TRUE, 
+          fill = FALSE, 
           card_header("Pct of vote reporting in 2022"),
           plotOutput("house_expected_pct_graph_2022") %>% withSpinner()
         )
+      ),
+      card(
+        fill = TRUE,
+        card_header("Percent of Remaining Vote Harris needs to win"),
+        textOutput("house_votes_remaining"),
+        textOutput("house_harris_to_win"),
       )
     )
   ),

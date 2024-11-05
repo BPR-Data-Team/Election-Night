@@ -68,10 +68,18 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
   };
 
   useEffect(() => {
+    sharedState.setAvailableBreakdowns([
+      RaceType.Presidential,
+      RaceType.Senate,
+      RaceType.Gubernatorial,
+    ]);
+    sharedState.breakdownSwitch(sharedState.breakdown);
+  }, []);
+
+  useEffect(() => {
     console.log('adding event listeners');
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
-
     return () => {
       console.log('removing event listeners');
       document.removeEventListener('mousedown', handleMouseDown);

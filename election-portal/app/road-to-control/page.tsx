@@ -12,12 +12,13 @@ import { Year } from "@/types/Year";
 export default function Road_To_Control_Page() {
   const sharedState = useSharedState().state;
   
-
+  console.log(sharedState.page);
   useEffect(() => {
     // set menubar options
     sharedState.setAvailableBreakdowns([
       RaceType.Presidential,
     ]);
+    sharedState.breakdownSwitch(RaceType.Presidential);
     sharedState.setAvailableYears([
       Year.TwentyFour,
       Year.Twenty,
@@ -26,18 +27,19 @@ export default function Road_To_Control_Page() {
     sharedState.setAvailibleDemographics([]);
   }, []);
   return (
-    <div className={styles.page}>
-      <div className={styles.overflowCatch}>
-        {sharedState.drawMode ? <Canvas /> : null}
-        <div className={styles.mapWrapper} id="mapWrapper">
-          <RTCMap
+      <div className={styles.page}>
+        <div className={styles.overflowCatch}>
+          {sharedState.drawMode ? <Canvas /> : null}
+          <div className={styles.mapWrapper} id="mapWrapper">
+            <RTCMap
             year={sharedState.year}
             raceType={sharedState.breakdown}
             liveData={sharedState.calledElectionData}
           />
+            {/* </div> */}
+          </div>
+          {/* <Menubar /> */}
         </div>
-        <Menubar />
       </div>
-    </div>
   );
 }
