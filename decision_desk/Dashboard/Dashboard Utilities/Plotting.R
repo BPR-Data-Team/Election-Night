@@ -9,6 +9,8 @@ library(bslib)
 library(htmlwidgets)
 
 county_data <- read_csv("cleaned_data/Changing Data/DDHQ_current_county_results.csv", show_col_types = FALSE)
+county_benchmarks <- read_csv("cleaned_data/Locally-Hosted Data/CountyBenchmarks.csv") %>%
+  mutate(FIPS = sprintf("%03d", FIPS))
 
 #---- COLOR BINS ------
 # Define custom bins for swing values
@@ -629,3 +631,166 @@ get_swing_map <- function(county_data, state_abbrev, office_1, office_2, year_1,
   return(graph)
 }
 
+get_benchmark_map <- function(state_abbrev) {
+  
+  benchmark_data <- county_benchmarks %>%
+    filter(State == state_abbrev)
+  
+  
+  if (nrow(benchmark_data) == 0) {
+    stop(glue("We do not include benchmarks for {state_abbrev}"))
+  }
+  
+  state_name <- state.name[match(state_abbrev, state.abb)]
+  
+  if (is.na(state_name)) {
+    return(NULL)
+  }
+  
+  geojson_link <- glue("GeoJSON/County/2022/{state_name}_2022.geojson")
+  city_json <- glue("election-portal/public/GeoJSON/City/{state_name}.json")
+  
+  city_data <- fromJSON(city_json)
+  city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
+  
+  geo_data <- st_read(geojson_link, quiet=TRUE) %>% 
+    left_join(benchmark_data, by = c("COUNTYFP" = "FIPS"))
+  
+  graph <- leaflet(geo_data, options = leafletOptions(
+    attributionControl = FALSE, 
+    scrollWheelZoom = FALSE, 
+    zoomControl = FALSE
+  )) %>%
+    #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+    setMapWidgetStyle(list(background= "white")) %>%
+    addPolygons(
+      fillColor = ~pal(Benchmark),
+      color = "black",
+      label = ~glue("{NAME} benchmark: {ifelse(Benchmark > 0, 'D+', 'R+')}{abs(round(Benchmark, 1))}"),
+      weight = 1,
+      opacity = 1,
+      fillOpacity = 0.7,
+      highlightOptions = highlightOptions(
+        weight = 2,
+        color = "#666",
+        fillOpacity = 0.7,
+        bringToFront = TRUE
+      )
+    ) %>%
+    # Adding city markets
+    addCircleMarkers(
+      data = city_sf,
+      radius = 2,
+      color = "black",
+      fillColor = "black",
+      fillOpacity = 0.8,
+      weight = 1
+    ) %>%
+    addLabelOnlyMarkers(
+      data = city_sf,
+      label = ~name,
+      labelOptions = labelOptions(
+        noHide = TRUE,
+        direction = "top",
+        textOnly = TRUE,
+        offset = c(0, -10),  # Offset label to move it above the marker
+        style = list(
+          "color" = "black",          # Color of the text
+          "font-size" = "10px",       # Font size
+          "font-weight" = "bold",
+          "background-color" = "rgba(255, 255, 255, 0.0)",  # No background, or make it fully transparent
+          "padding" = "0px",          # Remove padding to make text follow closely
+          "text-shadow" = "-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff"  # Creates an outline-like effect
+        )
+      )
+    ) %>%
+    htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
+}
+
+get_benchmark_differential_map <- function(county_data, state_abbrev, office) {
+  state_county_data <- county_data %>% 
+    filter(state == state_abbrev & office_type == office)
+  
+  state_name <- state.name[match(state_abbrev, state.abb)]
+    
+  benchmark_data <- county_benchmarks %>% filter(State == state_abbrev)
+  
+  if (nrow(benchmark_data) == 0) {
+    stop(glue("We do not include benchmarks for {state_abbrev}"))
+  }
+  
+  combined_data <- full_join(state_county_data, benchmark_data, by = c("fips" = "FIPS")) %>%
+    mutate(differential = margin_pct - Benchmark)
+
+  if (is.na(state_name)) {
+    return(NULL)
+  }
+  
+  geojson_link <- glue("GeoJSON/County/2022/{state_name}_2022.geojson")
+  city_json <- glue("election-portal/public/GeoJSON/City/{state_name}.json")
+  
+  city_data <- fromJSON(city_json)
+  city_sf <- st_as_sf(city_data, coords = c("lon", "lat"), crs = 4269)
+  
+  geo_data <- st_read(geojson_link, quiet=TRUE) %>% 
+    left_join(combined_data, by = c("COUNTYFP" = "fips"))
+  
+  
+  graph <- leaflet(geo_data, options = leafletOptions(
+    attributionControl = FALSE, 
+    scrollWheelZoom = FALSE, 
+    zoomControl = FALSE
+  )) %>%
+    #addProviderTiles(providers$CartoDB.PositronNoLabels) %>%  # A blank tile layer
+    setMapWidgetStyle(list(background= "white")) %>%
+    addPolygons(
+      fillColor = ~pal(differential),
+      color = "black",
+      label = ~glue("{NAME} differential: {ifelse(differential > 0, 'D+', 'R+')}{abs(round(differential, 1))}"),
+      weight = 1,
+      opacity = 1,
+      fillOpacity = 0.7,
+      highlightOptions = highlightOptions(
+        weight = 2,
+        color = "#666",
+        fillOpacity = 0.7,
+        bringToFront = TRUE
+      )
+    ) %>%
+    # Adding city markets
+    addCircleMarkers(
+      data = city_sf,
+      radius = 2,
+      color = "black",
+      fillColor = "black",
+      fillOpacity = 0.8,
+      weight = 1
+    ) %>%
+    addLabelOnlyMarkers(
+      data = city_sf,
+      label = ~name,
+      labelOptions = labelOptions(
+        noHide = TRUE,
+        direction = "top",
+        textOnly = TRUE,
+        offset = c(0, -10),  # Offset label to move it above the marker
+        style = list(
+          "color" = "black",          # Color of the text
+          "font-size" = "10px",       # Font size
+          "font-weight" = "bold",
+          "background-color" = "rgba(255, 255, 255, 0.0)",  # No background, or make it fully transparent
+          "padding" = "0px",          # Remove padding to make text follow closely
+          "text-shadow" = "-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff"  # Creates an outline-like effect
+        )
+      )
+    ) %>%
+    htmlwidgets::onRender("
+        function(el, x) {
+          L.control.zoom({ position: 'topright' }).addTo(this);
+        }
+      ") 
+}
