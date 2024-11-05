@@ -80,10 +80,10 @@ export default function Election_Breakdown_Page() {
       }
     });
 
-    console.log(
-      'sharedState.electionData on page load: ',
-      sharedState.electionData
-    );
+    // console.log(
+    //   'sharedState.electionData on page load: ',
+    //   sharedState.electionData
+    // );
   }, [sharedState]);
 
   useEffect(() => {
