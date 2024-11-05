@@ -683,12 +683,7 @@ export default function Exit_Poll_Explorer_Page() {
     loadTableData();
   }, [sharedState.demographic, sharedState.view, exitPollData]);
 
-  useEffect(() => {
-    sharedState.setView(State.Alabama);
-    sharedState.demographicSwitch(Demographic.Age);
-  }, []);
-
-  if (!exitPollData || !historicalCountyData || !historicalElectionsData)
+  if (!historicalCountyData || !historicalElectionsData)
     return <p>Loading Data...</p>;
 
   return (
