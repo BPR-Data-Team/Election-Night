@@ -44,6 +44,13 @@
   align-items: center;
   height: 25%;
 }
+.reset-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 25%;
+}
 
 .demographics {
   display: flex;
@@ -62,6 +69,7 @@
 }
 
 .breakdown,
+.reset,
 .year,
 .demographic,
 .viewAll {

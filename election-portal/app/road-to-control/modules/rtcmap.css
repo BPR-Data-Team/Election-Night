@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 3rem;
 }
 .controls {
   display: flex;
@@ -50,12 +51,12 @@
     times new roman,
     serif;
 }
-.reset-button-container {
+/* .reset-button-container {
   position: fixed;
   right: 16%;
   bottom: 10%;
-}
-.reset-button {
+} */
+/* .reset-button {
   font-family:
     gelica,
     book antiqua,
@@ -68,4 +69,4 @@
   border-radius: 0px;
   margin-top: 10rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+} */
