@@ -31,6 +31,8 @@ import Papa from 'papaparse';
 
 import { getStateAbbreviation, getStateFromString } from '@/types/State';
 import { getDataVersion } from '@/types/RaceType';
+import { json } from 'stream/consumers';
+import { exit } from 'process';
 
 function getYearsFromBreakdown(breakdown: RaceType): Year[] {
   switch (breakdown) {
@@ -101,6 +103,20 @@ const fetchRaceData = async (): Promise<Map<string, ElectionData>> => {
   }
 };
 
+// fetch Election (Race) Data from Session Storage
+const loadElectionDataFromSession = (): Map<string, ElectionData> | null => {
+  const storedData = sessionStorage.getItem('electionData');
+  console.log('loading the following electionData from session storage');
+  console.log(
+    storedData
+      ? new Map<string, ElectionData>(JSON.parse(storedData))
+      : new Map<string, ElectionData>()
+  );
+  return storedData
+    ? new Map<string, ElectionData>(JSON.parse(storedData))
+    : null;
+};
+
 // FETCH DDHQ COUNTY WITH PAGINATION
 const fetchCountyData = async (): Promise<Map<string, CountyData>> => {
   const countyDataMap = new Map<string, CountyData>();
@@ -156,6 +172,20 @@ const fetchCountyData = async (): Promise<Map<string, CountyData>> => {
   }
 };
 
+// fetch County Data from Session Storage
+const loadCountyDataFromSession = (): Map<string, CountyData> | null => {
+  const storedData = sessionStorage.getItem('countyData');
+  console.log('loading the following countyData from session storage');
+  console.log(
+    storedData
+      ? new Map<string, CountyData>(JSON.parse(storedData))
+      : new Map<string, CountyData>()
+  );
+  return storedData
+    ? new Map<string, CountyData>(JSON.parse(storedData))
+    : null;
+};
+
 // FETCH LOGAN DATA
 const fetchCalledElectionData = async (): Promise<
   Map<string, CalledElection>
@@ -195,6 +225,22 @@ const fetchCalledElectionData = async (): Promise<
     console.error('Error fetching logan data:', error);
     throw error;
   }
+};
+
+// fetch Logan Data from Session Storage
+const loadLoganDataFromSession = (): Map<string, CalledElection> | null => {
+  const storedData = sessionStorage.getItem('calledElectionData');
+  console.log(
+    'loading the following called election data from session storage'
+  );
+  console.log(
+    storedData
+      ? new Map<string, CalledElection>(JSON.parse(storedData))
+      : new Map<string, CalledElection>()
+  );
+  return storedData
+    ? new Map<string, CalledElection>(JSON.parse(storedData))
+    : null;
 };
 
 // FETCH EXIT POLLS WITH PAGINATION
@@ -244,6 +290,20 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
     console.error('Error fetching exit poll data:', error);
     throw error;
   }
+};
+
+// fetch Exit Polls Data from Session Storage
+const loadExitPollsDataFromSession = (): Map<string, ExitPollData> | null => {
+  const storedData = sessionStorage.getItem('exitPollData');
+  console.log('loading the following exitPollData from session storage');
+  console.log(
+    storedData
+      ? new Map<string, ExitPollData>(JSON.parse(storedData))
+      : new Map<string, ExitPollData>()
+  );
+  return storedData
+    ? new Map<string, ExitPollData>(JSON.parse(storedData))
+    : null;
 };
 
 interface SharedStateContextProps {
@@ -305,25 +365,71 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   // useQuery stuff for REST API Connection
+  //RACE DATA
+  const [electionData, setElectionData] = useState<Map<string, ElectionData>>(
+    new Map()
+  );
+  const [isSessionLoadedRace, setIsSessionLoadedRace] = useState(false);
 
-  // RACE DATA
+  // Load data from sessionStorage on client-side only after mounting
+  useEffect(() => {
+    const storedData = loadElectionDataFromSession();
+    if (storedData) {
+      setElectionData(storedData);
+      console.log('loaded following data from session storage');
+      console.log(storedData);
+    }
+    setIsSessionLoadedRace(true);
+  }, []);
+
+  // Fetch race data with useQuery
   const {
     data: initialElectionData,
     isLoading: electionDataLoading,
     error: electionDataError,
-  } = useQuery<Map<string, ElectionData>, Error>('raceData', fetchRaceData, {
+  } = useQuery('raceData', fetchRaceData, {
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    enabled: isSessionLoadedRace && electionData.size === 0,
     onSuccess: (data) => {
       setElectionData(data);
+      sessionStorage.setItem(
+        'electionData',
+        JSON.stringify(Array.from(data.entries()))
+      );
     },
   });
-  const [electionData, setElectionData] = useState<Map<string, ElectionData>>(
-    new Map()
-  );
+
+  // Update sessionStorage whenever electionData changes
+  useEffect(() => {
+    if (electionData.size > 0) {
+      console.log('updating session storage for race data');
+      sessionStorage.setItem(
+        'electionData',
+        JSON.stringify(Array.from(electionData.entries()))
+      );
+      console.log(electionData);
+    }
+  }, [electionData]);
 
   // COUNTY DATA
+  const [countyData, setCountyData] = useState<Map<string, CountyData>>(
+    new Map()
+  );
+  const [isSessionLoadedCounty, setIsSessionLoadedCounty] = useState(false);
+
+  // Load data from sessionStorage on client-side only after mounting
+  useEffect(() => {
+    const storedData = loadCountyDataFromSession();
+    if (storedData) {
+      setCountyData(storedData);
+      console.log('loaded following county data from session storage');
+      console.log(storedData);
+    }
+    setIsSessionLoadedCounty(true);
+  }, []);
+
   const {
     data: initialCountyData,
     isLoading: countyDataLoading,
@@ -332,15 +438,43 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    enabled: isSessionLoadedCounty && countyData.size === 0,
     onSuccess: (data) => {
       setCountyData(data);
+      sessionStorage.setItem(
+        'countyData',
+        JSON.stringify(Array.from(data.entries()))
+      );
     },
   });
-  const [countyData, setCountyData] = useState<Map<string, CountyData>>(
-    new Map()
-  );
+
+  // Update sessionStorage whenever countyData changes
+  useEffect(() => {
+    if (countyData.size > 0) {
+      sessionStorage.setItem(
+        'countyData',
+        JSON.stringify(Array.from(countyData.entries()))
+      );
+    }
+  }, [countyData]);
 
   // CALLED ELECTION DATA
+  const [calledElectionData, setCalledElectionData] = useState<
+    Map<string, CalledElection>
+  >(new Map());
+  const [isSessionLoadedLogan, setIsSessionLoadedLogan] = useState(false);
+
+  // Load data from SS useEffect
+  useEffect(() => {
+    const storedData = loadLoganDataFromSession();
+    if (storedData) {
+      setCalledElectionData(storedData);
+      console.log('loaded following logan data from session storage');
+      console.log(storedData);
+    }
+    setIsSessionLoadedLogan(true);
+  }, []);
+
   const {
     data: initialCalledElectionData,
     isLoading: calledElectionDataLoading,
@@ -352,16 +486,44 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
+      enabled: isSessionLoadedLogan && calledElectionData.size == 0,
       onSuccess: (data) => {
         setCalledElectionData(data);
+        sessionStorage.setItem(
+          'calledElectionData',
+          JSON.stringify(Array.from(data.entries()))
+        );
       },
     }
   );
-  const [calledElectionData, setCalledElectionData] = useState<
-    Map<string, CalledElection>
-  >(new Map());
+
+  // Update sessionStorage whenever logan data changes
+  useEffect(() => {
+    if (calledElectionData.size > 0) {
+      sessionStorage.setItem(
+        'calledElectionData',
+        JSON.stringify(Array.from(calledElectionData.entries()))
+      );
+    }
+  }, [calledElectionData]);
 
   // EXIT POLL DATA
+  const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData>>(
+    new Map()
+  );
+  const [isSessionLoadedExit, setIsSessionLoadedExit] = useState(false);
+
+  // Load data from SS useEffect
+  useEffect(() => {
+    const storedData = loadExitPollsDataFromSession();
+    if (storedData) {
+      setExitPollData(storedData);
+      console.log('loaded following exit poll data from session storage');
+      console.log(storedData);
+    }
+    setIsSessionLoadedExit(true);
+  }, []);
+
   const {
     data: initialExitPollData,
     isLoading: exitPollDataLoading,
@@ -373,14 +535,26 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
+      enabled: isSessionLoadedExit && exitPollData.size === 0,
       onSuccess: (data) => {
         setExitPollData(data);
+        sessionStorage.setItem(
+          'exitPollData',
+          JSON.stringify(Array.from(data.entries()))
+        );
       },
     }
   );
-  const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData>>(
-    new Map()
-  );
+
+  // Update sessionStorage whenever exit poll data changes
+  useEffect(() => {
+    if (exitPollData.size > 0) {
+      sessionStorage.setItem(
+        'exitPollData',
+        JSON.stringify(Array.from(exitPollData.entries()))
+      );
+    }
+  }, [exitPollData]);
 
   // make a ref to the socket
   const socketRef = useRef<WebSocket | null>(null);
@@ -390,8 +564,8 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     // define inner function for websocket connection
     const connectWebSocket = () => {
       const socket = new WebSocket(
-        // 'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/' MOCK WEBSOCKET
-        'wss://xjilt868ci.execute-api.us-east-1.amazonaws.com/prod/'
+        // 'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/' //MOCK WEBSOCKET
+        'wss://xjilt868ci.execute-api.us-east-1.amazonaws.com/prod/' //REAL WEBSOCKET
       );
       socketRef.current = socket;
 
@@ -411,6 +585,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
         if (update.tableName == 'Race_Results' && update.data.length > 0) {
           const row = update.data[0];
           const key = row.officetype_district_state;
+          console.log('received update from race table');
 
           // Create a new object with only the required fields
           const filteredRow: ElectionData = {
@@ -544,8 +719,12 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
 
   const [countyName, setCountyName] = useState<string>('');
 
-  const [HistoricalCountyDataDisplayMap, setHistoricalCountyDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
-  const [HistoricalElectionDataDisplayMap, setHistoricalElectionDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
+  const [HistoricalCountyDataDisplayMap, setHistoricalCountyDataDisplayMap] =
+    useState<Map<string, electionDisplayData>>(new Map());
+  const [
+    HistoricalElectionDataDisplayMap,
+    setHistoricalElectionDataDisplayMap,
+  ] = useState<Map<string, electionDisplayData>>(new Map());
 
   // const fetchHistoricalCountyDataForDisplay = (historicalCountyData: any) => {
   //     console.log("Initializing historical county data");
@@ -626,7 +805,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   //         }
   //       }
   //     });
-  
+
   //     setHistoricalCountyDataDisplayMap(fetchedData);
   // }
 
@@ -635,82 +814,96 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     Republican_name: string;
   }
 
-  const [electionCandidateMap, setElectionCandidateMap] = useState<Map<string, CandidateNamesInterface>>(new Map());
-  const [countyCandidateMap, setCountyCandidateMap] = useState<Map<string, CandidateNamesInterface>>(new Map());
+  const [electionCandidateMap, setElectionCandidateMap] = useState<
+    Map<string, CandidateNamesInterface>
+  >(new Map());
+  const [countyCandidateMap, setCountyCandidateMap] = useState<
+    Map<string, CandidateNamesInterface>
+  >(new Map());
 
   const getCandidateKey = (datum: any): Array<string> => {
-    switch(datum.office_type) {
+    switch (datum.office_type) {
       case getDataVersion(RaceType.Senate):
-        let key1 = `2018_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
-        let key2 = `2012_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let key1 =
+          `2018_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let key2 =
+          `2012_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
         return [key1, key2];
       case getDataVersion(RaceType.Gubernatorial):
-        let gub_key1 = `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
-        let gub_key2 = `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let gub_key1 =
+          `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let gub_key2 =
+          `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
         return [gub_key1, gub_key2];
       case getDataVersion(RaceType.Presidential):
-        let pres_key1 = `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
-        let pres_key2 = `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let pres_key1 =
+          `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let pres_key2 =
+          `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
         return [pres_key1, pres_key2];
       default:
         return [];
-  }
-}
+    }
+  };
 
-  const fetchHistoricalCountyDataForDisplay = async (historicalCountyData: any) => {
-    console.log("Initializing historical election data");
+  const fetchHistoricalCountyDataForDisplay = async (
+    historicalCountyData: any
+  ) => {
+    console.log('Initializing historical election data');
     let fetchedData = new Map<string, electionDisplayData>();
 
     const response = await fetch('cleaned_data/Historic Candidates.csv');
-      const csvText = await response.text();
-      const parsedData = Papa.parse(csvText, { header: true }).data;
-      
-      let newCandidateMap = new Map<string, CandidateNamesInterface>();
-      if (countyCandidateMap.size === 0) {
-        parsedData.forEach((row: any) => {
-          const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
-          const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
+    const csvText = await response.text();
+    const parsedData = Papa.parse(csvText, { header: true }).data;
 
-          
-    
-          const newCandidateNames = {
-            Democratic_name: row.dem_name,
-            Republican_name: row.rep_name,
-          }
-    
-          newCandidateMap.set(key, newCandidateNames);
-        });
-  
-        setCountyCandidateMap(newCandidateMap);
-      } else {
-        newCandidateMap = countyCandidateMap;
-      }
+    let newCandidateMap = new Map<string, CandidateNamesInterface>();
+    if (countyCandidateMap.size === 0) {
+      parsedData.forEach((row: any) => {
+        const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
+        const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
 
-      console.log('newCandidateMap in county:', newCandidateMap);
+        const newCandidateNames = {
+          Democratic_name: row.dem_name,
+          Republican_name: row.rep_name,
+        };
+
+        newCandidateMap.set(key, newCandidateNames);
+      });
+
+      setCountyCandidateMap(newCandidateMap);
+    } else {
+      newCandidateMap = countyCandidateMap;
+    }
+
+    console.log('newCandidateMap in county:', newCandidateMap);
 
     historicalCountyData?.forEach((datum: any) => {
       let key = datum.state + datum.county + datum.office_type;
 
       const candidateKeys = getCandidateKey(datum);
-      
+
       if (candidateKeys.length === 0) {
         return;
       } else {
         console.log('candidateKeys in county:', candidateKeys);
       }
-                
-      fetchedData.set(key+"_1", {
-        Democratic_name: newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
+
+      fetchedData.set(key + '_1', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_1,
         rep_votes: datum.republican_votes_1,
         dem_votes_pct: datum.democratic_percent_1,
         rep_votes_pct: datum.republican_percent_1,
       });
 
-      fetchedData.set(key+"_2", {
-        Democratic_name: newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
+      fetchedData.set(key + '_2', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_2,
         rep_votes: datum.republican_votes_2,
         dem_votes_pct: datum.democratic_percent_2,
@@ -719,37 +912,39 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     });
 
     setHistoricalCountyDataDisplayMap(fetchedData);
-};
+  };
 
-  const fetchHistoricalElectionDataForDisplay = async (historicalElectionData: any) => {
-    console.log("Initializing historical election data");
+  const fetchHistoricalElectionDataForDisplay = async (
+    historicalElectionData: any
+  ) => {
+    console.log('Initializing historical election data');
     let fetchedData = new Map<string, electionDisplayData>();
 
     const response = await fetch('cleaned_data/Historic Candidates.csv');
     const csvText = await response.text();
     const parsedData = Papa.parse(csvText, { header: true }).data;
     console.log('parsedData', parsedData);
-      
-      let newCandidateMap = new Map<string, CandidateNamesInterface>();
-      if (electionCandidateMap.size === 0) {
-        parsedData.forEach((row: any) => {
-          const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
-          const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
-    
-          const newCandidateNames = {
-            Democratic_name: row.dem_name,
-            Republican_name: row.rep_name,
-          }
-    
-          newCandidateMap.set(key, newCandidateNames);
-        });
-  
-        setElectionCandidateMap(newCandidateMap);
-      } else {
-        newCandidateMap = electionCandidateMap;
-      }
 
-      console.log('newCandidateMap', newCandidateMap);
+    let newCandidateMap = new Map<string, CandidateNamesInterface>();
+    if (electionCandidateMap.size === 0) {
+      parsedData.forEach((row: any) => {
+        const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
+        const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
+
+        const newCandidateNames = {
+          Democratic_name: row.dem_name,
+          Republican_name: row.rep_name,
+        };
+
+        newCandidateMap.set(key, newCandidateNames);
+      });
+
+      setElectionCandidateMap(newCandidateMap);
+    } else {
+      newCandidateMap = electionCandidateMap;
+    }
+
+    console.log('newCandidateMap', newCandidateMap);
 
     historicalElectionData?.forEach((datum: any) => {
       let key = datum.office_type + datum.state + datum.district;
@@ -758,30 +953,32 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       if (candidateKeys.length === 0) {
         return;
       }
-                
-      fetchedData.set(key+"_1", {
-        Democratic_name: newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
+
+      fetchedData.set(key + '_1', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_1,
         rep_votes: datum.republican_votes_1,
         dem_votes_pct: datum.democratic_percent_1,
         rep_votes_pct: datum.republican_percent_1,
       });
 
-      fetchedData.set(key+"_2", {
-        Democratic_name: newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
+      fetchedData.set(key + '_2', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_2,
         rep_votes: datum.republican_votes_2,
         dem_votes_pct: datum.democratic_percent_2,
         rep_votes_pct: datum.republican_percent_2,
       });
-
     });
 
     setHistoricalElectionDataDisplayMap(fetchedData);
   };
-
 
   const state: SharedInfo = {
     page,
@@ -821,7 +1018,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     setCountyName,
     HistoricalCountyDataDisplayMap,
     fetchHistoricalCountyDataForDisplay,
-    HistoricalElectionDataDisplayMap, 
+    HistoricalElectionDataDisplayMap,
     fetchHistoricalElectionDataForDisplay,
   };
 
