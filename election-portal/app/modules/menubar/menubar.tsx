@@ -124,7 +124,7 @@ const Menubar: React.FC<MenubarProps> = ({
   handleReset,
 }) => {
   const state = useSharedState().state;
-
+  const pathname = usePathname();
   //console.log('Menubar is rendering with state:', state);
 
   const handleYearClick = (year: Year) => {
