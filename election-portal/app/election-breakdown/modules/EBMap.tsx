@@ -152,6 +152,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
   useEffect(() => { 
     const fetchedData = getFetchedFromHistoricalData(historicalElectionsData);
     setElectionData(fetchedData);
+    // console.log("ELECTION DATA:", electionData);
   }, [sharedState.electionData, sharedState.countyData, historicalElectionsData, sharedState.year, raceType]);
 
   useEffect(() => {
@@ -324,10 +325,13 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
     let fetchedData = getFetchedFromHistoricalData(historicalElectionsData);
 
 
-    const axisMax: number = Math.max(
+    let axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
       Math.abs(getMaxState(fetchedData))
     );
+    if (fetchedData.length < 2) {
+      axisMax = 1;
+    }
     const mapOptions: Highcharts.Options = {
       chart: {
         type: 'map',
@@ -374,8 +378,8 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         enableTouchZoom: true,
       },
       colorAxis: {
-        min: -axisMax,
-        max: axisMax,
+        min: -25,
+        max: 25,
         stops: colorAxisStops,
         visible: false,
       },
