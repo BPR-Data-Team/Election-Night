@@ -116,22 +116,22 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   
 
   useEffect(() => {
-    console.log("sharedState.year:", sharedState.year);
+    //console.log("sharedState.year:", sharedState.year);
     
 
     if (sharedStateLevel == 'state') {
       setLevelTitle('Statewide');
       // let key = datum.office_type + datum.state + datum.district;
-      console.log("state sharedState.year:", sharedState.year);
-      console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
+      //console.log("state sharedState.year:", sharedState.year);
+      //console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
       if (sharedState.year === Year.TwentyFour) {
-        console.log("sharedState.electionData", sharedState.electionData);
+        //console.log("sharedState.electionData", sharedState.electionData);
         let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
-        console.log("key24", key24);
+        //console.log("key24", key24);
         let newDisplayData24 = sharedState.electionData?.get(key24);
-        console.log("newDisplayData24", newDisplayData24);
+        //console.log("newDisplayData24", newDisplayData24);
         if (newDisplayData24) {
-          console.log("Setting display data to ", newDisplayData24);
+          //console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
           setPctReporting(Math.round(newDisplayData24.pct_reporting ? newDisplayData24.pct_reporting : 0));
         }
@@ -150,16 +150,16 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     } else if (sharedStateLevel == 'county') {
       setLevelTitle(countyName);
       // let key = datum.state + datum.county + datum.office_type;
-      console.log("county sharedState.year:", sharedState.year);
-      console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
+      //console.log("county sharedState.year:", sharedState.year);
+      //console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
       if (sharedState.year === Year.TwentyFour) {
-        console.log("sharedState.countyData", sharedState.countyData);
+        //console.log("sharedState.countyData", sharedState.countyData);
         let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
-        console.log("key24", key24);
+        //console.log("key24", key24);
         let newDisplayData24 = sharedState.electionData?.get(key24);
-        console.log("newDisplayData24", newDisplayData24);
+        //console.log("newDisplayData24", newDisplayData24);
         if (newDisplayData24) {
-          console.log("Setting display data to ", newDisplayData24);
+          //console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
           setPctReporting(Math.round(newDisplayData24.pct_reporting ? newDisplayData24.pct_reporting : 0));
         }
@@ -177,17 +177,17 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     }
     } else {
       setLevelTitle(stateName);
-      console.log("Initialzing state data at the national level")
-      console.log("national sharedState.year:", sharedState.year);
-      console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
+      //console.log("Initialzing state data at the national level")
+      //console.log("national sharedState.year:", sharedState.year);
+      //console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
       if (sharedState.year === Year.TwentyFour) {
-        console.log("sharedState.electionData", sharedState.electionData);
+        //console.log("sharedState.electionData", sharedState.electionData);
         let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
-        console.log("key24", key24);
+        //console.log("key24", key24);
         let newDisplayData24 = sharedState.electionData?.get(key24);
-        console.log("newDisplayData24", newDisplayData24);
+        //console.log("newDisplayData24", newDisplayData24);
         if (newDisplayData24) {
-          console.log("Setting display data to ", newDisplayData24);
+          //console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
           setPctReporting(Math.round(newDisplayData24.pct_reporting));
         }
@@ -220,7 +220,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         candidateNames]);
 
   // const initializeCountyData = () => {
-  //   console.log("Initializing county data");
+  //   //console.log("Initializing county data");
   //   let fetchedData: ElectionData[] = [];
   //   historicalCountyData?.forEach((datum) => {
   //     if (
@@ -302,13 +302,13 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   //     }
   //   });
 
-  //   console.log("Fetched data: ", fetchedData[0]);
+  //   //console.log("Fetched data: ", fetchedData[0]);
 
   //   setDisplayData(fetchedData[0]);
   // }
 
   // const initializeStateData = () => {
-  //   console.log("Initializing state data");
+  //   //console.log("Initializing state data");
   //   let fetchedData: ElectionData[] = [];
   //   historicalElectionsData?.forEach((datum) => {
   //     if (
@@ -412,7 +412,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   //     Republican_votes: stateRepVotes,
   //   }
 
-  //   console.log("New display data: ", newDisplayData);
+  //   //console.log("New display data: ", newDisplayData);
     
   //   setDisplayData(newDisplayData);
   // }
