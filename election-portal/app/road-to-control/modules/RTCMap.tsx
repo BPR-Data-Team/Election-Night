@@ -225,7 +225,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
       initializeCircleValues(sixteenPresData);
     } else if (year === Year.Twenty && twentyPresData) {
       initializeCircleValues(twentyPresData);
-    } else if (year === Year.TwentyFour) {
+    } else if (year === Year.TwentyFour && twentyFourPresData) {
       initializeCircleValues(twentyFourPresData);
     } else {
       initializeCircleValues([]); // Placeholder for future data
