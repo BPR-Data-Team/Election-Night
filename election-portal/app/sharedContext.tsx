@@ -175,6 +175,7 @@ const fetchCalledElectionData = async (): Promise<
           state_district_office: state_district_office,
         };
         calledElectionMap.set(state_district_office, newItem);
+        console.log(`Added ${state_district_office} to calledElectionMap`);
       } else {
         console.error(
           `Pattern did not match for: ${item.state_district_office}`

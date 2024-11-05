@@ -5,7 +5,6 @@ import HighchartsMap from 'highcharts/modules/map';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
 import './EBMap.css';
 
-import { useSharedState } from '../../sharedContext';
 import { State, getStateFromString } from '../../../types/State';
 import { HistoricalElectionData } from '@/types/data';
 import { Year } from '@/types/Year';

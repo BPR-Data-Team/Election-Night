@@ -9,6 +9,7 @@ import Circle from './ElectoralVoteButton';
 import StatusBar from './StatusBar';
 import electoralVotesPerState from './utils/electoralVotesPerState';
 import { parse } from 'papaparse';
+import { useSharedState } from '../../sharedContext';
 import { RTCPresData } from '@/types/data';
 
 const prodSlug =
@@ -82,17 +83,20 @@ const presData = [
   { 'hc-key': 'us-wy', Called: 'N', electoral_votes: 3 },
 ];
 //mock data
-const mockData = presData.map((item) => ({ ...item, Called: 'N', district: 0 }));
+const mockData = presData.map((item) => ({
+  ...item,
+  Called: 'N',
+  district: 0,
+}));
 
 const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
+  const sharedState = useSharedState().state;
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<{
     mapData: any[],
     circleValues: any[],
     collective: any[],
   }>({ mapData: [], circleValues: [], collective: []});
-  const originalElectoralCounts = useRef<any[]>([]);
-  const [mapData, setMapData] = useState(mockData); // Default to presData
   const [circleValues, setCircleValues] = useState({
     NE1: 0,
     NE2: 0,
@@ -120,30 +124,41 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
     initializeMap(geoJson);
   };
 
-  /**
-   * Placeholder intended to handle live websocket data. Feel free to completely delete if necessary.
-   *
-   */
-  const handleWebSocketData = (newData: any[]) => {
-    const formattedData = newData.map((item) => ({
-      'hc-key': item['hc-key'],
-      Called:
-        item.party_winner === 'D' ? 'D' : item.party_winner === 'R' ? 'R' : 'N',
-      electoral_votes: item.electoral_votes,
-    }));
+  // const handleWebSocketData = (newData: any[]) => {
+  //   const formattedData = newData.map((item) => ({
+  //     'hc-key': item['hc-key'],
+  //     Called:
+  //       item.party_winner === 'D' ? 'D' : item.party_winner === 'R' ? 'R' : 'N',
+  //     electoral_votes: item.electoral_votes,
+  //   }));
 
-    formattedData.forEach((item) => {
-      const point = chartRef.current?.series[0].data.find(
-        (p) => (p as any)['hc-key'] === item['hc-key']
-      );
-      point?.update({
-        value: item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0,
-      });
-    });
+  //   formattedData.forEach((item) => {
+  //     const point = chartRef.current?.series[0].data.find(
+  //       (p) => (p as any)['hc-key'] === item['hc-key']
+  //     );
+  //     point?.update({
+  //       value: item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0,
+  //     });
+  //   });
 
-    setMapData(formattedData);
-    initializeElectoralVotes(formattedData);
-  };
+  //   setMapData(formattedData);
+  //   initializeElectoralVotes(formattedData);
+  // };
+  useEffect(() => {
+    console.log('liveData:', sharedState.calledElectionData);
+  }, [sharedState.calledElectionData]);
+
+  // useEffect(() => {
+  //   if (isLiveDataReady) {
+  //     console.log('liveData:', liveData);
+  //     const liveDataKeys = Object.keys(liveData || {});
+  //     liveDataKeys.forEach((item) => {
+  //       const regex = /([A-Z]{2})(\d+)(.+)/;
+  //       const match = item.match(regex);
+  //       console.log(match);
+  //     });
+  //   }
+  // }, [isLiveDataReady]);
 
   useEffect(() => {
     const fetchData = async (
@@ -287,13 +302,24 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       const point = this;
       const newValue = (point.value + 1) % 3; // Cycle between 0 (N), 1 (D), and 2 (R)
       point.update({ value: newValue });
-      updateMapData(point['hc-key'], newValue, point.value);
+      const electoral_votes = electoralVotesPerState[point['hc-key']];
+      updateElectoralCounts(
+        point['hc-key'],
+        newValue,
+        point.value,
+        electoral_votes
+      );
     };
 
     const mapOptions: Highcharts.Options = {
       chart: { type: 'map', map: geoJson, backgroundColor: 'transparent' },
       title: { text: '' },
       credits: { enabled: false },
+      mapNavigation: {
+        enabled: true,
+        enableMouseWheelZoom: true,
+        enableButtons: false,
+      },
       plotOptions: {
         map: {
           cursor: 'pointer',
@@ -339,26 +365,6 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
 
     chartRef.current = chart;
     initializeElectoralVotes(currentData);
-  };
-
-  /**
-   * Updates the map data and electoral counts based on the provided key and value.
-   *
-   * Update the map data with new values and adjust the electoral counts accordingly.
-   * It maps through the current map data, finds the item with the matching key, and updates its 'Called' property.
-   * Additionally, it updates the electoral counts using the provided key, value, oldValue, and the corresponding electoral votes.
-   */
-  const updateMapData = (key: string, value: number, oldValue: number) => {
-    setMapData((prev) =>
-      prev.map((item) =>
-        item['hc-key'] === key
-          ? { ...item, Called: (colorMapping as any)[value] }
-          : item
-      )
-    );
-    // Might need to change this to electoralVotes as an argument
-    const electoral_votes = electoralVotesPerState[key];
-    updateElectoralCounts(key, value, oldValue, electoral_votes);
   };
 
   /**
