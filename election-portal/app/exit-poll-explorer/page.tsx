@@ -706,39 +706,14 @@ export default function Exit_Poll_Explorer_Page() {
         />
         <div className={styles.mapAndTable}>
           <div className={styles.mapWrapper} id="mapWrapper">
-            {displayNational && (
               <div
                 className={styles.EXMapContainer}
                 id="EXMapContainer"
-                style={{
-                  ...(sharedState.level == 'national'
-                    ? { opacity: 1 }
-                    : { opacity: 0 }),
-                }}
               >
                 <EXMap
                   historicalElectionsData={filteredHistoricalElectionsData}
                 />
               </div>
-            )}
-            {!displayNational && (
-              <div
-                className={styles.StateMapContainer}
-                style={{
-                  ...(sharedState.level != 'national'
-                    ? { opacity: 1 }
-                    : { opacity: 0 }),
-                }}
-              >
-                <StateMap
-                  year={sharedState.year}
-                  raceType={sharedState.breakdown}
-                  stateName={sharedState.view}
-                  countyData={historicalCountyData}
-                  setCountyName={sharedState.setCountyName}
-                />
-              </div>
-            )}
           </div>
           {tableData.length != 0 && <StatsTable data={tableData} />}
         </div>

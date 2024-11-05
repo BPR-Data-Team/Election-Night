@@ -125,13 +125,13 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
           }
           chart.mapZoom(
             toZoom,
-            eventPoint.plotX * 7 - 1000,
-            eventPoint.plotY * -8 + 10000
+            eventPoint.plotX * 5 - 2000,
+            eventPoint.plotY * -7 + 10000
           );
         }
       }
     } else if (sharedState.view == stateEnum) {
-      sharedState.setLevel('state');
+      // sharedState.setLevel('state');
     }
 
     setSelectedStateKey(eventPoint['hc-key']);
