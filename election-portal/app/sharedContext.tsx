@@ -309,9 +309,12 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      setElectionData(data);
+    },
   });
   const [electionData, setElectionData] = useState<Map<string, ElectionData>>(
-    initialElectionData || new Map()
+    new Map()
   );
 
   // COUNTY DATA
@@ -323,9 +326,12 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      setCountyData(data);
+    },
   });
   const [countyData, setCountyData] = useState<Map<string, CountyData>>(
-    initialCountyData || new Map()
+    new Map()
   );
 
   // CALLED ELECTION DATA
@@ -340,11 +346,14 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        setCalledElectionData(data);
+      },
     }
   );
   const [calledElectionData, setCalledElectionData] = useState<
     Map<string, CalledElection>
-  >(initialCalledElectionData || new Map());
+  >(new Map());
 
   // EXIT POLL DATA
   const {
@@ -358,10 +367,13 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        setExitPollData(data);
+      },
     }
   );
   const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData>>(
-    initialExitPollData || new Map()
+    new Map()
   );
 
   // make a ref to the socket
