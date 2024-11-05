@@ -23,7 +23,7 @@ if (typeof Highcharts === 'object') {
 }
 
 interface EXMapProps {
-  historicalElectionsData: HistoricalElectionData[] | null;
+  historicalElectionsData: any;
 }
 
 const colorAxisStops: [number, string][] = [
@@ -71,12 +71,6 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     console.log('adding event listeners');
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
-
-    sharedState.setAvailableBreakdowns([
-      RaceType.Presidential,
-      RaceType.Senate,
-      RaceType.Gubernatorial,
-    ]);
 
     return () => {
       console.log('removing event listeners');
@@ -223,38 +217,14 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
 
   const initializeMap = (mapData: any) => {
     let fetchedData: ElectionData[] = [];
-    historicalElectionsData?.forEach((datum) => {
+    historicalElectionsData?.forEach((datum: any) => {
       if (datum.office_type === getDataVersion(raceType)) {
         switch (raceType) {
           case RaceType.Senate:
             switch (sharedState.year) {
-              case Year.Eighteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Twelve:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Gubernatorial:
-            switch (sharedState.year) {
+              case Year.TwentyFour:
               case Year.Twenty:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
+                fetchedData = historicalElectionsData;
             }
           case RaceType.Presidential:
             switch (sharedState.year) {
@@ -366,7 +336,7 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
           states: {
             hover: {
               enabled: false,
-            }
+            },
           },
           point: {
             events: {},

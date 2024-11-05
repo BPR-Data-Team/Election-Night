@@ -24,13 +24,49 @@ import {
 } from '@/types/State';
 import StateMap from '../election-breakdown/modules/stateMap';
 
+const senate2020Data = [
+  { 'hc-key': 'us-or', state: 'OR', value: 1 },
+  { 'hc-key': 'us-id', state: 'ID', value: -1 },
+  { 'hc-key': 'us-mt', state: 'MT', value: -1 },
+  { 'hc-key': 'us-wy', state: 'WY', value: -1 },
+  { 'hc-key': 'us-sd', state: 'SD', value: -1 },
+  { 'hc-key': 'us-ne', state: 'NE', value: -1 },
+  { 'hc-key': 'us-ia', state: 'IA', value: -1 },
+  { 'hc-key': 'us-ks', state: 'KS', value: -1 },
+  { 'hc-key': 'us-ok', state: 'OK', value: -1 },
+  { 'hc-key': 'us-tx', state: 'TX', value: -1 },
+  { 'hc-key': 'us-ar', state: 'AR', value: -1 },
+  { 'hc-key': 'us-la', state: 'LA', value: -1 },
+  { 'hc-key': 'us-al', state: 'AL', value: -1 },
+  { 'hc-key': 'us-ms', state: 'MS', value: -1 },
+  { 'hc-key': 'us-tn', state: 'TN', value: -1 },
+  { 'hc-key': 'us-ky', state: 'KY', value: -1 },
+  { 'hc-key': 'us-wv', state: 'WV', value: -1 },
+  { 'hc-key': 'us-nc', state: 'NC', value: -1 },
+  { 'hc-key': 'us-sc', state: 'SC', value: -1 },
+  { 'hc-key': 'us-me', state: 'ME', value: -1 },
+  { 'hc-key': 'us-ak', state: 'AK', value: -1 },
+  { 'hc-key': 'us-co', state: 'CO', value: 1 },
+  { 'hc-key': 'us-az', state: 'AZ', value: 1 },
+  { 'hc-key': 'us-nm', state: 'NM', value: 1 },
+  { 'hc-key': 'us-il', state: 'IL', value: 1 },
+  { 'hc-key': 'us-mn', state: 'MN', value: 1 },
+  { 'hc-key': 'us-mi', state: 'MI', value: 1 },
+  { 'hc-key': 'us-ga', state: 'GA', value: 1 },
+  { 'hc-key': 'us-va', state: 'VA', value: 1 },
+  { 'hc-key': 'us-nh', state: 'NH', value: 1 },
+  { 'hc-key': 'us-ma', state: 'MA', value: 1 },
+  { 'hc-key': 'us-nj', state: 'NJ', value: 1 },
+  { 'hc-key': 'us-ri', state: 'RI', value: 1 },
+  { 'hc-key': 'us-de', state: 'DE', value: 1 },
+];
+
 export default function Exit_Poll_Explorer_Page() {
   const [exitPollData, setExitPollData] = useState<ExitPollData[] | null>(null);
   const [tableData, setTableData] = useState<ExitPollAnswer[]>([]);
 
-  const [historicalElectionsData, setHistoricalElectionsData] = useState<
-    HistoricalElectionData[] | null
-  >(null);
+  const [historicalElectionsData, setHistoricalElectionsData] =
+    useState<any>(null);
   const [filteredHistoricalElectionsData, setFilteredHistoricalElectionsData] =
     useState<HistoricalElectionData[] | null>(null);
   const [historicalCountyData, setHistoricalCountyData] = useState<
@@ -520,12 +556,24 @@ export default function Exit_Poll_Explorer_Page() {
   };
 
   useEffect(() => {
-    setHistoricalData();
-  }, []);
+    if (
+      sharedState.year === Year.Twenty &&
+      sharedState.breakdown === RaceType.Senate
+    ) {
+      setHistoricalElectionsData(senate2020Data);
+    } else {
+      setHistoricalData();
+    }
+  }, [sharedState.year, sharedState.breakdown, sharedState.demographic]);
 
   useEffect(() => {
     filterHistoricalData();
-  }, [historicalElectionsData, sharedState.breakdown, sharedState.demographic]);
+  }, [
+    historicalElectionsData,
+    sharedState.breakdown,
+    sharedState.year,
+    sharedState.demographic,
+  ]);
 
   // attempt to fix the menubar rendering issue
   const initialized = useRef(false);
@@ -538,7 +586,6 @@ export default function Exit_Poll_Explorer_Page() {
         RaceType.Senate,
       ]);
       sharedState.breakdownSwitch(RaceType.Presidential);
-      sharedState.setAvailableYears([Year.TwentyFour, Year.Twenty]);
       sharedState.yearSwitch(Year.TwentyFour);
       sharedState.setAvailibleDemographics([
         Demographic.Age,
@@ -549,9 +596,14 @@ export default function Exit_Poll_Explorer_Page() {
         Demographic.AreaType,
         Demographic.Region,
       ]);
+      sharedState.demographicSwitch(Demographic.Age);
       initialized.current = true;
     }
   }, [sharedState]);
+
+  useEffect(() => {
+    sharedState.setAvailableYears([Year.TwentyFour, Year.Twenty]);
+  }, [sharedState.breakdown]);
 
   // Second useEffect for exit poll data loading
   useEffect(() => {
@@ -637,9 +689,7 @@ export default function Exit_Poll_Explorer_Page() {
     const data = Array.from(dataMap.values());
     setTableData(data);
   }, [sharedState.demographic, sharedState.view, exitPollData]);
-  // console.log('exitPollData', exitPollData);
-  // console.log('historicalCountyData', historicalCountyData);
-  // console.log('historicalElectionsData', historicalElectionsData);
+
   if (!exitPollData || !historicalCountyData || !historicalElectionsData)
     return <p>Loading Data...</p>;
 
@@ -697,6 +747,7 @@ export default function Exit_Poll_Explorer_Page() {
               </div>
             )}
           </div>
+          {tableData.length != 0 && <StatsTable data={tableData} />}
         </div>
         <Menubar />
       </div>
