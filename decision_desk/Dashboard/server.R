@@ -36,6 +36,8 @@ current_data <- reactive({
         as.numeric))
 })
 
+timeseries_df <- reactive(NULL)
+
 called_races <- reactive({get_rest_api_data("logan")})
 
 exit_poll_data_2024 <- reactive({get_rest_api_data("exit_polls") %>%
@@ -47,7 +49,6 @@ county_data <- reactive({get_rest_api_data("county") %>%
          as.numeric))
 })
 
-cat("Loaded REST data\n")
 
 # ------------------------------ SERVER ------------------------------------- #
 
@@ -70,6 +71,10 @@ server <- function(input, output, session) {
       new_row_key <- data$officetype_district_state
       updated_data <- current_data() %>% filter(officetype_district_state != new_row_key)
       current_data(rbind(updated_data, data))
+      timeseries_df(rbind(timeseries_df, 
+                          data %>% 
+                            select(office_type, state, district, margin_pct, pct_reporting) %>%
+                            mutate(timestamp = Sys.time())))
 
     } else if (table == "Exit_Polls") {
       new_row_key <- data$state_officetype_answer_lastname
@@ -87,6 +92,8 @@ server <- function(input, output, session) {
       county_data(rbind(updated_data, data))
     }
   })
+
+  cat("Loaded REST data\n")
   
   last_election_year <- reactive({
     if (election_type() == "President" || election_type() == "Governor") {
@@ -417,7 +424,7 @@ server <- function(input, output, session) {
       output$TR_map <- renderLeaflet({get_margin_map(county_data(), 2020, state_selection(), election_type())})
       
     } else if (input$TR_map_select == "2020_margin_bubble") {
-      output$TR_map <- renderLeaflet({get_margin_bubble_map(county_data(), 2020, state_selection(), district_selection())})
+      output$TR_map <- renderLeaflet({get_margin_bubble_map(county_data(), 2020, state_selection(), election_type())})
     
     } else if (input$TR_map_select == "swing_20") {
       output$TR_map <- renderLeaflet({get_swing_map(county_data(), state_selection(), election_type(), election_type(), 2016, 2020)})
@@ -456,13 +463,41 @@ server <- function(input, output, session) {
   })
   
   # Graphs 
-  margin_graph_2020 <- renderPlot(previous_time_graphs[[state_selection()]])
-  expected_pct_graph_2020 <- renderPlot(previous_time_expected_pct_graphs[[state_selection()]])
+  margin_graph_2020 <- renderPlot(get_margin_over_time_graph(2020, election_type(), state_selection(), district_selection()))
+  expected_pct_graph_2020 <- renderPlot(get_pct_reporting_over_time_graph(2020, election_type(), state_selection(), district_selection()))
+  
+  margin_graph_2024 <- renderPlot(get_margin_over_time_graph(2024, election_type(), state_selection(), district_selection(), timeseries_df()))
+  expected_pct_graph_2024 <- renderPlot(get_pct_reporting_over_time_graph(2024, election_type(), state_selection(), district_selection(), timeseries_df()))
   
   output$margin_graph_2020 <- margin_graph_2020
-  output$expected_pct_graph_2020 <- expected_pct_graph_2020
   output$house_margin_graph_2022 <- margin_graph_2020
+  
+  output$expected_pct_graph_2020 <- expected_pct_graph_2020
   output$house_expected_pct_graph_2022 <- expected_pct_graph_2020
+  
+  output$margin_graph_2024 <- margin_graph_2024
+  output$house_margin_graph_2024 <- margin_graph_2024
+  
+  output$expected_pct_graph_2024 <- expected_pct_graph_2024
+  output$house_expected_pct_graph_2024 <- expected_pct_graph_2024
+  
+  # harris_to_win_df <- reactive(data.frame())
+  # observe({
+  #   req(nrow(current_data()) > 0)
+  #   pct_to_win <- pct_harris_to_win(current_data(), state_selection(), election_type(), district_selection())
+  #   updated_pct_to_win <- rbind(harris_to_win_df(), pct_to_win)
+  #   harris_to_win_df(updated_pct_to_win)
+  # })
+  #                                    
+  # 
+  # observeEvent(harris_to_win_df(), {
+  #   output$pct_to_win_graph <- pct_harris_to_win_graph(harris_to_win_df(),  state_selection(), election_type(), district_selection())
+  # })
+  
+  output$harris_to_win <- renderTable({
+    pct_harris_to_win_value(current_data(), state_selection(), election_type(), district_selection())
+  })
+  
 
   # Dropdown logic
   observe({
@@ -521,8 +556,7 @@ server <- function(input, output, session) {
       
       updateSelectInput(session, "district_select",
                         choices = filtered_districts,
-                        selected = selected_district
-      )
+                        selected = selected_district)
       
     }
   })
@@ -569,7 +603,6 @@ server <- function(input, output, session) {
   })
   
   # Render the filtered elections table
-  # Render the filtered elections cards
   output$elections <- renderUI({
     lapply(filtered_races()$race_id, function(i) {
       election <- filtered_races() %>% filter(race_id == i)

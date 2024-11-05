@@ -50,7 +50,7 @@ get_label <- function(NAME, Republican_name, Democratic_name, Republican_votes, 
     '</tr>',
     '</table>',
     '<div style="font-size: 9px; color: #666; text-align: right; margin-top: 4px;">',
-    pct_reporting, '% reported</div>',
+    round(as.numeric(pct_reporting), 1), '% reported</div>',
     '</div>'
   )
 }
@@ -283,7 +283,7 @@ get_margin_bubble_map <- function(county_data, year, state_abbrev, office) {
     
   } else if (year == 2020) {
     
-    max_votes <- max(abs(geo_data_centroids$margin_votes_1))
+    max_votes <- max(abs(geo_data$margin_votes_1))
 
     graph <- leaflet(geo_data, options = leafletOptions(
       attributionControl = FALSE, 
@@ -628,4 +628,3 @@ get_swing_map <- function(county_data, state_abbrev, office_1, office_2, year_1,
       ") 
   return(graph)
 }
-
