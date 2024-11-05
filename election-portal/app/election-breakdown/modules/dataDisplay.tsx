@@ -16,6 +16,7 @@ import { CountyData, electionDisplayData, ElectionData } from '@/types/data';
 import DemocratD from '@/svgs/DemocratD';
 import RepublicanR from '@/svgs/RepublicanR';
 
+import Papa from 'papaparse';
 
 
 const mockCountyData = {
@@ -38,6 +39,11 @@ type DataDisplayProps = {
   sharedStateLevel: string;
   countyViewAll: boolean;
 };
+
+interface CandidateNamesInterface {
+  Democratic_name: string;
+  Republican_name: string;
+}
 
 // interface ElectionData {
 //   Democratic_name: string;
@@ -68,6 +74,8 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   const [displayData, setDisplayData] = useState<electionDisplayData | ElectionData | CountyData>(mockCountyData);
 
   const [underScoreFirst, setUnderscoreFirst] = useState<boolean>(true);
+
+  const [candidateNames, setCandidateNames] = useState<Map<string, CandidateNamesInterface>>(new Map<string, CandidateNamesInterface>());
 
   const sharedState = useSharedState().state;
 
@@ -105,8 +113,12 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     }
   }
 
+  
+
   useEffect(() => {
     console.log("sharedState.year:", sharedState.year);
+    
+
     if (sharedStateLevel == 'state') {
       setLevelTitle('Statewide');
       // let key = datum.office_type + datum.state + datum.district;
@@ -198,7 +210,8 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         sharedState.level,
         sharedState.electionData,
         sharedState.countyData,
-        sharedState.year]);
+        sharedState.year,
+        candidateNames]);
 
   // const initializeCountyData = () => {
   //   console.log("Initializing county data");
@@ -584,7 +597,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
               <h2 className="personPercentage">{Math.round(displayData.dem_votes_pct)+"%"}</h2>
               <h2 className="personVotes">
                 {displayData.dem_votes
-                  ? displayData.dem_votes.toLocaleString('en-US')
+                  ? Number(displayData.dem_votes).toLocaleString('en-US')
                   : null}
               </h2>
             </div>
@@ -606,7 +619,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
               <h2 className="personPercentage">{Math.round(displayData.rep_votes_pct)+"%"}</h2>
               <h2 className="personVotes">
                 {displayData.rep_votes
-                  ? displayData.rep_votes.toLocaleString('en-US')
+                  ? Number(displayData.rep_votes).toLocaleString('en-US')
                   : null}
               </h2>
             </div>
