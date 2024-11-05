@@ -68,6 +68,9 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
   const [selectedCounty, setSelectedCounty] = useState('');
   const [electionData, setElectionData] = useState<ElectionData[]>([]);
 
+  const [mapData, setMapData] = useState<any>(null);
+  const [cityData, setCityData] = useState<any>(null);
+
   const [zoomScale, setZoomScale] = useState<number | null>(null);
   const [currentZoom, setCurrentZoom] = useState<number | null>(null);
   const [centerPosition, setCenterPosition] = useState<[number, number] | null>(
@@ -147,7 +150,28 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       'County'
     );
     const newCityData = await fetchCityGeoJSON(stateName);
-    initializeMap(newMapData, newCityData);
+    if (mapData === null || cityData === null) {
+      setMapData(newMapData);
+      setCityData(newCityData);
+      initializeMap(newMapData, newCityData);
+    } else {
+      setMapData(newMapData);
+      setCityData(newCityData);
+      if (stateChart) {
+        stateChart.update({
+          series: [
+            {
+              type: 'map',
+              map: newMapData,
+            },
+            {
+              type: 'mappoint',
+              map: newCityData,
+            },
+          ],
+        });
+      }
+    }
   };
 
   useEffect(() => {
