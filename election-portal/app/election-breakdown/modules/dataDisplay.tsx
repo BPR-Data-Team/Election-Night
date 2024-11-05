@@ -11,7 +11,7 @@ import { getStateAbbreviation } from '../../../types/State';
 
 import CountyDataDisplay from "./countyDataDisplay"
 import { GiConsoleController } from 'react-icons/gi';
-import { electionDisplayData } from '@/types/data';
+import { CountyData, electionDisplayData, ElectionData } from '@/types/data';
 
 import DemocratD from '@/svgs/DemocratD';
 import RepublicanR from '@/svgs/RepublicanR';
@@ -39,14 +39,14 @@ type DataDisplayProps = {
   countyViewAll: boolean;
 };
 
-interface ElectionData {
-  Democratic_name: string;
-  Republican_name: string;
-  Democratic_votes_percent: number;
-  Republican_votes_percent: number;
-  Democratic_votes: number;
-  Republican_votes: number;
-}
+// interface ElectionData {
+//   Democratic_name: string;
+//   Republican_name: string;
+//   Democratic_votes_percent: number;
+//   Republican_votes_percent: number;
+//   Democratic_votes: number;
+//   Republican_votes: number;
+// }
 
 const DataDisplay: React.FC<DataDisplayProps> = ({
   stateName,
@@ -65,7 +65,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
 
   const [levelTitle, setLevelTitle] = useState<string>('');
 
-  const [displayData, setDisplayData] = useState<electionDisplayData>(mockCountyData);
+  const [displayData, setDisplayData] = useState<electionDisplayData | ElectionData | CountyData>(mockCountyData);
 
   const [underScoreFirst, setUnderscoreFirst] = useState<boolean>(true);
 
@@ -106,14 +106,20 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   }
 
   useEffect(() => {
+    console.log("sharedState.year:", sharedState.year);
     if (sharedStateLevel == 'state') {
       setLevelTitle('Statewide');
       // let key = datum.office_type + datum.state + datum.district;
+      console.log("state sharedState.year:", sharedState.year);
+      console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
       if (sharedState.year === Year.TwentyFour) {
         console.log("sharedState.electionData", sharedState.electionData);
         let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
-        let newDisplayData24 = sharedState.HistoricalElectionDataDisplayMap.get(key24);
+        console.log("key24", key24);
+        let newDisplayData24 = sharedState.electionData?.get(key24);
+        console.log("newDisplayData24", newDisplayData24);
         if (newDisplayData24) {
+          console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
         }
       } else {
@@ -131,11 +137,16 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     } else if (sharedStateLevel == 'county') {
       setLevelTitle(countyName);
       // let key = datum.state + datum.county + datum.office_type;
+      console.log("county sharedState.year:", sharedState.year);
+      console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
       if (sharedState.year === Year.TwentyFour) {
         console.log("sharedState.countyData", sharedState.countyData);
         let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
-        let newDisplayData24 = sharedState.HistoricalElectionDataDisplayMap.get(key24);
+        console.log("key24", key24);
+        let newDisplayData24 = sharedState.electionData?.get(key24);
+        console.log("newDisplayData24", newDisplayData24);
         if (newDisplayData24) {
+          console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
         }
       }
@@ -152,12 +163,16 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     } else {
       setLevelTitle(stateName);
       console.log("Initialzing state data at the national level")
-
+      console.log("national sharedState.year:", sharedState.year);
+      console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
       if (sharedState.year === Year.TwentyFour) {
         console.log("sharedState.electionData", sharedState.electionData);
         let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
-        let newDisplayData24 = sharedState.HistoricalElectionDataDisplayMap.get(key24);
+        console.log("key24", key24);
+        let newDisplayData24 = sharedState.electionData?.get(key24);
+        console.log("newDisplayData24", newDisplayData24);
         if (newDisplayData24) {
+          console.log("Setting display data to ", newDisplayData24);
           setDisplayData(newDisplayData24);
         }
       } else {
@@ -178,12 +193,12 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   }, [sharedStateLevel, 
         countyName, 
         stateName, 
-        year, 
         historicalCountyData, 
         historicalElectionsData, 
         sharedState.level,
         sharedState.electionData,
-        sharedState.countyData,]);
+        sharedState.countyData,
+        sharedState.year]);
 
   // const initializeCountyData = () => {
   //   console.log("Initializing county data");
@@ -564,7 +579,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
             </div>
             <div className="infoDivTextDiv">
               <h2 className="personName">
-                {displayData.Democratic_name ? displayData.Democratic_name : null}
+                {displayData.Democratic_name ? displayData.Democratic_name.split(" ").pop() : null}
               </h2>
               <h2 className="personPercentage">{Math.round(displayData.dem_votes_pct)+"%"}</h2>
               <h2 className="personVotes">
@@ -586,7 +601,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
             </div>
             <div className="infoDivTextDiv">
               <h2 className="personName">
-                {displayData.Republican_name ? displayData.Republican_name : null}
+                {displayData.Republican_name ? (displayData.Republican_name).split(" ").pop() : null}
               </h2>
               <h2 className="personPercentage">{Math.round(displayData.rep_votes_pct)+"%"}</h2>
               <h2 className="personVotes">
