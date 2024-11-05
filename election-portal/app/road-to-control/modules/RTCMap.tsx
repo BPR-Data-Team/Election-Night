@@ -93,10 +93,10 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
   const sharedState = useSharedState().state;
   const chartRef = useRef<Highcharts.Chart | null>(null);
   const originalMap = useRef<{
-    mapData: any[],
-    circleValues: any[],
-    collective: any[],
-  }>({ mapData: [], circleValues: [], collective: []});
+    mapData: any[];
+    circleValues: any[];
+    collective: any[];
+  }>({ mapData: [], circleValues: [], collective: [] });
   const [circleValues, setCircleValues] = useState({
     NE1: 0,
     NE2: 0,
@@ -231,6 +231,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       initializeCircleValues(sixteenPresData);
     } else if (year === Year.Twenty && twentyPresData) {
       initializeCircleValues(twentyPresData);
+    } else if (year === Year.TwentyFour) {
     } else {
       initializeCircleValues([]); // Placeholder for future data
     }
@@ -268,6 +269,8 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
           return formatPresData(sixteenPresData);
         case Year.Twenty:
           return formatPresData(twentyPresData);
+        case Year.TwentyFour:
+          return formatPresData(twentyFourPresData);
         default:
           return mockData;
       }
@@ -416,7 +419,8 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
    */
   const getCircleValue = (state: string, district: number, data: any[]) => {
     const item = data.find(
-      (item) => item['hc-key'] === state && item.district === district.toString()
+      (item) =>
+        item['hc-key'] === state && item.district === district.toString()
     );
     if (!item) return 0;
     return item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0;
