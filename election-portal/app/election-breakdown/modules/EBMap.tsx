@@ -364,6 +364,9 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
           nullColor: '#505050',
           name: 'Predicted Margin',
           states: {
+            hover: {
+              enabled: false,
+            }
           },
           point: {
             events: {},

@@ -308,6 +308,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
       },
       legend: { enabled: false },
       tooltip: {
+        enabled: false,
         formatter: function (this: any) {
           return '<b>' + this.point.name;
         },
@@ -333,7 +334,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year }) => {
           borderWidth: 1,
           states: {
             hover: {
-              borderColor: 'grey',
+              enabled: false,
             },
           },
         },
