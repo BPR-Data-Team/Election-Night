@@ -623,7 +623,7 @@ export default function Exit_Poll_Explorer_Page() {
 
   useEffect(() => {
     sharedState.setAvailableYears([Year.TwentyFour, Year.Twenty]);
-  }, [sharedState.breakdown]);
+  }, [sharedState.breakdown, sharedState.breakdownSwitch]);
 
   // Second useEffect for exit poll data loading
   useEffect(() => {
