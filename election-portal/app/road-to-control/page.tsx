@@ -18,6 +18,7 @@ export default function Road_To_Control_Page() {
     sharedState.setAvailableBreakdowns([
       RaceType.Presidential,
     ]);
+    sharedState.breakdownSwitch(RaceType.Presidential);
     sharedState.setAvailableYears([
       Year.TwentyFour,
       Year.Twenty,
