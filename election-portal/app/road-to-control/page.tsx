@@ -26,18 +26,18 @@ export default function Road_To_Control_Page() {
     sharedState.setAvailibleDemographics([]);
   }, []);
   return (
-      <div className={styles.page}>
-        <div className={styles.overflowCatch}>
-          {sharedState.drawMode ? <Canvas /> : null}
-          <div className={styles.mapWrapper} id="mapWrapper">
-            {/* <div
-              className={styles.StateMapContainer}
-            > */}
-            <RTCMap year={sharedState.year} raceType={sharedState.breakdown}/>
-            {/* </div> */}
-          </div>
-          <Menubar />
+    <div className={styles.page}>
+      <div className={styles.overflowCatch}>
+        {sharedState.drawMode ? <Canvas /> : null}
+        <div className={styles.mapWrapper} id="mapWrapper">
+          <RTCMap
+            year={sharedState.year}
+            raceType={sharedState.breakdown}
+            liveData={sharedState.calledElectionData}
+          />
         </div>
+        <Menubar />
       </div>
+    </div>
   );
 }
