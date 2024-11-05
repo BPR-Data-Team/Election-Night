@@ -52,16 +52,19 @@ export default function Election_Breakdown_Page() {
   }, [sharedState.level]);
 
   useEffect(() => {
-    if (sharedState.HistoricalCountyDataDisplayMap.size === 0 && sharedState.HistoricalElectionDataDisplayMap.size === 0) {
+    if (
+      sharedState.HistoricalCountyDataDisplayMap.size === 0 &&
+      sharedState.HistoricalElectionDataDisplayMap.size === 0
+    ) {
       sharedState.fetchHistoricalCountyDataForDisplay(historicalCountyData);
-      sharedState.fetchHistoricalElectionDataForDisplay(historicalElectionsData);
+      sharedState.fetchHistoricalElectionDataForDisplay(
+        historicalElectionsData
+      );
     }
-
-
   }, [historicalCountyData, historicalElectionsData]);
 
   // State Mode While National
-  const SMWN = sharedState.view != State.National && displayNational;
+  const SMWN = (sharedState.view != State.National) && displayNational;
 
   useEffect(() => {
     const wrapperDiv = document?.getElementById('mapWrapper');
@@ -77,16 +80,16 @@ export default function Election_Breakdown_Page() {
       }
     });
 
-    console.log("sharedState.electionData on page load: ", sharedState.electionData)
-
+    console.log(
+      'sharedState.electionData on page load: ',
+      sharedState.electionData
+    );
   }, [sharedState]);
 
   useEffect(() => {
     if (sharedState.level != 'county') {
       setCountyViewAll(false);
     }
-
-    
   }, [sharedState.level]);
 
   useEffect(() => {
@@ -150,6 +153,7 @@ export default function Election_Breakdown_Page() {
       RaceType.Senate,
       RaceType.Gubernatorial,
     ]);
+    sharedState.breakdownSwitch(RaceType.Presidential);
 
     sharedState.setAvailibleDemographics([]);
 
@@ -204,9 +208,6 @@ export default function Election_Breakdown_Page() {
           console.error('Error loading historical county data:', error)
         );
     }
-
-    
-
   }, []);
 
   if (!historicalElectionsData || !historicalCountyData)

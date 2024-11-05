@@ -31,18 +31,19 @@
   background-color: var(--statusbar-left);
   justify-content: flex-start;
   padding-left: 1rem;
-  border-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
   transition: width 1s ease;
 }
 
 .statusBarRight {
   right: 0;
-
   margin-left: 0.01rem;
   background-color: var(--statusbar-right);
   justify-content: flex-end;
   padding-right: 1rem;
-  border-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
   transition: width 1s ease;
 }
 

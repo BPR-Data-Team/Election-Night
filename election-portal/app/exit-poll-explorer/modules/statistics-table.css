@@ -1,5 +1,5 @@
 .stats-table {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   width: 40vw;
   left: 0;
@@ -10,9 +10,10 @@
 
 table {
   border-collapse: collapse;
-  font-size: 1.2rem;
+  font-size: 2rem;
   text-align: center;
   padding: 0.5rem;
+  color: #ffffff;
   font-family:
     gelica,
     book antiqua,
@@ -35,7 +36,7 @@ tr {
 
 td,
 th {
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   border-left: 1px solid rgb(212, 212, 212);
 }
 

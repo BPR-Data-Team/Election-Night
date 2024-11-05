@@ -212,6 +212,7 @@ const fetchCalledElectionData = async (): Promise<
           state_district_office: state_district_office,
         };
         calledElectionMap.set(state_district_office, newItem);
+        console.log(`Added ${state_district_office} to calledElectionMap`);
       } else {
         console.error(
           `Pattern did not match for: ${item.state_district_office}`
@@ -244,8 +245,8 @@ const loadLoganDataFromSession = (): Map<string, CalledElection> | null => {
 };
 
 // FETCH EXIT POLLS WITH PAGINATION
-const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
-  const exitPollMap = new Map<string, ExitPollData>();
+const fetchExitPollData = async (): Promise<Map<string, ExitPollData[]>> => {
+  const exitPollMap = new Map<string, ExitPollData[]>();
   let lastKey = null; // set lastKey as null initially
 
   try {
@@ -272,10 +273,15 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
           answer_pct: item.answer_pct,
           lastName: item.lastName,
         };
-        exitPollMap.set(
-          item.state + item.office_type + item.answer + item.lastName,
-          newItem
-        );
+        if (exitPollMap.get(item.state + item.office_type + item.question)) {
+          exitPollMap
+            .get(item.state + item.office_type + item.question)
+            ?.push(newItem);
+        } else {
+          exitPollMap.set(item.state + item.office_type + item.question, [
+            newItem,
+          ]);
+        }
       });
       lastKey = response.data.lastKey;
       console.log(
@@ -325,8 +331,10 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   );
   const exitLevel = () => {
     if (level === 'county') {
+      console.log('SETTING FROM COUNTY TO STATE');
       setLevel('state');
     } else if (level === 'state') {
+      console.log('SETTING FROM STATE TO NAT');
       setLevel('national');
       setView(State.National);
     } else if (level === 'national') {
@@ -343,7 +351,9 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   ]);
   const breakdownSwitch = (breakdown: RaceType) => {
     setAvailableYears(getYearsFromBreakdown(breakdown));
-    setYear(Year.TwentyFour);
+    if (!getYearsFromBreakdown(breakdown).includes(year)) {
+      setYear(getYearsFromBreakdown(breakdown)[0]);
+    }
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
@@ -363,6 +373,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       setDemographic(demographic);
     }
   };
+
 
   // useQuery stuff for REST API Connection
   //RACE DATA
@@ -528,7 +539,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     data: initialExitPollData,
     isLoading: exitPollDataLoading,
     error: exitPollDataError,
-  } = useQuery<Map<string, ExitPollData>, Error>(
+  } = useQuery<Map<string, ExitPollData[]>, Error>(
     'exitPollData',
     fetchExitPollData,
     {
@@ -648,7 +659,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
         // EXIT POLL TABLE
         if (update.tableName == 'Exit_Polls' && update.data.length > 0) {
           const row = update.data[0];
-          const key = row.state_officetype_answer_lastname;
+          const key = row.state + row.office_type + row.question;
 
           // Create a new object with only the required fields
           const filteredRow: ExitPollData = {
@@ -661,8 +672,22 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
             lastName: row.lastName,
           };
           setExitPollData((prevData) => {
+            const idx = prevData
+              .get(key)
+              ?.findIndex(
+                (elem) =>
+                  elem.state === filteredRow.answer &&
+                  elem.office_type === filteredRow.office_type &&
+                  elem.question === filteredRow.question
+              );
+
             const newData = new Map(prevData);
-            newData.set(key, filteredRow);
+            const targetArray = newData.get(key);
+
+            if (targetArray && idx !== undefined && idx !== -1) {
+              targetArray[idx] = filteredRow;
+              newData.set(key, targetArray);
+            }
             console.log(newData);
             return newData;
           });
