@@ -13,6 +13,9 @@ import CountyDataDisplay from "./countyDataDisplay"
 import { GiConsoleController } from 'react-icons/gi';
 import { electionDisplayData } from '@/types/data';
 
+import DemocratD from '@/svgs/DemocratD';
+import RepublicanR from '@/svgs/RepublicanR';
+
 
 
 const mockCountyData = {
@@ -552,11 +555,12 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         <div className="peopleDiv">
           <div className="personStack">
             <div className="personImageDiv">
-              <img
+              < DemocratD />
+              {/* <img
                 className="demPerson"
                 src="https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png"
                 alt="Dem Candidate"
-              />
+              /> */}
             </div>
             <div className="infoDivTextDiv">
               <h2 className="personName">
@@ -573,11 +577,12 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
 
           <div className="personStack">
             <div className="personImageDiv">
-              <img
+              < RepublicanR />
+              {/* <img
                 className="repPerson"
                 src="https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png"
                 alt="Rep Candidate"
-              />
+              /> */}
             </div>
             <div className="infoDivTextDiv">
               <h2 className="personName">
