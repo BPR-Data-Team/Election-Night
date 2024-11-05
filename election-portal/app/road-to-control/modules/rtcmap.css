@@ -21,7 +21,7 @@
 .controls {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   margin-left: 3rem;
 }
 .map-and-controls {
@@ -42,8 +42,13 @@
 
 .circle-text {
   font-size: 16px;
-  font-weight: bold;
-  font-family: 'gelica, book antiqua, georgia, times new roman, serif';
+  font-weight: 600;
+  font-family:
+    gelica,
+    book antiqua,
+    georgia,
+    times new roman,
+    serif;
 }
 .reset-button-container {
   position: fixed;
@@ -51,10 +56,15 @@
   bottom: 10%;
 }
 .reset-button {
-  font-family: 'gelica, book antiqua, georgia, times new roman, serif';
+  font-family:
+    gelica,
+    book antiqua,
+    georgia,
+    times new roman,
+    serif;
   cursor: pointer;
   padding: 0.3rem;
-  font-size: 1.7em;
+  font-size: 1.25em;
   border-radius: 0px;
   margin-top: 10rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
