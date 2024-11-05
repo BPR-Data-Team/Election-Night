@@ -93,7 +93,7 @@ const fetchRaceData = async (): Promise<Map<string, ElectionData>> => {
       };
       electionDataMap.set(item.officetype_district_state, newItem);
     });
-    console.log(`Total race data entries: ${electionDataMap.size}`);
+    //console.log(`Total race data entries: ${electionDataMap.size}`);
     return electionDataMap;
   } catch (error) {
     console.error('Error fetching race data:', error);
@@ -115,7 +115,7 @@ const fetchCountyData = async (): Promise<Map<string, CountyData>> => {
         url += `&lastKey=${encodedLastKey}`;
       }
       // fetch data now
-      console.log('fetching county data from API');
+      //console.log('fetching county data from API');
       const response = await axios.get<{
         items: RawCountyData[];
         lastKey: string | null;
@@ -142,12 +142,12 @@ const fetchCountyData = async (): Promise<Map<string, CountyData>> => {
         countyDataMap.set(item.officetype_county_district_state, newItem);
       });
       lastKey = response.data.lastKey;
-      console.log(
-        `County data map size after last API Pull: ${countyDataMap.size}`
-      );
+      //console.log(
+      //   `County data map size after last API Pull: ${countyDataMap.size}`
+      // );
     } while (lastKey); // continue fetching until lastKey is null
 
-    console.log(`Total county data entries: ${countyDataMap.size}`);
+    //console.log(`Total county data entries: ${countyDataMap.size}`);
 
     return countyDataMap;
   } catch (error) {
@@ -182,7 +182,7 @@ const fetchCalledElectionData = async (): Promise<
           state_district_office: state_district_office,
         };
         calledElectionMap.set(state_district_office, newItem);
-        console.log(`Added ${state_district_office} to calledElectionMap`);
+        //console.log(`Added ${state_district_office} to calledElectionMap`);
       } else {
         console.error(
           `Pattern did not match for: ${item.state_district_office}`
@@ -190,7 +190,7 @@ const fetchCalledElectionData = async (): Promise<
       }
     });
 
-    console.log(`Total logan data entries: ${calledElectionMap.size}`);
+    //console.log(`Total logan data entries: ${calledElectionMap.size}`);
     return calledElectionMap;
   } catch (error) {
     console.error('Error fetching logan data:', error);
@@ -212,7 +212,7 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
         url += `&lastKey=${encodedLastKey}`;
       }
       // fetch data now
-      console.log('fetching exit poll data from API');
+      //console.log('fetching exit poll data from API');
       const response = await axios.get<{
         items: ExitPollData[];
         lastKey: string | null;
@@ -233,12 +233,12 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
         );
       });
       lastKey = response.data.lastKey;
-      console.log(
-        `Exit poll data map size after last API Pull: ${exitPollMap.size}`
-      );
+      //console.log(
+      //   `Exit poll data map size after last API Pull: ${exitPollMap.size}`
+      // );
     } while (lastKey); // continue fetching until lastKey is null
 
-    console.log(`Total exit poll data entries: ${exitPollMap.size}`);
+    //console.log(`Total exit poll data entries: ${exitPollMap.size}`);
 
     return exitPollMap;
   } catch (error) {
@@ -266,10 +266,10 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   );
   const exitLevel = () => {
     if (level === 'county') {
-      console.log("SETTING FROM COUNTY TO STATE");
+      //console.log("SETTING FROM COUNTY TO STATE");
       setLevel('state');
     } else if (level === 'state') {
-      console.log("SETTING FROM STATE TO NAT");
+      //console.log("SETTING FROM STATE TO NAT");
       setLevel('national');
       setView(State.National);
     } else if (level === 'national') {
@@ -405,7 +405,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
         // not sure if there's anything?
         // issue could arise if a stream was sent between old and new connection...
         // maybe we pull from REST API between first & second message or something?
-        console.log('WebSocket connected');
+        //console.log('WebSocket connected');
       };
 
       socket.onmessage = (event) => {
@@ -436,7 +436,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
           setElectionData((prevData) => {
             const newData = new Map(prevData);
             newData.set(key, filteredRow);
-            console.log(newData);
+            //console.log(newData);
             return newData;
           });
         }
@@ -469,7 +469,6 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
           setCountyData((prevData) => {
             const newData = new Map(prevData);
             newData.set(key, filteredRow);
-            console.log(newData);
             return newData;
           });
         }
@@ -492,7 +491,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
           setExitPollData((prevData) => {
             const newData = new Map(prevData);
             newData.set(key, filteredRow);
-            console.log(newData);
+            //console.log(newData);
             return newData;
           });
         }
@@ -519,7 +518,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
           setCalledElectionData((prevData) => {
             const newData = new Map(prevData);
             newData.set(key, assembledRow);
-            console.log(newData);
+            //console.log(newData);
             return newData;
           });
         }
@@ -528,7 +527,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       socket.onclose = () => {
         //Trigger function that runs RESTAPI until we get a new websocket connection
         // reference chat for wrapping this whole function in an internal function so that we can call reconnect
-        console.log('WebSocket disconnected, attempting to reconnect');
+        //console.log('WebSocket disconnected, attempting to reconnect');
         setTimeout(connectWebSocket, 1000); // wait a second before reconnecting
       };
 
@@ -552,7 +551,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   const [HistoricalElectionDataDisplayMap, setHistoricalElectionDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
 
   // const fetchHistoricalCountyDataForDisplay = (historicalCountyData: any) => {
-  //     console.log("Initializing historical county data");
+  //     //console.log("Initializing historical county data");
   //     let fetchedData = new Map<string, electionDisplayData>();
   //     historicalCountyData?.forEach((datum: any) => {
   //       let key = datum.state + datum.county + datum.office_type;
@@ -662,7 +661,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
 }
 
   const fetchHistoricalCountyDataForDisplay = async (historicalCountyData: any) => {
-    console.log("Initializing historical election data");
+    //console.log("Initializing historical election data");
     let fetchedData = new Map<string, electionDisplayData>();
 
     const response = await fetch('cleaned_data/Historic Candidates.csv');
@@ -690,7 +689,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
         newCandidateMap = countyCandidateMap;
       }
 
-      console.log('newCandidateMap in county:', newCandidateMap);
+      //console.log('newCandidateMap in county:', newCandidateMap);
 
     historicalCountyData?.forEach((datum: any) => {
       let key = datum.state + datum.county + datum.office_type;
@@ -700,7 +699,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       if (candidateKeys.length === 0) {
         return;
       } else {
-        console.log('candidateKeys in county:', candidateKeys);
+        //console.log('candidateKeys in county:', candidateKeys);
       }
                 
       fetchedData.set(key+"_1", {
@@ -726,13 +725,13 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
 };
 
   const fetchHistoricalElectionDataForDisplay = async (historicalElectionData: any) => {
-    console.log("Initializing historical election data");
+    //console.log("Initializing historical election data");
     let fetchedData = new Map<string, electionDisplayData>();
 
     const response = await fetch('cleaned_data/Historic Candidates.csv');
     const csvText = await response.text();
     const parsedData = Papa.parse(csvText, { header: true }).data;
-    console.log('parsedData', parsedData);
+    //console.log('parsedData', parsedData);
       
       let newCandidateMap = new Map<string, CandidateNamesInterface>();
       if (electionCandidateMap.size === 0) {
@@ -753,7 +752,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
         newCandidateMap = electionCandidateMap;
       }
 
-      console.log('newCandidateMap', newCandidateMap);
+      //console.log('newCandidateMap', newCandidateMap);
 
     historicalElectionData?.forEach((datum: any) => {
       let key = datum.office_type + datum.state + datum.district;

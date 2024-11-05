@@ -139,6 +139,16 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     }
   }, [sharedState.level]);
 
+  // GPT code
+  function normalizeString(input: string): string {
+    return input
+        .normalize("NFD") // Decompose accented characters
+        .replace(/[\u0300-\u036f]/g, "") // Remove diacritical marks
+        .replace(/ä/g, "a") // Replace umlauts with alphanumeric equivalents
+        .replace(/ö/g, "o")
+        .replace(/ü/g, "u")
+  }
+
   const retrieveMapData = async () => {
     if (stateName == 'National') {
       return;
@@ -182,13 +192,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                 case Year.Eighteen:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_1,
+                    value: (datum.margin_pct_1),
                   });
                   break;
                 case Year.Twelve:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_2,
+                    value: (datum.margin_pct_2),
                   });
                   break;
               }
@@ -197,13 +207,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                 case Year.Twenty:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_1,
+                    value: (datum.margin_pct_1),
                   });
                   break;
                 case Year.Sixteen:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_2,
+                    value: (datum.margin_pct_2),
                   });
                   break;
               }
@@ -212,13 +222,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                 case Year.Twenty:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_1,
+                    value: (datum.margin_pct_1),
                   });
                   break;
                 case Year.Sixteen:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_2,
+                    value: (datum.margin_pct_2),
                   });
                   break;
               }
@@ -231,14 +241,19 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       sharedState.countyData?.forEach((datum) => {
         if (
           datum.state === getStateAbbreviation(sharedState.view) &&
-          datum.office_type === getDataVersion(sharedState.breakdown)
-        ) {fetchedData.push({
-          NAME: datum.county,
-          value: datum.margin_pct,
+          datum.office_type === getDataVersion(sharedState.breakdown) &&
+          datum.pct_reporting != 0
+        ) {
+          console.log(datum);
+          console.log("pct reporting:", datum.pct_reporting);
+          fetchedData.push({
+          NAME: normalizeString(datum.county),
+          value: (datum.margin_pct),
           });
         }
       });
     }
+    console.log("Fetched data:", fetchedData);
 
       if (stateChart) {
         stateChart.update({
@@ -436,13 +451,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                 case Year.Eighteen:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_1,
+                    value: (datum.margin_pct_1),
                   });
                   break;
                 case Year.Twelve:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_2,
+                    value: (datum.margin_pct_2),
                   });
                   break;
               }
@@ -451,13 +466,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                 case Year.Twenty:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_1,
+                    value: (datum.margin_pct_1),
                   });
                   break;
                 case Year.Sixteen:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_2,
+                    value: (datum.margin_pct_2),
                   });
                   break;
               }
@@ -466,13 +481,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
                 case Year.Twenty:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_1,
+                    value: (datum.margin_pct_1),
                   });
                   break;
                 case Year.Sixteen:
                   fetchedData.push({
                     NAME: datum.county,
-                    value: datum.margin_pct_2,
+                    value: (datum.margin_pct_2),
                   });
                   break;
               }
@@ -482,13 +497,18 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     );
 
     if (sharedState.year === Year.TwentyFour) {
+      console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\nSHARED STATE COUNTY DATA:");
+      console.log(sharedState.countyData);
       sharedState.countyData?.forEach((datum) => {
         if (
           datum.state === getStateAbbreviation(sharedState.view) &&
-          datum.office_type === getDataVersion(sharedState.breakdown)
-        ) {fetchedData.push({
-          NAME: datum.county,
-          value: datum.margin_pct,
+          datum.office_type === getDataVersion(sharedState.breakdown) && 
+          datum.pct_reporting != 0
+        ) {
+          console.log("pct reporting:", datum.pct_reporting);
+          fetchedData.push({
+          NAME: normalizeString(datum.county),
+          value: (datum.margin_pct),
           });
         }
       });
