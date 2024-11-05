@@ -286,7 +286,9 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   ]);
   const breakdownSwitch = (breakdown: RaceType) => {
     setAvailableYears(getYearsFromBreakdown(breakdown));
-    setYear(Year.TwentyFour);
+    if (!getYearsFromBreakdown(breakdown).includes(year)) {
+      setYear(getYearsFromBreakdown(breakdown)[0]);
+    }
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
