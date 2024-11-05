@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Papa from 'papaparse';
 import {
   ExitPollAnswer,
@@ -511,21 +511,35 @@ export default function Exit_Poll_Explorer_Page() {
     filterHistoricalData();
   }, [historicalElectionsData, sharedState.breakdown, sharedState.demographic]);
 
+  // attempt to fix the menubar rendering issue
+  const initialized = useRef(false);
   useEffect(() => {
-    // Sets the menubar options
-    sharedState.setAvailableBreakdowns([]);
-    sharedState.breakdownSwitch(RaceType.Presidential);
-    sharedState.setAvailableYears([Year.TwentyFour, Year.Twenty]);
-    sharedState.yearSwitch(Year.TwentyFour);
-    sharedState.setAvailibleDemographics([
-      Demographic.Age,
-      Demographic.Gender,
-      Demographic.Race,
-      Demographic.Education,
-      Demographic.Income,
-      Demographic.AreaType,
-      Demographic.Region,
-    ]);
+    if (!initialized.current) {
+      // Ensure sharedState exists before accessing it
+      //console.log('Setting available menubar options');
+      sharedState.setAvailableBreakdowns([
+        RaceType.Presidential,
+        RaceType.Senate,
+      ]);
+      sharedState.breakdownSwitch(RaceType.Presidential);
+      sharedState.setAvailableYears([Year.TwentyFour, Year.Twenty]);
+      sharedState.yearSwitch(Year.TwentyFour);
+      sharedState.setAvailibleDemographics([
+        Demographic.Age,
+        Demographic.Gender,
+        Demographic.Race,
+        Demographic.Education,
+        Demographic.Income,
+        Demographic.AreaType,
+        Demographic.Region,
+      ]);
+      initialized.current = true;
+    }
+  }, [sharedState]);
+
+  // Second useEffect for exit poll data loading
+  useEffect(() => {
+    // console.log('Loading exit poll data...'); // For debugging
 
     const storedExitPollData = sessionStorage.getItem('exitPollData');
 
@@ -567,7 +581,7 @@ export default function Exit_Poll_Explorer_Page() {
           console.error('Error loading exit poll data:', error)
         );
     }
-  }, []);
+  }, []); // Empty dependency array
 
   const fetch2020Data = () => {};
   const fetch2024Data = () => {};
@@ -607,15 +621,14 @@ export default function Exit_Poll_Explorer_Page() {
     const data = Array.from(dataMap.values());
     setTableData(data);
   }, [sharedState.demographic, sharedState.view, exitPollData]);
-  console.log('exitPollData', exitPollData);
-  console.log('historicalCountyData', historicalCountyData);
-  console.log('historicalElectionsData', historicalElectionsData);
+  // console.log('exitPollData', exitPollData);
+  // console.log('historicalCountyData', historicalCountyData);
+  // console.log('historicalElectionsData', historicalElectionsData);
   if (!exitPollData || !historicalCountyData || !historicalElectionsData)
     return <p>Loading Data...</p>;
 
   return (
     <div className={styles.page}>
-      <Menubar />
       <div className={styles.main}>
         {sharedState.drawMode ? <Canvas /> : null}
         <Banner
@@ -623,7 +636,7 @@ export default function Exit_Poll_Explorer_Page() {
           height={2}
           wordmark={'24cast.org'}
           header=""
-          message={'Exit Poll Explainer'}
+          message={'Exit Poll Explorer'}
         />
         <Banner
           align="left"
@@ -669,6 +682,7 @@ export default function Exit_Poll_Explorer_Page() {
             )}
           </div>
         </div>
+        <Menubar />
       </div>
     </div>
   );
