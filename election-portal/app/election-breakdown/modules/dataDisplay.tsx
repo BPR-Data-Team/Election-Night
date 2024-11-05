@@ -216,6 +216,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         sharedState.electionData,
         sharedState.countyData,
         sharedState.year,
+        sharedState.breakdown,
         candidateNames]);
 
   // const initializeCountyData = () => {
