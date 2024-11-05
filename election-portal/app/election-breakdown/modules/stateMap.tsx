@@ -770,6 +770,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     // Highcharts.mapChart("eb-state-container", mapOptions);
     const ch = Highcharts.mapChart('eb-state-container', mapOptions);
     console.log(ch ? 'Ch exists' : 'Ch does not exist');
+    console.log(ch);
     setStateChart(ch);
     setElectionData(fetchedData);
   };
