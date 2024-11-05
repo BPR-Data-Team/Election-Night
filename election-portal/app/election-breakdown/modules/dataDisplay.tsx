@@ -562,7 +562,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         stateName={sharedState.view}
         countyName={countyName}
         year={sharedState.year}
-        stateData={mockCountyData}
+        stateData={displayData}
         raceType={sharedState.breakdown}
         sharedStateLevel={sharedState.level}
         countyViewAll={countyViewAll}
@@ -592,7 +592,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
             </div>
             <div className="infoDivTextDiv">
               <h2 className="personName">
-                {displayData.Democratic_name ? displayData.Democratic_name.split(" ").pop() : null}
+                {displayData.Democratic_name ? (displayData.Democratic_name.split(" ").pop() === "Jr." ? displayData.Democratic_name.split(" ").slice(-2, -1)[0] : displayData.Democratic_name.split(" ").pop()) : null}
               </h2>
               <h2 className="personPercentage">{Math.round(displayData.dem_votes_pct)+"%"}</h2>
               <h2 className="personVotes">
@@ -614,7 +614,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
             </div>
             <div className="infoDivTextDiv">
               <h2 className="personName">
-                {displayData.Republican_name ? (displayData.Republican_name).split(" ").pop() : null}
+                {displayData.Republican_name ? (displayData.Republican_name.split(" ").pop() === "Jr." ? displayData.Republican_name.split(" ").slice(-2).join(" ") : displayData.Republican_name.split(" ").pop()) : null}
               </h2>
               <h2 className="personPercentage">{Math.round(displayData.rep_votes_pct)+"%"}</h2>
               <h2 className="personVotes">

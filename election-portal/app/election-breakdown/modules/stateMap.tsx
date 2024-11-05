@@ -114,8 +114,10 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     sharedState.view,
     countyData,
     year,
-    stateName,
     raceType,
+    sharedState.electionData,
+    sharedState.countyData,
+    stateName,
   ]);
 
   const retrieveMapData = async () => {

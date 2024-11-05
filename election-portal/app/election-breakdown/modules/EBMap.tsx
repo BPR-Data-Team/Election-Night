@@ -146,7 +146,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType, sharedState.year]);
+  }, [raceType, sharedState.year, sharedState.electionData]);
 
   useEffect(() => {
     if (chart) {

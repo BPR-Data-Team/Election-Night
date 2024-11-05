@@ -6,7 +6,7 @@ import { RaceType, getDataVersion } from '@/types/RaceType';
 import { useSharedState } from '../../sharedContext';
 import { getStateAbbreviation } from '@/types/State';
 
-import { electionDisplayData } from '@/types/data';
+import { electionDisplayData, ElectionData } from '@/types/data';
 
 type DataDisplayProps = {
   stateName: string;
@@ -19,12 +19,12 @@ type DataDisplayProps = {
 };
 
 const mockCountyData = {
-  Democratic_name: 'DemE',
-  Republican_name: 'RepE',
-  dem_votes: 2357106,
-  rep_votes: 2357106,
-  dem_votes_pct: 43,
-  rep_votes_pct: 57,
+  Democratic_name: 'N/A',
+  Republican_name: 'N/A',
+  dem_votes: 1,
+  rep_votes: 1,
+  dem_votes_pct: 1,
+  rep_votes_pct: 1,
 }
 
 const CountyDataDisplay: React.FC<DataDisplayProps> = ({
@@ -42,6 +42,7 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
 
   const [historicalDisplayData_1, sethistoricalDisplayData_1] = useState<electionDisplayData>(mockCountyData);
   const [historicalDisplayData_2, sethistoricalDisplayData_2] = useState<electionDisplayData>(mockCountyData);
+  const [modernDisplayData, setModernDisplayData] = useState<ElectionData | electionDisplayData>(mockCountyData);
 
   const [listOfYears, setListOfYears] = useState<number[]>([2024,2020,2016]);
 
@@ -94,6 +95,11 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
       if (newDisplayData2) {
         sethistoricalDisplayData_2(newDisplayData2);
       }
+      let key24 = getDataVersion(raceType) + countyName + '0' + getStateAbbreviation(sharedState.view);
+      let newDisplayData3 = sharedState.countyData?.get(key24);
+      if (newDisplayData3) {
+        setModernDisplayData(newDisplayData3);
+      }
     }
 
     if (sharedStateLevel === 'state') {
@@ -106,9 +112,14 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
       if (newDisplayData2) {
         sethistoricalDisplayData_2(newDisplayData2);
       }
+      let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
+      let newDisplayData3 = sharedState.electionData?.get(key24);
+      if (newDisplayData3) {
+        setModernDisplayData(newDisplayData3);
+      }
     }
 
-  }, [stateName, year, stateData, raceType, countyName]);
+  }, [stateName, year, stateData, raceType, countyName, sharedState.electionData, sharedState.countyData]);
 
   return (
     <div>
@@ -134,12 +145,12 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
                 </div>
 
                 <div className="countyRow">
-                    <div className="firstCountyCell"><p className='countyName'>{stateData['Democratic_name']}</p></div>
+                    <div className="firstCountyCell"><p className='countyName'>{stateData.Democratic_name ? (stateData.Democratic_name.split(" ").pop() === "Jr." ? stateData.Democratic_name.split(" ").slice(-2, -1)[0] : stateData.Democratic_name.split(" ").pop()) : null}</p></div>
                     <div className="countyCell">
                         {(year === 2024 || countyViewAll) && 
                             <div className='countyPercentCell'>
-                                <p className='votesPercentage'>Holder</p>
-                                <p className='votesNumber'>Holder</p>
+                                <p className='votesPercentage'>{Math.round(modernDisplayData.dem_votes_pct) + "%"}</p>
+                                <p className='votesNumber'>{Number(modernDisplayData.dem_votes).toLocaleString('en-us')}</p>
                             </div>
                         }
                     </div>
@@ -162,12 +173,12 @@ const CountyDataDisplay: React.FC<DataDisplayProps> = ({
                 </div>
 
                 <div className="countyRow">
-                    <div className="firstCountyCell"><p className='countyName'>{stateData['Republican_name']}</p></div>
+                    <div className="firstCountyCell"><p className='countyName'>{stateData.Democratic_name ? (stateData.Republican_name.split(" ").pop() === "Jr." ? stateData.Republican_name.split(" ").slice(-2, -1)[0] : stateData.Republican_name.split(" ").pop()) : null}</p></div>
                     <div className="countyCell">
                         {(year === 2024 || countyViewAll) && 
                             <div className='countyPercentCell'>
-                                <p className='votesPercentage'>Holder</p>
-                                <p className='votesNumber'>Holder</p>
+                                <p className='votesPercentage'>{Math.round(modernDisplayData.rep_votes_pct) + "%"}</p>
+                                <p className='votesNumber'>{Number(modernDisplayData.rep_votes).toLocaleString('en-us')}</p>
                             </div>
                         }
                     </div>
