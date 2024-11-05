@@ -163,7 +163,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           setDisplayData(newDisplayData24);
           setPctReporting(Math.round(newDisplayData24.pct_reporting ? newDisplayData24.pct_reporting : 0));
         }
-      }
+      } else {
       let key = getStateAbbreviation(sharedState.view) + countyName + getDataVersion(raceType);
       if (firstOrSecond()) {
         key += '_1';
@@ -174,6 +174,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
       if (newDisplayData) {
         setDisplayData(newDisplayData);
       }
+    }
     } else {
       setLevelTitle(stateName);
       console.log("Initialzing state data at the national level")
@@ -216,7 +217,6 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         sharedState.electionData,
         sharedState.countyData,
         sharedState.year,
-        sharedState.breakdown,
         candidateNames]);
 
   // const initializeCountyData = () => {
