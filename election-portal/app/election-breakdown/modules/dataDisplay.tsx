@@ -154,9 +154,9 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
       //console.log('sharedState.year === Year.TwentyFour: ', sharedState.year === Year.TwentyFour);
       if (sharedState.year === Year.TwentyFour) {
         //console.log("sharedState.countyData", sharedState.countyData);
-        let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
+        let key24 = getDataVersion(raceType) + countyName + '0' + getStateAbbreviation(sharedState.view);
         //console.log("key24", key24);
-        let newDisplayData24 = sharedState.electionData?.get(key24);
+        let newDisplayData24 = sharedState.countyData?.get(key24);
         //console.log("newDisplayData24", newDisplayData24);
         if (newDisplayData24) {
           //console.log("Setting display data to ", newDisplayData24);
