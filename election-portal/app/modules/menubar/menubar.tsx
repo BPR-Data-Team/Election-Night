@@ -8,7 +8,7 @@ import './menubar.css';
 import HomeButton from './menu-buttons/home-button';
 import ExitButton from './menu-buttons/exit-button';
 import DrawButton from './menu-buttons/draw-button';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { truncate } from 'fs';
 import { FaBullseye } from 'react-icons/fa';
 
@@ -124,6 +124,7 @@ const Menubar: React.FC<MenubarProps> = ({
   setCountyViewAll,
 }) => {
   const state = useSharedState().state;
+  const pathname = usePathname();
 
   //console.log('Menubar is rendering with state:', state);
 
@@ -133,6 +134,8 @@ const Menubar: React.FC<MenubarProps> = ({
       setCountyViewAll(false);
     }
   };
+
+  console.log(pathname);
   
   return (
     <div className="rightbar">
@@ -150,19 +153,22 @@ const Menubar: React.FC<MenubarProps> = ({
 
         {state.availableBreakdowns.length != 0 && (
           <>
-            <div className="divider"></div>
-
-            <div className="breakdowns">
-              {state.availableBreakdowns.map((breakdown, index) => (
-                <button
-                  className="breakdown"
-                  key={index}
-                  onClick={() => state.breakdownSwitch(breakdown)}
-                >
-                  {breakdownToString(breakdown, state.breakdown)}
-                </button>
-              ))}
-            </div>
+            {(state.page != '/road-to-control' && pathname != '/road-to-control') && (
+              <>
+                <div className="divider"></div>
+                <div className="breakdowns">
+                  {state.availableBreakdowns.map((breakdown, index) => (
+                    <button
+                      className="breakdown"
+                      key={index}
+                      onClick={() => state.breakdownSwitch(breakdown)}
+                    >
+                      {breakdownToString(breakdown, state.breakdown)}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
 
