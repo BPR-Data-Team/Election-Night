@@ -5,6 +5,7 @@ import React, {
   useState,
   ReactNode,
   useEffect,
+  useRef,
 } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -363,153 +364,166 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     initialExitPollData || new Map()
   );
 
+  // make a ref to the socket
+  const socketRef = useRef<WebSocket | null>(null);
+
   // WEBSOCKET CONNECTION
   useEffect(() => {
-    const socket = new WebSocket(
-      // 'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/' MOCK WEBSOCKET
-      'wss://xjilt868ci.execute-api.us-east-1.amazonaws.com/prod/'
-    );
+    // define inner function for websocket connection
+    const connectWebSocket = () => {
+      const socket = new WebSocket(
+        // 'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/' MOCK WEBSOCKET
+        'wss://xjilt868ci.execute-api.us-east-1.amazonaws.com/prod/'
+      );
+      socketRef.current = socket;
 
-    // TODO
-    socket.onopen = () => {
-      //Any clean up we might need to do from old websocket connection
-      // not sure if there's anything?
-      // issue could arise if a stream was sent between old and new connection...
-      // maybe we pull from REST API between first & second message or something?
-      console.log('WebSocket connected');
+      // TODO
+      socket.onopen = () => {
+        //Any clean up we might need to do from old websocket connection
+        // not sure if there's anything?
+        // issue could arise if a stream was sent between old and new connection...
+        // maybe we pull from REST API between first & second message or something?
+        console.log('WebSocket connected');
+      };
+
+      socket.onmessage = (event) => {
+        const update = JSON.parse(event.data);
+
+        //RACE TABLE
+        if (update.tableName == 'Race_Results' && update.data.length > 0) {
+          const row = update.data[0];
+          const key = row.officetype_district_state;
+
+          // Create a new object with only the required fields
+          const filteredRow: ElectionData = {
+            Democratic_name: row.Democratic_name,
+            rep_votes: row.rep_votes,
+            office_type: row.office_type,
+            state: row.state,
+            district: row.district,
+            Republican_name: row.Republican_name,
+            pct_reporting: row.pct_reporting,
+            dem_votes: row.dem_votes,
+            dem_votes_pct: row.dem_votes_pct,
+            rep_votes_pct: row.rep_votes_pct,
+            swing: row.swing,
+            margin_pct: row.margin_pct,
+            officetype_district_state: row.officetype_district_state,
+          };
+
+          setElectionData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, filteredRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+
+        // COUNTY TABLE
+        if (update.tableName == 'County_Results' && update.data.length > 0) {
+          const row = update.data[0];
+          const key = row.officetype_county_district_state;
+
+          // Create a new object with only the required fields
+          const filteredRow: CountyData = {
+            county: row.county,
+            office_type: row.office_type,
+            district: row.district,
+            state: row.state,
+            fips: row.fips,
+            Democratic_name: row.Democratic_name,
+            Republican_name: row.Republican_name,
+            dem_votes: row.Democratic_votes,
+            rep_votes: row.Republican_votes,
+            dem_votes_pct: row.Democratic_votes_percent,
+            rep_votes_pct: row.Republican_votes_percent,
+            swing: row.swing,
+            margin_pct: row.margin_pct,
+            pct_reporting: row.pct_reporting,
+            officetype_county_district_state:
+              row.officetype_county_district_state,
+          };
+
+          setCountyData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, filteredRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+
+        // EXIT POLL TABLE
+        if (update.tableName == 'Exit_Polls' && update.data.length > 0) {
+          const row = update.data[0];
+          const key = row.state_officetype_answer_lastname;
+
+          // Create a new object with only the required fields
+          const filteredRow: ExitPollData = {
+            state: row.state,
+            office_type: row.office_type,
+            question: row.question,
+            answer: row.answer,
+            demographic_pct: row.demographic_pct,
+            answer_pct: row.answer_pct,
+            lastName: row.lastName,
+          };
+          setExitPollData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, filteredRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+
+        // CALLED ELECTION DATA
+        if (
+          update.tableName == 'Logan_Called_Elections' &&
+          update.data.length > 0
+        ) {
+          // use regex to parse key into 3 different fields
+          const row = update.data[0];
+          const key = row.state_district_office;
+          const regex = /([A-Z]{2})(\d+)(.+)/;
+          const [, state, district, office_type] = key.match(regex);
+          // create new row using assembled fields
+          const assembledRow: CalledElection = {
+            state: state,
+            district: district,
+            office_type: office_type,
+            is_called: row.called,
+            state_district_office: key,
+          };
+
+          setCalledElectionData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, assembledRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+      };
+
+      socket.onclose = () => {
+        //Trigger function that runs RESTAPI until we get a new websocket connection
+        // reference chat for wrapping this whole function in an internal function so that we can call reconnect
+        console.log('WebSocket disconnected, attempting to reconnect');
+        setTimeout(connectWebSocket, 1000); // wait a second before reconnecting
+      };
+
+      socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
     };
 
-    socket.onmessage = (event) => {
-      const update = JSON.parse(event.data);
+    connectWebSocket(); //initial connection
 
-      //RACE TABLE
-      if (update.tableName == 'Race_Results' && update.data.length > 0) {
-        const row = update.data[0];
-        const key = row.officetype_district_state;
-
-        // Create a new object with only the required fields
-        const filteredRow: ElectionData = {
-          Democratic_name: row.Democratic_name,
-          rep_votes: row.rep_votes,
-          office_type: row.office_type,
-          state: row.state,
-          district: row.district,
-          Republican_name: row.Republican_name,
-          pct_reporting: row.pct_reporting,
-          dem_votes: row.dem_votes,
-          dem_votes_pct: row.dem_votes_pct,
-          rep_votes_pct: row.rep_votes_pct,
-          swing: row.swing,
-          margin_pct: row.margin_pct,
-          officetype_district_state: row.officetype_district_state,
-        };
-
-        setElectionData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, filteredRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-
-      // COUNTY TABLE
-      if (update.tableName == 'County_Results' && update.data.length > 0) {
-        const row = update.data[0];
-        const key = row.officetype_county_district_state;
-
-        // Create a new object with only the required fields
-        const filteredRow: CountyData = {
-          county: row.county,
-          office_type: row.office_type,
-          district: row.district,
-          state: row.state,
-          fips: row.fips,
-          Democratic_name: row.Democratic_name,
-          Republican_name: row.Republican_name,
-          dem_votes: row.Democratic_votes,
-          rep_votes: row.Republican_votes,
-          dem_votes_pct: row.Democratic_votes_percent,
-          rep_votes_pct: row.Republican_votes_percent,
-          swing: row.swing,
-          margin_pct: row.margin_pct,
-          pct_reporting: row.pct_reporting,
-          officetype_county_district_state:
-            row.officetype_county_district_state,
-        };
-
-        setCountyData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, filteredRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-
-      // EXIT POLL TABLE
-      if (update.tableName == 'Exit_Polls' && update.data.length > 0) {
-        const row = update.data[0];
-        const key = row.state_officetype_answer_lastname;
-
-        // Create a new object with only the required fields
-        const filteredRow: ExitPollData = {
-          state: row.state,
-          office_type: row.office_type,
-          question: row.question,
-          answer: row.answer,
-          demographic_pct: row.demographic_pct,
-          answer_pct: row.answer_pct,
-          lastName: row.lastName,
-        };
-        setExitPollData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, filteredRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-
-      // CALLED ELECTION DATA
-      if (
-        update.tableName == 'Logan_Called_Elections' &&
-        update.data.length > 0
-      ) {
-        // use regex to parse key into 3 different fields
-        const row = update.data[0];
-        const key = row.state_district_office;
-        const regex = /([A-Z]{2})(\d+)(.+)/;
-        const [, state, district, office_type] = key.match(regex);
-        // create new row using assembled fields
-        const assembledRow: CalledElection = {
-          state: state,
-          district: district,
-          office_type: office_type,
-          is_called: row.called,
-          state_district_office: key,
-        };
-
-        setCalledElectionData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, assembledRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-    };
-
-    // TODO
-    socket.onclose = () => {
-      //Trigger function that runs RESTAPI until we get a new websocket connection
-      // reference chat for wrapping this whole function in an internal function so that we can call reconnect
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
     return () => {
-      socket.close();
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
     };
   }, []);
+
   const [countyName, setCountyName] = useState<string>('');
   const state: SharedInfo = {
     page,
