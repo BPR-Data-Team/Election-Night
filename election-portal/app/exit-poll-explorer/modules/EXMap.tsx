@@ -146,16 +146,28 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
   }, [raceType, sharedState.year]);
 
   useEffect(() => {
+    const fetchedData = histDataToFetchedData(historicalElectionsData);
+    const updatedData = fetchedData.map((state) => ({
+      ...state,
+      borderColor:
+        state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
+      borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
+    }));
+    const reorderedData = [
+      ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
+      ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
+    ];
+
     if (chart) {
       chart.update({
         series: [
           {
-            data: histDataToFetchedData(historicalElectionsData),
+            data: reorderedData,
           },
         ],
       });
     }
-  }, [historicalElectionsData]);
+  }, [historicalElectionsData, selectedStateKey, chart, raceType]);
 
   useEffect(() => {
     if (chart) {
@@ -186,28 +198,29 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     }
   }, [sharedState.view, wasPanned, chart]);
 
-  useEffect(() => {
-    if (chart) {
-      const updatedData = electionData.map((state) => ({
-        ...state,
-        borderColor:
-          state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
-        borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
-      }));
-      const reorderedData = [
-        ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
-        ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
-      ];
-      chart.update({
-        series: [
-          {
-            type: 'map',
-            data: reorderedData,
-          },
-        ],
-      });
-    }
-  }, [selectedStateKey, chart, raceType]);
+  // Deprecated as per the similar useEffect on line 149
+  // useEffect(() => {
+  //   if (chart) {
+  //     const updatedData = electionData.map((state) => ({
+  //       ...state,
+  //       borderColor:
+  //         state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
+  //       borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
+  //     }));
+  //     const reorderedData = [
+  //       ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
+  //       ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
+  //     ];
+  //     chart.update({
+  //       series: [
+  //         {
+  //           type: 'map',
+  //           data: reorderedData,
+  //         },
+  //       ],
+  //     });
+  //   }
+  // }, [selectedStateKey, chart, raceType]);
 
   function getMaxState(stateData: ElectionData[]): number {
     return Math.max(...stateData.map((state) => state.value));
