@@ -8,6 +8,7 @@
   width: 8rem;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 5;
+  overflow-y: auto;
 }
 
 .contents {
@@ -62,7 +63,8 @@
 
 .breakdown,
 .year,
-.demographic {
+.demographic,
+.viewAll {
   background-color: transparent;
   border: none;
   margin-top: 0.5rem;
@@ -76,4 +78,8 @@
     georgia,
     times new roman,
     serif;
+}
+
+.viewAll {
+  margin-bottom: 1rem;
 }

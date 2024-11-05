@@ -2,7 +2,7 @@ import { RaceType } from './RaceType';
 import { Year } from './Year';
 import { State } from './State';
 import { Demographic } from './Demographic';
-import { CountyData, ElectionData, CalledElection, ExitPollData } from './data';
+import { CountyData, ElectionData, CalledElection, ExitPollData, electionDisplayData } from './data';
 
 export type SharedInfo = {
   page: string;
@@ -38,6 +38,12 @@ export type SharedInfo = {
   calledElectionData: Map<string, CalledElection> | undefined;
   calledElectionDataLoading: boolean;
   calledElectionDataError: Error | null;
+  countyName: string;
+  setCountyName: (county: string) => void;
+  HistoricalCountyDataDisplayMap: Map<string, electionDisplayData>;
+  fetchHistoricalCountyDataForDisplay: (historicalCountyData: any) => void;
+  HistoricalElectionDataDisplayMap: Map<string, electionDisplayData>;
+  fetchHistoricalElectionDataForDisplay: (historicalElectionData: any) => void;
 };
 
 export { RaceType, Year, State, Demographic };

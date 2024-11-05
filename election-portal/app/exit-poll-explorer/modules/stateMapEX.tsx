@@ -78,12 +78,15 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
+    console.log('Mouse down: ', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
+      console.log('Mouse up: ', event.clientX, event.clientY);
+      console.log('Delta X: ', deltaX, 'Delta Y: ', deltaY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -114,10 +117,8 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     sharedState.view,
     countyData,
     year,
-    raceType,
-    sharedState.electionData,
-    sharedState.countyData,
     stateName,
+    raceType,
   ]);
 
   const retrieveMapData = async () => {
@@ -222,6 +223,8 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   useEffect(() => {
     if (stateChart && countyData) {
+      console.log('countyData: ', countyData);
+      console.log('selectedCounty: ', selectedCounty);
       stateChart.update({
         series: [
           {
@@ -343,19 +346,6 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         }
       }
     );
-
-    if (sharedState.year === Year.TwentyFour) {
-      sharedState.countyData?.forEach((datum) => {
-        if (
-          datum.state === getStateAbbreviation(sharedState.view) &&
-          datum.office_type === getDataVersion(sharedState.breakdown)
-        ) {fetchedData.push({
-          NAME: datum.county,
-          value: datum.margin_pct,
-          });
-        }
-      });
-    }
 
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
@@ -627,13 +617,13 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     };
 
     // Highcharts.mapChart("eb-state-container", mapOptions);
-    const ch = Highcharts.mapChart('eb-state-container', mapOptions);
+    const ch = Highcharts.mapChart('ex-state-container', mapOptions);
     console.log(ch ? 'Ch exists' : 'Ch does not exist');
     setStateChart(ch);
     setElectionData(fetchedData);
   };
 
-  return <div id="eb-state-container" />;
+  return <div id="ex-state-container" />;
 };
 
 export default StateMap;

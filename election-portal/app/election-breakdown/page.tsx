@@ -12,9 +12,12 @@ import Canvas from '../modules/canvas/canvas';
 import { HistoricalCountyData, HistoricalElectionData } from '@/types/data';
 import Banner from './modules/banner';
 import DataDisplay from './modules/dataDisplay';
+import CountyDataDisplay from './modules/countyDataDisplay';
 
 import EBMap from './modules/EBMap';
 import StateMap from './modules/stateMap';
+const prodSlug =
+  process.env.NODE_ENV === 'development' ? '' : '/Election-Night';
 
 const mockStateData = {
   dem_name: 'Stevens',
@@ -37,18 +40,25 @@ export default function Election_Breakdown_Page() {
   const toggleBanner = () => {
     setIsBannerVisible(!isBannerVisible);
   };
+  const [countyViewAll, setCountyViewAll] = useState<boolean>(false);
 
   // When sharedState.level changes wait 250ms before changing display state
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (sharedState.level == 'national') {
-        setDisplayNational(true);
-      } else {
-        setDisplayNational(false);
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [sharedState.level, displayNational]);
+    if (sharedState.level == 'national') {
+      setDisplayNational(true);
+    } else {
+      setDisplayNational(false);
+    }
+  }, [sharedState.level]);
+
+  useEffect(() => {
+    if (sharedState.HistoricalCountyDataDisplayMap.size === 0 && sharedState.HistoricalElectionDataDisplayMap.size === 0) {
+      sharedState.fetchHistoricalCountyDataForDisplay(historicalCountyData);
+      sharedState.fetchHistoricalElectionDataForDisplay(historicalElectionsData);
+    }
+
+
+  }, [historicalCountyData, historicalElectionsData]);
 
   // State Mode While National
   const SMWN = sharedState.view != State.National && displayNational;
@@ -66,7 +76,18 @@ export default function Election_Breakdown_Page() {
         sharedState.setView(State.National);
       }
     });
+
+    console.log("sharedState.electionData on page load: ", sharedState.electionData)
+
   }, [sharedState]);
+
+  useEffect(() => {
+    if (sharedState.level != 'county') {
+      setCountyViewAll(false);
+    }
+
+    
+  }, [sharedState.level]);
 
   useEffect(() => {
     const storedElectionsData = sessionStorage.getItem(
@@ -80,7 +101,7 @@ export default function Election_Breakdown_Page() {
         JSON.parse(storedElectionsData) as HistoricalElectionData[]
       );
     } else {
-      fetch('/cleaned_data/historical_elections.csv')
+      fetch(`${prodSlug}/cleaned_data/historical_elections.csv`)
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -93,6 +114,14 @@ export default function Election_Breakdown_Page() {
                     office_type: row.office_type,
                     state: row.state,
                     district: row.district,
+                    democratic_percent_1: parseFloat(row.democratic_percent_1),
+                    republican_percent_1: parseFloat(row.republican_percent_1),
+                    democratic_percent_2: parseFloat(row.democratic_percent_2),
+                    republican_percent_2: parseFloat(row.republican_percent_2),
+                    democratic_votes_1: parseInt(row.democratic_votes_1),
+                    republican_votes_1: parseInt(row.republican_votes_1),
+                    democratic_votes_2: parseInt(row.democratic_votes_2),
+                    republican_votes_2: parseInt(row.republican_votes_2),
                     margin_pct_1: parseFloat(row.margin_pct_1),
                     margin_votes_1: parseInt(row.margin_votes_1),
                     margin_pct_2: parseFloat(row.margin_pct_2),
@@ -130,7 +159,7 @@ export default function Election_Breakdown_Page() {
         JSON.parse(storedCountyData) as HistoricalCountyData[]
       );
     } else {
-      fetch('/cleaned_data/historical_county.csv')
+      fetch(`${prodSlug}/cleaned_data/historical_county.csv`)
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -144,6 +173,14 @@ export default function Election_Breakdown_Page() {
                     district: row.district,
                     state: row.state,
                     fips: row.fips,
+                    democratic_percent_1: parseFloat(row.democratic_percent_1),
+                    republican_percent_1: parseFloat(row.republican_percent_1),
+                    democratic_percent_2: parseFloat(row.democratic_percent_2),
+                    republican_percent_2: parseFloat(row.republican_percent_2),
+                    democratic_votes_1: parseInt(row.democratic_votes_1),
+                    republican_votes_1: parseInt(row.republican_votes_1),
+                    democratic_votes_2: parseInt(row.democratic_votes_2),
+                    republican_votes_2: parseInt(row.republican_votes_2),
                     margin_votes_1: parseInt(row.margin_votes_1),
                     margin_pct_1: parseFloat(row.margin_pct_1),
                     absentee_pct_1: parseFloat(row.absentee_pct_1),
@@ -167,6 +204,9 @@ export default function Election_Breakdown_Page() {
           console.error('Error loading historical county data:', error)
         );
     }
+
+    
+
   }, []);
 
   if (!historicalElectionsData || !historicalCountyData)
@@ -204,6 +244,7 @@ export default function Election_Breakdown_Page() {
                   year={sharedState.year}
                   raceType={sharedState.breakdown}
                   stateName={sharedState.view}
+                  setCountyName={sharedState.setCountyName}
                   countyData={historicalCountyData}
                 />
               </div>
@@ -222,15 +263,38 @@ export default function Election_Breakdown_Page() {
           {(SMWN || !displayNational) && (
             <DataDisplay
               stateName={sharedState.view}
+              countyName={sharedState.countyName}
               year={sharedState.year}
               stateData={mockStateData}
+              historicalCountyData={historicalCountyData}
+              historicalElectionsData={historicalElectionsData}
               raceType={sharedState.breakdown}
               sharedStateLevel={sharedState.level}
+              countyViewAll={countyViewAll}
             />
           )}
 
+          {/* {((SMWN || !displayNational) && sharedState.level === 'county' && countyViewAll == true) && (
+            <CountyDataDisplay
+              stateName={sharedState.view}
+              countyName={countyName}
+              year={sharedState.year}
+              stateData={mockCountyData}
+              raceType={sharedState.breakdown}
+              sharedStateLevel={sharedState.level}
+              countyViewAll={countyViewAll}
+            />
+            )} */}
+
           {/* Needs to be topmost during content screens */}
-          <Menubar />
+          {sharedState.level != 'national' ? (
+            <Menubar
+              countyViewAll={countyViewAll}
+              setCountyViewAll={setCountyViewAll}
+            />
+          ) : (
+            <Menubar />
+          )}
           {/* Future homepage topmost element */}
         </div>
       </div>

@@ -5,6 +5,7 @@ import React, {
   useState,
   ReactNode,
   useEffect,
+  useRef,
 } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -23,7 +24,13 @@ import {
   ExitPollData,
   RawCountyData,
   CalledElectionRaw,
+  electionDisplayData,
 } from '@/types/data';
+
+import Papa from 'papaparse';
+
+import { getStateAbbreviation, getStateFromString } from '@/types/State';
+import { getDataVersion } from '@/types/RaceType';
 
 function getYearsFromBreakdown(breakdown: RaceType): Year[] {
   switch (breakdown) {
@@ -309,9 +316,12 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      setElectionData(data);
+    },
   });
   const [electionData, setElectionData] = useState<Map<string, ElectionData>>(
-    initialElectionData || new Map()
+    new Map()
   );
 
   // COUNTY DATA
@@ -323,9 +333,12 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      setCountyData(data);
+    },
   });
   const [countyData, setCountyData] = useState<Map<string, CountyData>>(
-    initialCountyData || new Map()
+    new Map()
   );
 
   // CALLED ELECTION DATA
@@ -340,11 +353,14 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        setCalledElectionData(data);
+      },
     }
   );
   const [calledElectionData, setCalledElectionData] = useState<
     Map<string, CalledElection>
-  >(initialCalledElectionData || new Map());
+  >(new Map());
 
   // EXIT POLL DATA
   const {
@@ -358,159 +374,415 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        setExitPollData(data);
+      },
     }
   );
   const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData>>(
-    initialExitPollData || new Map()
+    new Map()
   );
+
+  // make a ref to the socket
+  const socketRef = useRef<WebSocket | null>(null);
 
   // WEBSOCKET CONNECTION
   useEffect(() => {
-    const socket = new WebSocket(
-      // 'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/' MOCK WEBSOCKET
-      'wss://xjilt868ci.execute-api.us-east-1.amazonaws.com/prod/'
-    );
+    // define inner function for websocket connection
+    const connectWebSocket = () => {
+      const socket = new WebSocket(
+        // 'wss://xwzw9w5wzd.execute-api.us-east-1.amazonaws.com/test/' MOCK WEBSOCKET
+        'wss://xjilt868ci.execute-api.us-east-1.amazonaws.com/prod/'
+      );
+      socketRef.current = socket;
 
-    // TODO
-    socket.onopen = () => {
-      //Any clean up we might need to do from old websocket connection
-      // not sure if there's anything?
-      // issue could arise if a stream was sent between old and new connection...
-      // maybe we pull from REST API between first & second message or something?
-      console.log('WebSocket connected');
+      // TODO
+      socket.onopen = () => {
+        //Any clean up we might need to do from old websocket connection
+        // not sure if there's anything?
+        // issue could arise if a stream was sent between old and new connection...
+        // maybe we pull from REST API between first & second message or something?
+        console.log('WebSocket connected');
+      };
+
+      socket.onmessage = (event) => {
+        const update = JSON.parse(event.data);
+
+        //RACE TABLE
+        if (update.tableName == 'Race_Results' && update.data.length > 0) {
+          const row = update.data[0];
+          const key = row.officetype_district_state;
+
+          // Create a new object with only the required fields
+          const filteredRow: ElectionData = {
+            Democratic_name: row.Democratic_name,
+            rep_votes: row.rep_votes,
+            office_type: row.office_type,
+            state: row.state,
+            district: row.district,
+            Republican_name: row.Republican_name,
+            pct_reporting: row.pct_reporting,
+            dem_votes: row.dem_votes,
+            dem_votes_pct: row.dem_votes_pct,
+            rep_votes_pct: row.rep_votes_pct,
+            swing: row.swing,
+            margin_pct: row.margin_pct,
+            officetype_district_state: row.officetype_district_state,
+          };
+
+          setElectionData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, filteredRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+
+        // COUNTY TABLE
+        if (update.tableName == 'County_Results' && update.data.length > 0) {
+          const row = update.data[0];
+          const key = row.officetype_county_district_state;
+
+          // Create a new object with only the required fields
+          const filteredRow: CountyData = {
+            county: row.county,
+            office_type: row.office_type,
+            district: row.district,
+            state: row.state,
+            fips: row.fips,
+            Democratic_name: row.Democratic_name,
+            Republican_name: row.Republican_name,
+            dem_votes: row.Democratic_votes,
+            rep_votes: row.Republican_votes,
+            dem_votes_pct: row.Democratic_votes_percent,
+            rep_votes_pct: row.Republican_votes_percent,
+            swing: row.swing,
+            margin_pct: row.margin_pct,
+            pct_reporting: row.pct_reporting,
+            officetype_county_district_state:
+              row.officetype_county_district_state,
+          };
+
+          setCountyData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, filteredRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+
+        // EXIT POLL TABLE
+        if (update.tableName == 'Exit_Polls' && update.data.length > 0) {
+          const row = update.data[0];
+          const key = row.state_officetype_answer_lastname;
+
+          // Create a new object with only the required fields
+          const filteredRow: ExitPollData = {
+            state: row.state,
+            office_type: row.office_type,
+            question: row.question,
+            answer: row.answer,
+            demographic_pct: row.demographic_pct,
+            answer_pct: row.answer_pct,
+            lastName: row.lastName,
+          };
+          setExitPollData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, filteredRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+
+        // CALLED ELECTION DATA
+        if (
+          update.tableName == 'Logan_Called_Elections' &&
+          update.data.length > 0
+        ) {
+          // use regex to parse key into 3 different fields
+          const row = update.data[0];
+          const key = row.state_district_office;
+          const regex = /([A-Z]{2})(\d+)(.+)/;
+          const [, state, district, office_type] = key.match(regex);
+          // create new row using assembled fields
+          const assembledRow: CalledElection = {
+            state: state,
+            district: district,
+            office_type: office_type,
+            is_called: row.called,
+            state_district_office: key,
+          };
+
+          setCalledElectionData((prevData) => {
+            const newData = new Map(prevData);
+            newData.set(key, assembledRow);
+            console.log(newData);
+            return newData;
+          });
+        }
+      };
+
+      socket.onclose = () => {
+        //Trigger function that runs RESTAPI until we get a new websocket connection
+        // reference chat for wrapping this whole function in an internal function so that we can call reconnect
+        console.log('WebSocket disconnected, attempting to reconnect');
+        setTimeout(connectWebSocket, 1000); // wait a second before reconnecting
+      };
+
+      socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
     };
 
-    socket.onmessage = (event) => {
-      const update = JSON.parse(event.data);
+    connectWebSocket(); //initial connection
 
-      //RACE TABLE
-      if (update.tableName == 'Race_Results' && update.data.length > 0) {
-        const row = update.data[0];
-        const key = row.officetype_district_state;
-
-        // Create a new object with only the required fields
-        const filteredRow: ElectionData = {
-          Democratic_name: row.Democratic_name,
-          rep_votes: row.rep_votes,
-          office_type: row.office_type,
-          state: row.state,
-          district: row.district,
-          Republican_name: row.Republican_name,
-          pct_reporting: row.pct_reporting,
-          dem_votes: row.dem_votes,
-          dem_votes_pct: row.dem_votes_pct,
-          rep_votes_pct: row.rep_votes_pct,
-          swing: row.swing,
-          margin_pct: row.margin_pct,
-          officetype_district_state: row.officetype_district_state,
-        };
-
-        setElectionData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, filteredRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-
-      // COUNTY TABLE
-      if (update.tableName == 'County_Results' && update.data.length > 0) {
-        const row = update.data[0];
-        const key = row.officetype_county_district_state;
-
-        // Create a new object with only the required fields
-        const filteredRow: CountyData = {
-          county: row.county,
-          office_type: row.office_type,
-          district: row.district,
-          state: row.state,
-          fips: row.fips,
-          Democratic_name: row.Democratic_name,
-          Republican_name: row.Republican_name,
-          dem_votes: row.Democratic_votes,
-          rep_votes: row.Republican_votes,
-          dem_votes_pct: row.Democratic_votes_percent,
-          rep_votes_pct: row.Republican_votes_percent,
-          swing: row.swing,
-          margin_pct: row.margin_pct,
-          pct_reporting: row.pct_reporting,
-          officetype_county_district_state:
-            row.officetype_county_district_state,
-        };
-
-        setCountyData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, filteredRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-
-      // EXIT POLL TABLE
-      if (update.tableName == 'Exit_Polls' && update.data.length > 0) {
-        const row = update.data[0];
-        const key = row.state_officetype_answer_lastname;
-
-        // Create a new object with only the required fields
-        const filteredRow: ExitPollData = {
-          state: row.state,
-          office_type: row.office_type,
-          question: row.question,
-          answer: row.answer,
-          demographic_pct: row.demographic_pct,
-          answer_pct: row.answer_pct,
-          lastName: row.lastName,
-        };
-        setExitPollData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, filteredRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-
-      // CALLED ELECTION DATA
-      if (
-        update.tableName == 'Logan_Called_Elections' &&
-        update.data.length > 0
-      ) {
-        // use regex to parse key into 3 different fields
-        const row = update.data[0];
-        const key = row.state_district_office;
-        const regex = /([A-Z]{2})(\d+)(.+)/;
-        const [, state, district, office_type] = key.match(regex);
-        // create new row using assembled fields
-        const assembledRow: CalledElection = {
-          state: state,
-          district: district,
-          office_type: office_type,
-          is_called: row.called,
-          state_district_office: key,
-        };
-
-        setCalledElectionData((prevData) => {
-          const newData = new Map(prevData);
-          newData.set(key, assembledRow);
-          console.log(newData);
-          return newData;
-        });
-      }
-    };
-
-    // TODO
-    socket.onclose = () => {
-      //Trigger function that runs RESTAPI until we get a new websocket connection
-      // reference chat for wrapping this whole function in an internal function so that we can call reconnect
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
     return () => {
-      socket.close();
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
     };
   }, []);
+
+  const [countyName, setCountyName] = useState<string>('');
+
+  const [HistoricalCountyDataDisplayMap, setHistoricalCountyDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
+  const [HistoricalElectionDataDisplayMap, setHistoricalElectionDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
+
+  // const fetchHistoricalCountyDataForDisplay = (historicalCountyData: any) => {
+  //     console.log("Initializing historical county data");
+  //     let fetchedData = new Map<string, electionDisplayData>();
+  //     historicalCountyData?.forEach((datum: any) => {
+  //       let key = datum.state + datum.county + datum.office_type;
+  //       {
+  //         switch (breakdown) {
+  //           case RaceType.Senate:
+  //             switch (year) {
+  //               case Year.Eighteen:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_1,
+  //                   Republican_votes_percent: datum.republican_percent_1,
+  //                   Democratic_votes: datum.democratic_votes_1,
+  //                   Republican_votes: datum.republican_votes_1,
+  //                 });
+  //                 break;
+  //               case Year.Twelve:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_2,
+  //                   Republican_votes_percent: datum.republican_percent_2,
+  //                   Democratic_votes: datum.democratic_votes_2,
+  //                   Republican_votes: datum.republican_votes_2,
+  //                 });
+  //                 break;
+  //             }
+  //           case RaceType.Gubernatorial:
+  //             switch (year) {
+  //               case Year.Twenty:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_1,
+  //                   Republican_votes_percent: datum.republican_percent_1,
+  //                   Democratic_votes: datum.democratic_votes_1,
+  //                   Republican_votes: datum.republican_votes_1,
+  //                 });
+  //                 break;
+  //               case Year.Sixteen:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_2,
+  //                   Republican_votes_percent: datum.republican_percent_2,
+  //                   Democratic_votes: datum.democratic_votes_2,
+  //                   Republican_votes: datum.republican_votes_2,
+  //                 });
+  //                 break;
+  //             }
+  //           case RaceType.Presidential:
+  //             switch (year) {
+  //               case Year.Twenty:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_1,
+  //                   Republican_votes_percent: datum.republican_percent_1,
+  //                   Democratic_votes: datum.democratic_votes_1,
+  //                   Republican_votes: datum.republican_votes_1,
+  //                 });
+  //                 break;
+  //               case Year.Sixteen:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_2,
+  //                   Republican_votes_percent: datum.republican_percent_2,
+  //                   Democratic_votes: datum.democratic_votes_2,
+  //                   Republican_votes: datum.republican_votes_2,
+  //                 });
+  //                 break;
+  //             }
+  //         }
+  //       }
+  //     });
+  
+  //     setHistoricalCountyDataDisplayMap(fetchedData);
+  // }
+
+  interface CandidateNamesInterface {
+    Democratic_name: string;
+    Republican_name: string;
+  }
+
+  const [electionCandidateMap, setElectionCandidateMap] = useState<Map<string, CandidateNamesInterface>>(new Map());
+  const [countyCandidateMap, setCountyCandidateMap] = useState<Map<string, CandidateNamesInterface>>(new Map());
+
+  const getCandidateKey = (datum: any): Array<string> => {
+    switch(datum.office_type) {
+      case getDataVersion(RaceType.Senate):
+        let key1 = `2018_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let key2 = `2012_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        return [key1, key2];
+      case getDataVersion(RaceType.Gubernatorial):
+        let gub_key1 = `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let gub_key2 = `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        return [gub_key1, gub_key2];
+      case getDataVersion(RaceType.Presidential):
+        let pres_key1 = `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let pres_key2 = `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        return [pres_key1, pres_key2];
+      default:
+        return [];
+  }
+}
+
+  const fetchHistoricalCountyDataForDisplay = async (historicalCountyData: any) => {
+    console.log("Initializing historical election data");
+    let fetchedData = new Map<string, electionDisplayData>();
+
+    const response = await fetch('cleaned_data/Historic Candidates.csv');
+      const csvText = await response.text();
+      const parsedData = Papa.parse(csvText, { header: true }).data;
+      
+      let newCandidateMap = new Map<string, CandidateNamesInterface>();
+      if (countyCandidateMap.size === 0) {
+        parsedData.forEach((row: any) => {
+          const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
+          const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
+
+          
+    
+          const newCandidateNames = {
+            Democratic_name: row.dem_name,
+            Republican_name: row.rep_name,
+          }
+    
+          newCandidateMap.set(key, newCandidateNames);
+        });
+  
+        setCountyCandidateMap(newCandidateMap);
+      } else {
+        newCandidateMap = countyCandidateMap;
+      }
+
+      console.log('newCandidateMap in county:', newCandidateMap);
+
+    historicalCountyData?.forEach((datum: any) => {
+      let key = datum.state + datum.county + datum.office_type;
+
+      const candidateKeys = getCandidateKey(datum);
+      
+      if (candidateKeys.length === 0) {
+        return;
+      } else {
+        console.log('candidateKeys in county:', candidateKeys);
+      }
+                
+      fetchedData.set(key+"_1", {
+        Democratic_name: newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
+        Republican_name: newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
+        dem_votes: datum.democratic_votes_1,
+        rep_votes: datum.republican_votes_1,
+        dem_votes_pct: datum.democratic_percent_1,
+        rep_votes_pct: datum.republican_percent_1,
+      });
+
+      fetchedData.set(key+"_2", {
+        Democratic_name: newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
+        Republican_name: newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
+        dem_votes: datum.democratic_votes_2,
+        rep_votes: datum.republican_votes_2,
+        dem_votes_pct: datum.democratic_percent_2,
+        rep_votes_pct: datum.republican_percent_2,
+      });
+    });
+
+    setHistoricalCountyDataDisplayMap(fetchedData);
+};
+
+  const fetchHistoricalElectionDataForDisplay = async (historicalElectionData: any) => {
+    console.log("Initializing historical election data");
+    let fetchedData = new Map<string, electionDisplayData>();
+
+    const response = await fetch('cleaned_data/Historic Candidates.csv');
+    const csvText = await response.text();
+    const parsedData = Papa.parse(csvText, { header: true }).data;
+    console.log('parsedData', parsedData);
+      
+      let newCandidateMap = new Map<string, CandidateNamesInterface>();
+      if (electionCandidateMap.size === 0) {
+        parsedData.forEach((row: any) => {
+          const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
+          const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
+    
+          const newCandidateNames = {
+            Democratic_name: row.dem_name,
+            Republican_name: row.rep_name,
+          }
+    
+          newCandidateMap.set(key, newCandidateNames);
+        });
+  
+        setElectionCandidateMap(newCandidateMap);
+      } else {
+        newCandidateMap = electionCandidateMap;
+      }
+
+      console.log('newCandidateMap', newCandidateMap);
+
+    historicalElectionData?.forEach((datum: any) => {
+      let key = datum.office_type + datum.state + datum.district;
+
+      const candidateKeys = getCandidateKey(datum);
+      if (candidateKeys.length === 0) {
+        return;
+      }
+                
+      fetchedData.set(key+"_1", {
+        Democratic_name: newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
+        Republican_name: newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
+        dem_votes: datum.democratic_votes_1,
+        rep_votes: datum.republican_votes_1,
+        dem_votes_pct: datum.democratic_percent_1,
+        rep_votes_pct: datum.republican_percent_1,
+      });
+
+      fetchedData.set(key+"_2", {
+        Democratic_name: newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
+        Republican_name: newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
+        dem_votes: datum.democratic_votes_2,
+        rep_votes: datum.republican_votes_2,
+        dem_votes_pct: datum.democratic_percent_2,
+        rep_votes_pct: datum.republican_percent_2,
+      });
+
+    });
+
+    setHistoricalElectionDataDisplayMap(fetchedData);
+  };
+
 
   const state: SharedInfo = {
     page,
@@ -546,6 +818,12 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     calledElectionData,
     calledElectionDataLoading,
     calledElectionDataError,
+    countyName,
+    setCountyName,
+    HistoricalCountyDataDisplayMap,
+    fetchHistoricalCountyDataForDisplay,
+    HistoricalElectionDataDisplayMap, 
+    fetchHistoricalElectionDataForDisplay,
   };
 
   return (

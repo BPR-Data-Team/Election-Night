@@ -12,3 +12,4 @@ decision_desk/CNN_Scraping_Scrap.R
 cleaned_data/nyt_county_live.csv
 node_modules
 decision_desk/DemographicImputation.R
+.vscode/settings.json
