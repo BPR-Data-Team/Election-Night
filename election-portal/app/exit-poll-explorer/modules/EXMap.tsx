@@ -392,12 +392,12 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
         fitToGeometry: zoomGeometry,
       },
     };
-    const ch = Highcharts.mapChart('container', mapOptions);
+    const ch = Highcharts.mapChart('ex-container', mapOptions);
     setChart(ch);
     setElectionData(fetchedData);
   };
 
-  return <div id="container" />;
+  return <div id="ex-container" />;
 };
 
 export default EXMap;
