@@ -585,11 +585,11 @@ export default function Exit_Poll_Explorer_Page() {
   const fetchPollData = () => {
     switch (sharedState.year) {
       case Year.TwentyFour:
-        fetch2024Data();
+        fetch2024PollData();
         break;
       case Year.Twenty:
       default:
-        fetch2020Data();
+        fetch2020PollData();
         break;
     }
   };
@@ -598,7 +598,7 @@ export default function Exit_Poll_Explorer_Page() {
     fetchPollData();
   }, [sharedState.yearSwitch]);
 
-  const fetch2020Data = () => {
+  const fetch2020PollData = () => {
     const storedExitPollData = sessionStorage.getItem('exitPollData');
 
     if (storedExitPollData) {
@@ -640,15 +640,16 @@ export default function Exit_Poll_Explorer_Page() {
     }
   };
 
-  const fetch2024Data = () => {
-    // const fetchedData = sharedState.exitPollData?.get(
-    //   getStateAbbreviation(sharedState.view) +
-    //     getDataVersion(sharedState.breakdown) +
-    //     sharedState.demographic
-    // );
-    const fetchedData = sharedState.exitPollData?.get('ALPresidentAge');
+  const fetch2024PollData = () => {
+    const fetchedData = sharedState.exitPollData?.get(
+      getStateAbbreviation(sharedState.view) +
+        getDataVersion(sharedState.breakdown) +
+        sharedState.demographic
+    );
     setExitPollData(fetchedData);
   };
+
+  const fetch2024MapData = () => {};
 
   const loadTableData = () => {
     const dataMap = new Map();
