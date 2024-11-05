@@ -148,6 +148,18 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
   useEffect(() => {
     if (chart) {
       chart.update({
+        series: [
+          {
+            data: histDataToFetchedData(historicalElectionsData),
+          },
+        ],
+      });
+    }
+  }, [historicalElectionsData]);
+
+  useEffect(() => {
+    if (chart) {
+      chart.update({
         chart: {
           animation: {
             duration: 350,
@@ -215,7 +227,7 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     ],
   };
 
-  const initializeMap = (mapData: any) => {
+  const histDataToFetchedData = (histData: HistoricalElectionData[]): ElectionData[] => {
     let fetchedData: ElectionData[] = [];
     historicalElectionsData?.forEach((datum: any) => {
       if (datum.office_type === getDataVersion(raceType)) {
@@ -244,6 +256,11 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
         }
       }
     });
+    return fetchedData;
+  };
+
+  const initializeMap = (mapData: any) => {
+    const fetchedData = histDataToFetchedData(historicalElectionsData);
 
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
