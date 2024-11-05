@@ -10,6 +10,9 @@ import DrawButton from './menu-buttons/draw-button';
 import { usePathname } from 'next/navigation';
 import { truncate } from 'fs';
 import { FaBullseye } from 'react-icons/fa';
+import UndoIcon from '@mui/icons-material/Undo';
+import ReplayIcon from '@mui/icons-material/Replay';
+import Button from '@mui/material/Button';
 // These can be turned into maps or better parsed from the types
 const breakdownToString = (
   breakdown: RaceType,
@@ -232,9 +235,13 @@ const Menubar: React.FC<MenubarProps> = ({
           <>
           <div className="divider"></div>
           <div className="reset-buttons">
-            <button className="reset" onClick={handleReset}>
-              Reset Map
-            </button>
+            <Button 
+              startIcon={<ReplayIcon style={{ fontSize: '3rem', color: 'rgba(255, 255, 255, 0.7)' }} />} 
+              className="reset" 
+              onClick={handleReset}
+              style={{ color: 'black' }}
+            >
+            </Button>
           </div>
           </>
         ) : null}
