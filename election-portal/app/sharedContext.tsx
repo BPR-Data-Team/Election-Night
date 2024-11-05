@@ -299,16 +299,16 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData[]>> => {
 };
 
 // fetch Exit Polls Data from Session Storage
-const loadExitPollsDataFromSession = (): Map<string, ExitPollData> | null => {
+const loadExitPollsDataFromSession = (): Map<string, ExitPollData[]> | null => {
   const storedData = sessionStorage.getItem('exitPollData');
   console.log('loading the following exitPollData from session storage');
   console.log(
     storedData
-      ? new Map<string, ExitPollData>(JSON.parse(storedData))
-      : new Map<string, ExitPollData>()
+      ? new Map<string, ExitPollData[]>(JSON.parse(storedData))
+      : new Map<string, ExitPollData[]>()
   );
   return storedData
-    ? new Map<string, ExitPollData>(JSON.parse(storedData))
+    ? new Map<string, ExitPollData[]>(JSON.parse(storedData))
     : null;
 };
 
@@ -373,7 +373,6 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       setDemographic(demographic);
     }
   };
-
 
   // useQuery stuff for REST API Connection
   //RACE DATA
@@ -519,7 +518,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   }, [calledElectionData]);
 
   // EXIT POLL DATA
-  const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData>>(
+  const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData[]>>(
     new Map()
   );
   const [isSessionLoadedExit, setIsSessionLoadedExit] = useState(false);
