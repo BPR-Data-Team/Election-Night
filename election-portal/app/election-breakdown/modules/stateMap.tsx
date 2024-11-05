@@ -119,6 +119,22 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     sharedState.countyData,
     stateName,
   ]);
+  
+  useEffect(() => {
+    if (stateChart) {
+      stateChart.update({
+        chart: {
+          events: {
+            click: function (event: any) {
+              if (!event.point) {
+                handleOOBClick(stateChart, zoomScale);
+              }
+            },
+          },
+        },
+      });
+    }
+  }, [sharedState.level]);
 
   const retrieveMapData = async () => {
     if (stateName == 'National') {
