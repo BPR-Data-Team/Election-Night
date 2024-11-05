@@ -23,7 +23,10 @@ import {
   ExitPollData,
   RawCountyData,
   CalledElectionRaw,
+  electionDisplayData,
 } from '@/types/data';
+
+import { getStateAbbreviation } from '@/types/State';
 
 function getYearsFromBreakdown(breakdown: RaceType): Year[] {
   switch (breakdown) {
@@ -511,6 +514,150 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     };
   }, []);
   const [countyName, setCountyName] = useState<string>('');
+
+  const [HistoricalCountyDataDisplayMap, setHistoricalCountyDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
+  const [HistoricalElectionDataDisplayMap, setHistoricalElectionDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
+
+  // const fetchHistoricalCountyDataForDisplay = (historicalCountyData: any) => {
+  //     console.log("Initializing historical county data");
+  //     let fetchedData = new Map<string, electionDisplayData>();
+  //     historicalCountyData?.forEach((datum: any) => {
+  //       let key = datum.state + datum.county + datum.office_type;
+  //       {
+  //         switch (breakdown) {
+  //           case RaceType.Senate:
+  //             switch (year) {
+  //               case Year.Eighteen:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_1,
+  //                   Republican_votes_percent: datum.republican_percent_1,
+  //                   Democratic_votes: datum.democratic_votes_1,
+  //                   Republican_votes: datum.republican_votes_1,
+  //                 });
+  //                 break;
+  //               case Year.Twelve:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_2,
+  //                   Republican_votes_percent: datum.republican_percent_2,
+  //                   Democratic_votes: datum.democratic_votes_2,
+  //                   Republican_votes: datum.republican_votes_2,
+  //                 });
+  //                 break;
+  //             }
+  //           case RaceType.Gubernatorial:
+  //             switch (year) {
+  //               case Year.Twenty:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_1,
+  //                   Republican_votes_percent: datum.republican_percent_1,
+  //                   Democratic_votes: datum.democratic_votes_1,
+  //                   Republican_votes: datum.republican_votes_1,
+  //                 });
+  //                 break;
+  //               case Year.Sixteen:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_2,
+  //                   Republican_votes_percent: datum.republican_percent_2,
+  //                   Democratic_votes: datum.democratic_votes_2,
+  //                   Republican_votes: datum.republican_votes_2,
+  //                 });
+  //                 break;
+  //             }
+  //           case RaceType.Presidential:
+  //             switch (year) {
+  //               case Year.Twenty:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_1,
+  //                   Republican_votes_percent: datum.republican_percent_1,
+  //                   Democratic_votes: datum.democratic_votes_1,
+  //                   Republican_votes: datum.republican_votes_1,
+  //                 });
+  //                 break;
+  //               case Year.Sixteen:
+  //                 fetchedData.set(key, {
+  //                   Democratic_name: 'Dem',
+  //                   Republican_name: 'Rep',
+  //                   Democratic_votes_percent: datum.democratic_percent_2,
+  //                   Republican_votes_percent: datum.republican_percent_2,
+  //                   Democratic_votes: datum.democratic_votes_2,
+  //                   Republican_votes: datum.republican_votes_2,
+  //                 });
+  //                 break;
+  //             }
+  //         }
+  //       }
+  //     });
+  
+  //     setHistoricalCountyDataDisplayMap(fetchedData);
+  // }
+
+  const fetchHistoricalCountyDataForDisplay = (historicalCountyData: any) => {
+    console.log("Initializing historical election data");
+    let fetchedData = new Map<string, electionDisplayData>();
+    historicalCountyData?.forEach((datum: any) => {
+      let key = datum.state + datum.county + datum.office_type;
+                
+      fetchedData.set(key+"_1", {
+        Democratic_name: 'Dem',
+        Republican_name: 'Rep',
+        dem_votes: datum.democratic_votes_1,
+        rep_votes: datum.republican_votes_1,
+        dem_votes_pct: datum.democratic_percent_1,
+        rep_votes_pct: datum.republican_percent_1,
+      });
+
+      fetchedData.set(key+"_2", {
+        Democratic_name: 'Dem',
+        Republican_name: 'Rep',
+        dem_votes: datum.democratic_votes_2,
+        rep_votes: datum.republican_votes_2,
+        dem_votes_pct: datum.democratic_percent_2,
+        rep_votes_pct: datum.republican_percent_2,
+      });
+    });
+
+    setHistoricalCountyDataDisplayMap(fetchedData);
+};
+
+  const fetchHistoricalElectionDataForDisplay = (historicalElectionData: any) => {
+    console.log("Initializing historical election data");
+    let fetchedData = new Map<string, electionDisplayData>();
+    historicalElectionData?.forEach((datum: any) => {
+      let key = datum.office_type + datum.state + datum.district;
+                
+      fetchedData.set(key+"_1", {
+        Democratic_name: 'Dem',
+        Republican_name: 'Rep',
+        dem_votes: datum.democratic_votes_1,
+        rep_votes: datum.republican_votes_1,
+        dem_votes_pct: datum.democratic_percent_1,
+        rep_votes_pct: datum.republican_percent_1,
+      });
+
+      fetchedData.set(key+"_2", {
+        Democratic_name: 'Dem',
+        Republican_name: 'Rep',
+        dem_votes: datum.democratic_votes_2,
+        rep_votes: datum.republican_votes_2,
+        dem_votes_pct: datum.democratic_percent_2,
+        rep_votes_pct: datum.republican_percent_2,
+      });
+
+    });
+
+    setHistoricalElectionDataDisplayMap(fetchedData);
+};
+
   const state: SharedInfo = {
     page,
     setCurrentPage,
@@ -547,6 +694,10 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     calledElectionDataError,
     countyName,
     setCountyName,
+    HistoricalCountyDataDisplayMap,
+    fetchHistoricalCountyDataForDisplay,
+    HistoricalElectionDataDisplayMap, 
+    fetchHistoricalElectionDataForDisplay,
   };
 
   return (

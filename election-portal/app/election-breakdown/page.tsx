@@ -51,6 +51,16 @@ export default function Election_Breakdown_Page() {
     }
   }, [sharedState.level]);
 
+  useEffect(() => {
+    if (sharedState.HistoricalCountyDataDisplayMap.size === 0 && sharedState.HistoricalElectionDataDisplayMap.size === 0) {
+      sharedState.fetchHistoricalCountyDataForDisplay(historicalCountyData);
+      sharedState.fetchHistoricalElectionDataForDisplay(historicalElectionsData);
+    }
+
+    console.log("sharedState.electionData on page load: ", sharedState.electionData);
+
+  }, [historicalCountyData, historicalElectionsData, sharedState.electionData]);
+
   // State Mode While National
   const SMWN = sharedState.view != State.National && displayNational;
 
@@ -67,12 +77,17 @@ export default function Election_Breakdown_Page() {
         sharedState.setView(State.National);
       }
     });
+
+    console.log("sharedState.electionData on page load: ", sharedState.electionData)
+
   }, [sharedState]);
 
   useEffect(() => {
     if (sharedState.level != 'county') {
       setCountyViewAll(false);
     }
+
+    
   }, [sharedState.level]);
 
   useEffect(() => {
@@ -100,6 +115,14 @@ export default function Election_Breakdown_Page() {
                     office_type: row.office_type,
                     state: row.state,
                     district: row.district,
+                    democratic_percent_1: parseFloat(row.democratic_percent_1),
+                    republican_percent_1: parseFloat(row.republican_percent_1),
+                    democratic_percent_2: parseFloat(row.democratic_percent_2),
+                    republican_percent_2: parseFloat(row.republican_percent_2),
+                    democratic_votes_1: parseInt(row.democratic_votes_1),
+                    republican_votes_1: parseInt(row.republican_votes_1),
+                    democratic_votes_2: parseInt(row.democratic_votes_2),
+                    republican_votes_2: parseInt(row.republican_votes_2),
                     margin_pct_1: parseFloat(row.margin_pct_1),
                     margin_votes_1: parseInt(row.margin_votes_1),
                     margin_pct_2: parseFloat(row.margin_pct_2),
@@ -151,6 +174,14 @@ export default function Election_Breakdown_Page() {
                     district: row.district,
                     state: row.state,
                     fips: row.fips,
+                    democratic_percent_1: parseFloat(row.democratic_percent_1),
+                    republican_percent_1: parseFloat(row.republican_percent_1),
+                    democratic_percent_2: parseFloat(row.democratic_percent_2),
+                    republican_percent_2: parseFloat(row.republican_percent_2),
+                    democratic_votes_1: parseInt(row.democratic_votes_1),
+                    republican_votes_1: parseInt(row.republican_votes_1),
+                    democratic_votes_2: parseInt(row.democratic_votes_2),
+                    republican_votes_2: parseInt(row.republican_votes_2),
                     margin_votes_1: parseInt(row.margin_votes_1),
                     margin_pct_1: parseFloat(row.margin_pct_1),
                     absentee_pct_1: parseFloat(row.absentee_pct_1),
@@ -174,6 +205,9 @@ export default function Election_Breakdown_Page() {
           console.error('Error loading historical county data:', error)
         );
     }
+
+    
+
   }, []);
 
   if (!historicalElectionsData || !historicalCountyData)
