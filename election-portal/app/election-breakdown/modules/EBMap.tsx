@@ -121,8 +121,8 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
           }
           chart.mapZoom(
             toZoom,
-            eventPoint.plotX * 7 - 1000,
-            eventPoint.plotY * -8 + 10000
+            eventPoint.plotX * 5 - 1000,
+            eventPoint.plotY * -7 + 10000
           );
         }
       }
