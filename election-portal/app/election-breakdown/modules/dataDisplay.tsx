@@ -106,6 +106,14 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     if (sharedStateLevel == 'state') {
       setLevelTitle('Statewide');
       // let key = datum.office_type + datum.state + datum.district;
+      if (sharedState.year === Year.TwentyFour) {
+        console.log("sharedState.electionData", sharedState.electionData);
+        let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
+        let newDisplayData24 = sharedState.HistoricalElectionDataDisplayMap.get(key24);
+        if (newDisplayData24) {
+          setDisplayData(newDisplayData24);
+        }
+      } else {
       let key = getDataVersion(raceType) + getStateAbbreviation(sharedState.view) + '0';
       if (firstOrSecond()) {
         key += '_1';
@@ -116,9 +124,18 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
       if (newDisplayData) {
         setDisplayData(newDisplayData);
       }
+    }
     } else if (sharedStateLevel == 'county') {
       setLevelTitle(countyName);
       // let key = datum.state + datum.county + datum.office_type;
+      if (sharedState.year === Year.TwentyFour) {
+        console.log("sharedState.countyData", sharedState.countyData);
+        let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
+        let newDisplayData24 = sharedState.HistoricalElectionDataDisplayMap.get(key24);
+        if (newDisplayData24) {
+          setDisplayData(newDisplayData24);
+        }
+      }
       let key = getStateAbbreviation(sharedState.view) + countyName + getDataVersion(raceType);
       if (firstOrSecond()) {
         key += '_1';
@@ -134,29 +151,36 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
       console.log("Initialzing state data at the national level")
 
       if (sharedState.year === Year.TwentyFour) {
-        // const key = row.officetype_district_state;
         console.log("sharedState.electionData", sharedState.electionData);
-        console.log("sharedState.countyData", sharedState.countyData);
-      }
-
-      let key = getDataVersion(raceType) + getStateAbbreviation(sharedState.view) + '0';
-      if (firstOrSecond()) {
-        key += '_1';
+        let key24 = getDataVersion(raceType) + '0' + getStateAbbreviation(sharedState.view);
+        let newDisplayData24 = sharedState.HistoricalElectionDataDisplayMap.get(key24);
+        if (newDisplayData24) {
+          setDisplayData(newDisplayData24);
+        }
       } else {
-        key += '_2';
+        let key = getDataVersion(raceType) + getStateAbbreviation(sharedState.view) + '0';
+        if (firstOrSecond()) {
+          key += '_1';
+        } else {
+          key += '_2';
+        }
+        let newDisplayData = sharedState.HistoricalElectionDataDisplayMap.get(key);
+        if (newDisplayData) {
+          setDisplayData(newDisplayData);
+        }
       }
-      let newDisplayData = sharedState.HistoricalElectionDataDisplayMap.get(key);
-      if (newDisplayData) {
-        setDisplayData(newDisplayData);
-      }
-
-      console.log("Key: ", key);
-      console.log("New display data: ", newDisplayData);
-      console.log("The whole fucking map: ", sharedState.HistoricalElectionDataDisplayMap)
     }
 
     setUnderscoreFirst(firstOrSecond());
-  }, [sharedStateLevel, countyName, stateName, year, historicalCountyData, historicalElectionsData, sharedState.level]);
+  }, [sharedStateLevel, 
+        countyName, 
+        stateName, 
+        year, 
+        historicalCountyData, 
+        historicalElectionsData, 
+        sharedState.level,
+        sharedState.electionData,
+        sharedState.countyData,]);
 
   // const initializeCountyData = () => {
   //   console.log("Initializing county data");

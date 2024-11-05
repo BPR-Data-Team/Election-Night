@@ -57,9 +57,8 @@ export default function Election_Breakdown_Page() {
       sharedState.fetchHistoricalElectionDataForDisplay(historicalElectionsData);
     }
 
-    console.log("sharedState.electionData on page load: ", sharedState.electionData);
 
-  }, [historicalCountyData, historicalElectionsData, sharedState.electionData]);
+  }, [historicalCountyData, historicalElectionsData]);
 
   // State Mode While National
   const SMWN = sharedState.view != State.National && displayNational;

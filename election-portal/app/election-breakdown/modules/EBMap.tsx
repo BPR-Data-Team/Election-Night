@@ -23,8 +23,7 @@ if (typeof Highcharts === 'object') {
 }
 
 interface EBMapProps {
-  historicalElectionsData: HistoricalElectionData[] | null;
-}
+  historicalElectionsData: HistoricalElectionData[] | null;}
 
 const colorAxisStops: [number, string][] = [
   [0, '#B83C2B'], // Republican red
@@ -180,6 +179,75 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
     }
   }, [sharedState.view, wasPanned, chart]);
 
+  useEffect(() => { 
+    let fetchedData: ElectionData[] = [];
+    historicalElectionsData?.forEach((datum) => {
+      if (datum.office_type === getDataVersion(raceType)) {
+        switch (raceType) {
+          case RaceType.Senate:
+            switch (sharedState.year) {
+              case Year.Eighteen:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Twelve:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+          case RaceType.Gubernatorial:
+            switch (sharedState.year) {
+              case Year.Twenty:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Sixteen:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+          case RaceType.Presidential:
+            switch (sharedState.year) {
+              case Year.Twenty:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Sixteen:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+        }
+      }
+    });
+
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.electionData?.forEach((datum) => {
+        fetchedData.push({
+        'hc-key': 'us-' + datum.state.toLowerCase(),
+        value: datum.margin_pct,
+        });
+      });
+    }
+    
+
+    setElectionData(fetchedData);
+
+
+  }, [sharedState.electionData, sharedState.countyData]);
+
   useEffect(() => {
     if (chart) {
       const updatedData = electionData.map((state) => ({
@@ -274,6 +342,19 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         }
       }
     });
+
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.electionData?.forEach((datum) => {
+        if (datum.office_type === getDataVersion(raceType)) {
+          fetchedData.push({
+            'hc-key': 'us-' + datum.state.toLowerCase(),
+            value: datum.margin_pct,
+          });
+        }
+        
+      });
+    }
+
 
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),

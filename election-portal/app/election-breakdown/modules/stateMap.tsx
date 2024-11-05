@@ -347,6 +347,19 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       }
     );
 
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.countyData?.forEach((datum) => {
+        if (
+          datum.state === getStateAbbreviation(sharedState.view) &&
+          datum.office_type === getDataVersion(sharedState.breakdown)
+        ) {fetchedData.push({
+          NAME: datum.county,
+          value: datum.margin_pct,
+          });
+        }
+      });
+    }
+
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
       Math.abs(getMaxState(fetchedData))
