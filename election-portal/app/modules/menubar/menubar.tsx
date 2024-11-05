@@ -133,7 +133,7 @@ const Menubar: React.FC<MenubarProps> = ({
       setCountyViewAll(false);
     }
   };
-
+  
   return (
     <div className="rightbar">
       <div className="contents">
