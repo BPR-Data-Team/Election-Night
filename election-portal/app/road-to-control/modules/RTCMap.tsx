@@ -118,6 +118,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
   const [twentyFourPresData, setTwentyFourPresData] = useState<
     RTCPresData[] | null
   >(null);
+  const [projectionData, setProjectionData] = useState<RTCPresData[] | null>(null);
 
   const fetchMapDataAndInitializeMap = async () => {
     const geoResponse = await fetch(
@@ -143,7 +144,6 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
       }
     });
     setTwentyFourPresData(twentyFourLiveData);
-    console.log('twentyFourLiveData', twentyFourLiveData);
   }, [liveData]);
 
   /**
@@ -161,7 +161,6 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
 
   useEffect(() => {
     const fetchData = async (
-      year: Year,
       setData: React.Dispatch<React.SetStateAction<RTCPresData[] | null>>,
       storageKey: string,
       csvPath: string
@@ -197,17 +196,20 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
     };
 
     fetchData(
-      Year.Sixteen,
       setSixteenPresData,
       'sixteenPresData',
       `${prodSlug}/R2C/2016Presidential.csv`
     );
     fetchData(
-      Year.Twenty,
       setTwentyPresData,
       'twentyPresData',
       `${prodSlug}/R2C/2020Presidential.csv`
     );
+    fetchData(
+      setProjectionData,
+      'projectionData',
+      `${prodSlug}/R2C/r2c_projection.csv`
+    )
   }, []);
 
   const initializeCircleValues = useCallback((data: RTCPresData[] = []) => {
@@ -231,6 +233,8 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
       initializeCircleValues(twentyPresData);
     } else if (year === Year.TwentyFour && twentyFourPresData) {
       initializeCircleValues(twentyFourPresData);
+    } else if (year === Year.Thousand && projectionData) {
+      initializeCircleValues(projectionData);
     } else {
       initializeCircleValues([]); // Placeholder for future data
     }
@@ -239,6 +243,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
     sixteenPresData,
     twentyPresData,
     twentyFourPresData,
+    projectionData,
     initializeCircleValues,
   ]);
 
@@ -246,7 +251,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
     if (
       (year === Year.Sixteen && sixteenPresData) ||
       (year === Year.Twenty && twentyPresData) ||
-      (year === Year.TwentyFour && twentyFourPresData)
+      (year === Year.TwentyFour && twentyFourPresData) || (year === Year.Thousand && projectionData)
     ) {
       fetchMapDataAndInitializeMap();
     }
@@ -263,6 +268,8 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
           return formatPresData(twentyPresData);
         case Year.TwentyFour:
           return formatPresData(twentyFourPresData);
+        case Year.Thousand:
+          return formatPresData(projectionData);
         default:
           return mockData;
       }
@@ -274,6 +281,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
   const initializeMap = (geoJson: any) => {
     //TODO: Change mockData
     const formattedData = getFormattedData(raceType, year);
+    // console.log(`formattedData${formattedData}`);
     const currentData = formattedData ? [...formattedData] : [...mockData];
     originalMap.current = {
       mapData: currentData
@@ -545,7 +553,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
           </div>
         </div>
       </div>
-      <Menubar handleReset={handleReset} />
+      <Menubar handleReset={handleReset}/>
     </div>
   );
 };

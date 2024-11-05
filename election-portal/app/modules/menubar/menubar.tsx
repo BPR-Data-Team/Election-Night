@@ -10,7 +10,7 @@ import DrawButton from './menu-buttons/draw-button';
 import { usePathname } from 'next/navigation';
 import { truncate } from 'fs';
 import { FaBullseye } from 'react-icons/fa';
-import UndoIcon from '@mui/icons-material/Undo';
+import PageviewIcon from '@mui/icons-material/Pageview';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Button from '@mui/material/Button';
 // These can be turned into maps or better parsed from the types
@@ -239,7 +239,14 @@ const Menubar: React.FC<MenubarProps> = ({
               startIcon={<ReplayIcon style={{ fontSize: '3rem', color: 'rgba(255, 255, 255, 0.7)' }} />} 
               className="reset" 
               onClick={handleReset}
-              style={{ color: 'black' }}
+            >
+            </Button>
+          </div>
+          <div className="projection">
+            <Button 
+              startIcon={<PageviewIcon style={{ fontSize: '4rem', color: 'rgba(255, 255, 255, 0.7)' }} />} 
+              className="reset" 
+              onClick={() => handleYearClick(Year.Thousand)}
             >
             </Button>
           </div>
