@@ -23,8 +23,7 @@ if (typeof Highcharts === 'object') {
 }
 
 interface EBMapProps {
-  historicalElectionsData: HistoricalElectionData[] | null;
-}
+  historicalElectionsData: HistoricalElectionData[] | null;}
 
 const colorAxisStops: [number, string][] = [
   [0, '#B83C2B'], // Republican red
@@ -50,14 +49,12 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
-    console.log('mouse down', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
-      console.log('mouse up', event.clientX, event.clientY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -149,10 +146,10 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType, sharedState.year]);
+  }, [raceType, sharedState.year, sharedState.electionData]);
 
   useEffect(() => {
-    if (chart) {
+    if (chart && chart != undefined) {
       chart.update({
         chart: {
           animation: {
@@ -179,6 +176,78 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
       });
     }
   }, [sharedState.view, wasPanned, chart]);
+
+  useEffect(() => { 
+    let fetchedData: ElectionData[] = [];
+    historicalElectionsData?.forEach((datum) => {
+      if (datum.office_type === getDataVersion(raceType)) {
+        switch (raceType) {
+          case RaceType.Senate:
+            switch (sharedState.year) {
+              case Year.Eighteen:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Twelve:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+          case RaceType.Gubernatorial:
+            switch (sharedState.year) {
+              case Year.Twenty:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Sixteen:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+          case RaceType.Presidential:
+            switch (sharedState.year) {
+              case Year.Twenty:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_1,
+                });
+                break;
+              case Year.Sixteen:
+                fetchedData.push({
+                  'hc-key': 'us-' + datum.state.toLowerCase(),
+                  value: datum.margin_pct_2,
+                });
+                break;
+            }
+        }
+      }
+    });
+
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.electionData?.forEach((datum) => {
+        if (datum.office_type === getDataVersion(raceType)) {
+          fetchedData.push({
+            'hc-key': 'us-' + datum.state.toLowerCase(),
+            value: datum.margin_pct,
+            });
+        }
+        
+      });
+    }
+    
+
+    setElectionData(fetchedData);
+
+
+  }, [sharedState.electionData, sharedState.countyData]);
 
   useEffect(() => {
     if (chart) {
@@ -274,6 +343,19 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         }
       }
     });
+
+    if (sharedState.year === Year.TwentyFour) {
+      sharedState.electionData?.forEach((datum) => {
+        if (datum.office_type === getDataVersion(raceType)) {
+          fetchedData.push({
+            'hc-key': 'us-' + datum.state.toLowerCase(),
+            value: datum.margin_pct,
+          });
+        }
+        
+      });
+    }
+
 
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),

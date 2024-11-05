@@ -129,6 +129,9 @@ const Menubar: React.FC<MenubarProps> = ({
 
   const handleYearClick = (year: Year) => {
     state.yearSwitch(year);
+    if (setCountyViewAll != undefined) {
+      setCountyViewAll(false);
+    }
   };
 
   return (
