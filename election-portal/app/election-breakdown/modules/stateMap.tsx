@@ -518,13 +518,16 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
       console.log('Fetched data does not equal election data:', fetchedData !== electionData);
     }
 
-    const axisMax: number = Math.max(
+    let axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
       Math.abs(getMaxState(fetchedData))
     );
+    if (fetchedData.length < 2) {
+      axisMax = 1;
+    }
     const colorAxis: Highcharts.ColorAxisOptions = {
-      min: -axisMax,
-      max: axisMax,
+      min: -25,
+      max: 25,
       stops: colorAxisStops,
       visible: false,
     };
