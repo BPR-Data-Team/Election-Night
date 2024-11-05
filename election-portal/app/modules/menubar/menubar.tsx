@@ -115,7 +115,7 @@ const demographicToString = (
 interface MenubarProps {
   countyViewAll?: boolean;
   setCountyViewAll?: any;
-  handleReset: () => void;
+  handleReset?: () => void;
 }
 
 const Menubar: React.FC<MenubarProps> = ({
