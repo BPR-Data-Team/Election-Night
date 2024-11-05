@@ -5,5 +5,4 @@ export enum Demographic {
   Education = 'Education',
   Income = 'Income',
   AreaType = 'Area type',
-  Region = 'Region',
 }

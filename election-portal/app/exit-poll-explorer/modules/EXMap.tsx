@@ -23,7 +23,7 @@ if (typeof Highcharts === 'object') {
 }
 
 interface EXMapProps {
-  historicalElectionsData: any;
+  historicalElectionsData: HistoricalElectionData[] | null;
 }
 
 const colorAxisStops: [number, string][] = [
@@ -35,6 +35,7 @@ const colorAxisStops: [number, string][] = [
 ];
 
 const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
+  console.log('Initial historical election data', historicalElectionsData);
   const sharedState = useSharedState().state;
   const raceType = sharedState.breakdown;
 
@@ -143,7 +144,7 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType, sharedState.year]);
+  }, [raceType, sharedState.year, historicalElectionsData]);
 
   useEffect(() => {
     const fetchedData = histDataToFetchedData(historicalElectionsData);
@@ -240,41 +241,47 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     ],
   };
 
-  const histDataToFetchedData = (histData: HistoricalElectionData[]): ElectionData[] => {
+  const histDataToFetchedData = (
+    histData: HistoricalElectionData[] | null
+  ): ElectionData[] => {
     let fetchedData: ElectionData[] = [];
-    historicalElectionsData?.forEach((datum: any) => {
+    console.log('histData', histData);
+    histData?.forEach((datum: HistoricalElectionData) => {
       if (datum.office_type === getDataVersion(raceType)) {
         switch (raceType) {
           case RaceType.Senate:
             switch (sharedState.year) {
               case Year.TwentyFour:
-              case Year.Twenty:
-                fetchedData = historicalElectionsData;
-            }
-          case RaceType.Presidential:
-            switch (sharedState.year) {
+                break;
               case Year.Twenty:
                 fetchedData.push({
                   'hc-key': 'us-' + datum.state.toLowerCase(),
                   value: datum.margin_pct_1,
                 });
                 break;
-              case Year.Sixteen:
+            }
+            break;
+          case RaceType.Presidential:
+            switch (sharedState.year) {
+              case Year.TwentyFour:
+                break;
+              case Year.Twenty:
                 fetchedData.push({
                   'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
+                  value: datum.margin_pct_1,
                 });
                 break;
             }
+            break;
         }
       }
     });
+    console.log('fetchedData', fetchedData);
     return fetchedData;
   };
 
   const initializeMap = (mapData: any) => {
     const fetchedData = histDataToFetchedData(historicalElectionsData);
-
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
       Math.abs(getMaxState(fetchedData))
