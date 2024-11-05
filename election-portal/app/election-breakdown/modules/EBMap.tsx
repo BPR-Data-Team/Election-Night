@@ -149,7 +149,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
   }, [raceType, sharedState.year, sharedState.electionData]);
 
   useEffect(() => {
-    if (chart) {
+    if (chart && chart != undefined) {
       chart.update({
         chart: {
           animation: {
