@@ -30,21 +30,19 @@ cat("Loaded locally hosted data\n")
 cat("Loading REST data...\n")
 
 current_data <- reactive({
-  race_data <- get_rest_api_data("race")()
+  race_data <- get_rest_api_data("race")
   race_data <- race_data %>% 
   mutate(across(!c(when_to_call, state, race_to_watch, Republican_name, office_type, poll_close, Independent_name, officetype_district_state, Democratic_name),
         as.numeric))
 })
 
-called_races <- reactive({get_rest_api_data("logan")()})
+called_races <- reactive({get_rest_api_data("logan")})
 
-exit_poll_data_2024 <- reactive({get_rest_api_data("exit_polls")() %>%
+exit_poll_data_2024 <- reactive({get_rest_api_data("exit_polls") %>%
   mutate(across(c(demographic_pct, answer_pct)), as.numeric)
 })
 
-observe(view(get_rest_api_data("exit_polls")()))
-
-county_data <- reactive({get_rest_api_data("county")() %>%
+county_data <- reactive({get_rest_api_data("county") %>%
   mutate(across(!c(fips, officetype_county_district_state, state, county, Green_name, Republican_name, office_type, Independent_name, Democratic_name),
          as.numeric))
 })
@@ -100,31 +98,29 @@ server <- function(input, output, session) {
     }
   })
   
-  called_races <- reactive({
+  structured_called_races <- reactive({
     called_races() %>%
       mutate(
         state = str_extract(state_district_office, "^[A-Z]{2}"),
         district = str_extract(state_district_office, "\\d{1,2}"),
         office = str_extract(state_district_office, "\\D+$")
       ) %>% 
-      mutate(state_name = state.name[match(state_abb, state.abb)]) %>%
-      left_join(electoral_votes, by = "state_name")
+      mutate(state_name = state.name[match(state, state.abb)]) %>%
+      left_join(electoral_votes, by = "state")
     })
   
 
   dem_ev_tally <- reactive({
-    dem_races <- called_races() %>%
+    dem_races <- structured_called_races() %>%
       filter(called == 'D',
              office == "President") %>%
       pull("votes") %>%
       sum()
     
-    view(dem_races)
-    
     dem_races
   })
   rep_ev_tally <- reactive({
-    called_races() %>%
+    structured_called_races() %>%
       filter(called == 'R',
              office == "President") %>%
       pull("votes") %>%
@@ -137,14 +133,14 @@ server <- function(input, output, session) {
     
     glue("{rep} - {dem}")
   })
-  print(electoral_vote_tally)
   output$electoral_vote_tally <- electoral_vote_tally
   output$house_electoral_vote_tally <- electoral_vote_tally
   
   selected_race_data <- reactive({
-    current_data() %>% filter_races(office_selection = election_type(),
-                                  state_selection = state_selection(),
-                                  district_selection = district_selection())
+     filter_races(current_data(),
+                  office_selection = election_type(),
+                  state_selection = state_selection(),
+                  district_selection = district_selection())
       
   })
 
