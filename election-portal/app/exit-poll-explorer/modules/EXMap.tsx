@@ -35,7 +35,6 @@ const colorAxisStops: [number, string][] = [
 ];
 
 const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
-  console.log('Initial historical election data', historicalElectionsData);
   const sharedState = useSharedState().state;
   const raceType = sharedState.breakdown;
 
@@ -245,7 +244,6 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     histData: HistoricalElectionData[] | null
   ): ElectionData[] => {
     let fetchedData: ElectionData[] = [];
-    console.log('histData', histData);
     histData?.forEach((datum: HistoricalElectionData) => {
       if (datum.office_type === getDataVersion(raceType)) {
         switch (raceType) {
@@ -276,7 +274,6 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
         }
       }
     });
-    console.log('fetchedData', fetchedData);
     return fetchedData;
   };
 

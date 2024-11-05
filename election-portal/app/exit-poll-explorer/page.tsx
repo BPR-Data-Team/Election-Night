@@ -11,7 +11,7 @@ import styles from './page.module.css';
 import Menubar from '../modules/menubar/menubar';
 import { useSharedState } from '../sharedContext';
 import Canvas from '../modules/canvas/canvas';
-import { RaceType } from '@/types/RaceType';
+import { getDataVersion, RaceType } from '@/types/RaceType';
 import { Year } from '@/types/Year';
 import { Demographic } from '@/types/Demographic';
 import EXMap from './modules/EXMap';
@@ -83,7 +83,9 @@ const senate2020ToHistorical = (data2020: any[]) => {
 };
 
 export default function Exit_Poll_Explorer_Page() {
-  const [exitPollData, setExitPollData] = useState<ExitPollData[] | null>(null);
+  const [exitPollData, setExitPollData] = useState<
+    ExitPollData[] | null | undefined
+  >(null);
   const [tableData, setTableData] = useState<ExitPollAnswer[]>([]);
 
   const [historicalElectionsData, setHistoricalElectionsData] = useState<
@@ -525,53 +527,6 @@ export default function Exit_Poll_Explorer_Page() {
             stateName === State.Texas ||
             stateName === State.Virginia
           );
-          // } else if (
-          //   sharedState.demographic == Demographic.Region &&
-          //   sharedState.breakdown == RaceType.Presidential
-          // ) {
-          //   return (
-          //     stateName === State.Alabama ||
-          //     stateName === State.Arizona ||
-          //     stateName === State.Colorado ||
-          //     stateName === State.Florida ||
-          //     stateName === State.Georgia ||
-          //     stateName === State.Iowa ||
-          //     stateName === State.Kentucky ||
-          //     stateName === State.Michigan ||
-          //     stateName === State.Minnesota ||
-          //     stateName === State.Nevada ||
-          //     stateName === State.NewHampshire ||
-          //     stateName === State.NorthCarolina ||
-          //     stateName === State.Ohio ||
-          //     stateName === State.Oregon ||
-          //     stateName === State.Pennsylvania ||
-          //     stateName === State.SouthCarolina ||
-          //     stateName === State.Texas ||
-          //     stateName === State.Virginia ||
-          //     stateName === State.Washington ||
-          //     stateName === State.Wisconsin
-          //   );
-          // } else if (
-          //   sharedState.demographic == Demographic.Region &&
-          //   sharedState.breakdown == RaceType.Senate
-          // ) {
-          //   return (
-          //     stateName === State.Alabama ||
-          //     stateName === State.Arizona ||
-          //     stateName === State.Colorado ||
-          //     stateName === State.Georgia ||
-          //     stateName === State.Iowa ||
-          //     stateName === State.Kentucky ||
-          //     stateName === State.Michigan ||
-          //     stateName === State.Minnesota ||
-          //     stateName === State.Maine ||
-          //     stateName === State.NewHampshire ||
-          //     stateName === State.NorthCarolina ||
-          //     stateName === State.Oregon ||
-          //     stateName === State.SouthCarolina ||
-          //     stateName === State.Texas ||
-          //     stateName === State.Virginia
-          //   );
         } else {
           return;
         }
@@ -596,8 +551,10 @@ export default function Exit_Poll_Explorer_Page() {
     sharedState.year,
     sharedState.demographic,
   ]);
+
   // attempt to fix the menubar rendering issue
   const initialized = useRef(false);
+
   useEffect(() => {
     if (!initialized.current) {
       // Ensure sharedState exists before accessing it
@@ -623,12 +580,25 @@ export default function Exit_Poll_Explorer_Page() {
 
   useEffect(() => {
     sharedState.setAvailableYears([Year.TwentyFour, Year.Twenty]);
-  }, [sharedState.breakdown, sharedState.breakdownSwitch]);
+  }, [sharedState.breakdown]);
 
+  const fetchPollData = () => {
+    switch (sharedState.year) {
+      case Year.TwentyFour:
+        fetch2024Data();
+        break;
+      case Year.Twenty:
+      default:
+        fetch2020Data();
+        break;
+    }
+  };
   // Second useEffect for exit poll data loading
   useEffect(() => {
-    // console.log('Loading exit poll data...'); // For debugging
+    fetchPollData();
+  }, [sharedState.yearSwitch]);
 
+  const fetch2020Data = () => {
     const storedExitPollData = sessionStorage.getItem('exitPollData');
 
     if (storedExitPollData) {
@@ -656,7 +626,6 @@ export default function Exit_Poll_Explorer_Page() {
                   };
                 }
               );
-
               setExitPollData(parsedData);
               sessionStorage.setItem(
                 'exitPollData',
@@ -669,23 +638,22 @@ export default function Exit_Poll_Explorer_Page() {
           console.error('Error loading exit poll data:', error)
         );
     }
-  }, []); // Empty dependency array
+  };
 
-  const fetch2020Data = () => {};
-  const fetch2024Data = () => {};
+  const fetch2024Data = () => {
+    // const fetchedData = sharedState.exitPollData?.get(
+    //   getStateAbbreviation(sharedState.view) +
+    //     getDataVersion(sharedState.breakdown) +
+    //     sharedState.demographic
+    // );
+    const fetchedData = sharedState.exitPollData?.get('ALPresidentAge');
+    setExitPollData(fetchedData);
+  };
 
-  useEffect(() => {
-    if (sharedState.year == Year.Twenty) {
-      fetch2020Data();
-    } else if (sharedState.year == Year.TwentyFour) {
-      fetch2024Data();
-    }
-  }, [sharedState.year]);
-
-  useEffect(() => {
+  const loadTableData = () => {
     const dataMap = new Map();
 
-    exitPollData?.forEach((datum) => {
+    exitPollData?.forEach((datum: ExitPollData) => {
       if (
         datum.state === getStateAbbreviation(sharedState.view) &&
         datum.office_type === 'President' &&
@@ -706,9 +674,19 @@ export default function Exit_Poll_Explorer_Page() {
       }
     });
 
-    const data = Array.from(dataMap.values());
-    setTableData(data);
+    const dataForTable = Array.from(dataMap.values());
+    setTableData(dataForTable);
+  };
+
+  useEffect(() => {
+    loadTableData();
   }, [sharedState.demographic, sharedState.view, exitPollData]);
+
+  useEffect(() => {
+    sharedState.setView(State.Alabama);
+    sharedState.demographicSwitch(Demographic.Age);
+  }, []);
+
   if (!exitPollData || !historicalCountyData || !historicalElectionsData)
     return <p>Loading Data...</p>;
 
