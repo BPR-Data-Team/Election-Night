@@ -199,8 +199,8 @@ const fetchCalledElectionData = async (): Promise<
 };
 
 // FETCH EXIT POLLS WITH PAGINATION
-const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
-  const exitPollMap = new Map<string, ExitPollData>();
+const fetchExitPollData = async (): Promise<Map<string, ExitPollData[]>> => {
+  const exitPollMap = new Map<string, ExitPollData[]>();
   let lastKey = null; // set lastKey as null initially
 
   try {
@@ -227,10 +227,15 @@ const fetchExitPollData = async (): Promise<Map<string, ExitPollData>> => {
           answer_pct: item.answer_pct,
           lastName: item.lastName,
         };
-        exitPollMap.set(
-          item.state + item.office_type + item.answer + item.lastName,
-          newItem
-        );
+        if (exitPollMap.get(item.state + item.office_type + item.question)) {
+          exitPollMap
+            .get(item.state + item.office_type + item.question)
+            ?.push(newItem);
+        } else {
+          exitPollMap.set(item.state + item.office_type + item.question, [
+            newItem,
+          ]);
+        }
       });
       lastKey = response.data.lastKey;
       console.log(
@@ -266,10 +271,10 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   );
   const exitLevel = () => {
     if (level === 'county') {
-      console.log("SETTING FROM COUNTY TO STATE");
+      console.log('SETTING FROM COUNTY TO STATE');
       setLevel('state');
     } else if (level === 'state') {
-      console.log("SETTING FROM STATE TO NAT");
+      console.log('SETTING FROM STATE TO NAT');
       setLevel('national');
       setView(State.National);
     } else if (level === 'national') {
@@ -372,7 +377,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     data: initialExitPollData,
     isLoading: exitPollDataLoading,
     error: exitPollDataError,
-  } = useQuery<Map<string, ExitPollData>, Error>(
+  } = useQuery<Map<string, ExitPollData[]>, Error>(
     'exitPollData',
     fetchExitPollData,
     {
@@ -384,7 +389,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       },
     }
   );
-  const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData>>(
+  const [exitPollData, setExitPollData] = useState<Map<string, ExitPollData[]>>(
     new Map()
   );
 
@@ -479,7 +484,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
         // EXIT POLL TABLE
         if (update.tableName == 'Exit_Polls' && update.data.length > 0) {
           const row = update.data[0];
-          const key = row.state_officetype_answer_lastname;
+          const key = row.state + row.office_type + row.question;
 
           // Create a new object with only the required fields
           const filteredRow: ExitPollData = {
@@ -492,8 +497,22 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
             lastName: row.lastName,
           };
           setExitPollData((prevData) => {
+            const idx = prevData
+              .get(key)
+              ?.findIndex(
+                (elem) =>
+                  elem.state === filteredRow.answer &&
+                  elem.office_type === filteredRow.office_type &&
+                  elem.question === filteredRow.question
+              );
+
             const newData = new Map(prevData);
-            newData.set(key, filteredRow);
+            const targetArray = newData.get(key);
+
+            if (targetArray && idx !== undefined && idx !== -1) {
+              targetArray[idx] = filteredRow;
+              newData.set(key, targetArray);
+            }
             console.log(newData);
             return newData;
           });
@@ -550,8 +569,12 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
 
   const [countyName, setCountyName] = useState<string>('');
 
-  const [HistoricalCountyDataDisplayMap, setHistoricalCountyDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
-  const [HistoricalElectionDataDisplayMap, setHistoricalElectionDataDisplayMap] = useState<Map<string, electionDisplayData>>(new Map());
+  const [HistoricalCountyDataDisplayMap, setHistoricalCountyDataDisplayMap] =
+    useState<Map<string, electionDisplayData>>(new Map());
+  const [
+    HistoricalElectionDataDisplayMap,
+    setHistoricalElectionDataDisplayMap,
+  ] = useState<Map<string, electionDisplayData>>(new Map());
 
   // const fetchHistoricalCountyDataForDisplay = (historicalCountyData: any) => {
   //     console.log("Initializing historical county data");
@@ -632,7 +655,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
   //         }
   //       }
   //     });
-  
+
   //     setHistoricalCountyDataDisplayMap(fetchedData);
   // }
 
@@ -641,82 +664,96 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     Republican_name: string;
   }
 
-  const [electionCandidateMap, setElectionCandidateMap] = useState<Map<string, CandidateNamesInterface>>(new Map());
-  const [countyCandidateMap, setCountyCandidateMap] = useState<Map<string, CandidateNamesInterface>>(new Map());
+  const [electionCandidateMap, setElectionCandidateMap] = useState<
+    Map<string, CandidateNamesInterface>
+  >(new Map());
+  const [countyCandidateMap, setCountyCandidateMap] = useState<
+    Map<string, CandidateNamesInterface>
+  >(new Map());
 
   const getCandidateKey = (datum: any): Array<string> => {
-    switch(datum.office_type) {
+    switch (datum.office_type) {
       case getDataVersion(RaceType.Senate):
-        let key1 = `2018_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
-        let key2 = `2012_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let key1 =
+          `2018_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let key2 =
+          `2012_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
         return [key1, key2];
       case getDataVersion(RaceType.Gubernatorial):
-        let gub_key1 = `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
-        let gub_key2 = `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let gub_key1 =
+          `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let gub_key2 =
+          `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
         return [gub_key1, gub_key2];
       case getDataVersion(RaceType.Presidential):
-        let pres_key1 = `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
-        let pres_key2 = `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let pres_key1 =
+          `2020_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
+        let pres_key2 =
+          `2016_${datum.state}_${datum.office_type.toLowerCase()}`.trim();
         return [pres_key1, pres_key2];
       default:
         return [];
-  }
-}
+    }
+  };
 
-  const fetchHistoricalCountyDataForDisplay = async (historicalCountyData: any) => {
-    console.log("Initializing historical election data");
+  const fetchHistoricalCountyDataForDisplay = async (
+    historicalCountyData: any
+  ) => {
+    console.log('Initializing historical election data');
     let fetchedData = new Map<string, electionDisplayData>();
 
     const response = await fetch('cleaned_data/Historic Candidates.csv');
-      const csvText = await response.text();
-      const parsedData = Papa.parse(csvText, { header: true }).data;
-      
-      let newCandidateMap = new Map<string, CandidateNamesInterface>();
-      if (countyCandidateMap.size === 0) {
-        parsedData.forEach((row: any) => {
-          const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
-          const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
+    const csvText = await response.text();
+    const parsedData = Papa.parse(csvText, { header: true }).data;
 
-          
-    
-          const newCandidateNames = {
-            Democratic_name: row.dem_name,
-            Republican_name: row.rep_name,
-          }
-    
-          newCandidateMap.set(key, newCandidateNames);
-        });
-  
-        setCountyCandidateMap(newCandidateMap);
-      } else {
-        newCandidateMap = countyCandidateMap;
-      }
+    let newCandidateMap = new Map<string, CandidateNamesInterface>();
+    if (countyCandidateMap.size === 0) {
+      parsedData.forEach((row: any) => {
+        const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
+        const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
 
-      console.log('newCandidateMap in county:', newCandidateMap);
+        const newCandidateNames = {
+          Democratic_name: row.dem_name,
+          Republican_name: row.rep_name,
+        };
+
+        newCandidateMap.set(key, newCandidateNames);
+      });
+
+      setCountyCandidateMap(newCandidateMap);
+    } else {
+      newCandidateMap = countyCandidateMap;
+    }
+
+    console.log('newCandidateMap in county:', newCandidateMap);
 
     historicalCountyData?.forEach((datum: any) => {
       let key = datum.state + datum.county + datum.office_type;
 
       const candidateKeys = getCandidateKey(datum);
-      
+
       if (candidateKeys.length === 0) {
         return;
       } else {
         console.log('candidateKeys in county:', candidateKeys);
       }
-                
-      fetchedData.set(key+"_1", {
-        Democratic_name: newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
+
+      fetchedData.set(key + '_1', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_1,
         rep_votes: datum.republican_votes_1,
         dem_votes_pct: datum.democratic_percent_1,
         rep_votes_pct: datum.republican_percent_1,
       });
 
-      fetchedData.set(key+"_2", {
-        Democratic_name: newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
+      fetchedData.set(key + '_2', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_2,
         rep_votes: datum.republican_votes_2,
         dem_votes_pct: datum.democratic_percent_2,
@@ -725,37 +762,39 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     });
 
     setHistoricalCountyDataDisplayMap(fetchedData);
-};
+  };
 
-  const fetchHistoricalElectionDataForDisplay = async (historicalElectionData: any) => {
-    console.log("Initializing historical election data");
+  const fetchHistoricalElectionDataForDisplay = async (
+    historicalElectionData: any
+  ) => {
+    console.log('Initializing historical election data');
     let fetchedData = new Map<string, electionDisplayData>();
 
     const response = await fetch('cleaned_data/Historic Candidates.csv');
     const csvText = await response.text();
     const parsedData = Papa.parse(csvText, { header: true }).data;
     console.log('parsedData', parsedData);
-      
-      let newCandidateMap = new Map<string, CandidateNamesInterface>();
-      if (electionCandidateMap.size === 0) {
-        parsedData.forEach((row: any) => {
-          const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
-          const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
-    
-          const newCandidateNames = {
-            Democratic_name: row.dem_name,
-            Republican_name: row.rep_name,
-          }
-    
-          newCandidateMap.set(key, newCandidateNames);
-        });
-  
-        setElectionCandidateMap(newCandidateMap);
-      } else {
-        newCandidateMap = electionCandidateMap;
-      }
 
-      console.log('newCandidateMap', newCandidateMap);
+    let newCandidateMap = new Map<string, CandidateNamesInterface>();
+    if (electionCandidateMap.size === 0) {
+      parsedData.forEach((row: any) => {
+        const stateAbbrev = getStateAbbreviation(getStateFromString(row.state));
+        const key = `${row.year}_${stateAbbrev}_${row.office_type}`.trim();
+
+        const newCandidateNames = {
+          Democratic_name: row.dem_name,
+          Republican_name: row.rep_name,
+        };
+
+        newCandidateMap.set(key, newCandidateNames);
+      });
+
+      setElectionCandidateMap(newCandidateMap);
+    } else {
+      newCandidateMap = electionCandidateMap;
+    }
+
+    console.log('newCandidateMap', newCandidateMap);
 
     historicalElectionData?.forEach((datum: any) => {
       let key = datum.office_type + datum.state + datum.district;
@@ -764,30 +803,32 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
       if (candidateKeys.length === 0) {
         return;
       }
-                
-      fetchedData.set(key+"_1", {
-        Democratic_name: newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
+
+      fetchedData.set(key + '_1', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[0])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[0])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_1,
         rep_votes: datum.republican_votes_1,
         dem_votes_pct: datum.democratic_percent_1,
         rep_votes_pct: datum.republican_percent_1,
       });
 
-      fetchedData.set(key+"_2", {
-        Democratic_name: newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
-        Republican_name: newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
+      fetchedData.set(key + '_2', {
+        Democratic_name:
+          newCandidateMap.get(candidateKeys[1])?.Democratic_name || 'Unknown',
+        Republican_name:
+          newCandidateMap.get(candidateKeys[1])?.Republican_name || 'Unknown',
         dem_votes: datum.democratic_votes_2,
         rep_votes: datum.republican_votes_2,
         dem_votes_pct: datum.democratic_percent_2,
         rep_votes_pct: datum.republican_percent_2,
       });
-
     });
 
     setHistoricalElectionDataDisplayMap(fetchedData);
   };
-
 
   const state: SharedInfo = {
     page,
@@ -827,7 +868,7 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     setCountyName,
     HistoricalCountyDataDisplayMap,
     fetchHistoricalCountyDataForDisplay,
-    HistoricalElectionDataDisplayMap, 
+    HistoricalElectionDataDisplayMap,
     fetchHistoricalElectionDataForDisplay,
   };
 

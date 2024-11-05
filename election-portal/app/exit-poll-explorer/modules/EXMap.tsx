@@ -151,7 +151,31 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType, sharedState.year]);
+  }, [raceType, sharedState.year, historicalElectionsData]);
+
+  useEffect(() => {
+    const fetchedData = histDataToFetchedData(historicalElectionsData);
+    const updatedData = fetchedData.map((state) => ({
+      ...state,
+      borderColor:
+        state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
+      borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
+    }));
+    const reorderedData = [
+      ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
+      ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
+    ];
+
+    if (chart) {
+      chart.update({
+        series: [
+          {
+            data: reorderedData,
+          },
+        ],
+      });
+    }
+  }, [historicalElectionsData, selectedStateKey, chart, raceType]);
 
   useEffect(() => {
     if (chart) {
@@ -182,28 +206,29 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     }
   }, [sharedState.view, wasPanned, chart]);
 
-  useEffect(() => {
-    if (chart) {
-      const updatedData = electionData.map((state) => ({
-        ...state,
-        borderColor:
-          state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
-        borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
-      }));
-      const reorderedData = [
-        ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
-        ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
-      ];
-      chart.update({
-        series: [
-          {
-            type: 'map',
-            data: reorderedData,
-          },
-        ],
-      });
-    }
-  }, [selectedStateKey, chart, raceType]);
+  // Deprecated as per the similar useEffect on line 149
+  // useEffect(() => {
+  //   if (chart) {
+  //     const updatedData = electionData.map((state) => ({
+  //       ...state,
+  //       borderColor:
+  //         state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
+  //       borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
+  //     }));
+  //     const reorderedData = [
+  //       ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
+  //       ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
+  //     ];
+  //     chart.update({
+  //       series: [
+  //         {
+  //           type: 'map',
+  //           data: reorderedData,
+  //         },
+  //       ],
+  //     });
+  //   }
+  // }, [selectedStateKey, chart, raceType]);
 
   function getMaxState(stateData: ElectionData[]): number {
     return Math.max(...stateData.map((state) => state.value));
@@ -223,60 +248,45 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     ],
   };
 
-  const initializeMap = (mapData: any) => {
+  const histDataToFetchedData = (
+    histData: HistoricalElectionData[] | null
+  ): ElectionData[] => {
     let fetchedData: ElectionData[] = [];
-    historicalElectionsData?.forEach((datum) => {
+    histData?.forEach((datum: HistoricalElectionData) => {
       if (datum.office_type === getDataVersion(raceType)) {
         switch (raceType) {
           case RaceType.Senate:
             switch (sharedState.year) {
-              case Year.Eighteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
+              case Year.TwentyFour:
                 break;
-              case Year.Twelve:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Gubernatorial:
-            switch (sharedState.year) {
               case Year.Twenty:
                 fetchedData.push({
                   'hc-key': 'us-' + datum.state.toLowerCase(),
                   value: datum.margin_pct_1,
                 });
                 break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
             }
+            break;
           case RaceType.Presidential:
             switch (sharedState.year) {
+              case Year.TwentyFour:
+                break;
               case Year.Twenty:
                 fetchedData.push({
                   'hc-key': 'us-' + datum.state.toLowerCase(),
                   value: datum.margin_pct_1,
                 });
                 break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
             }
+            break;
         }
       }
     });
+    return fetchedData;
+  };
 
+  const initializeMap = (mapData: any) => {
+    const fetchedData = histDataToFetchedData(historicalElectionsData);
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
       Math.abs(getMaxState(fetchedData))
@@ -368,7 +378,7 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
           states: {
             hover: {
               enabled: false,
-            }
+            },
           },
           point: {
             events: {},
