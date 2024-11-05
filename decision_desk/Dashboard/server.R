@@ -416,7 +416,9 @@ server <- function(input, output, session) {
     } else if (input$TL_map_select == "2024_swing") {
       output$TL_map <- renderLeaflet({get_swing_map(county_data(), state_selection(), election_type(), election_type(), 2020, 2024)})
     
-    } 
+    } else if (input$TL_map_select == "benchmark_differential") {
+      output$TL_map <- renderLeaflet({get_benchmark_differential_map(county_data(), state_selection(), election_type())})
+    }
   })
   
   observeEvent(input$TR_map_select, {
@@ -441,6 +443,8 @@ server <- function(input, output, session) {
     } else if (input$TR_map_select == "pres_gov_swing_20") {
       output$TR_map <- renderLeaflet({get_swing_map(county_data(), state_selection(), "President", "Governor", 2020, 2020)})
     
+    } else if (input$TR_map_select == "benchmarks") {
+      output$TR_map <- renderLeaflet({get_benchmark_map(state_selection())})
     } else {
       output$TR_map <- renderLeaflet({NULL})
     }

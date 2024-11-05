@@ -4,7 +4,7 @@ import styles from './statusbar.module.css'; // Import CSS module
 interface StatusBarProps {
   leftCount: number;
   rightCount: number;
-  
+
 }
 
 const StatusBar: React.FC<StatusBarProps> = ({ leftCount, rightCount }) => {

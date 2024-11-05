@@ -1,0 +1,199 @@
+year,state,office_type,rep_name,dem_name,dist
+2018,Arizona,senate,Martha McSally,Kyrsten Sinema,0
+2018,California,senate,none,Dianne Feinstein,0
+2018,Connecticut,senate,Matthew Corey,Chris Murphy,0
+2018,Delaware,senate,Robert Arlett,Tom Carper,0
+2018,Florida,senate,Rick Scott,Bill Nelson,0
+2018,Hawaii,senate,Ron Curtis,Mazie Hirono,0
+2018,Indiana,senate,Mike Braun,Joe Donnelly,0
+2018,Maine,senate,Eric Brakey,Angus King,0
+2018,Maryland,senate,Tony Campbell,Ben Cardin,0
+2018,Massachusetts,senate,Geoff Diehl,Elizabeth Warren,0
+2018,Michigan,senate,John James,Debbie Stabenow,0
+2018,Minnesota,senate,Amy Klobuchar,Jim Newberger,0
+2018,Mississippi,senate,Roger Wicker,David Baria,0
+2018,Missouri,senate,Josh Hawley,Claire McCaskill,0
+2018,Montana,senate,Matt Rosendale,Jon Tester,0
+2018,Nebraska,senate,Deb Fischer,Jane Raybould,0
+2018,Nevada,senate,Dean Heller,Jacky Rosen,0
+2018,New Jersey,senate,Bob Hugin,Bob Menendez,0
+2018,New Mexico,senate,Mick Rich,Martin Heinrich,0
+2018,New York,senate,Chele Chiavacci Farley,Kirsten Gillibrand,0
+2018,North Dakota,senate,Kevin Cramer,Heidi Heitkamp,0
+2018,Ohio,senate,Jim Renacci,Sherrod Brown,0
+2018,Pennsylvania,senate,Lou Barletta,Bob Casey Jr.,0
+2018,Rhode Island,senate,Robert Flanders,Sheldon Whitehouse,0
+2018,Tennessee,senate,Marsha Blackburn,Phil Bredesen,0
+2018,Texas,senate,Ted Cruz,Beto O'Rourke,0
+2018,Utah,senate,Mitt Romney,Jenny Wilson,0
+2018,Vermont,senate,Lawrence Zupan,Bernie Sanders,0
+2018,Virginia,senate,Corey Stewart,Tim Kaine,0
+2018,Washington,senate,Susan Hutchison,Maria Cantwell,0
+2018,West Virginia,senate, Joe Manchin,Patrick Morrisey,0
+2018,Wisconsin,senate,Leah Vukmir,Tammy Baldwin,0
+2018,Wyoming,senate,John Barrasso,Gary Trauner,0
+2012,Arizona,senate,Jeff Flake,Richard Carmona,0
+2012,California,senate,Elizabeth Emken,Dianne Feinstein,0
+2012,Connecticut,senate,Linda McMahon,Chris Murphy,0
+2012,Delaware,senate,Kevin Wade,Tom Carper,0
+2012,Florida,senate,Connie Mack IV,Bill Nelson,0
+2012,Hawaii,senate,Linda Lingle,Mazie Hirono,0
+2012,Indiana,senate,Richard Mourdock,Joe Donnelly,0
+2012,Maine,senate,Charlie Summers,Angus King,0
+2012,Maryland,senate,Dan Bongino,Ben Cardin,0
+2012,Massachusetts,senate,Scott Brown,Elizabeth Warren,0
+2012,Michigan,senate,Pete Hoekstra,Debbie Stabenow,0
+2012,Minnesota,senate,Kurt Bills,Amy Klobuchar,0
+2012,Mississippi,senate,Roger Wicker,Albert N. Gore Jr.,0
+2012,Missouri,senate,Todd Akin,Claire McCaskill,0
+2012,Montana,senate,Denny Rehberg,Jon Tester,0
+2012,Nebraska,senate,Deb Fischer,Bob Kerrey,0
+2012,Nevada,senate,Dean Heller,Shelley Berkley,0
+2012,New Jersey,senate,Joe Kyrillos,Bob Menendez,0
+2012,New Mexico,senate,Heather Wilson,Martin Heinrich,0
+2012,New York,senate,Wendy Long,Kirsten Gillibrand,0
+2012,North Dakota,senate,Rick Berg,Heidi Heitkamp,0
+2012,Ohio,senate,Josh Mandel,Sherrod Brown,0
+2012,Pennsylvania,senate,Tom Smith,Bob Casey Jr.,0
+2012,Rhode Island,senate,Barry Hinckley,Sheldon Whitehouse,0
+2012,Tennessee,senate,Bob Corker,Mark Clayton,0
+2012,Texas,senate,Ted Cruz,Paul Sadler,0
+2012,Utah,senate,Orrin Hatch,Scott Howell,0
+2012,Vermont,senate,John MacGovern,Bernie Sanders,0
+2012,Virginia,senate,George Allen,Tim Kaine,0
+2012,Washington,senate,Michael Baumgartner,Maria Cantwell,0
+2012,West Virginia,senate,John Raese,Joe Manchin,0
+2012,Wisconsin,senate,Tommy Thompson,Tammy Baldwin,0
+2012,Wyoming,senate,John Barrasso,Tim Chesnut,0
+2020,Alabama,president,Donald Trump,Joe Biden,0
+2020,Alaska,president,Donald Trump,Joe Biden,0
+2020,Arizona,president,Donald Trump,Joe Biden,0
+2020,Arkansas,president,Donald Trump,Joe Biden,0
+2020,California,president,Donald Trump,Joe Biden,0
+2020,Colorado,president,Donald Trump,Joe Biden,0
+2020,Connecticut,president,Donald Trump,Joe Biden,0
+2020,Delaware,president,Donald Trump,Joe Biden,0
+2020,Florida,president,Donald Trump,Joe Biden,0
+2020,Georgia,president,Donald Trump,Joe Biden,0
+2020,Hawaii,president,Donald Trump,Joe Biden,0
+2020,Idaho,president,Donald Trump,Joe Biden,0
+2020,Illinois,president,Donald Trump,Joe Biden,0
+2020,Indiana,president,Donald Trump,Joe Biden,0
+2020,Iowa,president,Donald Trump,Joe Biden,0
+2020,Kansas,president,Donald Trump,Joe Biden,0
+2020,Kentucky,president,Donald Trump,Joe Biden,0
+2020,Louisiana,president,Donald Trump,Joe Biden,0
+2020,Maine,president,Donald Trump,Joe Biden,0
+2020,Maine,president,Donald Trump,Joe Biden,1
+2020,Maine,president,Donald Trump,Joe Biden,2
+2020,Maryland,president,Donald Trump,Joe Biden,0
+2020,Massachusetts,president,Donald Trump,Joe Biden,0
+2020,Michigan,president,Donald Trump,Joe Biden,0
+2020,Minnesota,president,Donald Trump,Joe Biden,0
+2020,Mississippi,president,Donald Trump,Joe Biden,0
+2020,Missouri,president,Donald Trump,Joe Biden,0
+2020,Montana,president,Donald Trump,Joe Biden,0
+2020,Nebraska,president,Donald Trump,Joe Biden,0
+2020,Nebraska,president,Donald Trump,Joe Biden,1
+2020,Nebraska,president,Donald Trump,Joe Biden,2
+2020,Nebraska,president,Donald Trump,Joe Biden,3
+2020,Nevada,president,Donald Trump,Joe Biden,0
+2020,New Hampshire,president,Donald Trump,Joe Biden,0
+2020,New Jersey,president,Donald Trump,Joe Biden,0
+2020,New Mexico,president,Donald Trump,Joe Biden,0
+2020,New York,president,Donald Trump,Joe Biden,0
+2020,North Carolina,president,Donald Trump,Joe Biden,0
+2020,North Dakota,president,Donald Trump,Joe Biden,0
+2020,Ohio,president,Donald Trump,Joe Biden,0
+2020,Oklahoma,president,Donald Trump,Joe Biden,0
+2020,Oregon,president,Donald Trump,Joe Biden,0
+2020,Pennsylvania,president,Donald Trump,Joe Biden,0
+2020,Rhode Island,president,Donald Trump,Joe Biden,0
+2020,South Carolina,president,Donald Trump,Joe Biden,0
+2020,South Dakota,president,Donald Trump,Joe Biden,0
+2020,Tennessee,president,Donald Trump,Joe Biden,0
+2020,Texas,president,Donald Trump,Joe Biden,0
+2020,Utah,president,Donald Trump,Joe Biden,0
+2020,Vermont,president,Donald Trump,Joe Biden,0
+2020,Virginia,president,Donald Trump,Joe Biden,0
+2020,Washington,president,Donald Trump,Joe Biden,0
+2020,West Virginia,president,Donald Trump,Joe Biden,0
+2020,Wisconsin,president,Donald Trump,Joe Biden,0
+2020,Wyoming,president,Donald Trump,Joe Biden,0
+2016,Alabama,president,Donald Trump,Hillary Clinton,0
+2016,Alaska,president,Donald Trump,Hillary Clinton,0
+2016,Arizona,president,Donald Trump,Hillary Clinton,0
+2016,Arkansas,president,Donald Trump,Hillary Clinton,0
+2016,California,president,Donald Trump,Hillary Clinton,0
+2016,Colorado,president,Donald Trump,Hillary Clinton,0
+2016,Connecticut,president,Donald Trump,Hillary Clinton,0
+2016,Delaware,president,Donald Trump,Hillary Clinton,0
+2016,Florida,president,Donald Trump,Hillary Clinton,0
+2016,Georgia,president,Donald Trump,Hillary Clinton,0
+2016,Hawaii,president,Donald Trump,Hillary Clinton,0
+2016,Idaho,president,Donald Trump,Hillary Clinton,0
+2016,Illinois,president,Donald Trump,Hillary Clinton,0
+2016,Indiana,president,Donald Trump,Hillary Clinton,0
+2016,Iowa,president,Donald Trump,Hillary Clinton,0
+2016,Kansas,president,Donald Trump,Hillary Clinton,0
+2016,Kentucky,president,Donald Trump,Hillary Clinton,0
+2016,Louisiana,president,Donald Trump,Hillary Clinton,0
+2016,Maine,president,Donald Trump,Hillary Clinton,0
+2016,Maine,president,Donald Trump,Hillary Clinton,1
+2016,Maine,president,Donald Trump,Hillary Clinton,2
+2016,Maryland,president,Donald Trump,Hillary Clinton,0
+2016,Massachusetts,president,Donald Trump,Hillary Clinton,0
+2016,Michigan,president,Donald Trump,Hillary Clinton,0
+2016,Minnesota,president,Donald Trump,Hillary Clinton,0
+2016,Mississippi,president,Donald Trump,Hillary Clinton,0
+2016,Missouri,president,Donald Trump,Hillary Clinton,0
+2016,Montana,president,Donald Trump,Hillary Clinton,0
+2016,Nebraska,president,Donald Trump,Hillary Clinton,0
+2016,Nebraska,president,Donald Trump,Hillary Clinton,1
+2016,Nebraska,president,Donald Trump,Hillary Clinton,2
+2016,Nebraska,president,Donald Trump,Hillary Clinton,3
+2016,Nevada,president,Donald Trump,Hillary Clinton,0
+2016,New Hampshire,president,Donald Trump,Hillary Clinton,0
+2016,New Jersey,president,Donald Trump,Hillary Clinton,0
+2016,New Mexico,president,Donald Trump,Hillary Clinton,0
+2016,New York,president,Donald Trump,Hillary Clinton,0
+2016,North Carolina,president,Donald Trump,Hillary Clinton,0
+2016,North Dakota,president,Donald Trump,Hillary Clinton,0
+2016,Ohio,president,Donald Trump,Hillary Clinton,0
+2016,Oklahoma,president,Donald Trump,Hillary Clinton,0
+2016,Oregon,president,Donald Trump,Hillary Clinton,0
+2016,Pennsylvania,president,Donald Trump,Hillary Clinton,0
+2016,Rhode Island,president,Donald Trump,Hillary Clinton,0
+2016,South Carolina,president,Donald Trump,Hillary Clinton,0
+2016,South Dakota,president,Donald Trump,Hillary Clinton,0
+2016,Tennessee,president,Donald Trump,Hillary Clinton,0
+2016,Texas,president,Donald Trump,Hillary Clinton,0
+2016,Utah,president,Donald Trump,Hillary Clinton,0
+2016,Vermont,president,Donald Trump,Hillary Clinton,0
+2016,Virginia,president,Donald Trump,Hillary Clinton,0
+2016,Washington,president,Donald Trump,Hillary Clinton,0
+2016,West Virginia,president,Donald Trump,Hillary Clinton,0
+2016,Wisconsin,president,Donald Trump,Hillary Clinton,0
+2016,Wyoming,president,Donald Trump,Hillary Clinton,0
+2020,Delaware,governor,Julianne Murray,John Carney,0
+2020,Indiana,governor,Eric Holcomb,Woody Myers,0
+2020,Missouri,governor,Mike Parson,Nicole Galloway,0
+2020,Montana,governor,Greg Gianforte,Mike Cooney,0
+2020,New Hampshire,governor,Chris Sununu,Dan Feltes,0
+2020,North Carolina,governor,Dan Forest,Roy Cooper,0
+2020,North Dakota,governor,Doug Burgum,Shelley Lenz,0
+2020,Utah,governor,Spencer Cox,Christopher Peterson,0
+2020,Vermont,governor,Phil Scott,David Zuckerman,0
+2020,Washington,governor,Loren Culp,Jay Inslee,0
+2020,West Virginia,governor,Jim Justice,Ben Salango,0
+2016,Delaware,governor,Colin Bonini,John Carney,0
+2016,Indiana,governor,Eric Holcomb,John R. Gregg,0
+2016,Missouri,governor,Eric Greitens,Chris Koster,0
+2016,Montana,governor,Greg Gianforte,Steve Bullock,0
+2016,New Hampshire,governor,Chris Sununu,Colin Van Ostern,0
+2016,North Carolina,governor,Pat McCrory,Roy Cooper,0
+2016,North Dakota,governor,Doug Burgum,Marvin Nelson,0
+2016,Utah,governor,Gary Herbert,Mike Weinholtz,0
+2016,Vermont,governor,Phil Scott,Sue Minter,0
+2016,Washington,governor,Bill Bryant,Jay Inslee,0
+2016,West Virginia,governor,Bill Cole,Jim Justice,0

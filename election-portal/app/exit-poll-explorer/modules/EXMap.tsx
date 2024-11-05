@@ -3,7 +3,8 @@ import { getDataVersion, RaceType } from '@/types/RaceType';
 import Highcharts from 'highcharts';
 import HighchartsMap from 'highcharts/modules/map';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
-import './EBMap.css';
+import './EXMap.css';
+
 import { useSharedState } from '../../sharedContext';
 import { State, getStateFromString } from '../../../types/State';
 import { HistoricalElectionData } from '@/types/data';
@@ -21,8 +22,9 @@ if (typeof Highcharts === 'object') {
   HighchartsMap(Highcharts);
 }
 
-interface EBMapProps {
-  historicalElectionsData: HistoricalElectionData[] | null;}
+interface EXMapProps {
+  historicalElectionsData: HistoricalElectionData[] | null;
+}
 
 const colorAxisStops: [number, string][] = [
   [0, '#B83C2B'], // Republican red
@@ -32,7 +34,7 @@ const colorAxisStops: [number, string][] = [
   [1, '#595D9A'], // Democrat blue
 ];
 
-const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
+const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
   const sharedState = useSharedState().state;
   const raceType = sharedState.breakdown;
 
@@ -48,12 +50,14 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
+    console.log('mouse down', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
+      console.log('mouse up', event.clientX, event.clientY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -75,7 +79,7 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
     ]);
 
     return () => {
-      console.log('removing event listeners')
+      console.log('removing event listeners');
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
     };
@@ -145,10 +149,10 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
 
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType, sharedState.year, sharedState.electionData]);
+  }, [raceType, sharedState.year]);
 
   useEffect(() => {
-    if (chart && chart != undefined) {
+    if (chart) {
       chart.update({
         chart: {
           animation: {
@@ -175,78 +179,6 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
       });
     }
   }, [sharedState.view, wasPanned, chart]);
-
-  useEffect(() => { 
-    let fetchedData: ElectionData[] = [];
-    historicalElectionsData?.forEach((datum) => {
-      if (datum.office_type === getDataVersion(raceType)) {
-        switch (raceType) {
-          case RaceType.Senate:
-            switch (sharedState.year) {
-              case Year.Eighteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Twelve:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Gubernatorial:
-            switch (sharedState.year) {
-              case Year.Twenty:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-          case RaceType.Presidential:
-            switch (sharedState.year) {
-              case Year.Twenty:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_1,
-                });
-                break;
-              case Year.Sixteen:
-                fetchedData.push({
-                  'hc-key': 'us-' + datum.state.toLowerCase(),
-                  value: datum.margin_pct_2,
-                });
-                break;
-            }
-        }
-      }
-    });
-
-    if (sharedState.year === Year.TwentyFour) {
-      sharedState.electionData?.forEach((datum) => {
-        if (datum.office_type === getDataVersion(raceType)) {
-          fetchedData.push({
-            'hc-key': 'us-' + datum.state.toLowerCase(),
-            value: datum.margin_pct,
-            });
-        }
-        
-      });
-    }
-    
-
-    setElectionData(fetchedData);
-
-
-  }, [sharedState.electionData, sharedState.countyData]);
 
   useEffect(() => {
     if (chart) {
@@ -342,19 +274,6 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         }
       }
     });
-
-    if (sharedState.year === Year.TwentyFour) {
-      sharedState.electionData?.forEach((datum) => {
-        if (datum.office_type === getDataVersion(raceType)) {
-          fetchedData.push({
-            'hc-key': 'us-' + datum.state.toLowerCase(),
-            value: datum.margin_pct,
-          });
-        }
-        
-      });
-    }
-
 
     const axisMax: number = Math.max(
       Math.abs(getMinState(fetchedData)),
@@ -473,12 +392,12 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         fitToGeometry: zoomGeometry,
       },
     };
-    const ch = Highcharts.mapChart('eb-container', mapOptions);
+    const ch = Highcharts.mapChart('ex-container', mapOptions);
     setChart(ch);
     setElectionData(fetchedData);
   };
 
-  return <div id="eb-container" />;
+  return <div id="ex-container" />;
 };
 
-export default EBMap;
+export default EXMap;

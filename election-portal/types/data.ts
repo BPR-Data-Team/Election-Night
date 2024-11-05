@@ -2,6 +2,14 @@ export interface HistoricalElectionData {
   office_type: string;
   state: string;
   district: string;
+  democratic_percent_1: number;
+  republican_percent_1: number;
+  democratic_percent_2: number;
+  republican_percent_2: number;
+  democratic_votes_1: number;
+  republican_votes_1: number;
+  democratic_votes_2: number;
+  republican_votes_2: number;
   margin_pct_1: number;
   margin_votes_1: number;
   margin_pct_2: number;
@@ -31,6 +39,14 @@ export interface HistoricalCountyData {
   district: string;
   state: string;
   fips: string;
+  democratic_percent_1: number;
+  republican_percent_1: number;
+  democratic_percent_2: number;
+  republican_percent_2: number;
+  democratic_votes_1: number;
+  republican_votes_1: number;
+  democratic_votes_2: number;
+  republican_votes_2: number;
   margin_votes_1: number;
   margin_pct_1: number;
   absentee_pct_1: number;
@@ -118,4 +134,24 @@ export interface CalledElection {
 export interface CalledElectionRaw {
   called: string;
   state_district_office: string;
+}
+
+// Democratic_name: 'Dem',
+//         Republican_name: 'Rep',
+//         democratic_percent_1: datum.democratic_percent_1,
+//         republican_percent_1: datum.republican_percent_1,
+//         democratic_votes_1: datum.democratic_votes_1,
+//         republican_votes_1: datum.republican_votes_1,
+//         democratic_percent_2: datum.democratic_percent_2,
+//         republican_percent_2: datum.republican_percent_2,
+//         democratic_votes_2: datum.democratic_votes_2,
+//         republican_votes_2: datum.republican_votes_2,
+
+export interface electionDisplayData {
+    Democratic_name: string;
+    Republican_name: string;
+    dem_votes: number;
+    rep_votes: number;
+    dem_votes_pct: number;
+    rep_votes_pct: number;
 }

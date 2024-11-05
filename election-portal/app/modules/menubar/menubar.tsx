@@ -3,15 +3,13 @@
 import React, { useEffect } from 'react';
 import { useSharedState } from '../../sharedContext';
 import { Demographic, RaceType, Year } from '../../../types/SharedInfoType';
-
 import './menubar.css';
 import HomeButton from './menu-buttons/home-button';
 import ExitButton from './menu-buttons/exit-button';
 import DrawButton from './menu-buttons/draw-button';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { truncate } from 'fs';
 import { FaBullseye } from 'react-icons/fa';
-
 // These can be turned into maps or better parsed from the types
 const breakdownToString = (
   breakdown: RaceType,
@@ -48,13 +46,17 @@ const breakdownToString = (
   );
 };
 
-const yearToString = (year: Year, currentYear: Year, countyViewAll: boolean | null): React.ReactNode => {
+const yearToString = (
+  year: Year,
+  currentYear: Year,
+  countyViewAll: boolean | null
+): React.ReactNode => {
   let str = '';
   let selected: boolean = year === currentYear;
   if (countyViewAll != null) {
     selected = false;
   }
-  
+
   switch (year) {
     case Year.TwentyFour:
       str = '2024';
@@ -113,17 +115,25 @@ const demographicToString = (
 interface MenubarProps {
   countyViewAll?: boolean;
   setCountyViewAll?: any;
+  handleReset?: () => void;
 }
 
-const Menubar: React.FC<MenubarProps> = ({countyViewAll, setCountyViewAll}) => {
+const Menubar: React.FC<MenubarProps> = ({
+  countyViewAll,
+  setCountyViewAll,
+  handleReset,
+}) => {
   const state = useSharedState().state;
+  const pathname = usePathname();
+  //console.log('Menubar is rendering with state:', state);
 
-   const handleYearClick = (year: Year) => {
+  const handleYearClick = (year: Year) => {
     state.yearSwitch(year);
-    setCountyViewAll && setCountyViewAll(false);
+    if (setCountyViewAll != undefined) {
+      setCountyViewAll(false);
+    }
   };
-    
-
+  
   return (
     <div className="rightbar">
       <div className="contents">
@@ -140,19 +150,22 @@ const Menubar: React.FC<MenubarProps> = ({countyViewAll, setCountyViewAll}) => {
 
         {state.availableBreakdowns.length != 0 && (
           <>
-            <div className="divider"></div>
-
-            <div className="breakdowns">
-              {state.availableBreakdowns.map((breakdown, index) => (
-                <button
-                  className="breakdown"
-                  key={index}
-                  onClick={() => state.breakdownSwitch(breakdown)}
-                >
-                  {breakdownToString(breakdown, state.breakdown)}
-                </button>
-              ))}
-            </div>
+            {(state.page != '/road-to-control' && pathname != '/road-to-control') && (
+              <>
+                <div className="divider"></div>
+                <div className="breakdowns">
+                  {state.availableBreakdowns.map((breakdown, index) => (
+                    <button
+                      className="breakdown"
+                      key={index}
+                      onClick={() => state.breakdownSwitch(breakdown)}
+                    >
+                      {breakdownToString(breakdown, state.breakdown)}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
 
@@ -167,7 +180,9 @@ const Menubar: React.FC<MenubarProps> = ({countyViewAll, setCountyViewAll}) => {
                   key={index}
                   onClick={() => handleYearClick(year)}
                 >
-                  {countyViewAll ? yearToString(year, state.year, countyViewAll) : yearToString(year, state.year, null)}
+                  {countyViewAll
+                    ? yearToString(year, state.year, countyViewAll)
+                    : yearToString(year, state.year, null)}
                 </button>
               ))}
             </div>
@@ -192,24 +207,35 @@ const Menubar: React.FC<MenubarProps> = ({countyViewAll, setCountyViewAll}) => {
           </>
         )}
 
-        {(countyViewAll != undefined && setCountyViewAll != undefined) ? (
+        {countyViewAll != undefined && setCountyViewAll != undefined ? (
           <>
             <button
               className="viewAll"
               onClick={() => {
                 setCountyViewAll(true);
-                state.yearSwitch(Year.TwentyFour);
               }}
             >
               <span
                 style={{
                   color: countyViewAll ? '#ffffff' : '#dddddd',
-                  textShadow: countyViewAll ? '0 0 10px rgba(255,255,255,0.5)' : 'none',
+                  textShadow: countyViewAll
+                    ? '0 0 10px rgba(255,255,255,0.5)'
+                    : 'none',
                 }}
               >
                 All
               </span>
             </button>
+          </>
+        ) : null}
+        {pathname === '/road-to-control' ? (
+          <>
+          <div className="divider"></div>
+          <div className="reset-buttons">
+            <button className="reset" onClick={handleReset}>
+              Reset Map
+            </button>
+          </div>
           </>
         ) : null}
       </div>

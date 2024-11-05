@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './electoralvotebutton.module.css';
 
 interface CircleProps {
@@ -30,6 +30,17 @@ const Circle: React.FC<CircleProps> = ({
     }
   };
 
+  const getTextColor = () => {
+    switch (circleValue) {
+      case 1:
+        return '#FFFFFF'; // Democrat
+      case 2:
+        return '#FFFFFF'; // Republican
+      default:
+        return '#000000'; // Uncalled
+    }
+  };
+
   return (
     <div
       className="circle"
@@ -40,13 +51,12 @@ const Circle: React.FC<CircleProps> = ({
           if (prev === 2) decrementRightCount();
           if (newValue === 1) incrementLeftCount();
           if (newValue === 2) incrementRightCount();
-          console.log(newValue);
           return newValue;
         })
       }
       style={{ backgroundColor: getColor() }}
     >
-      <span className="circle-text">{text}</span>
+      <span className="circle-text" style={{ color: getTextColor() }}>{text}</span>
     </div>
   );
 };

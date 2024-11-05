@@ -8,6 +8,7 @@
   width: 8rem;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 5;
+  overflow-y: auto;
 }
 
 .contents {
@@ -43,6 +44,13 @@
   align-items: center;
   height: 25%;
 }
+.reset-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 25%;
+}
 
 .demographics {
   display: flex;
@@ -61,6 +69,7 @@
 }
 
 .breakdown,
+.reset,
 .year,
 .demographic,
 .viewAll {
@@ -80,5 +89,5 @@
 }
 
 .viewAll {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
