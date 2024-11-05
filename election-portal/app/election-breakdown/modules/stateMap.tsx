@@ -105,7 +105,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
 
   useEffect(() => {
     retrieveMapData();
-    sharedState.setLevel('state');
+    // sharedState.setLevel('state'); //breaks EBMap
     setSelectedCounty('');
     setCountyName('');
   }, [
@@ -198,15 +198,15 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
     if (wasPanned) {
       return;
     }
-    sharedState.setLevel('state');
+    sharedState.exitLevel();
     setSelectedCounty('');
     setCountyName('');
-    if (chart) {
-      // chart.mapZoom();
-      // setTimeout(() => chart.mapZoom(zoomScale), 50);
-      chart.mapZoom();
-      chart.mapZoom(zoomScale);
-    }
+    // if (chart) {
+    //   // chart.mapZoom();
+    //   // setTimeout(() => chart.mapZoom(zoomScale), 50);
+    //   chart.mapZoom();
+    //   chart.mapZoom(zoomScale);
+    // }
   };
 
   const handleCountyClick = (countyKey: string, countyName: string) => {
@@ -495,7 +495,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         },
       },
       tooltip: {
-        enabled: true,
+        enabled: false,
         formatter: function (this: any) {
           let prefix = this.point.value >= 0 ? 'D' : 'R';
           return (

@@ -474,12 +474,12 @@ const EBMap: React.FC<EBMapProps> = ({ historicalElectionsData }) => {
         fitToGeometry: zoomGeometry,
       },
     };
-    const ch = Highcharts.mapChart('container', mapOptions);
+    const ch = Highcharts.mapChart('eb-container', mapOptions);
     setChart(ch);
     setElectionData(fetchedData);
   };
 
-  return <div id="container" />;
+  return <div id="eb-container" />;
 };
 
 export default EBMap;
