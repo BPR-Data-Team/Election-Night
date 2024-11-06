@@ -150,15 +150,28 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
     setSelectedStateKey('');
   };
 
+  const [prevYear, setPrevYear] = useState<Year | null>(null);
+
   useEffect(() => {
     fetchMapDataAndInitializeMap();
-  }, [raceType, sharedState.year, historicalElectionsData]);
+  }, []);
 
   useEffect(() => {
     let validStates: Set<string> = new Set();
     if (sharedState.exitPollData) {
       const validExitPolls = sharedState.exitPollData.keys();
-      Array.from(validExitPolls).forEach((state) => validStates.add('us-' + state.substring(0, 2).toLowerCase()));
+      Array.from(validExitPolls).forEach((state) => {
+        const info = state.substring(2, state.length);
+        const race = sharedState.breakdown === RaceType.Presidential ? 'President' : (sharedState.breakdown === RaceType.Senate ? 'Senate' : 'Governor');
+        if (
+          sharedState.demographic && info.includes(sharedState.demographic) &&
+          info.includes(race)
+        ) 
+        {
+          validStates.add('us-' + state.substring(0, 2).toLowerCase())
+        }
+      }
+    );
     }
     const fetchedData = histDataToFetchedData(historicalElectionsData);
     const updatedData = fetchedData.map((state) => ({
@@ -175,6 +188,11 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
       reorderedData = reorderedData.filter((state) => validStates.has(state['hc-key']));
     }
 
+    const axisMax: number = Math.max(
+      Math.abs(getMinState(fetchedData)),
+      Math.abs(getMaxState(fetchedData))
+    );
+
     if (chart) {
       chart.update({
         series: [
@@ -182,9 +200,15 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
             data: reorderedData,
           },
         ],
+        colorAxis: {
+          min: -axisMax,
+          max: axisMax,
+          stops: colorAxisStops,
+          visible: false,
+        },
       });
     }
-  }, [historicalElectionsData, selectedStateKey, chart, raceType]);
+  }, [historicalElectionsData, selectedStateKey, chart, raceType, sharedState.exitPollData]);
 
   useEffect(() => {
     if (chart) {
