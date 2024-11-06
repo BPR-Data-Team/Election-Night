@@ -53,45 +53,87 @@ county_data <- reactive({get_rest_api_data("county") %>%
 # ------------------------------ SERVER ------------------------------------- #
 
 server <- function(input, output, session) {
+  # Define reactive values to store data
+  data_values <- reactiveValues(
+    current_data = NULL,
+    timeseries_df = NULL,
+    called_races = NULL,
+    exit_poll_data_2024 = NULL,
+    county_data = NULL
+  )
+  
+  # Observer to refresh data every 2 minutes
+  observe({
+    invalidateLater(180000, session)  # 120,000 ms = 2 minutes
+    
+    # Fetch and update each dataset
+    data_values$current_data <- get_rest_api_data("race") %>%
+      mutate(across(!c(when_to_call, state, race_to_watch, Republican_name, office_type, poll_close, Independent_name, officetype_district_state, Democratic_name),
+                    as.numeric))
+    
+    # No additional logic required for timeseries_df here if it remains NULL or is handled elsewhere
+    data_values$timeseries_df <- NULL
+    
+    data_values$called_races <- get_rest_api_data("logan")
+    
+    data_values$exit_poll_data_2024 <- get_rest_api_data("exit_polls") %>%
+      mutate(across(c(demographic_pct, answer_pct), as.numeric))
+    
+    data_values$county_data <- get_rest_api_data("county") %>%
+      mutate(across(!c(fips, officetype_county_district_state, state, county, Green_name, Republican_name, office_type, Independent_name, Democratic_name),
+                    as.numeric))
+    
+    cat("Data refreshed at:", Sys.time(), "\n")  # Optional: Log the refresh
+  })
+  
+  # Access the data through reactive expressions
+  current_data <- reactive({ data_values$current_data })
+  timeseries_df <- reactive({ data_values$timeseries_df })  # Can be updated with more logic as needed
+  called_races <- reactive({ data_values$called_races })
+  exit_poll_data_2024 <- reactive({ data_values$exit_poll_data_2024 })
+  county_data <- reactive({ data_values$county_data })
+  
+  
+  
   election_type <- reactive({input$category_select})
   state_selection <- reactive({input$state_select})
   district_selection <- reactive({input$district_select})
 
-  # Update current data
-  new_data <- get_new_data(session)
-  observeEvent(new_data, {
-    table <- new_data$table()
-    data <- new_data$data()
-    
-    if (is.null(table)) {
-      return(NULL)
-    }
-
-    if (table == "Race_Results") {
-      new_row_key <- data$officetype_district_state
-      updated_data <- current_data() %>% filter(officetype_district_state != new_row_key)
-      current_data(rbind(updated_data, data))
-      timeseries_df(rbind(timeseries_df, 
-                          data %>% 
-                            select(office_type, state, district, margin_pct, pct_reporting) %>%
-                            mutate(timestamp = Sys.time())))
-
-    } else if (table == "Exit_Polls") {
-      new_row_key <- data$state_officetype_answer_lastname
-      updated_data <- exit_poll_data_2024() %>% filter(state_officetype_answer_lastname != new_row_key)
-      exit_poll_data_2024(rbind(updated_data, data))
-
-    } else if (table == "Logan_Called_Elections") {
-      new_row_key <- data$state_district_office
-      updated_data <- called_races() %>% filter(state_district_office != new_row_key)
-      called_races(rbind(updated_data,data))
-
-    } else { #table == County_Results
-      new_row_key <- data$officetype_county_district_state
-      updated_data <- county_data() %>% filter(officetype_county_district_state != new_row_key)
-      county_data(rbind(updated_data, data))
-    }
-  })
+  # # Update current data
+  # new_data <- get_new_data(session)
+  # observeEvent(new_data, {
+  #   table <- new_data$table()
+  #   data <- new_data$data()
+  #   
+  #   if (is.null(table)) {
+  #     return(NULL)
+  #   }
+  # 
+  #   if (table == "Race_Results") {
+  #     new_row_key <- data$officetype_district_state
+  #     updated_data <- current_data() %>% filter(officetype_district_state != new_row_key)
+  #     current_data(rbind(updated_data, data))
+  #     timeseries_df(rbind(timeseries_df, 
+  #                         data %>% 
+  #                           select(office_type, state, district, margin_pct, pct_reporting) %>%
+  #                           mutate(timestamp = Sys.time())))
+  # 
+  #   } else if (table == "Exit_Polls") {
+  #     new_row_key <- data$state_officetype_answer_lastname
+  #     updated_data <- exit_poll_data_2024() %>% filter(state_officetype_answer_lastname != new_row_key)
+  #     exit_poll_data_2024(rbind(updated_data, data))
+  # 
+  #   } else if (table == "Logan_Called_Elections") {
+  #     new_row_key <- data$state_district_office
+  #     updated_data <- called_races() %>% filter(state_district_office != new_row_key)
+  #     called_races(rbind(updated_data,data))
+  # 
+  #   } else { #table == County_Results
+  #     new_row_key <- data$officetype_county_district_state
+  #     updated_data <- county_data() %>% filter(officetype_county_district_state != new_row_key)
+  #     county_data(rbind(updated_data, data))
+  #   }
+  # })
 
   cat("Loaded REST data\n")
   
