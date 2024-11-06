@@ -2,9 +2,10 @@ import './statistics-table.css';
 
 interface StatsTableProps {
   data: any;
+  names: string[];
 }
 
-const StatsTable: React.FC<StatsTableProps> = ({ data }) => {
+const StatsTable: React.FC<StatsTableProps> = ({ data, names }) => {
   return (
     <div className="table-wrapper">
       <table className="stats-table">
@@ -12,8 +13,8 @@ const StatsTable: React.FC<StatsTableProps> = ({ data }) => {
           <tr>
             <th></th>
             <th>% Vote</th>
-            <th>% Biden</th>
-            <th>% Trump</th>
+            <th>% {names[0]}</th>
+            <th>% {names[1]}</th>
           </tr>
         </thead>
         <tbody className="table-contents">
@@ -21,8 +22,8 @@ const StatsTable: React.FC<StatsTableProps> = ({ data }) => {
             <tr key={idx} className="stats-row">
               <th>{question.answer}</th>
               <td>{question.percentVote}</td>
-              <td>{question.percentBiden}</td>
-              <td>{question.percentTrump}</td>
+              <td>{question.percentFirst}</td>
+              <td>{question.percentSecond}</td>
             </tr>
           ))}
         </tbody>
