@@ -25,6 +25,17 @@ end_time <- as.POSIXct("2024-11-06 02:00:00")
 # ------------------------------ UI ------------------------------------------ #
 ui <- page_sidebar(
   window_title = "24cast.org Election Day Dashboard",
+  
+  tags$head(
+    tags$script(
+      HTML("
+        setInterval(function() {
+          location.reload();
+        }, 120000); // Reload every 120 seconds
+      ")
+    )
+  ),
+  
   titlePanel(h1("24cast.org Election Day Dashboard", align = "center")),
   sidebar =  sidebar(
     title = "Graph controls",
