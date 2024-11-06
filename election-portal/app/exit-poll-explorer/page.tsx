@@ -86,6 +86,8 @@ export default function Exit_Poll_Explorer_Page() {
   const [exitPollData, setExitPollData] = useState<
     ExitPollData[] | null | undefined
   >(null);
+
+  const [allExitPolls, setAllExitPolls] = useState<any>(null);
   const [tableData, setTableData] = useState<ExitPollAnswer[]>([]);
 
   const [historicalElectionsData, setHistoricalElectionsData] = useState<
@@ -98,6 +100,8 @@ export default function Exit_Poll_Explorer_Page() {
   >(null);
   const sharedState = useSharedState().state;
   const [displayNational, setDisplayNational] = useState(true);
+
+  const [tableNames, setTableNames] = useState(['', '']);
 
   // When sharedState.level changes wait 250ms before changing display state
   useEffect(() => {
@@ -552,6 +556,20 @@ export default function Exit_Poll_Explorer_Page() {
     sharedState.demographic,
   ]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHistoricalData();
+      filterHistoricalData();
+    }, 3000);
+
+    return () => {
+      
+      setHistoricalData();
+      filterHistoricalData();
+      clearTimeout(timer)
+    };
+  }, []);
+
   // attempt to fix the menubar rendering issue
   const initialized = useRef(false);
 
@@ -649,38 +667,69 @@ export default function Exit_Poll_Explorer_Page() {
     setExitPollData(fetchedData);
   };
 
+
   const fetch2024MapData = () => {};
 
-  const loadTableData = () => {
+  const loadTableData = (race: string) => {
     const dataMap = new Map();
+    const nameFrequencyMap: Map<string, number> = new Map();
 
     exitPollData?.forEach((datum: ExitPollData) => {
       if (
         datum.state === getStateAbbreviation(sharedState.view) &&
-        datum.office_type === 'President' &&
+        datum.office_type === race &&
         datum.question === sharedState.demographic
       ) {
-        const existingEntry = dataMap.get(datum.answer) || {
-          answer: datum.answer,
-          percentVote: datum.demographic_pct,
-        };
-
-        if (datum.lastName === 'Biden') {
-          existingEntry.percentBiden = datum.answer_pct;
-        } else if (datum.lastName === 'Trump') {
-          existingEntry.percentTrump = datum.answer_pct;
+        if (nameFrequencyMap.has(datum.lastName)) {
+          nameFrequencyMap.set(
+            datum.lastName,
+            nameFrequencyMap.get(datum.lastName)! + datum.answer_pct
+          );
+        } else {
+          nameFrequencyMap.set(datum.lastName, datum.answer_pct);
         }
+      }});
+      const sortedNames = Array.from(nameFrequencyMap.entries()).sort(
+        (a, b) => b[1] - a[1]
+      );
+      const [commonname1, commonname2] = sortedNames.slice(0, 2).map((entry) => entry[0]);
 
-        dataMap.set(datum.answer, existingEntry);
-      }
-    });
+      exitPollData?.forEach((datum: ExitPollData) => {
+        if (
+          datum.state === getStateAbbreviation(sharedState.view) &&
+          datum.office_type === race &&
+          datum.question === sharedState.demographic
+        ) {
+          const existingEntry = dataMap.get(datum.answer) || {
+            answer: datum.answer,
+            percentVote: datum.demographic_pct,
+          };
+
+          if (datum.lastName === commonname1) {
+            existingEntry.percentFirst = datum.answer_pct;
+          } else if (datum.lastName === commonname2) {
+            existingEntry.percentSecond = datum.answer_pct;
+          }
+
+          dataMap.set(datum.answer, existingEntry);
+        }
+      });
 
     const dataForTable = Array.from(dataMap.values());
     setTableData(dataForTable);
+    setTableNames([commonname1, commonname2]);
   };
 
   useEffect(() => {
-    loadTableData();
+    let race = "";
+    if (sharedState.breakdown === RaceType.Presidential) {
+      race = "President";
+    } else if (sharedState.breakdown === RaceType.Senate) {
+      race = "Senate";
+    } else if (sharedState.breakdown === RaceType.Gubernatorial) {
+      race = "Governor";
+    }
+    loadTableData(race);
   }, [sharedState.demographic, sharedState.view, exitPollData]);
 
   if (!historicalCountyData || !historicalElectionsData)
@@ -715,7 +764,7 @@ export default function Exit_Poll_Explorer_Page() {
                 />
               </div>
           </div>
-          {tableData.length != 0 && <StatsTable data={tableData} />}
+          {tableData.length != 0 && <StatsTable data={tableData} names={tableNames} />}
         </div>
         <Menubar />
       </div>

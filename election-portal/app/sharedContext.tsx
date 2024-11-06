@@ -32,7 +32,7 @@ import Papa from 'papaparse';
 import { getStateAbbreviation, getStateFromString } from '@/types/State';
 import { getDataVersion } from '@/types/RaceType';
 
-function getYearsFromBreakdown(breakdown: RaceType): Year[] {
+function getYearsFromBreakdown(breakdown: RaceType, page: string): Year[] {
   switch (breakdown) {
     case RaceType.Presidential:
       return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
@@ -290,15 +290,15 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     RaceType.Gubernatorial,
   ]);
   const breakdownSwitch = (breakdown: RaceType) => {
-    setAvailableYears(getYearsFromBreakdown(breakdown));
-    if (!getYearsFromBreakdown(breakdown).includes(year)) {
-      setYear(getYearsFromBreakdown(breakdown)[0]);
+    setAvailableYears(getYearsFromBreakdown(breakdown, page));
+    if (!getYearsFromBreakdown(breakdown, page).includes(year)) {
+      setYear(getYearsFromBreakdown(breakdown, page)[0]);
     }
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
   const [availableYears, setAvailableYears] = useState<Year[]>(
-    getYearsFromBreakdown(breakdown)
+    getYearsFromBreakdown(breakdown, page)
   );
   const yearSwitch = (year: Year) => {
     setYear(year);

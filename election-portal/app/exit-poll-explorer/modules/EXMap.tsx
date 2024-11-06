@@ -38,6 +38,8 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
   const sharedState = useSharedState().state;
   const raceType = sharedState.breakdown;
 
+  const exitPolls = sharedState.exitPollData;
+
   const [chart, setChart] = useState<any>(null);
   const [electionData, setElectionData] = useState<ElectionData[]>([]);
   const [geoData, setGeoData] = useState<any>(null);
@@ -48,16 +50,15 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
 
   const [selectedStateKey, setSelectedStateKey] = useState<string>('');
 
+
   const handleMouseDown = (event: MouseEvent) => {
     startPos.current = { x: event.clientX, y: event.clientY };
-    console.log('mouse down', event.clientX, event.clientY);
   };
 
   const handleMouseUp = (event: MouseEvent) => {
     if (startPos.current) {
       const deltaX = Math.abs(event.clientX - startPos.current.x);
       const deltaY = Math.abs(event.clientY - startPos.current.y);
-      console.log('mouse up', event.clientX, event.clientY);
       if (deltaX > 10 || deltaY > 10) {
         setWasPanned(true);
       } else {
@@ -154,6 +155,11 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
   }, [raceType, sharedState.year, historicalElectionsData]);
 
   useEffect(() => {
+    let validStates: Set<string> = new Set();
+    if (sharedState.exitPollData) {
+      const validExitPolls = sharedState.exitPollData.keys();
+      Array.from(validExitPolls).forEach((state) => validStates.add('us-' + state.substring(0, 2).toLowerCase()));
+    }
     const fetchedData = histDataToFetchedData(historicalElectionsData);
     const updatedData = fetchedData.map((state) => ({
       ...state,
@@ -161,10 +167,13 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
         state['hc-key'] === selectedStateKey ? 'lightgreen' : '#000000',
       borderWidth: state['hc-key'] === selectedStateKey ? 6 : 1,
     }));
-    const reorderedData = [
+    let reorderedData = [
       ...updatedData.filter((state) => state['hc-key'] !== selectedStateKey),
       ...updatedData.filter((state) => state['hc-key'] === selectedStateKey),
     ];
+    if (sharedState.year === Year.TwentyFour) {
+      reorderedData = reorderedData.filter((state) => validStates.has(state['hc-key']));
+    }
 
     if (chart) {
       chart.update({
