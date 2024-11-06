@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   SharedInfo,
   State,
@@ -33,6 +33,9 @@ import { getStateAbbreviation, getStateFromString } from '@/types/State';
 import { getDataVersion } from '@/types/RaceType';
 
 function getYearsFromBreakdown(breakdown: RaceType, page: string): Year[] {
+  if (page === '/exit-poll-explorer') {
+    return [Year.TwentyFour, Year.Twenty];
+  }
   switch (breakdown) {
     case RaceType.Presidential:
       return [Year.TwentyFour, Year.Twenty, Year.Sixteen];
@@ -289,16 +292,17 @@ export const SharedStateProvider: React.FC<{ children: ReactNode }> = ({
     RaceType.Senate,
     RaceType.Gubernatorial,
   ]);
+  const path = usePathname();
   const breakdownSwitch = (breakdown: RaceType) => {
-    setAvailableYears(getYearsFromBreakdown(breakdown, page));
-    if (!getYearsFromBreakdown(breakdown, page).includes(year)) {
-      setYear(getYearsFromBreakdown(breakdown, page)[0]);
+    setAvailableYears(getYearsFromBreakdown(breakdown, path));
+    if (!getYearsFromBreakdown(breakdown, path).includes(year)) {
+      setYear(getYearsFromBreakdown(breakdown, path)[0]);
     }
     setBreakdown(breakdown);
   };
   const [year, setYear] = useState<Year>(Year.Twenty);
   const [availableYears, setAvailableYears] = useState<Year[]>(
-    getYearsFromBreakdown(breakdown, page)
+    getYearsFromBreakdown(breakdown, path)
   );
   const yearSwitch = (year: Year) => {
     setYear(year);

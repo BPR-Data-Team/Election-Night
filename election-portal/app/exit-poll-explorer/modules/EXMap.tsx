@@ -208,7 +208,7 @@ const EXMap: React.FC<EXMapProps> = ({ historicalElectionsData }) => {
         },
       });
     }
-  }, [historicalElectionsData, selectedStateKey, chart, raceType]);
+  }, [historicalElectionsData, selectedStateKey, chart, raceType, sharedState.exitPollData]);
 
   useEffect(() => {
     if (chart) {
