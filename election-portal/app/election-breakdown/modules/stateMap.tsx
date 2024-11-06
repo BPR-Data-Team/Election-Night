@@ -242,7 +242,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         if (
           datum.state === getStateAbbreviation(sharedState.view) &&
           datum.office_type === getDataVersion(sharedState.breakdown) &&
-          datum.pct_reporting != 0
+          (datum.pct_reporting != 0 || datum.dem_votes != 0 || datum.rep_votes != 0)
         ) {
           console.log(datum);
           console.log("pct reporting:", datum.pct_reporting);
@@ -503,7 +503,7 @@ const StateMap: React.FC<ElectionBreakdownProps> = ({
         if (
           datum.state === getStateAbbreviation(sharedState.view) &&
           datum.office_type === getDataVersion(sharedState.breakdown) && 
-          datum.pct_reporting != 0
+          (datum.pct_reporting != 0 || datum.dem_votes != 0 || datum.rep_votes != 0)
         ) {
           console.log("pct reporting:", datum.pct_reporting);
           fetchedData.push({
