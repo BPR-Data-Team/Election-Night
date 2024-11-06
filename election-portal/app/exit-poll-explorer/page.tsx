@@ -680,6 +680,9 @@ export default function Exit_Poll_Explorer_Page() {
         datum.office_type === race &&
         datum.question === sharedState.demographic
       ) {
+        if (!dataMap.has(datum.answer)) {
+          dataMap.set(datum.answer, null);
+        }
         if (nameFrequencyMap.has(datum.lastName)) {
           nameFrequencyMap.set(
             datum.lastName,
@@ -689,21 +692,27 @@ export default function Exit_Poll_Explorer_Page() {
           nameFrequencyMap.set(datum.lastName, datum.answer_pct);
         }
       }});
+
+    const dataMapOrder = Array.from(dataMap.keys());
       const sortedNames = Array.from(nameFrequencyMap.entries()).sort(
         (a, b) => b[1] - a[1]
       );
       const [commonname1, commonname2] = sortedNames.slice(0, 2).map((entry) => entry[0]);
-
       exitPollData?.forEach((datum: ExitPollData) => {
         if (
           datum.state === getStateAbbreviation(sharedState.view) &&
           datum.office_type === race &&
           datum.question === sharedState.demographic
         ) {
-          const existingEntry = dataMap.get(datum.answer) || {
-            answer: datum.answer,
-            percentVote: datum.demographic_pct,
-          };
+          let existingEntry: any;
+          if (!dataMap.has(datum.answer) || dataMap.get(datum.answer) === null) {
+            existingEntry = {
+              answer: datum.answer,
+              percentVote: datum.demographic_pct,
+            };
+          } else {
+            existingEntry = dataMap.get(datum.answer);
+          }
 
           if (datum.lastName === commonname1) {
             existingEntry.percentFirst = datum.answer_pct;
@@ -714,8 +723,15 @@ export default function Exit_Poll_Explorer_Page() {
           dataMap.set(datum.answer, existingEntry);
         }
       });
-
-    const dataForTable = Array.from(dataMap.values());
+    console.log(dataMapOrder);
+    dataMapOrder.forEach((key) => {
+      if (dataMap.has(key)) {
+        const value = dataMap.get(key);
+        dataMap.delete(key);
+        dataMap.set(key, value);
+      }
+    });
+    let dataForTable = Array.from(dataMap.values());
     setTableData(dataForTable);
     setTableNames([commonname1, commonname2]);
   };
