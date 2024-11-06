@@ -143,6 +143,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
         });
       }
     });
+    // console.log(twentyFourLiveData);
     setTwentyFourPresData(twentyFourLiveData);
   }, [liveData]);
 
@@ -283,6 +284,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
     const formattedData = getFormattedData(raceType, year);
     // console.log(`formattedData${formattedData}`);
     const currentData = formattedData ? [...formattedData] : [...mockData];
+    
     originalMap.current = {
       mapData: currentData
         .filter((item) => item.district == 0)
@@ -292,6 +294,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
         .map((item) => ({ ...item })),
       collective: currentData.map((item) => ({ ...item })),
     }; // Store original state
+    // console.log(originalMap);
 
     const processedData = currentData
       .filter((item) => item.district == 0)
@@ -428,8 +431,9 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
   const getCircleValue = (state: string, district: number, data: any[]) => {
     const item = data.find(
       (item) =>
-        item['hc-key'] === state && item.district === district.toString()
+        item['hc-key'] === state && item.district == district.toString()
     );
+    // console.log(item)
     if (!item) return 0;
     return item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0;
   };
@@ -448,6 +452,7 @@ const RTCMap: React.FC<RTCMapProps> = ({ raceType, year, liveData }) => {
           'hc-key': item['hc-key'],
           value: item.Called === 'D' ? 1 : item.Called === 'R' ? 2 : 0,
         }));
+        // console.log(originalData.circleValues)
 
         // Reset the series data
         chartRef.current.series[0].setData(original);
